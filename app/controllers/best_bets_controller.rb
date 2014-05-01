@@ -48,7 +48,10 @@ private
   helper_method :best_bet
 
   def best_bet_params
-    params.require(:best_bet).permit(:query)
+    params.require(:best_bet).permit(
+      :query, :match_type, :link,
+      :position, :comment, :source
+    )
   end
 
 end

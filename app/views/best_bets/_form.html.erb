@@ -1,5 +1,9 @@
 <%= form_for(best_bet) do |f| %>
   <%= f.text_field :query %>
+  <%= f.text_field :match_type %>
+  <%= f.text_field :link %>
+  <%= f.number_field :position %>
+  <%= f.text_field :comment %>
 
   <button>Save</button>
 <% end %>
