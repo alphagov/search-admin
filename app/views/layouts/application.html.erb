@@ -6,6 +6,12 @@
     <%= csrf_meta_tags %>
   </head>
   <body>
+    <% if flash.notice %>
+      <p><%= flash.notice %></p>
+    <% elsif flash.alert %>
+      <p role='alert'><%= flash.alert %></p>
+    <% end %>
+
     <%= yield %>
   </body>
 </html>

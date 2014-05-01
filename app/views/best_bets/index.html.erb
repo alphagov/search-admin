@@ -1,0 +1,9 @@
+<h1>Best bets</h1>
+
+<ul>
+  <% BestBet.all.each do |best_bet| %>
+    <li><%= link_to best_bet.query, edit_best_bet_path(best_bet) %></li>
+  <% end %>
+</ul>
+
+<%= link_to 'New best bet', new_best_bet_path %>

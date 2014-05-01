@@ -8,8 +8,11 @@ default: &default
 
 development:
   <<: *default
-  database: search-admin_development
+  database: search_admin_development
 
-test:
+test: &test
   <<: *default
-  database: search-admin_test
+  database: search_admin_test
+
+cucumber:
+  <<: *test
