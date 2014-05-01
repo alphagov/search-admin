@@ -14,6 +14,18 @@ class BestBetsController < ApplicationController
     end
   end
 
+  def edit; end
+
+  def update
+    if best_bet.update_attributes(best_bet_params)
+      flash.notice = 'Best bet updated'
+      redirect_to best_bets_path
+    else
+      flash.alert = 'Could not update best bet'
+      render 'edit'
+    end
+  end
+
 private
 
   def best_bet
