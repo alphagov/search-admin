@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140501121311) do
+ActiveRecord::Schema.define(version: 20140501142523) do
 
   create_table "best_bets", force: true do |t|
     t.string  "query"
@@ -20,6 +20,15 @@ ActiveRecord::Schema.define(version: 20140501121311) do
     t.integer "position"
     t.string  "comment"
     t.string  "source"
+  end
+
+  create_table "users", force: true do |t|
+    t.string  "name"
+    t.string  "email"
+    t.string  "uid"
+    t.string  "organisation_slug"
+    t.string  "permissions"
+    t.boolean "remotely_signed_out", default: false
   end
 
 end
