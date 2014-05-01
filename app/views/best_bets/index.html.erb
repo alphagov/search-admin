@@ -2,7 +2,10 @@
 
 <ul>
   <% BestBet.all.each do |best_bet| %>
-    <li><%= link_to best_bet.query, edit_best_bet_path(best_bet) %></li>
+    <li id="best-bet-<%= best_bet.id %>">
+      <%= link_to best_bet.query, edit_best_bet_path(best_bet) %>
+      <%= button_to 'Delete', best_bet_path(best_bet), method: :delete %>
+    </li>
   <% end %>
 </ul>
 

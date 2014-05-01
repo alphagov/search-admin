@@ -26,6 +26,16 @@ class BestBetsController < ApplicationController
     end
   end
 
+  def destroy
+    if best_bet.destroy
+      flash.notice = 'Best bet deleted'
+    else
+      flash.alert = 'Could not delete best bet'
+    end
+
+    redirect_to best_bets_path
+  end
+
 private
 
   def best_bet

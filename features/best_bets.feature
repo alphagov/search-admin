@@ -11,3 +11,8 @@ Feature: Best bets
     Given a best bet exists
     When I edit the best bet
     Then the edited best bet should be available on the index page
+
+  Scenario: Deleting best bets
+    Given a best bet exists
+    When I delete the best bet
+    Then the best bet should not be available on the index page

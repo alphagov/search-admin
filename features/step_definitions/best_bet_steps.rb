@@ -17,3 +17,11 @@ end
 Then(/^the edited best bet should be available on the index page$/) do
   check_for_best_bet_on_index_page('visas')
 end
+
+When(/^I delete the best bet$/) do
+  delete_best_bet(@best_bet)
+end
+
+Then(/^the best bet should not be available on the index page$/) do
+  check_absence_of_best_bet_on_index_page('visas')
+end
