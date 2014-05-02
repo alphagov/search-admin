@@ -5,7 +5,12 @@ class BestBetsController < ApplicationController
   def new; end
 
   def create
-    if BestBet.create(best_bet_params)
+    create_params = best_bet_params.merge(
+      user_id: current_user.id,
+      manual: true
+    )
+
+    if BestBet.create(create_params)
       flash.notice = 'Best bet created'
       redirect_to best_bets_path
     else

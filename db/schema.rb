@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140501142523) do
+ActiveRecord::Schema.define(version: 20140502085848) do
 
   create_table "best_bets", force: true do |t|
     t.string  "query"
@@ -19,7 +19,8 @@ ActiveRecord::Schema.define(version: 20140501142523) do
     t.string  "link"
     t.integer "position"
     t.string  "comment"
-    t.string  "source"
+    t.integer "user_id"
+    t.boolean "manual",     default: false
   end
 
   create_table "users", force: true do |t|
