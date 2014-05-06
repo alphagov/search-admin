@@ -27,6 +27,9 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
+    airbrake (3.1.16)
+      builder
+      multi_json
     arel (5.0.1.20140414130214)
     builder (3.2.2)
     byebug (3.1.2)
@@ -180,6 +183,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  airbrake (= 3.1.16)
   byebug
   cucumber-rails
   database_cleaner
