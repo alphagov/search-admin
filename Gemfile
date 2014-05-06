@@ -4,6 +4,7 @@ gem 'rails', '4.1.0'
 
 gem 'unicorn'
 gem "airbrake", "3.1.16"
+gem "plek", "1.7.0"
 
 gem 'mysql2'
 gem 'sass-rails', '~> 4.0.3'
