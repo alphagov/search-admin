@@ -10,6 +10,12 @@ Given(/^a best bet exists$/) do
   @best_bet = FactoryGirl.create(:best_bet, query: 'jobs')
 end
 
+Given(/^there are some best bets$/) do
+  @best_bets = (1..3).map { |n|
+    FactoryGirl.create(:best_bet, query: "jobs-#{n}", link: "/jobs-#{n}")
+  }
+end
+
 When(/^I edit the best bet$/) do
   edit_best_bet(@best_bet, query: 'visas')
 end

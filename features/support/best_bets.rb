@@ -27,3 +27,13 @@ def check_absence_of_best_bet_on_index_page(query)
   visit best_bets_path
   expect(page).not_to have_content(query)
 end
+
+def check_for_best_bets_in_csv_format(best_bets)
+  headers, *rows = *CSV.parse(page.body)
+
+  expect(headers).to eq(['query', 'link'])
+
+  best_bets.each do |best_bet|
+    expect(rows).to include([best_bet.query, best_bet.link])
+  end
+end

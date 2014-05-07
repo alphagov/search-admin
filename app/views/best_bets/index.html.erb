@@ -1,7 +1,9 @@
 <h1>Best bets</h1>
 
+<p><%= link_to 'CSV version', best_bets_path(format: 'csv') %></p>
+
 <ul>
-  <% BestBet.all.each do |best_bet| %>
+  <% @best_bets.each do |best_bet| %>
     <li id="best-bet-<%= best_bet.id %>">
       <%= link_to best_bet.query, edit_best_bet_path(best_bet) %>
       <%= button_to 'Delete', best_bet_path(best_bet), method: :delete %>

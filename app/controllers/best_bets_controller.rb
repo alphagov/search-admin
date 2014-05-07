@@ -1,6 +1,13 @@
 class BestBetsController < ApplicationController
 
-  def index; end
+  def index
+    @best_bets = BestBet.all
+
+    respond_to do |format|
+      format.html
+      format.csv { send_data @best_bets.to_csv }
+    end
+  end
 
   def new; end
 
