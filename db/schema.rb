@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140502085848) do
+ActiveRecord::Schema.define(version: 20140508123717) do
 
   create_table "best_bets", force: true do |t|
     t.string  "query"
@@ -22,6 +22,8 @@ ActiveRecord::Schema.define(version: 20140502085848) do
     t.integer "user_id"
     t.boolean "manual",     default: false
   end
+
+  add_index "best_bets", ["query", "match_type"], name: "query_match_type_index", using: :btree
 
   create_table "users", force: true do |t|
     t.string  "name"

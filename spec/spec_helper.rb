@@ -2,7 +2,6 @@
 ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
-require 'rspec/autorun'
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
@@ -41,6 +40,11 @@ RSpec.configure do |config|
   config.order = "random"
 
   config.before(:each) do
+    SearchAdmin.services(:rummager_index, double(:rummager_index, add: nil))
+    SearchAdmin.services(:message_bus, double(:message_bus, notify: nil))
+  end
+
+  config.before(:each, type: 'controller') do
     login_as_stub_user
   end
 end

@@ -1,17 +1,17 @@
 require 'spec_helper'
 
 describe BestBetsController do
-  describe "Creating best bets" do
-    let(:best_bet_params) {
-      {
-        query: 'visas',
-        match_type: 'exact',
-        link: '/visas-and-immigration',
-        position: 1,
-        comment: 'Created to help UKVI'
-      }
+  let(:best_bet_params) {
+    {
+      query: 'visas',
+      match_type: 'exact',
+      link: '/visas-and-immigration',
+      position: 1,
+      comment: 'Created to help UKVI'
     }
+  }
 
+  describe "Creating best bets" do
     it "allows all expected fields to be set" do
       post :create, best_bet: best_bet_params
 
@@ -31,6 +31,26 @@ describe BestBetsController do
       post :create, best_bet: best_bet_params
 
       expect(BestBet.last).to be_manual
+    end
+
+    it "notifies the world of the change" do
+      post :create, best_bet: best_bet_params
+
+      notification_params = best_bet_params.slice(:query, :match_type, :link, :position)
+
+      expect(SearchAdmin.services(:message_bus)).to have_received(:notify).with(:best_bet_changed, notification_params)
+    end
+  end
+
+  describe "Updating best bets" do
+    let(:best_bet) { FactoryGirl.create(:best_bet) }
+
+    it "notifies the world of the change" do
+      put :update, id: best_bet.id, best_bet: best_bet_params
+
+      notification_params = best_bet_params.slice(:query, :match_type, :link, :position)
+
+      expect(SearchAdmin.services(:message_bus)).to have_received(:notify).with(:best_bet_changed, notification_params)
     end
   end
 end
