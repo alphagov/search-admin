@@ -17,6 +17,7 @@ gem 'byebug', group: [:development, :test]
 group :test do
   gem 'rspec-rails'
   gem 'cucumber-rails', require: false
+  gem 'launchy'
   gem 'database_cleaner'
   gem 'factory_girl_rails'
 end
