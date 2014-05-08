@@ -2,6 +2,11 @@ When(/^I create a best bet$/) do
   create_best_bet(query: 'jobs')
 end
 
+When(/^I create several exact best bets for the same query$/) do
+  create_best_bet(query: 'jobs', match_type: 'exact', link: '/jobsearch')
+  create_best_bet(query: 'jobs', match_type: 'exact', link: '/policy-areas/employment')
+end
+
 Then(/^the best bet should be available on the index page$/) do
   check_for_best_bet_on_index_page('jobs')
 end

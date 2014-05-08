@@ -1,6 +1,10 @@
-def create_best_bet(query)
+def create_best_bet(query: nil, match_type: nil, link: nil)
   visit new_best_bet_path
-  fill_in 'Query', with: query
+
+  fill_in 'Query', with: query if query
+  select match_type.humanize, from: 'Match type' if match_type
+  fill_in 'Link', with: link if link
+
   click_on 'Save'
 end
 
@@ -36,4 +40,18 @@ def check_for_best_bets_in_csv_format(best_bets)
   best_bets.each do |best_bet|
     expect(rows).to include([best_bet.query, best_bet.link])
   end
+end
+
+def check_rummager_was_sent_an_exact_best_bet_document(best_bets)
+  positive_bets, negative_bets = best_bets.partition(&:position)
+
+  elasticsearch_doc = {
+    exact_query: best_bets.first.query,
+    details: {
+      best_bets: positive_bets.map {|bet| {link: bet.link, position: bet.position} },
+      worst_bets: negative_bets.map {|bet| {link: bet.link} }
+    }
+  }
+
+  expect(SearchAdmin.services(:rummager_index)).to have_received(:add).with(elasticsearch_doc)
 end

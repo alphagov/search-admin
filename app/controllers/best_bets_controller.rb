@@ -17,7 +17,9 @@ class BestBetsController < ApplicationController
       manual: true
     )
 
-    if BestBet.create(create_params)
+    if best_bet = BestBet.create(create_params)
+      notify_best_bet_changed(best_bet)
+
       flash.notice = 'Best bet created'
       redirect_to best_bets_path
     else
@@ -30,6 +32,8 @@ class BestBetsController < ApplicationController
 
   def update
     if best_bet.update_attributes(best_bet_params)
+      notify_best_bet_changed(best_bet)
+
       flash.notice = 'Best bet updated'
       redirect_to best_bets_path
     else
@@ -64,6 +68,11 @@ private
       :query, :match_type, :link,
       :position, :comment, :source
     )
+  end
+
+  def notify_best_bet_changed(best_bet)
+    attrs_to_send = best_bet.attributes.symbolize_keys.slice(:query, :match_type, :link, :position)
+    SearchAdmin.services(:message_bus).notify(:best_bet_changed, attrs_to_send)
   end
 
 end

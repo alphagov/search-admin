@@ -11,6 +11,7 @@ gem 'sass-rails', '~> 4.0.3'
 gem 'uglifier', '>= 1.3.0'
 gem 'generic_form_builder', '0.8.0'
 gem 'gds-sso', '9.2.6'
+gem 'rummageable', '1.0.1'
 
 gem 'byebug', group: [:development, :test]
 

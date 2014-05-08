@@ -40,6 +40,11 @@ RSpec.configure do |config|
   config.order = "random"
 
   config.before(:each) do
+    SearchAdmin.services(:rummager_index, double(:rummager_index, add: nil))
+    SearchAdmin.services(:message_bus, double(:message_bus, notify: nil))
+  end
+
+  config.before(:each, type: 'controller') do
     login_as_stub_user
   end
 end
