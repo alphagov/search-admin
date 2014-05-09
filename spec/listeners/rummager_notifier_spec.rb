@@ -28,6 +28,8 @@ describe RummagerNotifier do
       }.to_json
 
       expect(SearchAdmin.services(:rummager_index)).to have_received(:add).with({
+        _id: 'jobs-exact',
+        _type: 'best_bet',
         exact_query: 'jobs',
         details: details_json
       })

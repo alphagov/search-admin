@@ -45,13 +45,17 @@ end
 def check_rummager_was_sent_an_exact_best_bet_document(best_bets)
   positive_bets, negative_bets = best_bets.partition(&:position)
 
+  representative_bet = best_bets.first
+
   details_json = {
     best_bets: positive_bets.map {|bet| {link: bet.link, position: bet.position} },
     worst_bets: negative_bets.map {|bet| {link: bet.link} }
   }.to_json
 
   elasticsearch_doc = {
-    exact_query: best_bets.first.query,
+    _id: "#{representative_bet.query}-#{representative_bet.match_type}",
+    _type: 'best_bet',
+    exact_query: representative_bet.query,
     details: details_json
   }
 

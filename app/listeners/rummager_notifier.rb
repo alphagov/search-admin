@@ -8,6 +8,8 @@ class RummagerNotifier
     query_field = "#{match_type}_query".to_sym
 
     es_doc = {
+      _id: "#{query}-#{match_type}",
+      _type: 'best_bet',
       query_field => query,
       details: {
         best_bets: [],
