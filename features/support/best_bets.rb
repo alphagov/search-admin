@@ -43,6 +43,36 @@ def check_for_best_bets_in_csv_format(best_bets)
 end
 
 def check_rummager_was_sent_an_exact_best_bet_document(best_bets)
+  elasticsearch_doc = build_es_doc_from_matching_best_bets(best_bets)
+  expect(SearchAdmin.services(:rummager_index)).to have_received(:add).with(elasticsearch_doc)
+end
+
+def run_elasticsearch_exporter
+  `#{Rails.root+'bin/export_best_bets_for_elasticsearch'}`
+end
+
+def confirm_elasticsearch_format(dump, best_bets)
+  exact_bets, stemmed_bets = best_bets.partition {|bet| bet.match_type == 'exact' }
+
+  [exact_bets].each do |bets|
+    bets.group_by(&:query).each do |_, matching_bets|
+      representative_bet = matching_bets.first
+
+      es_doc_header = {
+        'index' => {
+          '_id' => "#{representative_bet.query}-#{representative_bet.match_type}",
+          '_type' => 'best_bet'
+        }
+      }
+
+      es_doc = build_es_doc_from_matching_best_bets(matching_bets)
+
+      expect(dump).to include("#{es_doc_header.to_json}\n#{es_doc.to_json}")
+    end
+  end
+end
+
+def build_es_doc_from_matching_best_bets(best_bets)
   positive_bets, negative_bets = best_bets.partition(&:position)
 
   representative_bet = best_bets.first
@@ -52,12 +82,12 @@ def check_rummager_was_sent_an_exact_best_bet_document(best_bets)
     worst_bets: negative_bets.map {|bet| {link: bet.link} }
   }.to_json
 
-  elasticsearch_doc = {
+  query_field = "#{representative_bet.match_type}_query".to_sym
+
+  {
     _id: "#{representative_bet.query}-#{representative_bet.match_type}",
     _type: 'best_bet',
-    exact_query: representative_bet.query,
+    query_field => representative_bet.query,
     details: details_json
   }
-
-  expect(SearchAdmin.services(:rummager_index)).to have_received(:add).with(elasticsearch_doc)
 end

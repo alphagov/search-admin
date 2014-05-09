@@ -1,0 +1,14 @@
+#!/usr/bin/env ruby
+
+require File.expand_path('../../config/environment', __FILE__)
+
+exact_bets = BestBet.where(match_type: 'exact')
+stemmed_bets = BestBet.where(match_type: 'stemmed')
+
+[exact_bets, stemmed_bets].each do |bets|
+  bets.group_by(&:query).each do |_, matching_bets|
+    es_doc = ElasticSearchBestBet.from_matching_bets(matching_bets)
+    puts es_doc.header.to_json
+    puts es_doc.body.to_json
+  end
+end

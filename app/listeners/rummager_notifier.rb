@@ -2,31 +2,8 @@ class RummagerNotifier
   def self.call(best_bet_data)
     best_bet_data.symbolize_keys!
 
-    query = best_bet_data[:query]
-    match_type = best_bet_data[:match_type]
-
-    query_field = "#{match_type}_query".to_sym
-
-    es_doc = {
-      _id: "#{query}-#{match_type}",
-      _type: 'best_bet',
-      query_field => query,
-      details: {
-        best_bets: [],
-        worst_bets: []
-      }
-    }
-
-    BestBet.where(query: query, match_type: match_type).order([:position, :link]).each do |best_bet|
-      if best_bet.position
-        es_doc[:details][:best_bets] << {link: best_bet.link, position: best_bet.position}
-      else
-        es_doc[:details][:worst_bets] << {link: best_bet.link}
-      end
-    end
-
-    es_doc[:details] = es_doc[:details].to_json
-
-    SearchAdmin.services(:rummager_index).add(es_doc)
+    matching_bets = BestBet.where(query: best_bet_data[:query], match_type: best_bet_data[:match_type])
+    es_doc = ElasticSearchBestBet.from_matching_bets(matching_bets)
+    SearchAdmin.services(:rummager_index).add(es_doc.body)
   end
 end
