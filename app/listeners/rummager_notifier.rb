@@ -8,6 +8,8 @@ class RummagerNotifier
     query_field = "#{match_type}_query".to_sym
 
     es_doc = {
+      _id: "#{query}-#{match_type}",
+      _type: 'best_bet',
       query_field => query,
       details: {
         best_bets: [],
@@ -22,6 +24,8 @@ class RummagerNotifier
         es_doc[:details][:worst_bets] << {link: best_bet.link}
       end
     end
+
+    es_doc[:details] = es_doc[:details].to_json
 
     SearchAdmin.services(:rummager_index).add(es_doc)
   end
