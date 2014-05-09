@@ -23,6 +23,8 @@ class RummagerNotifier
       end
     end
 
+    es_doc[:details] = es_doc[:details].to_json
+
     SearchAdmin.services(:rummager_index).add(es_doc)
   end
 end

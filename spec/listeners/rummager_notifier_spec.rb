@@ -16,18 +16,20 @@ describe RummagerNotifier do
     it "sends an elasticsearch doc from all related best bets" do
       RummagerNotifier.call(query: 'jobs', match_type: 'exact', link: '/jobsearch', position: 1)
 
+      details_json = {
+        best_bets: [
+          {link: '/jobsearch', position: 1},
+          {link: '/jobs/more-jobs', position: 2}
+        ],
+        worst_bets: [
+          {link: '/people/steve-jobs'},
+          {link: '/topics/employment'}
+        ]
+      }.to_json
+
       expect(SearchAdmin.services(:rummager_index)).to have_received(:add).with({
         exact_query: 'jobs',
-        details: {
-          best_bets: [
-            {link: '/jobsearch', position: 1},
-            {link: '/jobs/more-jobs', position: 2}
-          ],
-          worst_bets: [
-            {link: '/people/steve-jobs'},
-            {link: '/topics/employment'}
-          ]
-        }
+        details: details_json
       })
     end
   end
