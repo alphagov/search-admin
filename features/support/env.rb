@@ -4,6 +4,9 @@
 # instead of editing this one. Cucumber will automatically load all features/**/*.rb
 # files.
 
+Before('@no-txn') { DatabaseCleaner.strategy = :truncation }
+After('@no-txn') { DatabaseCleaner.strategy = :transaction }
+
 require 'cucumber/rails'
 require 'cucumber/rspec/doubles'
 
