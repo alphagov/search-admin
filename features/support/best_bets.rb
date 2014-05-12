@@ -43,7 +43,7 @@ def check_for_best_bets_in_csv_format(best_bets)
 end
 
 def check_rummager_was_sent_an_exact_best_bet_document(best_bets)
-  elasticsearch_doc = build_es_doc_from_matching_best_bets(best_bets)
+  elasticsearch_doc = build_es_doc_from_matching_best_bets(best_bets, include_id_and_type_in_body: true)
   expect(SearchAdmin.services(:rummager_index)).to have_received(:add).with(elasticsearch_doc)
 end
 
@@ -72,7 +72,7 @@ def confirm_elasticsearch_format(dump, best_bets)
   end
 end
 
-def build_es_doc_from_matching_best_bets(best_bets)
+def build_es_doc_from_matching_best_bets(best_bets, include_id_and_type_in_body: false)
   positive_bets, negative_bets = best_bets.partition(&:position)
 
   representative_bet = best_bets.first
@@ -84,10 +84,17 @@ def build_es_doc_from_matching_best_bets(best_bets)
 
   query_field = "#{representative_bet.match_type}_query".to_sym
 
-  {
-    _id: "#{representative_bet.query}-#{representative_bet.match_type}",
-    _type: 'best_bet',
+  es_doc = {
     query_field => representative_bet.query,
     details: details_json
   }
+
+  if include_id_and_type_in_body
+    es_doc.merge(
+      _id: "#{representative_bet.query}-#{representative_bet.match_type}",
+      _type: 'best_bet'
+    )
+  else
+    es_doc
+  end
 end

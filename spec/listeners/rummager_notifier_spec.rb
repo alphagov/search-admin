@@ -17,7 +17,9 @@ describe RummagerNotifier do
     it "sends an elasticsearch doc from all related best bets" do
       es_doc_body = double(:es_doc_body)
       es_doc = double(:es_doc, body: es_doc_body)
-      expect(ElasticSearchBestBet).to receive(:from_matching_bets).with(@exact_job_bets).and_return(es_doc)
+      expect(ElasticSearchBestBet).to receive(:from_matching_bets)
+        .with(@exact_job_bets, include_id_and_type_in_body: true)
+        .and_return(es_doc)
 
       RummagerNotifier.call(query: 'jobs', match_type: 'exact', link: '/jobsearch', position: 1)
 

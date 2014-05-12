@@ -29,8 +29,6 @@ describe ElasticSearchBestBet do
     es_best_bet = ElasticSearchBestBet.from_matching_bets(@matching_bets)
 
     expect(es_best_bet.body).to eq(
-      _id: 'jobs-exact',
-      _type: 'best_bet',
       exact_query: 'jobs',
       details: {
         best_bets: [
@@ -42,6 +40,15 @@ describe ElasticSearchBestBet do
           {link: '/topics/employment'}
         ]
       }.to_json
+    )
+  end
+
+  it "includes the id and type in the body if requested (for Rummager's endpoint)" do
+    es_best_bet = ElasticSearchBestBet.from_matching_bets(@matching_bets, include_id_and_type_in_body: true)
+
+    expect(es_best_bet.body).to include(
+      _id: 'jobs-exact',
+      _type: 'best_bet'
     )
   end
 
