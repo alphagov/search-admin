@@ -1,14 +1,39 @@
-<h1>Best bets</h1>
+<header>
+  <h1>Search best bets</h1>
+</header>
 
-<p><%= link_to 'CSV version', best_bets_path(format: 'csv') %></p>
+<div class="collection-actions">
+  <%= link_to 'New best bet', new_best_bet_path, class: 'btn btn-primary' %>
+  <%= link_to 'Download all as CSV', best_bets_path(format: 'csv'), class: 'btn btn-default' %>
+</div>
 
-<ul>
-  <% @best_bets.each do |best_bet| %>
-    <li id="best-bet-<%= best_bet.id %>">
-      <%= link_to best_bet.query, edit_best_bet_path(best_bet) %>
-      <%= button_to 'Delete', best_bet_path(best_bet), method: :delete %>
-    </li>
-  <% end %>
-</ul>
-
-<%= link_to 'New best bet', new_best_bet_path %>
+<table class="best-bets-list">
+  <thead>
+    <tr>
+      <th scope="col">Query</th>
+      <th scope="col">Match</th>
+      <th scope="col">Link</th>
+      <th scope="col">Position</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @best_bets.each do |best_bet| %>
+      <tr id="best-bet-<%= best_bet.id %>">
+        <th scope="row"><%= link_to best_bet.query, edit_best_bet_path(best_bet) %></th>
+        <td><%= best_bet.match_type %></td>
+        <td><%= best_bet.link %></td>
+        <td><%= best_bet.position %></td>
+        <td class="resource-actions">
+          <%= link_to 'Edit', edit_best_bet_path(best_bet), class: 'btn btn-primary' %>
+          <%= button_to 'Delete', best_bet_path(best_bet),
+                                  class: 'btn btn-danger',
+                                  method: :delete,
+                                  data: {
+                                    confirm: "Permanently delete '#{best_bet.query}'?"
+                                  } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
