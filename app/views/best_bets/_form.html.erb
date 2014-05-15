@@ -1,4 +1,4 @@
-<%= form_for(best_bet) do |f| %>
+<%= form_for(@best_bet) do |f| %>
   <%= f.text_field :query %>
   <%= f.select :match_type, BestBet::MATCH_TYPES.map {|t| [t.humanize, t] } %>
   <%= f.text_field :link %>

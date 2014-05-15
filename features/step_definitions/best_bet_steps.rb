@@ -1,5 +1,5 @@
 When(/^I create a best bet$/) do
-  create_best_bet(query: 'jobs')
+  create_best_bet(query: 'jobs', match_type: 'exact', link: '/jobsearch')
 end
 
 When(/^I create several exact best bets for the same query$/) do
