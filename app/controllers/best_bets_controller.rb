@@ -2,7 +2,7 @@ class BestBetsController < ApplicationController
   before_filter :find_best_bet, only: [:edit, :update, :destroy]
 
   def index
-    @best_bets = BestBet.all
+    @best_bets = BestBet.in_query_order
 
     respond_to do |format|
       format.html
