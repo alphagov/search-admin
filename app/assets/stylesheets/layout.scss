@@ -30,3 +30,12 @@ header {
     margin: 10px 0;
   }
 }
+
+.flash-notice {
+  @extend .alert;
+  @extend .alert-info;
+}
+.flash-alert {
+  @extend .alert;
+  @extend .alert-danger;
+}

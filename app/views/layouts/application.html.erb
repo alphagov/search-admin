@@ -21,14 +21,14 @@
     </nav>
 
     <div class="container">
-      <div class="col-md-12">
-        <% if flash.notice %>
-          <p><%= flash.notice %></p>
-        <% elsif flash.alert %>
-          <p role='alert'><%= flash.alert %></p>
-        <% end %>
+      <div class="row">
+        <div class="col-md-12">
+          <% flash.each do |key,message| %>
+            <p role="alert" class="flash-<%= key %>"><%= message %></p>
+          <% end %>
 
-        <%= yield %>
+          <%= yield %>
+        </div>
       </div>
     </div>
   </body>
