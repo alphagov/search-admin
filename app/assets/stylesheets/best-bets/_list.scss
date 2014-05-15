@@ -1,0 +1,17 @@
+table.best-bets-list {
+  @extend .table;
+  @extend .table-striped;
+  @extend .table-bordered;
+
+  width: 100%;
+}
+
+.collection-actions {
+  margin-bottom: 20px;
+}
+
+.resource-actions {
+  form, form > div {
+    display: inline;
+  }
+}

@@ -1,0 +1,41 @@
+nav.primary-navigation {
+  @extend .navbar;
+  @extend .navbar-inverse;
+  @extend .navbar-static-top;
+
+  .application-title {
+    @extend .navbar-header;
+
+    a {
+      @extend .navbar-brand;
+
+      background: transparent url('header-crown.png') no-repeat 15px 12px;
+      color: #fff;
+      padding: 16px 0 0 60px;
+    }
+  }
+
+  .current-user {
+    @extend .nav;
+    @extend .navbar-nav;
+    @extend .navbar-right;
+  }
+}
+
+header {
+  @extend .page-header;
+  margin: 0 0 20px;
+
+  h1 {
+    margin: 10px 0;
+  }
+}
+
+.flash-notice {
+  @extend .alert;
+  @extend .alert-info;
+}
+.flash-alert {
+  @extend .alert;
+  @extend .alert-danger;
+}

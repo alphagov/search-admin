@@ -40,6 +40,18 @@ describe BestBetsController do
 
       expect(SearchAdmin.services(:message_bus)).to have_received(:notify).with(:best_bet_changed, notification_params)
     end
+
+    it "redirects to the index action when create is successful" do
+      post :create, best_bet: best_bet_params
+
+      expect(subject).to redirect_to(action: :index)
+    end
+
+    it "renders the new template when create is unsuccessful" do
+      post :create, best_bet: { query: "" }
+
+      expect(subject).to render_template(:new)
+    end
   end
 
   describe "Updating best bets" do
@@ -51,6 +63,18 @@ describe BestBetsController do
       notification_params = best_bet_params.slice(:query, :match_type, :link, :position)
 
       expect(SearchAdmin.services(:message_bus)).to have_received(:notify).with(:best_bet_changed, notification_params)
+    end
+
+    it "redirects to the index action when update is successful" do
+      post :update, id: best_bet.id, best_bet: best_bet_params
+
+      expect(subject).to redirect_to(action: :index)
+    end
+
+    it "renders the edit template when update is unsuccessful" do
+      post :update, id: best_bet.id, best_bet: { query: "" }
+
+      expect(subject).to render_template(:edit)
     end
   end
 end

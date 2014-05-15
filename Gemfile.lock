@@ -32,6 +32,8 @@ GEM
       builder
       multi_json
     arel (5.0.1.20140414130214)
+    bootstrap-sass (3.1.1.1)
+      sass (~> 3.2)
     builder (3.2.2)
     byebug (3.1.2)
       columnize (~> 0.8)
@@ -77,6 +79,9 @@ GEM
     hashie (2.1.1)
     hike (1.2.3)
     i18n (0.6.9)
+    jquery-rails (3.1.0)
+      railties (>= 3.0, < 5.0)
+      thor (>= 0.14, < 2.0)
     json (1.8.1)
     jwt (0.1.13)
     kgio (2.9.2)
@@ -194,12 +199,14 @@ PLATFORMS
 
 DEPENDENCIES
   airbrake (= 3.1.16)
+  bootstrap-sass (= 3.1.1.1)
   byebug
   cucumber-rails
   database_cleaner
   factory_girl_rails
   gds-sso (= 9.2.6)
   generic_form_builder (= 0.8.0)
+  jquery-rails (= 3.1.0)
   launchy
   mysql2
   plek (= 1.7.0)

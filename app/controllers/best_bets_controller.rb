@@ -1,4 +1,5 @@
 class BestBetsController < ApplicationController
+  before_filter :find_best_bet, only: [:edit, :update, :destroy]
 
   def index
     @best_bets = BestBet.all
@@ -9,7 +10,9 @@ class BestBetsController < ApplicationController
     end
   end
 
-  def new; end
+  def new;
+    @best_bet = BestBet.new
+  end
 
   def create
     create_params = best_bet_params.merge(
@@ -17,13 +20,15 @@ class BestBetsController < ApplicationController
       manual: true
     )
 
-    if best_bet = BestBet.create(create_params)
-      notify_best_bet_changed(best_bet)
+    @best_bet = BestBet.new(create_params)
+
+    if @best_bet.save
+      notify_best_bet_changed(@best_bet)
 
       flash.notice = 'Best bet created'
       redirect_to best_bets_path
     else
-      flash.alert = 'Could not create best bet'
+      flash.now[:alert] = 'The best bet could not be created because there are errors'
       render 'new'
     end
   end
@@ -31,19 +36,19 @@ class BestBetsController < ApplicationController
   def edit; end
 
   def update
-    if best_bet.update_attributes(best_bet_params)
-      notify_best_bet_changed(best_bet)
+    if @best_bet.update_attributes(best_bet_params)
+      notify_best_bet_changed(@best_bet)
 
       flash.notice = 'Best bet updated'
       redirect_to best_bets_path
     else
-      flash.alert = 'Could not update best bet'
+      flash.now[:alert] = 'The best bet could not be saved because there are errors'
       render 'edit'
     end
   end
 
   def destroy
-    if best_bet.destroy
+    if @best_bet.destroy
       flash.notice = 'Best bet deleted'
     else
       flash.alert = 'Could not delete best bet'
@@ -54,14 +59,9 @@ class BestBetsController < ApplicationController
 
 private
 
-  def best_bet
-    if params[:id]
-      BestBet.find(params[:id])
-    else
-      BestBet.new
-    end
+  def find_best_bet
+    @best_bet = BestBet.find(params[:id])
   end
-  helper_method :best_bet
 
   def best_bet_params
     params.require(:best_bet).permit(
