@@ -16,6 +16,10 @@ class BestBet < ActiveRecord::Base
                          only_integer: true
                        }
 
+  scope :in_query_order, -> { order(query: :asc,
+                                    match_type: :asc,
+                                    position: :asc) }
+
   def self.to_csv(*args)
     CSV.generate do |csv|
       csv << ['query', 'link']
