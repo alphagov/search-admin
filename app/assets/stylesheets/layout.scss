@@ -9,9 +9,9 @@ nav.primary-navigation {
     a {
       @extend .navbar-brand;
 
-      background: transparent url('header-crown.png') no-repeat left 12px;
+      background: transparent url('header-crown.png') no-repeat 15px 12px;
       color: #fff;
-      padding: 16px 0 0 45px;
+      padding: 16px 0 0 60px;
     }
   }
 
