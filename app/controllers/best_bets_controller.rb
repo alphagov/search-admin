@@ -10,8 +10,8 @@ class BestBetsController < ApplicationController
     end
   end
 
-  def new;
-    @best_bet = BestBet.new
+  def new
+    @best_bet = BestBet.new(position: 1)
   end
 
   def create
