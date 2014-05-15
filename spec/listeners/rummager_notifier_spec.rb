@@ -25,5 +25,18 @@ describe RummagerNotifier do
 
       expect(SearchAdmin.services(:rummager_index)).to have_received(:add).with(es_doc_body)
     end
+
+    it "removes the best bet from elasticsearch if all matching bets have been deleted" do
+      es_doc_id = double(:es_doc_id)
+      expect(ElasticSearchBestBet).to receive(:new)
+        .with('jobs', 'exact', nil)
+        .and_return(double(:es_doc, id: es_doc_id))
+
+      BestBet.destroy_all
+
+      RummagerNotifier.call(query: 'jobs', match_type: 'exact', link: '/jobsearch', position: 1)
+
+      expect(SearchAdmin.services(:rummager_index)).to have_received(:delete).with(es_doc_id, type: 'best_bet')
+    end
   end
 end

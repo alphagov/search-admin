@@ -39,6 +39,10 @@ When(/^I delete the best bet$/) do
   delete_best_bet(@best_bet)
 end
 
+When(/^I delete one of the best bets$/) do
+  delete_best_bet(BestBet.all.first)
+end
+
 Then(/^the best bet should not be available on the index page$/) do
   check_absence_of_best_bet_on_index_page('visas')
 end

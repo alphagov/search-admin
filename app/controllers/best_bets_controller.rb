@@ -49,6 +49,8 @@ class BestBetsController < ApplicationController
 
   def destroy
     if @best_bet.destroy
+      notify_best_bet_changed(@best_bet)
+
       flash.notice = 'Best bet deleted'
     else
       flash.alert = 'Could not delete best bet'

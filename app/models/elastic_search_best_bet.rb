@@ -56,11 +56,11 @@ class ElasticSearchBestBet
     end
   end
 
-private
-
   def id
     "#{@query}-#{@match_type}"
   end
+
+private
 
   def query_field
     "#{@match_type}_query".to_sym
