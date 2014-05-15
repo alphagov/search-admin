@@ -28,7 +28,7 @@ class BestBetsController < ApplicationController
       flash.notice = 'Best bet created'
       redirect_to best_bets_path
     else
-      flash.now[:alert] = 'Could not create best bet'
+      flash.now[:alert] = 'The best bet could not be created because there are errors'
       render 'new'
     end
   end
@@ -42,7 +42,7 @@ class BestBetsController < ApplicationController
       flash.notice = 'Best bet updated'
       redirect_to best_bets_path
     else
-      flash.now[:alert] = 'Could not update best bet'
+      flash.now[:alert] = 'The best bet could not be saved because there are errors'
       render 'edit'
     end
   end
