@@ -36,8 +36,9 @@ class BestBetsController < ApplicationController
   def edit; end
 
   def update
+    original_attributes = @best_bet.attributes.symbolize_keys.slice(:query, :match_type)
     if @best_bet.update_attributes(best_bet_params)
-      notify_best_bet_changed(@best_bet)
+      notify_best_bet_changed(@best_bet, original_attributes)
 
       flash.notice = 'Best bet updated'
       redirect_to best_bets_path
@@ -72,8 +73,9 @@ private
     )
   end
 
-  def notify_best_bet_changed(best_bet)
+  def notify_best_bet_changed(best_bet, original_attributes = nil)
     attrs_to_send = best_bet.attributes.symbolize_keys.slice(:query, :match_type, :link, :position)
+    attrs_to_send[:original] = original_attributes if original_attributes
     SearchAdmin.services(:message_bus).notify(:best_bet_changed, attrs_to_send)
   end
 

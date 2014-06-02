@@ -61,6 +61,7 @@ describe BestBetsController do
       put :update, id: best_bet.id, best_bet: best_bet_params
 
       notification_params = best_bet_params.slice(:query, :match_type, :link, :position)
+      notification_params.update(original: best_bet.slice(:query, :match_type).symbolize_keys)
 
       expect(SearchAdmin.services(:message_bus)).to have_received(:notify).with(:best_bet_changed, notification_params)
     end

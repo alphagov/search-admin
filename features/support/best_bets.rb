@@ -6,6 +6,7 @@ def create_best_bet(query: nil, match_type: nil, link: nil)
   fill_in 'Link', with: link if link
 
   click_on 'Save'
+  "#{query}-#{match_type}"
 end
 
 def check_for_best_bet_on_index_page(query)
@@ -45,6 +46,12 @@ end
 def check_rummager_was_sent_an_exact_best_bet_document(best_bets)
   elasticsearch_doc = build_es_doc_from_matching_best_bets(best_bets, include_id_and_type_in_body: true)
   expect(SearchAdmin.services(:rummager_index)).to have_received(:add).with(elasticsearch_doc)
+end
+
+def check_rummager_was_sent_a_best_bet_delete(best_bet_ids)
+  best_bet_ids.uniq.each do |id|
+    expect(SearchAdmin.services(:rummager_index)).to have_received(:delete).with(id, type: "best_bet")
+  end
 end
 
 def run_elasticsearch_exporter

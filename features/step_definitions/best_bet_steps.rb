@@ -3,8 +3,10 @@ When(/^I create a best bet$/) do
 end
 
 When(/^I create several exact best bets for the same query$/) do
-  create_best_bet(query: 'jobs', match_type: 'exact', link: '/jobsearch')
-  create_best_bet(query: 'jobs', match_type: 'exact', link: '/policy-areas/employment')
+  @best_bet_ids = [
+    create_best_bet(query: 'jobs', match_type: 'exact', link: '/jobsearch'),
+    create_best_bet(query: 'jobs', match_type: 'exact', link: '/policy-areas/employment'),
+  ]
 end
 
 Then(/^the best bet should be available on the index page$/) do
@@ -42,6 +44,13 @@ end
 When(/^I delete one of the best bets$/) do
   delete_best_bet(BestBet.all.first)
 end
+
+When(/^I delete all the best bets$/) do
+  BestBet.all.each do |bet|
+    delete_best_bet(bet)
+  end
+end
+
 
 Then(/^the best bet should not be available on the index page$/) do
   check_absence_of_best_bet_on_index_page('visas')

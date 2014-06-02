@@ -8,3 +8,5 @@ Feature: Best bets CSV
     Then the merged best bets should have been sent to the metasearch index
     When I delete one of the best bets
     Then the remaining merged best bets should have been sent to the metasearch index
+    When I delete all the best bets
+    Then the best bets should have been deleted in the metasearch index
