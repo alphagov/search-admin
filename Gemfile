@@ -8,7 +8,7 @@ gem "plek", "1.7.0"
 
 gem 'mysql2'
 gem 'gds-sso', '9.2.6'
-gem 'rummageable', '1.0.1'
+gem 'rummageable', '1.2.0'
 
 gem 'sass-rails', '~> 4.0.3'
 gem 'jquery-rails', '3.1.0'
