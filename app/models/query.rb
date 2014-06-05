@@ -4,6 +4,7 @@ class Query < ActiveRecord::Base
     "stemmed"
   ]
 
+  validates :query, presence: true
   validates :match_type, inclusion: { in: MATCH_TYPES }
 
   has_many :bets

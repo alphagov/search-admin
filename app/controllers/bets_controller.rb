@@ -64,9 +64,9 @@ private
     )
   end
 
-  def notify_bet_changed(bet, original_attributes = nil)
-    attrs_to_send = bet.attributes.symbolize_keys.slice(:link, :position)
-    SearchAdmin.services(:message_bus).notify(:bet_changed, attrs_to_send)
+  def notify_bet_changed(bet)
+    query = bet.query
+    SearchAdmin.services(:message_bus).notify(:bet_changed, [[query.query, query.match_type]])
   end
 
 end

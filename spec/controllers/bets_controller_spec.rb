@@ -33,12 +33,11 @@ describe BetsController do
       expect(Bet.last).to be_manual
     end
 
-    it "notifies the world of the change" do
+    it "notifies the world of the change to the query" do
       post :create, bet: bet_params
 
-      notification_params = bet_params.slice(:query, :match_type, :link, :position)
-
-      expect(SearchAdmin.services(:message_bus)).to have_received(:notify).with(:bet_changed, notification_params)
+      expect(SearchAdmin.services(:message_bus)).to have_received(:notify)
+        .with(:bet_changed, [[query.query, query.match_type]])
     end
 
     it "redirects to the query show when create is successful" do
@@ -66,12 +65,11 @@ describe BetsController do
   describe "Updating bets" do
     let(:bet) { query.bets.first }
 
-    it "notifies the world of the change" do
+    it "notifies the world of the change to the query" do
       put :update, id: bet.id, bet: bet_params
 
-      notification_params = bet_params.slice(:link, :position)
-
-      expect(SearchAdmin.services(:message_bus)).to have_received(:notify).with(:bet_changed, notification_params)
+      expect(SearchAdmin.services(:message_bus)).to have_received(:notify)
+        .with(:bet_changed, [[query.query, query.match_type]])
     end
 
     it "redirects to the query show when update is successful" do
