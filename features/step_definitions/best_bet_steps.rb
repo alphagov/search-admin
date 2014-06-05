@@ -1,16 +1,26 @@
 When(/^I create a best bet$/) do
-  create_best_bet(query: 'jobs', match_type: 'exact', link: '/jobsearch')
+  create_query(query: 'jobs', match_type: 'exact', links: [['/jobsearch', true, 1]])
 end
 
 When(/^I create several exact best bets for the same query$/) do
-  @best_bet_ids = [
-    create_best_bet(query: 'jobs', match_type: 'exact', link: '/jobsearch'),
-    create_best_bet(query: 'jobs', match_type: 'exact', link: '/policy-areas/employment'),
-  ]
+  create_query(query: 'jobs', match_type: 'exact', links: [['/jobsearch', true, 1], ['/policy-areas/employment', true, 2]])
 end
 
-Then(/^the best bet should be available on the index page$/) do
-  check_for_best_bet_on_index_page('jobs')
+Then(/^the query should be listed on the index page$/) do
+  check_for_query_on_index_page(
+    query: 'jobs',
+    match_type: 'exact'
+  )
+end
+
+Then(/^the best bet should be listed on the query page$/) do
+  check_for_best_bet_on_query_page(
+    link: '/jobsearch',
+    is_best: true,
+    position: 1,
+    query: 'jobs',
+    match_type: 'exact'
+  )
 end
 
 Given(/^a best bet exists$/) do

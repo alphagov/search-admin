@@ -1,24 +1,15 @@
 require 'csv'
 
-class BestBet < ActiveRecord::Base
-  MATCH_TYPES = [
-    "exact",
-    "stemmed"
-  ]
-
+class Bet < ActiveRecord::Base
   belongs_to :user
+  belongs_to :query
 
-  validates :query, :link, :user_id, presence: true
-  validates :match_type, inclusion: { in: MATCH_TYPES }
+  validates :link, :query_id, :user_id, presence: true
   validates :position, numericality: {
                          allow_nil: true,
                          greater_than: 0,
                          only_integer: true
                        }
-
-  scope :in_query_order, -> { order(query: :asc,
-                                    match_type: :asc,
-                                    position: :asc) }
 
   def self.to_csv(*args)
     CSV.generate do |csv|

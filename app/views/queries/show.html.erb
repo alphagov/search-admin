@@ -1,0 +1,19 @@
+<h2>Add new bet</h2>
+<%= render 'bets/form', bet: @new_bet, query: @query %>
+
+<h2>Best bets</h2>
+
+<table class="best-bets">
+  <tr>
+    <th>Link</th>
+    <th>Position</th>
+  </tr>
+  <% @best_bets.each do |bet| %>
+    <tr class="bet">
+      <td><%= bet.link %></td>
+      <td><%= bet.position %></td>
+    </tr>
+  <% end %>
+</table>
+
+<h2>Worst bets</h2>

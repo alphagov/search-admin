@@ -1,18 +1,43 @@
-def create_best_bet(query: nil, match_type: nil, link: nil)
-  visit new_best_bet_path
+def create_query(query: nil, match_type: nil, links: [])
+  visit new_query_path
 
   fill_in 'Query', with: query if query
   select match_type.humanize, from: 'Match type' if match_type
-  fill_in 'Link', with: link if link
 
   click_on 'Save'
-  "#{query}-#{match_type}"
+
+  links.each do |(link, is_best, position)|
+    fill_in 'Link', with: link
+    if is_best
+      fill_in 'Position', with: position
+    else
+      check 'Worst bet?'
+    end
+
+    click_on 'Save'
+  end
 end
 
-def check_for_best_bet_on_index_page(query)
-  visit best_bets_path
-  expect(page).to have_content(query)
+def check_for_query_on_index_page(query: nil, match_type: nil)
+  visit queries_path
+
+  within('.query') do
+    expect(page).to have_content(query)
+    expect(page).to have_content(match_type)
+  end
 end
+
+def check_for_best_bet_on_query_page(link: nil, is_best: true, position: nil, query: nil, match_type: nil)
+  query = Query.where(query: query, match_type: match_type).first
+  visit query_path(query)
+
+  bet_type = is_best ? 'best' : 'worst'
+  within(".#{bet_type}-bets .bet") do
+    expect(page).to have_content(link)
+    expect(page).to have_content(position) if is_best
+  end
+end
+
 
 def edit_best_bet(best_bet, query)
   visit edit_best_bet_path(best_bet)

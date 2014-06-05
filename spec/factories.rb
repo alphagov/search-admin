@@ -1,10 +1,26 @@
 FactoryGirl.define do
-  factory :best_bet do
-    query "tax"
+  factory :bet do
     link "/death-and-taxes"
-    match_type "exact"
-    position 1
+
+    trait(:worst) {
+      is_best false
+    }
+
+    trait(:best) {
+      is_best true
+      sequence(:position) { |n| }
+    }
+
     user
+  end
+
+  factory :query do
+    query "tax"
+    match_type "exact"
+
+    after(:create) do |query|
+      create(:bet, :best, query: query)
+    end
   end
 
   factory :user do

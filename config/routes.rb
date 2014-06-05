@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  resources :best_bets, path: 'best-bets'
+  resources :bets
+  resources :queries
 
-  root 'best_bets#index'
+  root 'queries#index'
 end

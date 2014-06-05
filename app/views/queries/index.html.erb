@@ -1,0 +1,12 @@
+<table>
+  <tr>
+    <th>Query</th>
+    <th>Match</th>
+  </tr>
+  <% @queries.each do |query| %>
+    <tr class="query">
+      <td><%= query.query %></td>
+      <td><%= query.match_type %></td>
+    </tr>
+  <% end %>
+</table>
