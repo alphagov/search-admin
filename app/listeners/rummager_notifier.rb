@@ -1,33 +1,19 @@
 class RummagerNotifier
-  def self.call(best_bet_data)
-    best_bet_data.symbolize_keys!
-    query = best_bet_data[:query]
-    match_type = best_bet_data[:match_type]
-    original_attributes = best_bet_data[:original]
-    if original_attributes.nil?
-      original_query = query
-      original_match_type = match_type
-    else
-      original_attributes.symbolize_keys!
-      original_query = original_attributes[:query]
-      original_match_type = original_attributes[:match_type]
+  def self.call(changed_query_match_type_pairs)
+    changed_query_match_type_pairs.each do |(query, match_type)|
+      update_elasticsearch(query, match_type)
     end
-
-    if query != original_query || match_type != original_match_type
-      update_elasticsearch(original_query, original_match_type)
-    end
-    update_elasticsearch(query, match_type)
   end
 
-  def self.update_elasticsearch(query, match_type)
-    matching_bets = BestBet.where(query: query, match_type: match_type)
+private
 
-    if matching_bets.any?
-      es_doc = ElasticSearchBestBet.from_matching_bets(matching_bets, include_id_and_type_in_body: true)
+  def self.update_elasticsearch(query_string, match_type)
+    if query = Query.where(query: query_string, match_type: match_type).first
+      es_doc = ElasticSearchBet.new(query, include_id_and_type_in_body: true)
       SearchAdmin.services(:rummager_index).add(es_doc.body)
     else
-      es_doc = ElasticSearchBestBet.new(query, match_type, nil)
-      SearchAdmin.services(:rummager_index).delete(es_doc.id, type: 'best_bet')
+      es_doc_id = ElasticSearchBetIDGenerator.generate(query_string, match_type)
+      SearchAdmin.services(:rummager_index).delete(es_doc_id, type: 'best_bet')
     end
   end
 end

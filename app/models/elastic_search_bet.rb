@@ -35,7 +35,7 @@ class ElasticSearchBet
   end
 
   def id
-    "#{query_string}-#{match_type}"
+    ElasticSearchBetIDGenerator.generate(query_string, match_type)
   end
 
 private
