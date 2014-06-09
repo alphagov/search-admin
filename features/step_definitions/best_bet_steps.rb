@@ -62,12 +62,18 @@ end
 
 When(/^I delete one of the best bets$/) do
   @query = Query.last
-  delete_best_bet(@query.best_bets.first)
+  delete_best_bet(@query, @query.best_bets.first)
 end
 
 When(/^I delete all the best bets$/) do
-  BestBet.all.each do |bet|
-    delete_best_bet(bet)
+  @query_es_ids = []
+
+  Query.all.each do |query|
+    @query_es_ids << "#{query.query}-#{query.match_type}"
+
+    query.bets.each do |bet|
+      delete_best_bet(query, bet)
+    end
   end
 end
 

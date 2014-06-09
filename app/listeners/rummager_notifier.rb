@@ -8,7 +8,9 @@ class RummagerNotifier
 private
 
   def self.update_elasticsearch(query_string, match_type)
-    if query = Query.where(query: query_string, match_type: match_type).first
+    query = Query.where(query: query_string, match_type: match_type).first
+
+    if query && query.bets.any?
       es_doc = ElasticSearchBet.new(query, include_id_and_type_in_body: true)
       SearchAdmin.services(:rummager_index).add(es_doc.body)
     else

@@ -68,14 +68,18 @@ def check_for_best_bets_in_csv_format(best_bets)
   end
 end
 
-def check_rummager_was_sent_an_exact_best_bet_document(best_bets)
-  elasticsearch_doc = build_es_doc_from_matching_best_bets(best_bets, include_id_and_type_in_body: true)
+def check_rummager_was_sent_an_exact_best_bet_document(query)
+  elasticsearch_doc = build_es_doc_from_query(query, include_id_and_type_in_body: true)
   expect(SearchAdmin.services(:rummager_index)).to have_received(:add).with(elasticsearch_doc)
 end
 
-def check_rummager_was_sent_a_best_bet_delete(best_bet_ids)
-  best_bet_ids.uniq.each do |id|
-    expect(SearchAdmin.services(:rummager_index)).to have_received(:delete).with(id, type: "best_bet")
+def check_rummager_was_sent_a_best_bet_delete(query_es_ids)
+  query_es_ids.each do |id|
+    # The `delete` happens twice because it is triggered when
+    # creating a new query with no bets
+    expect(SearchAdmin.services(:rummager_index)).to have_received(:delete)
+      .twice
+      .with(id, type: "best_bet")
   end
 end
 
@@ -104,26 +108,22 @@ def confirm_elasticsearch_format(dump, best_bets)
   end
 end
 
-def build_es_doc_from_matching_best_bets(best_bets, include_id_and_type_in_body: false)
-  positive_bets, negative_bets = best_bets.partition(&:position)
-
-  representative_bet = best_bets.first
-
+def build_es_doc_from_query(query, include_id_and_type_in_body: false)
   details_json = {
-    best_bets: positive_bets.map {|bet| {link: bet.link, position: bet.position} },
-    worst_bets: negative_bets.map {|bet| {link: bet.link} }
+    best_bets: query.best_bets.map {|bet| {link: bet.link, position: bet.position} },
+    worst_bets: query.worst_bets.map {|bet| {link: bet.link} }
   }.to_json
 
-  query_field = "#{representative_bet.match_type}_query".to_sym
+  query_field = "#{query.match_type}_query".to_sym
 
   es_doc = {
-    query_field => representative_bet.query,
+    query_field => query.query,
     details: details_json
   }
 
   if include_id_and_type_in_body
     es_doc.merge(
-      _id: "#{representative_bet.query}-#{representative_bet.match_type}",
+      _id: "#{query.query}-#{query.match_type}",
       _type: 'best_bet'
     )
   else

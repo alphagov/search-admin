@@ -26,5 +26,18 @@ describe RummagerNotifier do
 
       expect(SearchAdmin.services(:rummager_index)).to have_received(:delete).with(es_doc_id, type: 'best_bet')
     end
+
+    it "`delete`s the elasticsearch bet ID for queries with no bets" do
+      es_doc_id = double(:es_doc_id)
+      expect(ElasticSearchBetIDGenerator).to receive(:generate)
+        .with('jobs', 'exact')
+        .and_return(es_doc_id)
+
+      query.bets.destroy_all
+
+      RummagerNotifier.call([['jobs', 'exact']])
+
+      expect(SearchAdmin.services(:rummager_index)).to have_received(:delete).with(es_doc_id, type: 'best_bet')
+    end
   end
 end

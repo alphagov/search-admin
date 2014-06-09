@@ -5,7 +5,7 @@ Feature: Best bets CSV
 
   Scenario: Creating several exact best bets
     When I create several exact best bets for the same query
-    Then the merged best bets should have been sent to the metasearch index
+    Then the query should have been sent to the metasearch index
     When I delete one of the best bets
     Then the remaining merged best bets should have been sent to the metasearch index
     When I delete all the best bets
