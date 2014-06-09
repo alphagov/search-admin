@@ -87,24 +87,17 @@ def run_elasticsearch_exporter
   `#{Rails.root+'bin/export_best_bets_for_elasticsearch'}`
 end
 
-def confirm_elasticsearch_format(dump, best_bets)
-  exact_bets, stemmed_bets = best_bets.partition {|bet| bet.match_type == 'exact' }
-
-  [exact_bets].each do |bets|
-    bets.group_by(&:query).each do |_, matching_bets|
-      representative_bet = matching_bets.first
-
-      es_doc_header = {
-        'index' => {
-          '_id' => "#{representative_bet.query}-#{representative_bet.match_type}",
-          '_type' => 'best_bet'
-        }
+def confirm_elasticsearch_format(dump, queries)
+  queries.each do |query|
+    es_doc_header = {
+      'index' => {
+        '_id' => "#{query.query}-#{query.match_type}",
+        '_type' => 'best_bet'
       }
+    }
 
-      es_doc = build_es_doc_from_matching_best_bets(matching_bets)
-
-      expect(dump).to include("#{es_doc_header.to_json}\n#{es_doc.to_json}")
-    end
+    es_doc = build_es_doc_from_query(query)
+    expect(dump).to include("#{es_doc_header.to_json}\n#{es_doc.to_json}")
   end
 end
 

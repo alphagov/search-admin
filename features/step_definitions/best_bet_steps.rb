@@ -35,9 +35,14 @@ Given(/^there are some best bets$/) do
 end
 
 Given(/^a variety of best bets exist$/) do
-  FactoryGirl.create(:best_bet, query: "jobs", match_type: "exact", link: "/jobs-1", position: 1)
-  FactoryGirl.create(:best_bet, query: "jobs", match_type: "exact", link: "/jobs-2", position: 2)
-  FactoryGirl.create(:best_bet, query: "visas", match_type: "exact", link: "/a-bad-visas-page", position: nil)
+  jobs_query = FactoryGirl.create(:query, query: "jobs", match_type: "exact")
+  jobs_query.bets.destroy_all
+  FactoryGirl.create(:bet, :best, query: jobs_query, link: "/jobs-1", position: 1)
+  FactoryGirl.create(:bet, :best, query: jobs_query, link: "/jobs-2", position: 2)
+
+  visas_query = FactoryGirl.create(:query, query: "visas", match_type: "exact")
+  visas_query.bets.destroy_all
+  FactoryGirl.create(:bet, :worst, query: visas_query, link: "/a-bad-visas-page")
 end
 
 When(/^I edit a best bet$/) do
