@@ -58,8 +58,12 @@ private
 
   def bet_params
     params.require(:bet).permit(
-      :query, :match_type, :link,
-      :position, :comment, :source,
+      :query,
+      :match_type,
+      :link,
+      :position,
+      :comment,
+      :source,
       :query_id
     )
   end
@@ -68,5 +72,4 @@ private
     query = bet.query
     SearchAdmin.services(:message_bus).notify(:bet_changed, [[query.query, query.match_type]])
   end
-
 end
