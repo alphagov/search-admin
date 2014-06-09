@@ -29,8 +29,8 @@ Given(/^a query exists$/) do
 end
 
 Given(/^there are some best bets$/) do
-  @best_bets = (1..3).map { |n|
-    FactoryGirl.create(:best_bet, query: "jobs-#{n}", link: "/jobs-#{n}")
+  @queries = (1..3).map { |n|
+    FactoryGirl.create(:query, query: "jobs-#{n}")
   }
 end
 

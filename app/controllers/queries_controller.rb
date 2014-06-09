@@ -1,6 +1,11 @@
 class QueriesController < ApplicationController
   def index
     @queries = Query.all.order([:query, :match_type])
+
+    respond_to do |format|
+      format.html
+      format.csv { send_data @queries.to_csv }
+    end
   end
 
   def new; end

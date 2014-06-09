@@ -9,6 +9,18 @@ class Query < ActiveRecord::Base
 
   has_many :bets
 
+  def self.to_csv(*args)
+    CSV.generate do |csv|
+      csv << ['query', 'link']
+
+      all.each do |query|
+        query.bets.each do |bet|
+          csv << [query.query, bet.link]
+        end
+      end
+    end
+  end
+
   def best_bets
     bets.where(is_best: true)
   end
