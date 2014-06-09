@@ -9,9 +9,10 @@
     <th>Position</th>
   </tr>
   <% @best_bets.each do |bet| %>
-    <tr class="bet">
+    <tr class="bet" id="bet-<%= bet.id %>">
       <td><%= bet.link %></td>
       <td><%= bet.position %></td>
+      <td><%= button_to 'Delete', bet_path(bet), method: :delete %></td>
     </tr>
   <% end %>
 </table>

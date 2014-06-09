@@ -23,8 +23,9 @@ Then(/^the best bet should be listed on the query page$/) do
   )
 end
 
-Given(/^a best bet exists$/) do
-  @best_bet = FactoryGirl.create(:best_bet, query: 'jobs')
+Given(/^a query exists$/) do
+  @query = FactoryGirl.create(:query)
+  @query.bets.each {|b| b.update_attribute(:link, '/jobsearch') }
 end
 
 Given(/^there are some best bets$/) do
@@ -39,20 +40,29 @@ Given(/^a variety of best bets exist$/) do
   FactoryGirl.create(:best_bet, query: "visas", match_type: "exact", link: "/a-bad-visas-page", position: nil)
 end
 
-When(/^I edit the best bet$/) do
-  edit_best_bet(@best_bet, query: 'visas')
+When(/^I edit a best bet$/) do
+  edit_best_bet(@query.best_bets.first, '/job-policy')
 end
 
-Then(/^the edited best bet should be available on the index page$/) do
-  check_for_best_bet_on_index_page('visas')
+Then(/^the edited best bet should be listed on the query page$/) do
+  bet = @query.best_bets.first
+  check_for_best_bet_on_query_page(
+    link: 'job-policy',
+    is_best: bet.is_best?,
+    position: bet.position,
+    query: @query.query,
+    match_type: @query.match_type
+  )
 end
 
-When(/^I delete the best bet$/) do
-  delete_best_bet(@best_bet)
+When(/^I delete the first best bet$/) do
+  @bet = @query.best_bets.first
+  delete_best_bet(@query, @bet)
 end
 
 When(/^I delete one of the best bets$/) do
-  delete_best_bet(BestBet.all.first)
+  @query = Query.last
+  delete_best_bet(@query.best_bets.first)
 end
 
 When(/^I delete all the best bets$/) do
@@ -61,7 +71,6 @@ When(/^I delete all the best bets$/) do
   end
 end
 
-
-Then(/^the best bet should not be available on the index page$/) do
-  check_absence_of_best_bet_on_index_page('visas')
+Then(/^the best bet should not be listed on the query page$/) do
+  check_absence_of_best_bet_on_query_page(@query, @bet.link)
 end

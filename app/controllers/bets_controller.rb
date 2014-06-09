@@ -51,7 +51,7 @@ class BetsController < ApplicationController
       flash.alert = 'Could not delete bet'
     end
 
-    redirect_to bets_path
+    redirect_to query_path(@bet.query)
   end
 
 private

@@ -39,23 +39,23 @@ def check_for_best_bet_on_query_page(link: nil, is_best: true, position: nil, qu
 end
 
 
-def edit_best_bet(best_bet, query)
-  visit edit_best_bet_path(best_bet)
-  fill_in 'Query', with: query
+def edit_best_bet(best_bet, link)
+  visit edit_bet_path(best_bet)
+  fill_in 'Link', with: link
   click_on 'Save'
 end
 
-def delete_best_bet(best_bet)
-  visit best_bets_path
+def delete_best_bet(query, best_bet)
+  visit query_path(query)
 
-  within "#best-bet-#{best_bet.id}" do
+  within ".best-bets #bet-#{best_bet.id}" do
     click_on 'Delete'
   end
 end
 
-def check_absence_of_best_bet_on_index_page(query)
-  visit best_bets_path
-  expect(page).not_to have_content(query)
+def check_absence_of_best_bet_on_query_page(query, link)
+  visit query_path(query)
+  expect(page).not_to have_content(link)
 end
 
 def check_for_best_bets_in_csv_format(best_bets)
