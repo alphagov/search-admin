@@ -14,7 +14,7 @@
   </tr>
   <% @best_bets.each do |bet| %>
     <tr class="bet" id="bet-<%= bet.id %>">
-      <td><%= bet.link %></td>
+      <td><%= link_to bet.link, edit_bet_path(bet) %></td>
       <td><%= bet.position %></td>
       <td><%= button_to 'Delete', bet_path(bet), method: :delete %></td>
     </tr>

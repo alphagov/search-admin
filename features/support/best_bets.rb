@@ -68,7 +68,9 @@ end
 
 
 def edit_best_bet(best_bet, link)
-  visit edit_bet_path(best_bet)
+  visit query_path(best_bet.query)
+  click_on best_bet.link
+
   fill_in 'Link', with: link
   click_on 'Save'
 end
