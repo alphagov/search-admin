@@ -1,4 +1,4 @@
-Feature: Best bets CSV
+Feature: Update search index on best bet change
   As a search admin
   I want my best bet changes to be sent to the metasearch index
   So that they can be used to alter the results of searches
