@@ -4,7 +4,7 @@
     <th>Match</th>
   </tr>
   <% @queries.each do |query| %>
-    <tr class="query">
+    <tr class="query" id="query-<%= query.id %>">
       <td><%= link_to query.query, query_path(query) %></td>
       <td><%= link_to query.match_type, query_path(query) %></td>
     </tr>

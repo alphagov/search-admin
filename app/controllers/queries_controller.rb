@@ -51,6 +51,20 @@ class QueriesController < ApplicationController
     end
   end
 
+  def destroy
+    query = Query.find(params[:id])
+
+    if query.destroy
+      notify_of_new_query(query)
+
+      flash[:notice] = "Your query was deleted successfully"
+      redirect_to queries_path
+    else
+      flash[:alert] = "We could not delete your query"
+      redirect_to query_path(query)
+    end
+  end
+
 private
 
   def query_params

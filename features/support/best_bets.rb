@@ -18,13 +18,30 @@ def create_query(query: nil, match_type: nil, links: [])
   end
 end
 
-def edit_query(query: nil, match_type: nil, new_query_text: nil)
+def edit_query(query_text: nil, match_type: nil, new_query_text: nil)
   visit queries_path
 
-  click_on query
+  query = Query.where(query: query_text, match_type: match_type).last
+
+  within("#query-#{query.id}") do
+    click_on query_text
+  end
+
   click_on "Edit query"
   fill_in 'Query', with: new_query_text
   click_on 'Save'
+end
+
+def delete_query(query_text: nil, match_type: nil)
+  visit queries_path
+
+  query = Query.where(query: query_text, match_type: match_type).last
+
+  within("#query-#{query.id}") do
+    click_on query_text
+  end
+
+  click_on "Delete query"
 end
 
 def check_for_query_on_index_page(query: nil, match_type: nil)
@@ -60,6 +77,13 @@ def delete_best_bet(query, best_bet)
   within ".best-bets #bet-#{best_bet.id}" do
     click_on 'Delete'
   end
+end
+
+def check_for_absence_of_query_on_index_page(query: nil, match_type: nil)
+  visit queries_path
+
+  expect(page).not_to have_content(query)
+  expect(page).not_to have_content(match_type)
 end
 
 def check_absence_of_best_bet_on_query_page(query, link)
