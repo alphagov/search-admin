@@ -1,5 +1,7 @@
 def create_query(query: nil, match_type: nil, links: [])
-  visit new_query_path
+  visit queries_path
+
+  click_on 'New query'
 
   fill_in 'Query', with: query if query
   select match_type.humanize, from: 'Match type' if match_type
