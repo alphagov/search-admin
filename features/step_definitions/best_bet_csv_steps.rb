@@ -1,5 +1,7 @@
 When(/^I view the best bets CSV$/) do
-  visit queries_path(format: 'csv')
+  visit queries_path
+
+  click_on 'View as CSV'
 end
 
 Then(/^I should see all best bets listed in the CSV$/) do
