@@ -18,6 +18,15 @@ def create_query(query: nil, match_type: nil, links: [])
   end
 end
 
+def edit_query(query: nil, match_type: nil, new_query_text: nil)
+  visit queries_path
+
+  click_on query
+  click_on "Edit query"
+  fill_in 'Query', with: new_query_text
+  click_on 'Save'
+end
+
 def check_for_query_on_index_page(query: nil, match_type: nil)
   visit queries_path
 

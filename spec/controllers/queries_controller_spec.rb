@@ -39,4 +39,47 @@ describe QueriesController do
       end
     end
   end
+
+  describe '#update' do
+    let(:query) { FactoryGirl.create(:query, query: 'tax') }
+
+    def update_query(options = {})
+      put :update, id: query.id, query: query_params.merge(options)
+    end
+
+    context 'on failure' do
+      it "alerts the user" do
+        update_query(match_type: nil)
+        expect(flash[:alert]).to include('could not update')
+      end
+
+      it "renders the edit action" do
+        update_query(match_type: nil)
+        expect(page).to render_template('edit')
+      end
+
+      it "does not notify other systems" do
+        update_query(match_type: nil)
+        expect(SearchAdmin.services(:message_bus)).not_to have_received(:notify)
+      end
+    end
+
+    context 'on success' do
+      it "notifies the user" do
+        update_query
+        expect(flash[:notice]).to include('was updated')
+      end
+
+      it "redirects to the query" do
+        update_query
+        expect(page).to redirect_to(query_path(Query.last))
+      end
+
+      it "notifies the world of the new query" do
+        update_query
+        expect(SearchAdmin.services(:message_bus)).to have_received(:notify)
+          .with(:bet_changed, [['jobs', 'exact'], ['tax', 'exact']])
+      end
+    end
+  end
 end

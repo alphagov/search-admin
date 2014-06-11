@@ -5,8 +5,8 @@
   </tr>
   <% @queries.each do |query| %>
     <tr class="query">
-      <td><%= query.query %></td>
-      <td><%= query.match_type %></td>
+      <td><%= link_to query.query, query_path(query) %></td>
+      <td><%= link_to query.match_type, query_path(query) %></td>
     </tr>
   <% end %>
 </table>

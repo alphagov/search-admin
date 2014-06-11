@@ -1,3 +1,6 @@
+<h1><%= @query.query %> - <%= @query.match_type %></h1>
+<p><%= link_to "Edit query", edit_query_path(@query) %></p>
+
 <h2>Add new bet</h2>
 <%= render 'bets/form', bet: @new_bet, query: @query %>
 

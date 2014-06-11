@@ -1,5 +1,1 @@
-<%= form_for(Query.new) do |f| %>
-  <%= f.text_field :query %>
-  <%= f.select :match_type, Query::MATCH_TYPES.map {|t| [t.humanize, t] } %>
-  <%= f.button "Save" %>
-<% end %>
+<%= render 'form', query: Query.new %>

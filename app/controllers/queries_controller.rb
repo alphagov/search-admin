@@ -30,13 +30,40 @@ class QueriesController < ApplicationController
     @best_bets = @query.best_bets
   end
 
+  def edit
+    @query = Query.find(params[:id])
+  end
+
+  def update
+    query = Query.find(params[:id])
+
+    previous_query_text = query.query
+    previous_query_match_type = query.match_type
+
+    if query.update_attributes(query_params)
+      notify_of_new_query(query, previous_query_text: previous_query_text, previous_query_match_type: previous_query_match_type)
+
+      flash[:notice] = "Your query was updated successfully"
+      redirect_to query_path(query)
+    else
+      flash[:alert] = "We could not update your query"
+      render :edit
+    end
+  end
+
 private
 
   def query_params
     params.require(:query).permit(:query, :match_type)
   end
 
-  def notify_of_new_query(query)
-    SearchAdmin.services(:message_bus).notify(:bet_changed, [[query.query, query.match_type]])
+  def notify_of_new_query(query, previous_query_text: nil, previous_query_match_type: nil)
+    if previous_query_text && previous_query_match_type
+      queries_to_notify_about = [[query.query, query.match_type], [previous_query_text, previous_query_match_type]]
+    else
+      queries_to_notify_about = [[query.query, query.match_type]]
+    end
+
+    SearchAdmin.services(:message_bus).notify(:bet_changed, queries_to_notify_about)
   end
 end
