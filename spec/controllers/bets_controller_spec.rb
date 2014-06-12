@@ -7,7 +7,8 @@ describe BetsController do
       query_id: query.id,
       link: '/visas-and-immigration',
       position: 1,
-      comment: 'Created to help UKVI'
+      comment: 'Created to help UKVI',
+      is_best: true,
     }
   }
 

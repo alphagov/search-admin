@@ -1,10 +1,5 @@
 class BetsController < ApplicationController
   def create
-    create_params = bet_params.merge(
-      user_id: current_user.id,
-      manual: true
-    )
-
     @bet = Bet.new(create_params)
 
     if @bet.save
@@ -23,11 +18,11 @@ class BetsController < ApplicationController
   end
 
   def edit
-    @bet = Bet.find(params[:id])
+    @bet = bet
   end
 
   def update
-    @bet = Bet.find(params[:id])
+    @bet = bet
 
     if @bet.update_attributes(bet_params)
       notify_bet_changed(@bet)
@@ -41,7 +36,7 @@ class BetsController < ApplicationController
   end
 
   def destroy
-    @bet = Bet.find(params[:id])
+    @bet = bet
 
     if @bet.destroy
       notify_bet_changed(@bet)
@@ -56,6 +51,10 @@ class BetsController < ApplicationController
 
 private
 
+  def bet
+    @_bet ||= Bet.find(params[:id])
+  end
+
   def bet_params
     params.require(:bet).permit(
       :comment,
@@ -67,6 +66,10 @@ private
       :query_id,
       :source,
     )
+  end
+
+  def create_params
+    bet_params.merge( user_id: current_user.id, manual: true)
   end
 
   def notify_bet_changed(bet)
