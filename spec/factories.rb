@@ -1,4 +1,8 @@
 FactoryGirl.define do
+  sequence :numeric_position do |n|
+    n
+  end
+
   factory :bet do
     link "/death-and-taxes"
 
@@ -8,7 +12,7 @@ FactoryGirl.define do
 
     trait(:best) {
       is_best true
-      sequence(:position) { |n| }
+      position { generate :numeric_position }
     }
 
     user

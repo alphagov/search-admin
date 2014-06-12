@@ -11,11 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140604154436) do
+ActiveRecord::Schema.define(version: 20140612095007) do
 
   create_table "bets", force: true do |t|
     t.string  "link"
-    t.integer "position"
+    t.integer "position", default: 1
     t.string  "comment"
     t.integer "user_id"
     t.boolean "manual",   default: false

@@ -6,8 +6,8 @@ class Bet < ActiveRecord::Base
 
   validates :link, :query_id, :user_id, presence: true
   validates :position, numericality: {
-                         allow_nil: true,
+                         allow_nil: false,
                          greater_than: 0,
                          only_integer: true
-                       }
+                       }, if: :is_best?
 end
