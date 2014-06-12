@@ -45,6 +45,11 @@ Given(/^a variety of best bets exist$/) do
   FactoryGirl.create(:bet, :worst, query: visas_query, link: "/a-bad-visas-page")
 end
 
+Given(/^a query with a worst bet exists$/) do
+  @query = FactoryGirl.create(:query)
+  @worst_bet = FactoryGirl.create(:bet, is_best: false, query: @query)
+end
+
 When(/^I edit a best bet$/) do
   edit_best_bet(@query.best_bets.first, '/job-policy')
 end

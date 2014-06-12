@@ -28,6 +28,7 @@ class QueriesController < ApplicationController
 
     @query = Query.find(params[:id])
     @best_bets = @query.best_bets
+    @worst_bets = @query.worst_bets
   end
 
   def edit

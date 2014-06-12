@@ -66,6 +66,11 @@ def check_for_best_bet_on_query_page(link: nil, is_best: true, position: nil, qu
   end
 end
 
+def check_for_worst_bet_on_query_page(worst_bet: nil)
+  within(".worst-bets .bet") do
+    expect(page).to have_content(worst_bet.link)
+  end
+end
 
 def edit_best_bet(best_bet, link)
   visit query_path(best_bet.query)
