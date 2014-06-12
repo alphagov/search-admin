@@ -14,7 +14,7 @@ def create_query(query: nil, match_type: nil, links: [])
       fill_in 'Position', with: position
       check 'Is best bet?'
     else
-      check 'Worst bet?'
+      uncheck 'Is best bet?'
     end
     fill_in 'Comment', with: comment
     click_on 'Save'
@@ -56,22 +56,16 @@ def check_for_query_on_index_page(query: nil, match_type: nil)
   end
 end
 
-def check_for_best_bet_on_query_page(link: nil, is_best: true, position: nil, query: nil, match_type: nil, comment: nil)
+def check_for_bet_on_query_page(link: nil, is_best: nil, position: nil, query: nil, match_type: nil, comment: nil)
   query = Query.where(query: query, match_type: match_type).first
   visit query_path(query)
 
   bet_type = is_best ? 'best' : 'worst'
-  within(".#{bet_type}-bets .bet") do
-    expect(page).to have_content(link)
-    expect(page).to have_content(comment)
-    expect(page).to have_content(position) if is_best
-  end
-end
 
-def check_for_worst_bet_on_query_page(worst_bet: nil)
-  within(".worst-bets .bet") do
-    expect(page).to have_content(worst_bet.link)
-    expect(page).to have_content(worst_bet.comment)
+  within(".#{bet_type}-bets .bet") do
+    expect(page).to have_css 'td', text: link
+    expect(page).to have_css 'td', text: comment
+    expect(page).to have_css 'td', text: position if is_best
   end
 end
 

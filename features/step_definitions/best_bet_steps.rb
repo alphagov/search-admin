@@ -2,6 +2,10 @@ When(/^I create a best bet$/) do
   create_query(query: 'jobs', match_type: 'exact', links: [['/jobsearch', true, 1, 'a comment']])
 end
 
+When(/^I create a worst bet for a query$/) do
+  create_query(query: 'worst-bet', match_type: 'exact', links: [['/worst-bet', false, nil, 'a comment']])
+end
+
 When(/^I create several exact best bets for the same query$/) do
   create_query(query: 'jobs', match_type: 'exact', links: [['/jobsearch', true, 1], ['/policy-areas/employment', true, 2]])
 end
@@ -14,7 +18,7 @@ Then(/^the query should be listed on the index page$/) do
 end
 
 Then(/^the best bet should be listed on the query page$/) do
-  check_for_best_bet_on_query_page(
+  check_for_bet_on_query_page(
     comment: 'a comment',
     is_best: true,
     link: '/jobsearch',
@@ -47,8 +51,8 @@ Given(/^a variety of best bets exist$/) do
 end
 
 Given(/^a query with a worst bet exists$/) do
-  @query = FactoryGirl.create(:query)
-  @worst_bet = FactoryGirl.create(:bet, is_best: false, query: @query)
+  query = FactoryGirl.create(:query, query: "worst-bet", match_type: "exact")
+  FactoryGirl.create(:bet, :worst, query: query, link: "/worst-bet", position: nil, comment: 'a comment')
 end
 
 When(/^I edit a best bet$/) do
@@ -57,7 +61,7 @@ end
 
 Then(/^the edited best bet should be listed on the query page$/) do
   bet = @query.best_bets.first
-  check_for_best_bet_on_query_page(
+  check_for_bet_on_query_page(
     link: 'job-policy',
     is_best: bet.is_best?,
     position: bet.position,
@@ -90,4 +94,15 @@ end
 
 Then(/^the best bet should not be listed on the query page$/) do
   check_absence_of_best_bet_on_query_page(@query, @bet.link)
+end
+
+Then(/^the worst bet should be listed on the query page$/) do
+  check_for_bet_on_query_page(
+    comment: 'a comment',
+    is_best: false,
+    link: '/worst-bet',
+    match_type: 'exact',
+    position: nil,
+    query: 'worst-bet',
+  )
 end
