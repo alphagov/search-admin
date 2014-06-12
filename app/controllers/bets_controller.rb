@@ -58,13 +58,14 @@ private
 
   def bet_params
     params.require(:bet).permit(
-      :query,
-      :match_type,
-      :link,
-      :position,
       :comment,
+      :is_best,
+      :link,
+      :match_type,
+      :position,
+      :query,
+      :query_id,
       :source,
-      :query_id
     )
   end
 
