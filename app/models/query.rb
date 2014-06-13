@@ -7,7 +7,7 @@ class Query < ActiveRecord::Base
   validates :query, presence: true
   validates :match_type, inclusion: { in: MATCH_TYPES }
 
-  has_many :bets
+  has_many :bets, dependent: :destroy
 
   def self.to_csv(*args)
     CSV.generate do |csv|
