@@ -54,13 +54,6 @@ describe BetsController do
       expect(flash[:alert]).to include('could not be created')
       expect(page).to redirect_to(query_path(query))
     end
-
-    it "redirects to the query index when there's no associated query provided" do
-      post :create, bet: bet_params.merge(query_id: nil)
-
-      expect(flash[:alert]).to include('could not be created')
-      expect(page).to redirect_to(queries_path)
-    end
   end
 
   describe "Updating bets" do

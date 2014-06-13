@@ -8,15 +8,10 @@ class BetsController < ApplicationController
       store_updated_attributes_for(@bet.query)
       send_change_notification
 
-      flash.notice = 'Bet created'
+      redirect_to query_path(@bet.query), notice: 'Bet created'
     else
       flash.now[:alert] = 'The bet could not be created because there are errors'
-    end
-
-    if query = @bet.query
       redirect_to query_path(@bet.query)
-    else
-      redirect_to queries_path
     end
   end
 
@@ -31,8 +26,7 @@ class BetsController < ApplicationController
       store_updated_attributes_for(@bet.query)
       send_change_notification
 
-      flash.notice = 'Bet updated'
-      redirect_to query_path(@bet.query)
+      redirect_to query_path(@bet.query), notice: 'Bet updated'
     else
       flash.now[:alert] = 'The bet could not be saved because there are errors'
       render 'edit'
