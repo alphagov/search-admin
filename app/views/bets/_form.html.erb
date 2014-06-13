@@ -1,9 +1,9 @@
-<%= form_for(@best_bet) do |f| %>
-  <%= f.text_field :query %>
-  <%= f.select :match_type, BestBet::MATCH_TYPES.map {|t| [t.humanize, t] } %>
+<%= form_for(bet) do |f| %>
   <%= f.text_field :link %>
   <%= f.number_field :position %>
+  <%= f.check_box :is_worst, label: 'Is worst bet?' %>
   <%= f.text_field :comment %>
+  <%= f.hidden_field :query_id, value: query.id %>
 
   <%= f.button "Save", class: 'btn btn-primary' %>
 <% end %>

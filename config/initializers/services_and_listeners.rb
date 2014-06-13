@@ -12,4 +12,4 @@ SearchAdmin.services(:message_bus, MessageBus.new)
 
 # Listeners
 SearchAdmin.services(:message_bus)
-  .register_listener(:best_bet_changed, RummagerNotifier)
+  .register_listener(:bet_changed, RummagerNotifier)

@@ -1,83 +1,97 @@
 require 'spec_helper'
 
-describe BestBet do
-  before do
-    @valid_atts = {
-      query: "cheese",
-      match_type: "exact",
-      link: "/lancashire-crumbly",
-      position: 1,
-      comment: "Boosting the best county's cheese to the top.",
-      user_id: 1
-    }
+describe Bet do
+  context 'for a best bet' do
+
+    before do
+      @best_bet_attributes = {
+        comment: "Boost the most common job page to the top",
+        is_best: true,
+        link: "/jobsearch",
+        position: 1,
+        query_id: 1,
+        user_id: 1,
+      }
+    end
+
+    it "can be created given valid attributes" do
+      best_bet = Bet.new(@best_bet_attributes)
+      best_bet.save
+
+      expect(best_bet).to be_valid
+      expect(best_bet).to be_persisted
+    end
+
+    it "is invalid without a query" do
+      best_bet = Bet.new(@best_bet_attributes.merge(query_id: nil))
+
+      expect(best_bet).to_not be_valid
+      expect(best_bet.errors).to have_key(:query_id)
+    end
+
+    it "is invalid without a link" do
+      best_bet = Bet.new(@best_bet_attributes.merge(link: ""))
+
+      expect(best_bet).to_not be_valid
+      expect(best_bet.errors).to have_key(:link)
+    end
+
+    it "is valid without a comment" do
+      best_bet = Bet.new(@best_bet_attributes.merge(comment: ""))
+
+      expect(best_bet).to be_valid
+    end
+
+    it "is invalid with a negative position" do
+      best_bet = Bet.new(@best_bet_attributes.merge(position: -2))
+
+      expect(best_bet).to_not be_valid
+      expect(best_bet.errors).to have_key(:position)
+    end
+
+    it "is invalid with a non-integer position" do
+      best_bet = Bet.new(@best_bet_attributes.merge(position: 3.5))
+
+      expect(best_bet).to_not be_valid
+      expect(best_bet.errors).to have_key(:position)
+    end
+
+    it "is invalid with a nil position" do
+      best_bet = Bet.new(@best_bet_attributes.merge(position: nil))
+
+      expect(best_bet).to_not be_valid
+    end
+
+    it "is invalid without a user_id" do
+      best_bet = Bet.new(@best_bet_attributes.merge(user_id: nil))
+
+      expect(best_bet).to_not be_valid
+      expect(best_bet.errors).to have_key(:user_id)
+    end
   end
 
-  it "can be created given valid attributes" do
-    best_bet = BestBet.new(@valid_atts)
-    best_bet.save
+  context 'for a worst bet' do
+    before do
+      @worst_bet_attributes = {
+        comment: "Mark as worst bet",
+        is_best: false,
+        link: "/jobsearch",
+        position: nil,
+        query_id: 1,
+        user_id: 1,
+      }
+    end
 
-    expect(best_bet).to be_valid
-    expect(best_bet).to be_persisted
-  end
+    it 'is valid with a nil position' do
+      worst_bet = Bet.new(@worst_bet_attributes)
 
-  it "is invalid without a query" do
-    best_bet = BestBet.new(@valid_atts.merge(query: ""))
+      expect(worst_bet).to be_valid
+    end
 
-    expect(best_bet).to_not be_valid
-    expect(best_bet.errors).to have_key(:query)
-  end
+    it 'is valid with a position of 0' do
+      worst_bet = Bet.new(@worst_bet_attributes.merge(position: 0))
 
-  it "is invalid without a link" do
-    best_bet = BestBet.new(@valid_atts.merge(link: ""))
-
-    expect(best_bet).to_not be_valid
-    expect(best_bet.errors).to have_key(:link)
-  end
-
-  it "is valid without a comment" do
-    best_bet = BestBet.new(@valid_atts.merge(comment: ""))
-
-    expect(best_bet).to be_valid
-  end
-
-  it "is invalid with a match_type not in the predefined list" do
-    best_bet = BestBet.new(@valid_atts.merge(match_type: "mature"))
-
-    expect(best_bet).to_not be_valid
-    expect(best_bet.errors).to have_key(:match_type)
-  end
-
-  it "is invalid with a blank match_type" do
-    best_bet = BestBet.new(@valid_atts.merge(match_type: ""))
-
-    expect(best_bet).to_not be_valid
-    expect(best_bet.errors).to have_key(:match_type)
-  end
-
-  it "is invalid with a negative position" do
-    best_bet = BestBet.new(@valid_atts.merge(position: -42))
-
-    expect(best_bet).to_not be_valid
-    expect(best_bet.errors).to have_key(:position)
-  end
-
-  it "is invalid with a non-integer position" do
-    best_bet = BestBet.new(@valid_atts.merge(position: 3.141))
-
-    expect(best_bet).to_not be_valid
-    expect(best_bet.errors).to have_key(:position)
-  end
-
-  it "is valid with a nil position" do
-    best_bet = BestBet.new(@valid_atts.merge(position: nil))
-
-    expect(best_bet).to be_valid
-  end
-
-  it "is invalid without a user_id" do
-    best_bet = BestBet.new(@valid_atts.merge(user_id: nil))
-
-    expect(best_bet).to_not be_valid
-    expect(best_bet.errors).to have_key(:user_id)
+      expect(worst_bet).to be_valid
+    end
   end
 end

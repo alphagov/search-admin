@@ -1,0 +1,17 @@
+<h1>Queries</h1>
+<p><%= link_to 'View as CSV', queries_path(format: 'csv') %></p>
+
+<p><%= link_to 'New query', new_query_path %></p>
+
+<table>
+  <tr>
+    <th>Query</th>
+    <th>Match</th>
+  </tr>
+  <% @queries.each do |query| %>
+    <tr class="query" id="query-<%= query.id %>">
+      <td><%= link_to query.query, query_path(query) %></td>
+      <td><%= link_to query.match_type, query_path(query) %></td>
+    </tr>
+  <% end %>
+</table>
