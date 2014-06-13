@@ -1,9 +1,12 @@
 class BetsController < ApplicationController
+  include Notifiable
+
   def create
     @bet = Bet.new(create_params)
 
     if @bet.save
-      notify_bet_changed(@bet)
+      store_updated_attributes_for(@bet.query)
+      send_change_notification
 
       flash.notice = 'Bet created'
     else
@@ -25,7 +28,8 @@ class BetsController < ApplicationController
     @bet = bet
 
     if @bet.update_attributes(bet_params)
-      notify_bet_changed(@bet)
+      store_updated_attributes_for(@bet.query)
+      send_change_notification
 
       flash.notice = 'Bet updated'
       redirect_to query_path(@bet.query)
@@ -39,7 +43,8 @@ class BetsController < ApplicationController
     @bet = bet
 
     if @bet.destroy
-      notify_bet_changed(@bet)
+      store_updated_attributes_for(@bet.query)
+      send_change_notification
 
       flash.notice = 'Bet deleted'
     else
@@ -70,10 +75,5 @@ private
 
   def create_params
     bet_params.merge( user_id: current_user.id, manual: true)
-  end
-
-  def notify_bet_changed(bet)
-    query = bet.query
-    SearchAdmin.services(:message_bus).notify(:bet_changed, [[query.query, query.match_type]])
   end
 end
