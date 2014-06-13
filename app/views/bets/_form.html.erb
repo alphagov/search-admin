@@ -1,7 +1,7 @@
 <%= form_for(bet) do |f| %>
   <%= f.text_field :link %>
   <%= f.number_field :position %>
-  <%= f.check_box :is_best, label: 'Is best bet?' %>
+  <%= f.check_box :is_worst, label: 'Is worst bet?' %>
   <%= f.text_field :comment %>
   <%= f.hidden_field :query_id, value: query.id %>
 

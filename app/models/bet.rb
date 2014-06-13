@@ -4,6 +4,8 @@ class Bet < ActiveRecord::Base
   belongs_to :user
   belongs_to :query
 
+  attr_accessor :is_worst
+
   validates :link, :query_id, :user_id, presence: true
   validates :position, numericality: {
                          allow_nil: false,

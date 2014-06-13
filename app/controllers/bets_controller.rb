@@ -63,7 +63,7 @@ private
   def bet_params
     params.require(:bet).permit(
       :comment,
-      :is_best,
+      :is_worst,
       :link,
       :match_type,
       :position,
@@ -74,6 +74,14 @@ private
   end
 
   def create_params
-    bet_params.merge( user_id: current_user.id, manual: true)
+    bet_params.merge(user_id: current_user.id, manual: true, is_best: best_bet?)
+  end
+
+  def best_bet?
+    !is_worst_bet?
+  end
+
+  def is_worst_bet?
+    bet_params.delete(:is_worst).to_i == 1
   end
 end

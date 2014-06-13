@@ -12,9 +12,8 @@ def create_query(query: nil, match_type: nil, links: [])
     fill_in 'Link', with: link
     if is_best
       fill_in 'Position', with: position
-      check 'Is best bet?'
     else
-      uncheck 'Is best bet?'
+      check 'Is worst bet?'
     end
     fill_in 'Comment', with: comment
     click_on 'Save'
