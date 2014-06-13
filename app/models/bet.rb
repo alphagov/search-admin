@@ -12,4 +12,12 @@ class Bet < ActiveRecord::Base
                          greater_than: 0,
                          only_integer: true
                        }, if: :is_best?
+
+  def self.best
+    where(is_best: true)
+  end
+
+  def self.worst
+    where.not(is_best: true)
+  end
 end

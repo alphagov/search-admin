@@ -22,10 +22,10 @@ class Query < ActiveRecord::Base
   end
 
   def best_bets
-    bets.where(is_best: true)
+    bets.best
   end
 
   def worst_bets
-    bets.where(is_best: false)
+    bets.worst
   end
 end
