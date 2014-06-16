@@ -16,8 +16,20 @@
     <tr class="query" id="query-<%= query.id %>">
       <td><%= link_to query.query, query_path(query) %></td>
       <td><%= link_to query.match_type, query_path(query) %></td>
-      <td><ol><% query.best_bets.each do |bet| %><li><%= bet.link %></li><% end %></ol></td>
-      <td><ol><% query.worst_bets.each do |bet| %><li><%= bet.link %></li><% end %></ol></td>
+      <td>
+        <ol>
+          <% query.best_bets.each do |bet| %>
+            <li><%= bet.link %></li>
+          <% end %>
+        </ol>
+      </td>
+      <td>
+        <ul>
+          <% query.worst_bets.each do |bet| %>
+            <li><%= bet.link %></li>
+          <% end %>
+        </ul>
+      </td>
     </tr>
   <% end %>
 </table>
