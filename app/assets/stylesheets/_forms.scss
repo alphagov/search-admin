@@ -13,6 +13,9 @@ form {
   input[type='submit'] {
     width: auto;
   }
+  input[type='checkbox'] {
+    width: auto;
+  }
   .short-textarea {
     height: 50px;
   }
@@ -42,4 +45,8 @@ form {
       padding-bottom: 2px;
     }
   }
+}
+
+form.button_to {
+  margin-bottom: 0;
 }
