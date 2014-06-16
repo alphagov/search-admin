@@ -1,9 +1,13 @@
-table.best-bets-list {
+table.queries-list {
   @extend .table;
   @extend .table-striped;
   @extend .table-bordered;
 
   width: 100%;
+  ol {
+    list-style: none;
+    padding: 0;
+  }
 }
 
 .collection-actions {
