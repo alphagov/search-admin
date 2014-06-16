@@ -4,6 +4,10 @@ table.queries-list {
   @extend .table-bordered;
 
   width: 100%;
+  ol {
+    list-style: none;
+    padding: 0;
+  }
 }
 
 .collection-actions {
