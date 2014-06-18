@@ -1,35 +1,31 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>GOV.UK Search Admin</title>
-    <%= stylesheet_link_tag 'application', media: 'all' %>
-    <%= javascript_include_tag 'application' %>
-    <%= csrf_meta_tags %>
-  </head>
-  <body>
-    <nav class="primary-navigation" role="navigation">
-      <div class="container">
-        <div class="application-title">
-          <%= link_to "GOV.UK Search Admin", root_path %>
-        </div>
+<% content_for :head do %>
+  <%= stylesheet_link_tag "application", :media => "all" %>
+  <%= javascript_include_tag 'application' %>
+  <%= csrf_meta_tags %>
+<% end %>
 
-        <ul class="current-user">
-          <li><%= link_to current_user.name, Plek.current.find('signon') %></li>
-          <li><%= link_to 'Sign out', '/auth/gds/sign_out' %></li>
-        </ul>
-      </div>
-    </nav>
+<% content_for :page_title, "Search Admin" %>
 
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12">
-          <% flash.each do |key,message| %>
-            <p role="alert" class="flash-<%= key %>"><%= message %></p>
-          <% end %>
+<% content_for :navbar_items do %>
+  <li><%= link_to 'Queries', '/queries' %></li>
+<% end %>
 
-          <%= yield %>
-        </div>
-      </div>
-    </div>
-  </body>
-</html>
+<% content_for :navbar_right do %>
+  Hello, <%= link_to current_user.name, Plek.current.find('signon') %>
+  &bull; <%= link_to 'Sign out', '/auth/gds/sign_out' %>
+<% end %>
+
+<% content_for :content do %>
+  <% flash.each do |type, msg| %>
+    <%= content_tag :div, msg, class: "alert flash-#{type}" %>
+  <% end -%>
+  <%= yield %>
+<% end %>
+<%= javascript_include_tag "application" %>
+<script>
+  $(document).ready(function() {
+    <%= yield :document_ready %>
+  });
+</script>
+<%# use the govuk_admin_foundation layout %>
+<%= render :template => 'layouts/govuk_admin_template' %>
