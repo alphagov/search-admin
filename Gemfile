@@ -7,7 +7,7 @@ gem "airbrake", "3.1.16"
 gem "plek", "1.7.0"
 
 gem 'mysql2'
-gem 'gds-sso', '9.2.6'
+gem 'gds-sso', '9.3.0'
 gem 'rummageable', '1.2.0'
 
 gem 'govuk_admin_template', '1.0.0'
@@ -21,6 +21,7 @@ gem 'byebug', group: [:development, :test]
 
 group :test do
   gem 'rspec-rails'
+  gem 'rspec-core', '2.14.8'
   gem 'cucumber-rails', require: false
   gem 'launchy'
   gem 'database_cleaner'
