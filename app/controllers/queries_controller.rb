@@ -20,6 +20,14 @@ class QueriesController < ApplicationController
 
       redirect_to query_path(query), notice: "Your query was created successfully"
     else
+      if query.errors.include?(:query)
+        if existing_query = Query.where(query: query.query, match_type: query.match_type).first
+          flash[:notice] = "The query you created already exists"
+          redirect_to query_path(existing_query)
+          return
+        end
+      end
+
       flash[:alert] = "We could not create your query"
       render :new
     end

@@ -43,6 +43,13 @@ describe QueriesController do
       post :create, query: query_params.merge(query: 'Jobs')
       expect(Query.last.query).to eq('jobs')
     end
+
+    it "redirects to the existing query if duplicated" do
+      existing_query = FactoryGirl.create(:query, query_params)
+      post :create, query: query_params
+      expect(page).to redirect_to(query_path(existing_query))
+      expect(flash[:notice]).to include('exist')
+    end
   end
 
   describe '#update' do
