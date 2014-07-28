@@ -38,6 +38,11 @@ describe QueriesController do
           .with(:bet_changed, [['jobs', 'exact']])
       end
     end
+
+    it "converts the query to lower case" do
+      post :create, query: query_params.merge(query: 'Jobs')
+      expect(Query.last.query).to eq('jobs')
+    end
   end
 
   describe '#update' do
@@ -80,6 +85,11 @@ describe QueriesController do
         expect(SearchAdmin.services(:message_bus)).to have_received(:notify)
           .with(:bet_changed, [['jobs', 'exact'], ['tax', 'exact']])
       end
+    end
+
+    it "converts the query to lower case" do
+      update_query(query: 'Jobs')
+      expect(Query.last.query).to eq('jobs')
     end
   end
 

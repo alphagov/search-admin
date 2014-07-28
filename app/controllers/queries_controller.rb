@@ -73,6 +73,8 @@ private
   end
 
   def query_params
-    params.require(:query).permit(:query, :match_type)
+    qp = params.require(:query).permit(:query, :match_type)
+    qp[:query] = qp[:query].downcase
+    qp
   end
 end
