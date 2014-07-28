@@ -6,6 +6,7 @@ class Query < ActiveRecord::Base
 
   validates :query, presence: true
   validates :match_type, inclusion: { in: MATCH_TYPES }
+  validates :query, uniqueness: {scope: :match_type}
 
   has_many :bets, dependent: :destroy
 

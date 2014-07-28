@@ -18,6 +18,14 @@ describe Query, 'validations' do
     expect(new_query_with(attributes)).not_to be_valid
   end
 
+  it "is invalid with a duplicate query/match_type" do
+    FactoryGirl.create(:query, query: 'jobs', match_type: 'exact')
+
+    bet = new_query_with(query: 'jobs', match_type: 'exact')
+
+    expect(bet).to_not be_valid
+  end
+
   it 'validates inclusion of match_types in Query::MATCH_TYPES' do
     attributes = FactoryGirl.
       attributes_for(:query, match_type: 'not like the others')
