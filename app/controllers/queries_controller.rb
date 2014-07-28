@@ -20,16 +20,13 @@ class QueriesController < ApplicationController
 
       redirect_to query_path(query), notice: "Your query was created successfully"
     else
-      if query.errors.include?(:query)
-        if existing_query = Query.where(query: query.query, match_type: query.match_type).first
-          flash[:notice] = "The query you created already exists"
-          redirect_to query_path(existing_query)
-          return
-        end
+      if existing_query = check_for_duplicate_query(query)
+        flash[:notice] = "The query you created already exists"
+        redirect_to query_path(existing_query)
+      else
+        flash[:alert] = "We could not create your query"
+        render :new
       end
-
-      flash[:alert] = "We could not create your query"
-      render :new
     end
   end
 
@@ -84,5 +81,11 @@ private
     qp = params.require(:query).permit(:query, :match_type)
     qp[:query] = qp[:query].downcase
     qp
+  end
+
+  def check_for_duplicate_query(query)
+    if query.errors.include?(:query)
+      Query.where(query: query.query, match_type: query.match_type).first
+    end
   end
 end
