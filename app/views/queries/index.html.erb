@@ -1,8 +1,8 @@
-<h1>Queries</h1>
+<h1 class="page-title-with-border remove-bottom-margin">Queries</h1>
 
-<div class="collection-actions">
-  <p><%= link_to 'New query', new_query_path, class: 'btn btn-primary'%></p>
-  <p><%= link_to 'View as CSV', queries_path(format: 'csv'), class: 'btn btn-default' %></p>
+<div class="add-vertical-margins">
+  <%= link_to 'New query', new_query_path, class: 'btn btn-primary add-right-margin'%>
+  <%= link_to 'View as CSV', queries_path(format: 'csv'), class: 'btn btn-default' %>
 </div>
 
 <table class="table queries-list">
