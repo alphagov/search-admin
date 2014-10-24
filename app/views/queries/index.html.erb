@@ -5,31 +5,35 @@
   <p><%= link_to 'View as CSV', queries_path(format: 'csv'), class: 'btn btn-default' %></p>
 </div>
 
-<table class="queries-list">
-  <tr>
-    <th>Query</th>
-    <th>Match</th>
-    <th>Best bets</th>
-    <th>Worst bets</th>
-  </tr>
-  <% @queries.each do |query| %>
-    <tr class="query" id="query-<%= query.id %>">
-      <td><%= link_to query.query, query_path(query) %></td>
-      <td><%= link_to query.match_type, query_path(query) %></td>
-      <td>
-        <ol>
-          <% query.best_bets.each do |bet| %>
-            <li><%= bet.link %></li>
-          <% end %>
-        </ol>
-      </td>
-      <td>
-        <ul>
-          <% query.worst_bets.each do |bet| %>
-            <li><%= bet.link %></li>
-          <% end %>
-        </ul>
-      </td>
+<table class="table queries-list">
+  <thead>
+    <tr class="table-header">
+      <th>Query</th>
+      <th>Match</th>
+      <th>Best bets</th>
+      <th>Worst bets</th>
     </tr>
-  <% end %>
+  </thead>
+  <tbody>
+    <% @queries.each do |query| %>
+      <tr class="query" id="query-<%= query.id %>">
+        <td><%= link_to query.query, query_path(query) %></td>
+        <td><%= link_to query.match_type, query_path(query) %></td>
+        <td>
+          <ol>
+            <% query.best_bets.each do |bet| %>
+              <li><%= bet.link %></li>
+            <% end %>
+          </ol>
+        </td>
+        <td>
+          <ul>
+            <% query.worst_bets.each do |bet| %>
+              <li><%= bet.link %></li>
+            <% end %>
+          </ul>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
 </table>
