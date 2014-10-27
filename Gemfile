@@ -10,7 +10,7 @@ gem 'mysql2'
 gem 'gds-sso', '9.3.0'
 gem 'rummageable', '1.2.0'
 
-gem 'govuk_admin_template', '1.0.0'
+gem 'govuk_admin_template', '1.1.6'
 
 gem 'sass-rails', '~> 4.0.3'
 gem 'uglifier', '>= 1.3.0'

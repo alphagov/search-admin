@@ -8,12 +8,16 @@
 
 <h2>Best bets</h2>
 
-<table class="best-bets bets-list">
-  <tr>
-    <th>Link</th>
-    <th>Position</th>
-    <th>Comment</th>
-  </tr>
+<table class="table best-bets bets-list">
+  <thead>
+    <tr class="table-header">
+      <th>Link</th>
+      <th>Position</th>
+      <th>Comment</th>
+      <th>Delete</th>
+    </tr>
+  </thead>
+  <tbody>
   <% @best_bets.each do |bet| %>
     <tr class="bet" id="bet-<%= bet.id %>">
       <td><%= link_to bet.link, edit_bet_path(bet) %></td>
@@ -22,15 +26,20 @@
       <td><%= button_to 'Delete', bet_path(bet), method: :delete, class: 'btn btn-danger' %></td>
     </tr>
   <% end %>
+  </tbody>
 </table>
 
 <h2>Worst bets</h2>
 
-<table class="worst-bets bets-list">
-  <tr>
-    <th>Link</th>
-    <th>Comment</th>
-  </tr>
+<table class="table worst-bets bets-list">
+  <thead>
+    <tr class="table-header">
+      <th>Link</th>
+      <th>Comment</th>
+      <th>Delete</th>
+    </tr>
+  </thead>
+  <tbody>
   <% @worst_bets.each do |bet| %>
     <tr class="bet" id="bet-<%= bet.id %>">
       <td><%= link_to bet.link, edit_bet_path(bet) %></td>
@@ -38,4 +47,5 @@
       <td><%= button_to 'Delete', bet_path(bet), method: :delete, class: 'btn btn-danger' %></td>
     </tr>
   <% end %>
+  </tbody>
 </table>
