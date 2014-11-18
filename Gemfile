@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.1.0'
+gem 'rails', '4.1.8'
 
 gem 'unicorn'
 gem "airbrake", "3.1.16"
