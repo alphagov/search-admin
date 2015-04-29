@@ -2,7 +2,7 @@ class QueriesController < ApplicationController
   include Notifiable
 
   def index
-    @queries = Query.all.order([:query, :match_type])
+    @queries = Query.includes(:best_bets, :worst_bets).order([:query, :match_type])
 
     respond_to do |format|
       format.html
