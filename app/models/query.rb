@@ -9,6 +9,8 @@ class Query < ActiveRecord::Base
   validates :query, uniqueness: {scope: :match_type}
 
   has_many :bets, dependent: :destroy
+  has_many :best_bets, -> { best }, class: Bet
+  has_many :worst_bets, -> { worst }, class: Bet
 
   def self.to_csv(*args)
     CSV.generate do |csv|
@@ -20,13 +22,5 @@ class Query < ActiveRecord::Base
         end
       end
     end
-  end
-
-  def best_bets
-    bets.best
-  end
-
-  def worst_bets
-    bets.worst
   end
 end

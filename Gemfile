@@ -19,6 +19,10 @@ gem 'generic_form_builder', '0.8.0'
 
 gem 'byebug', group: [:development, :test]
 
+group :development do
+  gem 'quiet_assets'
+end
+
 group :test do
   gem 'rspec-rails'
   gem 'rspec-core', '2.14.8'
