@@ -5,13 +5,21 @@
   <%= link_to 'View as CSV', queries_path(format: 'csv'), class: 'btn btn-default' %>
 </div>
 
-<table class="table queries-list">
+<table class="table queries-list table-bordered" data-module="filterable-table">
   <thead>
     <tr class="table-header">
       <th>Query</th>
       <th>Match</th>
       <th>Best bets</th>
       <th>Worst bets</th>
+    </tr>
+
+    <tr class="table-header">
+      <th colspan='4'>
+        <form class='table-filter'>
+          <input id="table-filter" type="text" class="form-control normal js-filter-table-input" placeholder="Filter table">
+        </form>
+      </th>
     </tr>
   </thead>
   <tbody>

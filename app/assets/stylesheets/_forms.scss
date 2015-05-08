@@ -4,6 +4,10 @@ $mellow-red: #df3034;
 form {
   margin-bottom: 60px;
 
+  &.table-filter {
+    margin-bottom: 0px;
+  }
+
   label {
     display: block;
   }
