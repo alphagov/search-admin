@@ -3,4 +3,6 @@ Rails.application.routes.draw do
   resources :queries
 
   root 'queries#index'
+
+  mount GovukAdminTemplate::Engine, at: "/style-guide"
 end
