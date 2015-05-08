@@ -1,10 +1,10 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.1.8'
+gem 'rails', '4.2.1'
 
 gem 'unicorn'
-gem "airbrake", "3.1.16"
-gem "plek", "1.7.0"
+gem 'airbrake', '3.1.16'
+gem 'plek', '1.7.0'
 
 gem 'mysql2'
 gem 'gds-sso', '9.3.0'
@@ -24,8 +24,8 @@ group :development do
 end
 
 group :test do
+  gem 'rspec'
   gem 'rspec-rails'
-  gem 'rspec-core', '2.14.8'
   gem 'cucumber-rails', require: false
   gem 'launchy'
   gem 'database_cleaner'
