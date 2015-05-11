@@ -1,5 +1,20 @@
 require 'spec_helper'
 
+describe Query do
+  describe '#sorted_best_bets' do
+    it "sorts the best bets by position" do
+      query = FactoryGirl.create(:query)
+      FactoryGirl.create(:bet, query: query, position: 3)
+      FactoryGirl.create(:bet, query: query, position: 1)
+      FactoryGirl.create(:bet, query: query, position: 2)
+
+      list = query.sorted_best_bets
+
+      expect(list.map(&:position)).to eql [1, 2, 3]
+    end
+  end
+end
+
 describe Query, 'associations' do
   it 'should destroy associated bets on #destroy' do
     query = FactoryGirl.create :query
