@@ -12,6 +12,11 @@ class Query < ActiveRecord::Base
   has_many :best_bets, -> { best }, class: Bet
   has_many :worst_bets, -> { worst }, class: Bet
 
+  # Use `sort_by` to prevent N+1 queries when Queries are loaded in a list.
+  def sorted_best_bets
+    best_bets.sort_by(&:position)
+  end
+
   def self.to_csv(*args)
     CSV.generate do |csv|
       csv << ['query', 'link']

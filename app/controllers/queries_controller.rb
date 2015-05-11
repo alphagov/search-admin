@@ -34,7 +34,7 @@ class QueriesController < ApplicationController
     @new_bet = Bet.new
 
     @query = find_query
-    @best_bets = @query.best_bets
+    @best_bets = @query.sorted_best_bets
     @worst_bets = @query.worst_bets
   end
 
