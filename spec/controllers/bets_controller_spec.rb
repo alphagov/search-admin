@@ -57,6 +57,7 @@ describe BetsController do
   end
 
   describe "Updating bets" do
+    let(:query) { FactoryGirl.create(:query, :with_best_bet) }
     let(:bet) { query.bets.first }
 
     it "notifies the world of the change to the query" do

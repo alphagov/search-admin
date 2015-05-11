@@ -4,8 +4,6 @@ describe ElasticSearchBet do
   let(:query) { FactoryGirl.create(:query, query: 'jobs', match_type: 'exact') }
 
   before do
-    query.bets.destroy_all
-
     FactoryGirl.create(:bet, :best, link: '/jobs/more-jobs', position: 2, query: query)
     FactoryGirl.create(:bet, :best, link: '/jobsearch', position: 1, query: query)
 
