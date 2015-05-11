@@ -16,7 +16,7 @@ class Query < ActiveRecord::Base
     CSV.generate do |csv|
       csv << ['query', 'match_type', 'link', 'best/worst', 'comment']
 
-      all.each do |query|
+      all.includes(:bets).each do |query|
         query.bets.each do |bet|
           csv << [query.query,
                   query.match_type,
