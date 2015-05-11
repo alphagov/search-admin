@@ -22,8 +22,10 @@ FactoryGirl.define do
     query "tax"
     match_type "exact"
 
-    after(:create) do |query|
-      create(:bet, :best, query: query)
+    trait :with_best_bet do
+      after(:create) do |query|
+        create(:bet, :best, query: query)
+      end
     end
   end
 

@@ -29,7 +29,7 @@ Then(/^the best bet should be listed on the query page$/) do
 end
 
 Given(/^a query exists$/) do
-  @query = FactoryGirl.create(:query)
+  @query = FactoryGirl.create(:query, :with_best_bet)
   @query.bets.each {|b| b.update_attribute(:link, '/jobsearch') }
 end
 
@@ -41,17 +41,15 @@ end
 
 Given(/^a variety of best bets exist$/) do
   jobs_query = FactoryGirl.create(:query, query: "jobs", match_type: "exact")
-  jobs_query.bets.destroy_all
   FactoryGirl.create(:bet, :best, query: jobs_query, link: "/jobs-1", position: 1)
   FactoryGirl.create(:bet, :best, query: jobs_query, link: "/jobs-2", position: 2)
 
   visas_query = FactoryGirl.create(:query, query: "visas", match_type: "exact")
-  visas_query.bets.destroy_all
   FactoryGirl.create(:bet, :worst, query: visas_query, link: "/a-bad-visas-page")
 end
 
 Given(/^a query with a worst bet exists$/) do
-  query = FactoryGirl.create(:query, query: "worst-bet", match_type: "exact")
+  query = FactoryGirl.create(:query, :with_best_bet, query: "worst-bet", match_type: "exact")
   FactoryGirl.create(:bet, :worst, query: query, link: "/worst-bet", position: nil, comment: 'a comment')
 end
 

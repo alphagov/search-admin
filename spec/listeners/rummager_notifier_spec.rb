@@ -5,6 +5,8 @@ describe RummagerNotifier do
     let(:query) { FactoryGirl.create(:query, query: 'jobs', match_type: 'exact') }
 
     it "`add`s an elasticsearch doc for existing queries" do
+      query = FactoryGirl.create(:query, :with_best_bet, query: 'jobs', match_type: 'exact')
+
       es_doc_body = double(:es_doc_body)
       es_doc = double(:es_doc, body: es_doc_body)
       expect(ElasticSearchBet).to receive(:new)
@@ -32,8 +34,6 @@ describe RummagerNotifier do
       expect(ElasticSearchBetIDGenerator).to receive(:generate)
         .with('jobs', 'exact')
         .and_return(es_doc_id)
-
-      query.bets.destroy_all
 
       RummagerNotifier.call([['jobs', 'exact']])
 
