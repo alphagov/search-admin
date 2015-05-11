@@ -1,1 +1,9 @@
+<ol class="breadcrumb">
+  <li><%= link_to 'Queries', queries_path %></li>
+  <li><%= link_to @query.display_name, query_path(@query) %></li>
+  <li class="active">Edit</li>
+</ol>
+
+<%= page_title @query.display_name %>
+
 <%= render 'form', query: @query %>

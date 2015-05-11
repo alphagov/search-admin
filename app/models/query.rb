@@ -17,6 +17,10 @@ class Query < ActiveRecord::Base
     best_bets.sort_by(&:position)
   end
 
+  def display_name
+    "#{query} (#{match_type})"
+  end
+
   def self.to_csv(*args)
     CSV.generate do |csv|
       csv << ['query', 'match_type', 'link', 'best/worst', 'comment']

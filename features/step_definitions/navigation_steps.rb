@@ -4,6 +4,9 @@ Given(/^I am viewing a specific query$/) do
 end
 
 Then(/^I can click a link to navigate to the index$/) do
-  click_link 'Return to query index'
+  within(".breadcrumb") do
+    click_link 'Queries'
+  end
+
   expect(current_path).to eq queries_path
 end

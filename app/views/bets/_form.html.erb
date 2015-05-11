@@ -1,9 +1,21 @@
 <%= form_for(bet) do |f| %>
-  <%= f.text_field :link %>
-  <%= f.number_field :position %>
-  <%= f.check_box :is_worst, label: 'Is worst bet?' %>
-  <%= f.text_field :comment %>
+  <div class="form-group">
+    <%= f.text_field :link, class: "form-control input-lg" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.number_field :position, class: "form-control input-lg" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.check_box :is_worst, label: 'Is worst bet?' %>
+  </div>
+
+  <div class="form-group">
+    <%= f.text_area :comment, class: "form-control input-lg" %>
+  </div>
+
   <%= f.hidden_field :query_id, value: query.id %>
 
-  <%= f.button "Save", class: 'btn btn-primary' %>
+  <%= f.button "Save", class: "btn btn-success btn-lg" %>
 <% end %>

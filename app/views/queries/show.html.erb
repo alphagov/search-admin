@@ -1,12 +1,16 @@
-<h1><%= @query.query %> - <%= @query.match_type %></h1>
-<p><%= link_to "Edit query", edit_query_path(@query), class: 'btn btn-primary' %></p>
-<p><%= button_to "Delete query", query_path(@query), method: :delete, class: 'btn btn-danger' %></p>
-<p><%= link_to 'Return to query index', queries_path %></p>
+<ol class="breadcrumb">
+  <li><%= link_to 'Queries', queries_path %></li>
+  <li class="active"><%= @query.display_name %></li>
+</ol>
 
-<h2>Add new bet</h2>
-<%= render 'bets/form', bet: @new_bet, query: @query %>
+<%= page_title @query.display_name %>
 
-<h2>Best bets</h2>
+<div class="actions">
+  <%= link_to "Edit query", edit_query_path(@query), class: 'btn btn-default' %>
+  <%= delete_button "Delete query", query_path(@query) %>
+</div>
+
+<h3>Best bets</h3>
 
 <table class="table best-bets bets-list">
   <thead>
@@ -23,13 +27,13 @@
       <td><%= link_to bet.link, edit_bet_path(bet) %></td>
       <td><%= bet.position %></td>
       <td><%= bet.comment %></td>
-      <td><%= button_to 'Delete', bet_path(bet), method: :delete, class: 'btn btn-danger' %></td>
+      <td><%= delete_button 'Delete', bet_path(bet) %></td>
     </tr>
   <% end %>
   </tbody>
 </table>
 
-<h2>Worst bets</h2>
+<h3>Worst bets</h3>
 
 <table class="table worst-bets bets-list">
   <thead>
@@ -44,8 +48,11 @@
     <tr class="bet" id="bet-<%= bet.id %>">
       <td><%= link_to bet.link, edit_bet_path(bet) %></td>
       <td><%= bet.comment %></td>
-      <td><%= button_to 'Delete', bet_path(bet), method: :delete, class: 'btn btn-danger' %></td>
+      <td><%= delete_button 'Delete', bet_path(bet) %></td>
     </tr>
   <% end %>
   </tbody>
 </table>
+
+<h3>Add new bet</h3>
+<%= render 'bets/form', bet: @new_bet, query: @query %>
