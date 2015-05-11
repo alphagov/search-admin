@@ -1,20 +1,23 @@
-<h1 class="page-title-with-border remove-bottom-margin">Queries</h1>
+<ol class="breadcrumb">
+  <li class="active">Queries</li>
+</ol>
 
-<div class="add-vertical-margins">
-  <%= link_to 'New query', new_query_path, class: 'btn btn-primary add-right-margin'%>
-  <%= link_to 'View as CSV', queries_path(format: 'csv'), class: 'btn btn-default' %>
+<%= page_title 'Queries' %>
+
+<div class="actions">
+  <%= link_to icon(:plus) + ' New query', new_query_path, class: 'btn btn-primary'%>
+  <%= link_to icon(:download) + ' Download CSV', queries_path(format: 'csv'), class: 'btn btn-default' %>
 </div>
 
 <table class="table queries-list table-bordered" data-module="filterable-table">
   <thead>
     <tr class="table-header">
-      <th>Query</th>
+      <th>Term</th>
       <th>Match</th>
-      <th>Best bets</th>
-      <th>Worst bets</th>
+      <th>Bets</th>
     </tr>
 
-    <tr class="table-header">
+    <tr class="table-header if-no-js-hide table-header-secondary">
       <th colspan='4'>
         <form class='table-filter'>
           <input id="table-filter" type="text" class="form-control normal js-filter-table-input" placeholder="Filter table">
@@ -24,24 +27,7 @@
   </thead>
   <tbody>
     <% @queries.each do |query| %>
-      <tr class="query" id="query-<%= query.id %>">
-        <td><%= link_to query.query, query_path(query) %></td>
-        <td><%= link_to query.match_type, query_path(query) %></td>
-        <td>
-          <ol>
-            <% query.sorted_best_bets.each do |bet| %>
-              <li><%= bet.link %></li>
-            <% end %>
-          </ol>
-        </td>
-        <td>
-          <ol>
-            <% query.worst_bets.each do |bet| %>
-              <li><%= bet.link %></li>
-            <% end %>
-          </ol>
-        </td>
-      </tr>
+      <%= render 'queries/query_item', query: query %>
     <% end %>
   </tbody>
 </table>

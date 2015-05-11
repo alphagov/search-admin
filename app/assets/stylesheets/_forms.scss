@@ -53,4 +53,13 @@ form {
 
 form.button_to {
   margin-bottom: 0;
+  display: inline-block;
+}
+
+.actions {
+  margin-bottom: 30px;
+
+  a.btn, input.btn {
+    margin-right: 10px;
+  }
 }

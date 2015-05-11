@@ -1,13 +1,16 @@
-<h1><%= @query.query %> - <%= @query.match_type %></h1>
-<p><%= link_to "Edit query", edit_query_path(@query), class: 'btn btn-primary' %></p>
-<p><%= link_to 'Return to query index', queries_path %></p>
-<p><%= delete_button "Delete query", query_path(@query) %></p>
+<ol class="breadcrumb">
+  <li><%= link_to 'Queries', queries_path %></li>
+  <li class="active"><%= @query.display_name %></li>
+</ol>
 
+<%= page_title @query.display_name %>
 
-<h2>Add new bet</h2>
-<%= render 'bets/form', bet: @new_bet, query: @query %>
+<div class="actions">
+  <%= link_to "Edit query", edit_query_path(@query), class: 'btn btn-default' %>
+  <%= delete_button "Delete query", query_path(@query) %>
+</div>
 
-<h2>Best bets</h2>
+<h3>Best bets</h3>
 
 <table class="table best-bets bets-list">
   <thead>
@@ -30,7 +33,7 @@
   </tbody>
 </table>
 
-<h2>Worst bets</h2>
+<h3>Worst bets</h3>
 
 <table class="table worst-bets bets-list">
   <thead>
@@ -50,3 +53,6 @@
   <% end %>
   </tbody>
 </table>
+
+<h3>Add new bet</h3>
+<%= render 'bets/form', bet: @new_bet, query: @query %>

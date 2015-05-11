@@ -4,9 +4,24 @@ table.queries-list {
   @extend .table-bordered;
 
   width: 100%;
+
   ol {
     list-style: none;
     padding: 0;
+  }
+
+  h4 {
+    margin-bottom: 5px;
+  }
+
+  small.comment {
+    color: #8E8E8E;
+    display: block;
+  }
+
+  .glyphicon-minus {
+    color: #CC0000;
+    margin-right: 5px;
   }
 }
 

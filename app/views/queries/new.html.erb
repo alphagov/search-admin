@@ -1,1 +1,8 @@
+<ol class="breadcrumb">
+  <li><%= link_to 'Queries', queries_path %></li>
+  <li class="active">New query</li>
+</ol>
+
+<%= page_title 'New query' %>
+
 <%= render 'form', query: Query.new %>

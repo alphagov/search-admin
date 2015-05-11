@@ -1,3 +1,9 @@
-<h1 class="page-title-with-border">Edit best bet</h1>
+<ol class="breadcrumb">
+  <li><%= link_to 'Queries', queries_path %></li>
+  <li><%= link_to @bet.query.display_name, query_path(@bet.query) %></li>
+  <li class="active">Edit '<%= @bet.link %>'</li>
+</ol>
+
+<%= page_title "Edit '#{@bet.link}'" %>
 
 <%= render 'form', bet: @bet, query: @bet.query %>
