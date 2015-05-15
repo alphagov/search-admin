@@ -36,6 +36,8 @@ class QueriesController < ApplicationController
     @query = find_query
     @best_bets = @query.sorted_best_bets
     @worst_bets = @query.worst_bets
+
+    @search_url = SearchUrl.for(@query.query)
   end
 
   def edit
