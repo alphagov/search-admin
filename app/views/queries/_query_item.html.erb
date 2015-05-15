@@ -19,7 +19,7 @@
 
     <% if query.worst_bets.any? %>
       <ol>
-        <strong>Worst Bets</strong>
+        <strong>Worst bets</strong>
         <% query.worst_bets.each do |bet| %>
           <li><%= icon(:minus) %> <%= link_to bet.link, edit_bet_path(bet) %></li>
         <% end %>
