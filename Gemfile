@@ -4,7 +4,7 @@ gem 'rails', '4.1.8'
 
 gem 'unicorn'
 gem "airbrake", "3.1.16"
-gem "plek", "1.7.0"
+gem 'plek', '~> 1.10.0'
 
 gem 'mysql2'
 gem 'gds-sso', '9.3.0'
