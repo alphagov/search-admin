@@ -12,7 +12,7 @@ gem 'rummageable', '1.2.0'
 
 gem 'govuk_admin_template', '~> 2.3.1'
 
-gem 'sass-rails', '~> 4.0.3'
+gem 'sass-rails', '~> 5.0.3'
 gem 'uglifier', '>= 1.3.0'
 
 gem 'generic_form_builder', '0.8.0'
