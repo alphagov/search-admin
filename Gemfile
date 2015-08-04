@@ -1,33 +1,32 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.1.11'
+gem 'rails', '4.2.3'
 
-gem 'unicorn'
-gem "airbrake", "3.1.16"
+gem 'unicorn', '~> 4.9.0'
+gem 'airbrake', '~> 3.1.16'
 gem 'plek', '~> 1.10.0'
 
-gem 'mysql2'
-gem 'gds-sso', '9.3.0'
-gem 'rummageable', '1.2.0'
+gem 'mysql2', '~> 0.3.19'
+gem 'gds-sso', '~> 9.3.0'
+gem 'rummageable', '~> 1.2.0'
 
 gem 'govuk_admin_template', '~> 2.3.1'
 
 gem 'sass-rails', '~> 5.0.3'
-gem 'uglifier', '>= 1.3.0'
+gem 'uglifier', '~> 1.3.0'
 
-gem 'generic_form_builder', '0.8.0'
-
-gem 'byebug', group: [:development, :test]
+gem 'generic_form_builder', '~> 0.8.0'
 
 group :development do
+  # quiet_assets and byebug don't need pessimistic version lock
+  # because our code doesn't depend on them.
   gem 'quiet_assets'
+  gem 'byebug'
 end
 
 group :test do
-  gem 'rspec-rails'
-  gem 'rspec-core', '2.14.8'
-  gem 'cucumber-rails', require: false
-  gem 'launchy'
-  gem 'database_cleaner'
-  gem 'factory_girl_rails'
+  gem 'rspec-rails', '~> 3.3.3'
+  gem 'cucumber-rails', '~> 1.4.2', require: false
+  gem 'database_cleaner', '~> 1.4.1'
+  gem 'factory_girl_rails', '~> 4.5.0'
 end

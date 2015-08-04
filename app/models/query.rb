@@ -9,8 +9,8 @@ class Query < ActiveRecord::Base
   validates :query, uniqueness: {scope: :match_type}
 
   has_many :bets, dependent: :destroy
-  has_many :best_bets, -> { best }, class: Bet
-  has_many :worst_bets, -> { worst }, class: Bet
+  has_many :best_bets, -> { best }, class_name: 'Bet'
+  has_many :worst_bets, -> { worst }, class_name: 'Bet'
 
   # Use `sort_by` to prevent N+1 queries when Queries are loaded in a list.
   def sorted_best_bets

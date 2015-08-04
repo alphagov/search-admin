@@ -12,7 +12,7 @@ describe QueriesController do
 
       it "renders the new action" do
         post :create, query: query_params.merge(match_type: nil)
-        expect(page).to render_template('new')
+        expect(response).to render_template('new')
       end
 
       it "does not notify other systems" do
@@ -29,7 +29,7 @@ describe QueriesController do
 
       it "redirects to the query" do
         post :create, query: query_params
-        expect(page).to redirect_to(query_path(Query.last))
+        expect(response).to redirect_to(query_path(Query.last))
       end
 
       it "notifies the world of the new query" do
@@ -47,7 +47,7 @@ describe QueriesController do
     it "redirects to the existing query if duplicated" do
       existing_query = FactoryGirl.create(:query, query_params)
       post :create, query: query_params
-      expect(page).to redirect_to(query_path(existing_query))
+      expect(response).to redirect_to(query_path(existing_query))
       expect(flash[:notice]).to include('exist')
     end
   end
@@ -67,7 +67,7 @@ describe QueriesController do
 
       it "renders the edit action" do
         update_query(match_type: nil)
-        expect(page).to render_template('edit')
+        expect(response).to render_template('edit')
       end
 
       it "does not notify other systems" do
@@ -84,7 +84,7 @@ describe QueriesController do
 
       it "redirects to the query" do
         update_query
-        expect(page).to redirect_to(query_path(Query.last))
+        expect(response).to redirect_to(query_path(Query.last))
       end
 
       it "notifies the world of the new query" do
@@ -132,7 +132,7 @@ describe QueriesController do
 
       it "redirects to the query index" do
         delete_query
-        expect(page).to redirect_to(queries_path)
+        expect(response).to redirect_to(queries_path)
       end
 
       it "notifies the world of the deletion" do
