@@ -1,26 +1,13 @@
 module Notifiable
   extend ActiveSupport::Concern
 
-  def store_previous_attributes_for(query)
-    attribute_store.add_previous_attributes_for(query)
-  end
-
-  def store_updated_attributes_for(query)
-    attribute_store.add_updated_attributes_for(query)
+  def store_query_for_rummager(query)
+    @attributes_to_send ||= []
+    @attributes_to_send.push [query.query, query.match_type]
   end
 
   def send_change_notification
-    notification_service.notify
-  end
-
-  def attribute_store
-    @_attribute_store ||= AttributeStore.new
-  end
-
-  def notification_service
-    BetChangeNotifier.new(
-      SearchAdmin.services(:message_bus),
-      attribute_store.attributes
-    )
+    attributes_to_send = @attributes_to_send.reject { |set| set.blank? }
+    RummagerNotifier.notify(attributes_to_send)
   end
 end

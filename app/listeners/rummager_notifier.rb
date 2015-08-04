@@ -1,7 +1,7 @@
 class RummagerNotifier
-  def self.call(changed_query_match_type_pairs)
-    changed_query_match_type_pairs.each do |(query, match_type)|
-      update_elasticsearch(query, match_type)
+  def self.notify(changed_query_match_type_pairs)
+    changed_query_match_type_pairs.each do |(query_string, match_type)|
+      update_elasticsearch(query_string, match_type)
     end
   end
 

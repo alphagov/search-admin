@@ -8,8 +8,3 @@ end
 
 # Services
 SearchAdmin.services(:rummager_index, Rummageable::Index.new(Plek.current.find('search'), 'metasearch'))
-SearchAdmin.services(:message_bus, MessageBus.new)
-
-# Listeners
-SearchAdmin.services(:message_bus)
-  .register_listener(:bet_changed, RummagerNotifier)

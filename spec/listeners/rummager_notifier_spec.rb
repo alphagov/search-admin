@@ -13,7 +13,7 @@ describe RummagerNotifier do
         .with(query, include_id_and_type_in_body: true)
         .and_return(es_doc)
 
-      RummagerNotifier.call([['jobs', 'exact']])
+      RummagerNotifier.notify([['jobs', 'exact']])
 
       expect(SearchAdmin.services(:rummager_index)).to have_received(:add).with(es_doc_body)
     end
@@ -24,7 +24,7 @@ describe RummagerNotifier do
         .with('visas', 'exact')
         .and_return(es_doc_id)
 
-      RummagerNotifier.call([['visas', 'exact']])
+      RummagerNotifier.notify([['visas', 'exact']])
 
       expect(SearchAdmin.services(:rummager_index)).to have_received(:delete).with(es_doc_id, type: 'best_bet')
     end
@@ -35,7 +35,7 @@ describe RummagerNotifier do
         .with('jobs', 'exact')
         .and_return(es_doc_id)
 
-      RummagerNotifier.call([['jobs', 'exact']])
+      RummagerNotifier.notify([['jobs', 'exact']])
 
       expect(SearchAdmin.services(:rummager_index)).to have_received(:delete).with(es_doc_id, type: 'best_bet')
     end

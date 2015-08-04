@@ -1,6 +1,10 @@
 require 'spec_helper'
 
 describe QueriesController do
+  before do
+    allow(RummagerNotifier).to receive(:notify)
+  end
+
   let(:query_params) { {query: 'jobs', match_type: 'exact'} }
 
   describe '#create' do
@@ -17,7 +21,7 @@ describe QueriesController do
 
       it "does not notify other systems" do
         post :create, query: query_params.merge(match_type: nil)
-        expect(SearchAdmin.services(:message_bus)).not_to have_received(:notify)
+        expect(RummagerNotifier).not_to have_received(:notify)
       end
     end
 
@@ -34,8 +38,8 @@ describe QueriesController do
 
       it "notifies the world of the new query" do
         post :create, query: query_params
-        expect(SearchAdmin.services(:message_bus)).to have_received(:notify)
-          .with(:bet_changed, [['jobs', 'exact']])
+        expect(RummagerNotifier).to have_received(:notify)
+          .with([['jobs', 'exact']])
       end
     end
 
@@ -72,7 +76,7 @@ describe QueriesController do
 
       it "does not notify other systems" do
         update_query(match_type: nil)
-        expect(SearchAdmin.services(:message_bus)).not_to have_received(:notify)
+        expect(RummagerNotifier).not_to have_received(:notify)
       end
     end
 
@@ -89,8 +93,8 @@ describe QueriesController do
 
       it "notifies the world of the new query" do
         update_query
-        expect(SearchAdmin.services(:message_bus)).to have_received(:notify)
-          .with(:bet_changed, [['jobs', 'exact'], ['tax', 'exact']])
+        expect(RummagerNotifier).to have_received(:notify)
+          .with([['tax', 'exact'], ['jobs', 'exact']])
       end
     end
 
@@ -120,7 +124,7 @@ describe QueriesController do
 
       it "does not notify other systems" do
         delete_query
-        expect(SearchAdmin.services(:message_bus)).not_to have_received(:notify)
+        expect(RummagerNotifier).not_to have_received(:notify)
       end
     end
 
@@ -137,8 +141,8 @@ describe QueriesController do
 
       it "notifies the world of the deletion" do
         delete_query
-        expect(SearchAdmin.services(:message_bus)).to have_received(:notify)
-          .with(:bet_changed, [['tax', 'exact']])
+        expect(RummagerNotifier).to have_received(:notify)
+          .with([['tax', 'exact']])
       end
     end
   end
