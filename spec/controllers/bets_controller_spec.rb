@@ -45,14 +45,14 @@ describe BetsController do
       post :create, bet: bet_params
 
       expect(flash[:notice]).to include('Bet created')
-      expect(page).to redirect_to(query_path(query))
+      expect(response).to redirect_to(query_path(query))
     end
 
     it "redirects to the query show when create is unsuccessful" do
       post :create, bet: bet_params.merge(link: '')
 
       expect(flash[:alert]).to include('could not be created')
-      expect(page).to redirect_to(query_path(query))
+      expect(response).to redirect_to(query_path(query))
     end
   end
 
@@ -71,14 +71,14 @@ describe BetsController do
       post :update, id: bet.id, bet: bet_params
 
       expect(flash[:notice]).to include('Bet updated')
-      expect(page).to redirect_to(query_path(query))
+      expect(response).to redirect_to(query_path(query))
     end
 
     it "renders the edit template when update is unsuccessful" do
       post :update, id: bet.id, bet: bet_params.merge(link: '')
 
       expect(flash[:alert]).to include('could not be saved')
-      expect(page).to render_template(:edit)
+      expect(response).to render_template(:edit)
     end
   end
 end
