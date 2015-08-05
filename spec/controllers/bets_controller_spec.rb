@@ -1,6 +1,10 @@
 require 'spec_helper'
 
 describe BetsController do
+  before do
+    allow(RummagerNotifier).to receive(:notify)
+  end
+
   let(:query) { FactoryGirl.create(:query) }
   let(:bet_params) {
     {
@@ -37,8 +41,8 @@ describe BetsController do
     it "notifies the world of the change to the query" do
       post :create, bet: bet_params
 
-      expect(SearchAdmin.services(:message_bus)).to have_received(:notify)
-        .with(:bet_changed, [[query.query, query.match_type]])
+      expect(RummagerNotifier).to have_received(:notify)
+        .with([[query.query, query.match_type]])
     end
 
     it "redirects to the query show when create is successful" do
@@ -63,8 +67,8 @@ describe BetsController do
     it "notifies the world of the change to the query" do
       put :update, id: bet.id, bet: bet_params
 
-      expect(SearchAdmin.services(:message_bus)).to have_received(:notify)
-        .with(:bet_changed, [[query.query, query.match_type]])
+      expect(RummagerNotifier).to have_received(:notify)
+        .with([[query.query, query.match_type]])
     end
 
     it "redirects to the query show when update is successful" do

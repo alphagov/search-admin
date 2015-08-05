@@ -21,7 +21,6 @@ RSpec.configure do |config|
 
   config.before(:each) do
     SearchAdmin.services(:rummager_index, double(:rummager_index, add: nil, delete: nil))
-    SearchAdmin.services(:message_bus, double(:message_bus, notify: nil))
   end
 
   config.before(:each, type: 'controller') do
