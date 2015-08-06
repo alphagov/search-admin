@@ -1,0 +1,22 @@
+<ol class="breadcrumb">
+  <li><%= link_to 'Search results', results_path %></li>
+  <li class="active">Inspect Result</li>
+</ol>
+
+<%= page_title "Search results" %>
+
+<%= render 'form' %>
+
+<% if @document %>
+  <%= table_for @document.to_hash %>
+
+  <%= button_to "Remove result",
+    result_path(@path),
+    method: "delete",
+    class: "btn btn-danger btn-lg",
+    data: { confirm: "Are you sure you want to delete this result?" } %>
+<% else %>
+  <div class='alert alert-danger'>
+    <p>That URL wasn't found. Please try again.</p>
+  </div>
+<% end %>
