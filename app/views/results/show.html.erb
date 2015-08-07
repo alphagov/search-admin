@@ -10,11 +10,22 @@
 <% if @document %>
   <%= table_for @document.to_hash %>
 
-  <%= button_to "Remove result",
-    result_path(@path),
-    method: "delete",
-    class: "btn btn-danger btn-lg",
-    data: { confirm: "Are you sure you want to delete this result?" } %>
+  <div class="callout callout-danger">
+        <div class="callout-title">
+          Remove search result
+        </div>
+        <div class="callout-body">
+          <p>
+            This will remove the item from all search results. You must archive the item to make this permanent.
+          </p>
+
+          <%= button_to "Remove result",
+            result_path(@path),
+            method: "delete",
+            class: "btn btn-danger btn-lg",
+            data: { confirm: "Are you sure you want to delete this result?" } %>
+        </div>
+      </div>
 <% else %>
   <div class='alert alert-danger'>
     <p>That URL wasn't found. Please try again.</p>
