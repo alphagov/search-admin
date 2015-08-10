@@ -9,6 +9,7 @@ gem 'plek', '~> 1.10.0'
 gem 'mysql2', '~> 0.3.19'
 gem 'gds-sso', '~> 9.3.0'
 gem 'rummageable', '~> 1.2.0'
+gem 'gds-api-adapters', '~> 23.1.0'
 
 gem 'govuk_admin_template', '~> 2.3.1'
 
@@ -29,4 +30,5 @@ group :test do
   gem 'cucumber-rails', '~> 1.4.2', require: false
   gem 'database_cleaner', '~> 1.4.1'
   gem 'factory_girl_rails', '~> 4.5.0'
+  gem 'webmock', '~> 1.21.0'
 end

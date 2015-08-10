@@ -6,7 +6,13 @@
 <% content_for :app_title, "GOV.UK Search Admin" %>
 
 <% content_for :navbar_items do %>
-  <li class='active'><%= link_to 'Queries', '/queries' %></li>
+  <li class='<%= controller_name.in?(%w[queries bets]) ? "active" : nil %>'>
+    <%= link_to 'Queries', queries_path %>
+  </li>
+
+  <li class='<%= controller_name.in?(%w[results]) ? "active" : nil %>'>
+    <%= link_to 'Search results', results_path %>
+  </li>
 <% end %>
 
 <% content_for :navbar_right do %>

@@ -6,3 +6,7 @@
   @extend .alert;
   @extend .alert-danger;
 }
+.flash-error {
+  @extend .alert;
+  @extend .alert-danger;
+}

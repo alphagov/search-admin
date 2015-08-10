@@ -1,0 +1,8 @@
+<%= form_tag '/results/result', method: 'get' do %>
+  <div class="form-group">
+    <label for='base_path'>Path or URL of search result (eg. /book-driving-test)</label>
+    <input id='base_path' type='search' value="<%= @path %>" name='base_path' class='form-control' />
+  </div>
+
+  <input type='submit' value='Show search result' class='btn btn-primary btn-md' />
+<% end %>
