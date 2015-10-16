@@ -11,32 +11,32 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140728094001) do
+ActiveRecord::Schema.define(version: 20151016132421) do
 
-  create_table "bets", force: true do |t|
-    t.string  "link"
-    t.integer "position", default: 1
-    t.string  "comment"
-    t.integer "user_id"
-    t.boolean "manual",   default: false
-    t.integer "query_id"
-    t.boolean "is_best",  default: true
+  create_table "bets", force: :cascade do |t|
+    t.string  "link",     limit: 255
+    t.integer "position", limit: 4,     default: 1
+    t.text    "comment",  limit: 65535
+    t.integer "user_id",  limit: 4
+    t.boolean "manual",                 default: false
+    t.integer "query_id", limit: 4
+    t.boolean "is_best",                default: true
   end
 
-  create_table "queries", force: true do |t|
-    t.string   "query"
-    t.string   "match_type"
+  create_table "queries", force: :cascade do |t|
+    t.string   "query",      limit: 255
+    t.string   "match_type", limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "users", force: true do |t|
-    t.string  "name"
-    t.string  "email"
-    t.string  "uid"
-    t.string  "organisation_slug"
-    t.string  "permissions"
-    t.boolean "remotely_signed_out", default: false
+  create_table "users", force: :cascade do |t|
+    t.string  "name",                limit: 255
+    t.string  "email",               limit: 255
+    t.string  "uid",                 limit: 255
+    t.string  "organisation_slug",   limit: 255
+    t.string  "permissions",         limit: 255
+    t.boolean "remotely_signed_out",             default: false
   end
 
 end
