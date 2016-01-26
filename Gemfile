@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.2.3'
+gem 'rails', '4.2.5.1'
 
 gem 'unicorn', '~> 4.9.0'
 gem 'airbrake', '~> 3.1.16'
@@ -11,10 +11,10 @@ gem 'gds-sso', '~> 9.3.0'
 gem 'rummageable', '~> 1.2.0'
 gem 'gds-api-adapters', '~> 23.1.0'
 
-gem 'govuk_admin_template', '~> 2.3.1'
+gem 'govuk_admin_template', '~> 4.1.1'
 
 gem 'sass-rails', '~> 5.0.3'
-gem 'uglifier', '~> 2.7.1'
+gem 'uglifier', '~> 2.7.2'
 
 gem 'generic_form_builder', '~> 0.8.0'
 
