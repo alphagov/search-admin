@@ -23,7 +23,6 @@ group :development do
   # because our code doesn't depend on them.
   gem 'quiet_assets'
   gem 'byebug'
-  gem 'govuk-lint', '~> 0.7.0'
 end
 
 group :test do
@@ -32,4 +31,8 @@ group :test do
   gem 'database_cleaner', '~> 1.4.1'
   gem 'factory_girl_rails', '~> 4.5.0'
   gem 'webmock', '~> 1.21.0'
+end
+
+group :test, :development do
+  gem 'govuk-lint', '~> 0.7.0'
 end
