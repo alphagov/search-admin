@@ -23,6 +23,7 @@ group :development do
   # because our code doesn't depend on them.
   gem 'quiet_assets'
   gem 'byebug'
+  gem 'govuk-lint', '~> 0.7.0'
 end
 
 group :test do
