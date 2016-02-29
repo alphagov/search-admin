@@ -5,7 +5,7 @@ describe QueriesController do
     allow(RummagerNotifier).to receive(:notify)
   end
 
-  let(:query_params) { {query: 'jobs', match_type: 'exact'} }
+  let(:query_params) { { query: 'jobs', match_type: 'exact' } }
 
   describe '#create' do
     context 'on failure' do
@@ -39,7 +39,7 @@ describe QueriesController do
       it "notifies the world of the new query" do
         post :create, query: query_params
         expect(RummagerNotifier).to have_received(:notify)
-          .with([['jobs', 'exact']])
+          .with([%w(jobs exact)])
       end
     end
 
@@ -94,7 +94,7 @@ describe QueriesController do
       it "notifies the world of the new query" do
         update_query
         expect(RummagerNotifier).to have_received(:notify)
-          .with([['tax', 'exact'], ['jobs', 'exact']])
+          .with([%w(tax exact), %w(jobs exact)])
       end
     end
 
@@ -142,7 +142,7 @@ describe QueriesController do
       it "notifies the world of the deletion" do
         delete_query
         expect(RummagerNotifier).to have_received(:notify)
-          .with([['tax', 'exact']])
+          .with([%w(tax exact)])
       end
     end
   end

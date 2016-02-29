@@ -2,7 +2,6 @@ require 'spec_helper'
 
 describe Bet do
   context 'for a best bet' do
-
     before do
       @best_bet_attributes = {
         comment: "Boost the most common job page to the top",

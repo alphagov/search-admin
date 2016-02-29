@@ -124,7 +124,7 @@ def check_rummager_was_sent_a_best_bet_delete(query_es_ids)
 end
 
 def run_elasticsearch_exporter
-  `#{Rails.root+'bin/export_best_bets_for_elasticsearch'}`
+  `#{Rails.root + 'bin/export_best_bets_for_elasticsearch'}`
 end
 
 def confirm_elasticsearch_format(dump, queries)
@@ -143,8 +143,8 @@ end
 
 def build_es_doc_from_query(query, include_id_and_type_in_body: false)
   details_json = {
-    best_bets: query.best_bets.map {|bet| {link: bet.link, position: bet.position} },
-    worst_bets: query.worst_bets.map {|bet| {link: bet.link} }
+    best_bets: query.best_bets.map { |bet| { link: bet.link, position: bet.position } },
+    worst_bets: query.worst_bets.map { |bet| { link: bet.link } }
   }.to_json
 
   query_field = "#{query.match_type}_query".to_sym

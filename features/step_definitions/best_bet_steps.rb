@@ -30,7 +30,7 @@ end
 
 Given(/^a query exists$/) do
   @query = FactoryGirl.create(:query, :with_best_bet)
-  @query.bets.each {|b| b.update_attribute(:link, '/jobsearch') }
+  @query.bets.each { |b| b.update_attribute(:link, '/jobsearch') }
 end
 
 Given(/^there are some best bets$/) do

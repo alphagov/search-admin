@@ -29,12 +29,12 @@ describe ElasticSearchBet do
       exact_query: 'jobs',
       details: {
         best_bets: [
-          {link: '/jobsearch', position: 1},
-          {link: '/jobs/more-jobs', position: 2}
+          { link: '/jobsearch', position: 1 },
+          { link: '/jobs/more-jobs', position: 2 }
         ],
         worst_bets: [
-          {link: '/people/steve-jobs'},
-          {link: '/topics/employment'}
+          { link: '/people/steve-jobs' },
+          { link: '/topics/employment' }
         ]
       }.to_json
     )
