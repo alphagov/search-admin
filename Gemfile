@@ -34,5 +34,5 @@ group :test do
 end
 
 group :test, :development do
-  gem 'govuk-lint', '~> 0.7.0'
+  gem 'govuk-lint', '~> 0.8.1'
 end
