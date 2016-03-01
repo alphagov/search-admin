@@ -5,8 +5,6 @@ class RummagerNotifier
     end
   end
 
-private
-
   def self.update_elasticsearch(query_string, match_type)
     query = Query.where(query: query_string, match_type: match_type).first
 

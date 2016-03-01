@@ -58,13 +58,13 @@ private
 
   def details
     {
-      best_bets: best_bets.map {|bet| {link: bet.link, position: bet.position} },
-      worst_bets: worst_bets.map {|bet| {link: bet.link} }
+      best_bets: best_bets.map { |bet| { link: bet.link, position: bet.position } },
+      worst_bets: worst_bets.map { |bet| { link: bet.link } }
     }
   end
 
   def best_bets
-    @query.best_bets.sort_by {|b| [b.position, b.link] }
+    @query.best_bets.sort_by { |b| [b.position, b.link] }
   end
 
   def worst_bets

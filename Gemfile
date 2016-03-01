@@ -32,3 +32,7 @@ group :test do
   gem 'factory_girl_rails', '~> 4.5.0'
   gem 'webmock', '~> 1.21.0'
 end
+
+group :test, :development do
+  gem 'govuk-lint', '~> 0.8.1'
+end

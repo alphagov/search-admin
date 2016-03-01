@@ -1,12 +1,9 @@
 class Query < ActiveRecord::Base
-  MATCH_TYPES = [
-    "exact",
-    "stemmed"
-  ]
+  MATCH_TYPES = %w(exact stemmed)
 
   validates :query, presence: true
   validates :match_type, inclusion: { in: MATCH_TYPES }
-  validates :query, uniqueness: {scope: :match_type}
+  validates :query, uniqueness: { scope: :match_type }
 
   has_many :bets, dependent: :destroy
   has_many :best_bets, -> { best }, class_name: 'Bet'
@@ -21,7 +18,7 @@ class Query < ActiveRecord::Base
     "#{query} (#{match_type})"
   end
 
-  def self.to_csv(*args)
+  def self.to_csv(*_args)
     CSV.generate do |csv|
       csv << ['query', 'match_type', 'link', 'best/worst', 'comment']
 

@@ -1,11 +1,13 @@
 module TableHelper
   def table_for(hash)
     content_tag :table, class: 'table key-value-table' do
-      hash.map do |k, v|
+      rows = hash.map do |k, v|
         content_tag :tr do
           content_tag(:td, k) + content_tag(:td, display_value(v))
         end
-      end.join.html_safe
+      end
+
+      rows.join.html_safe
     end
   end
 

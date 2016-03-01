@@ -20,7 +20,8 @@ class QueriesController < ApplicationController
 
       redirect_to query_path(query), notice: "Your query was created successfully"
     else
-      if existing_query = check_for_duplicate_query(query)
+      existing_query = check_for_duplicate_query(query)
+      if existing_query
         flash[:notice] = "The query you created already exists"
         redirect_to query_path(existing_query)
       else

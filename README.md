@@ -5,7 +5,7 @@ search and browse data.
 
 ## Live example
 
-- https://search-admin.production.alphagov.co.uk/
+- https://search-admin.publishing.service.gov.uk/
 
 ## Technical documentation
 
