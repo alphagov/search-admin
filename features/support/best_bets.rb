@@ -110,24 +110,24 @@ end
 
 def check_rummager_was_sent_an_exact_best_bet_document(query)
   elasticsearch_doc = build_es_doc_from_query(query, include_id_and_type_in_body: true)
-  expect(SearchAdmin.services(:rummager_index)).to have_received(:add).with(elasticsearch_doc)
+  expect(SearchAdmin.services(:rummager_index_metasearch)).to have_received(:add).with(elasticsearch_doc)
 end
 
 def check_rummager_was_sent_a_best_bet_delete(query_es_ids)
   query_es_ids.each do |id|
     # The `delete` happens twice because it is triggered when
     # creating a new query with no bets
-    expect(SearchAdmin.services(:rummager_index)).to have_received(:delete)
+    expect(SearchAdmin.services(:rummager_index_metasearch)).to have_received(:delete)
       .twice
       .with(id, type: "best_bet")
   end
 end
 
-def run_elasticsearch_exporter
+def run_best_bets_elasticsearch_exporter
   `#{Rails.root + 'bin/export_best_bets_for_elasticsearch'}`
 end
 
-def confirm_elasticsearch_format(dump, queries)
+def confirm_best_bets_elasticsearch_format(dump, queries)
   queries.each do |query|
     es_doc_header = {
       'index' => {

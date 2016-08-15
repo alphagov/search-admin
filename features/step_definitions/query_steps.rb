@@ -26,7 +26,7 @@ When(/^I visit the query$/) do
   visit query_path(@query || Query.last)
 end
 
-Then(/^I should see the search results on the page$/) do
+Then(/^I should see the queries search results on the page$/) do
   expect(page).to have_selector('iframe')
   expect(find('iframe')[:src]).to include 'gov.uk/search?q=jobs'
 end

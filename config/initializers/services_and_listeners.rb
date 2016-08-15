@@ -7,7 +7,9 @@ module SearchAdmin
 end
 
 # Services
-SearchAdmin.services(:rummager_index, Rummageable::Index.new(Plek.current.find('search'), 'metasearch'))
+SearchAdmin.services(:rummager_index_metasearch, Rummageable::Index.new(Plek.current.find('search'), 'metasearch'))
+SearchAdmin.services(:rummager_index_mainstream, Rummageable::Index.new(Plek.current.find('search'), 'mainstream'))
+SearchAdmin.services(:rummager_index_government, Rummageable::Index.new(Plek.current.find('search'), 'government'))
 
 require 'gds_api/rummager'
 

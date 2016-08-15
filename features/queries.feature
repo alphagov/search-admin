@@ -6,7 +6,7 @@ Feature: Queries
   Scenario: Viewing a query
     When I create a new query
     And I visit the query
-    Then I should see the search results on the page
+    Then I should see the queries search results on the page
 
   Scenario: Creating a query
     When I create a new query

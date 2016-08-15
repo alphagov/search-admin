@@ -1,0 +1,8 @@
+<ol class="breadcrumb">
+  <li><%= link_to 'Recommended links', recommended_links_path %></li>
+  <li class="active">New recommended link</li>
+</ol>
+
+<%= page_title 'New recommended link' %>
+
+<%= render 'create_form', recommended_link: @recommended_link %>

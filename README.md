@@ -1,7 +1,6 @@
 # Search admin
 
-The `search-admin` application manages search "best bets" along with other
-search and browse data.
+The `search-admin` application manages search "best bets" and "recommended links" along with other search and browse data.
 
 ## Live example
 
@@ -9,13 +8,11 @@ search and browse data.
 
 ## Technical documentation
 
-This is a Ruby on Rails application that manages search "best bets" along with other search and browse data.
-It is behind the signon authentication system and doesn't have a public api.
+This is a Ruby on Rails application that manages search "best bets" and "recommended links" along with other search and browse data. It is behind the signon authentication system and doesn't have a public API.
 
 ### Dependencies
 
-- [alphagov/rummager](https://github.com/alphagov/rummager) - search-admin sends updates to rummager when best-bets are
- edited
+- [alphagov/rummager](https://github.com/alphagov/rummager) - search-admin sends updates to rummager when best bets and recommended links are edited
 
 ### Running the application
 
@@ -42,7 +39,7 @@ In normal production use, whenever a modification is made in search-admin, any n
 to rummager.  However, if you need to load from scratch, or if you think an update has gone astray, you can create a
 dump of data that rummager should have, and the load it in to rummager, using:
 
-    `bundle exec ruby bin/export_best_bets_for_elasticsearch > ~/metasearch.dump`
+    `bundle exec ruby bin/export_for_elasticsearch > ~/metasearch.dump`
     `cd /var/apps/rummager`  # Or wherever rummager is installed
     `bundle exec ruby bin/bulk_load metasearch < ~/metasearch.dump`
 

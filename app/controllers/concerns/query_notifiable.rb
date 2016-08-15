@@ -1,4 +1,4 @@
-module Notifiable
+module QueryNotifiable
   extend ActiveSupport::Concern
 
   def store_query_for_rummager(query)
@@ -8,6 +8,6 @@ module Notifiable
 
   def send_change_notification
     attributes_to_send = @attributes_to_send.reject(&:blank?)
-    RummagerNotifier.notify(attributes_to_send)
+    RummagerQueryNotifier.notify(attributes_to_send)
   end
 end

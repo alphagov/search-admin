@@ -15,7 +15,7 @@ describe RummagerNotifier do
 
       RummagerNotifier.notify([%w(jobs exact)])
 
-      expect(SearchAdmin.services(:rummager_index)).to have_received(:add).with(es_doc_body)
+      expect(SearchAdmin.services(:rummager_index_metasearch)).to have_received(:add).with(es_doc_body)
     end
 
     it "`delete`s the elasticsearch bet ID for deleted / altered queries" do
@@ -26,7 +26,7 @@ describe RummagerNotifier do
 
       RummagerNotifier.notify([%w(visas exact)])
 
-      expect(SearchAdmin.services(:rummager_index)).to have_received(:delete).with(es_doc_id, type: 'best_bet')
+      expect(SearchAdmin.services(:rummager_index_metasearch)).to have_received(:delete).with(es_doc_id, type: 'best_bet')
     end
 
     it "`delete`s the elasticsearch bet ID for queries with no bets" do
@@ -37,7 +37,7 @@ describe RummagerNotifier do
 
       RummagerNotifier.notify([%w(jobs exact)])
 
-      expect(SearchAdmin.services(:rummager_index)).to have_received(:delete).with(es_doc_id, type: 'best_bet')
+      expect(SearchAdmin.services(:rummager_index_metasearch)).to have_received(:delete).with(es_doc_id, type: 'best_bet')
     end
   end
 end

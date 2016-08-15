@@ -1,0 +1,24 @@
+<ol class="breadcrumb">
+  <li><%= link_to 'Recommended links', recommended_links_path %></li>
+  <li class="active"><%= @recommended_link.title %></li>
+</ol>
+
+<%= page_title @recommended_link.title %>
+
+<div class="actions">
+  <%= link_to "Edit recommended link", edit_recommended_link_path(@recommended_link), class: 'btn btn-default' %>
+  <%= delete_button "Delete recommended link", recommended_link_path(@recommended_link) %>
+</div>
+
+<h3>Search results</h3>
+<%= link_to 'Visit URL', @search_url, target: '_blank' %>
+
+<div class='callout callout-info add-bottom-margin'>
+  <div class="callout-title">
+    There is a slight delay between the updating of a recommended link and the
+    indexing by the search engine. If you're seeing unexpected results,
+    <a href='' id='search-results-refresh'>try refreshing these results</a>.
+  </div>
+</div>
+
+<iframe src="<%= @search_url %>" id="search-results"></iframe>

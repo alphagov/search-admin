@@ -29,6 +29,14 @@ FactoryGirl.define do
     end
   end
 
+  factory :recommended_link do
+    title "Tax online"
+    link "https://www.tax.service.gov.uk/"
+    description "File your self assessment online."
+    keywords "tax, self assessment, hmrc"
+    search_index "mainstream"
+  end
+
   factory :user do
     permissions { ["signin"] }
   end

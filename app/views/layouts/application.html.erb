@@ -10,6 +10,10 @@
     <%= link_to 'Queries', queries_path %>
   </li>
 
+  <li class='<%= controller_name.in?(%w[recommended_links]) ? "active" : nil %>'>
+    <%= link_to 'Recommended links', recommended_links_path %>
+  </li>
+
   <li class='<%= controller_name.in?(%w[results]) ? "active" : nil %>'>
     <%= link_to 'Search results', results_path %>
   </li>

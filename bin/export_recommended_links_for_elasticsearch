@@ -1,0 +1,9 @@
+#!/usr/bin/env ruby
+
+require File.expand_path('../../config/environment', __FILE__)
+
+RecommendedLink.all.each do |link|
+  es_doc = ElasticSearchRecommendedLink.new(link)
+  puts es_doc.header.to_json
+  puts es_doc.body.to_json
+end

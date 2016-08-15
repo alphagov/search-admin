@@ -26,7 +26,7 @@ RSpec.configure do |config|
   config.order = "random"
 
   config.before(:each) do
-    SearchAdmin.services(:rummager_index, double(:rummager_index, add: nil, delete: nil))
+    SearchAdmin.services(:rummager_index_metasearch, double(:rummager_index_metasearch, add: nil, delete: nil))
   end
 
   config.before(:each, type: 'controller') do

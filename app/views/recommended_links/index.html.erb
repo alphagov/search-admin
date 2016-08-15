@@ -1,0 +1,34 @@
+<ol class="breadcrumb">
+  <li class="active">Recommended links</li>
+</ol>
+
+<%= page_title 'Recommended links' %>
+
+<div class="actions">
+  <%= link_to icon(:plus) + ' New recommended link', new_recommended_link_path, class: 'btn btn-primary'%>
+  <%= link_to icon(:download) + ' Download CSV', recommended_links_path(format: 'csv'), class: 'btn btn-default' %>
+</div>
+
+<table class="table recommended-links-list table-bordered" data-module="filterable-table">
+  <thead>
+    <tr class="table-header">
+      <th>Title</th>
+      <th>Link</th>
+      <th>Description</th>
+      <th>Keywords</th>
+    </tr>
+
+    <tr class="table-header if-no-js-hide table-header-secondary">
+      <th colspan="4">
+        <form class="table-filter">
+          <input id="table-filter" type="text" class="form-control normal js-filter-table-input" placeholder="Filter table">
+        </form>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @recommended_links.each do |recommended_link| %>
+      <%= render 'recommended_links/recommended_link_item', recommended_link: recommended_link %>
+    <% end %>
+  </tbody>
+</table>
