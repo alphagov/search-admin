@@ -74,12 +74,12 @@ end
 
 def check_rummager_was_sent_an_exact_recommended_link_document(recommended_link)
   elasticsearch_doc = build_doc_from_recommended_link(recommended_link)
-  expect(SearchAdmin.services(:rummager_index_mainstream)).to have_received(:add).with(elasticsearch_doc)
+  expect(SearchAdmin.services(:rummager_index_mainstream)).to have_received(:add_document).with("edition", recommended_link.link, elasticsearch_doc)
 end
 
 def check_rummager_was_sent_a_recommended_link_delete(link)
-  expect(SearchAdmin.services(:rummager_index_mainstream)).to have_received(:delete)
-    .with(link)
+  expect(SearchAdmin.services(:rummager_index_mainstream)).to have_received(:delete_document)
+    .with("edition", link)
 end
 
 def run_recommended_links_elasticsearch_exporter

@@ -39,13 +39,4 @@ describe ElasticSearchBet do
       }.to_json
     )
   end
-
-  it "includes the id and type in the body if requested (for Rummager's endpoint)" do
-    es_bet = ElasticSearchBet.new(query, include_id_and_type_in_body: true)
-
-    expect(es_bet.body).to include(
-      _id: 'jobs-exact',
-      _type: 'best_bet'
-    )
-  end
 end

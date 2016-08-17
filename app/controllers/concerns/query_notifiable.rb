@@ -8,6 +8,6 @@ module QueryNotifiable
 
   def send_change_notification
     attributes_to_send = @attributes_to_send.reject(&:blank?)
-    RummagerQueryNotifier.notify(attributes_to_send)
+    RummagerNotifier.notify(attributes_to_send)
   end
 end

@@ -72,14 +72,14 @@ private
 
   def create_recommended_link_params
     params.require(:recommended_link)
-          .permit(:link, :title, :description, :keywords, :search_index)
-          .merge(user_id: current_user.id)
+      .permit(:link, :title, :description, :keywords, :search_index)
+      .merge(user_id: current_user.id)
   end
 
   def update_recommended_link_params
     params.require(:recommended_link)
-          .permit(:title, :description, :keywords, :comment)
-          .merge(user_id: current_user.id)
+      .permit(:title, :description, :keywords, :comment)
+      .merge(user_id: current_user.id)
   end
 
   def check_for_duplicate_recommended_link(recommended_link)
@@ -89,13 +89,13 @@ private
   end
 
   def rummager_add_link(recommended_link)
-    es_doc = ElasticSearchRecommendedLink.new(recommended_link, include_id_and_type_in_body: true)
-    rummager_index(recommended_link.search_index).add(es_doc.details)
+    es_doc = ElasticSearchRecommendedLink.new(recommended_link)
+    rummager_index(recommended_link.search_index).add_document("edition", es_doc.id, es_doc.details)
   end
 
   def rummager_delete_link(recommended_link)
     es_doc_id = ElasticSearchRecommendedLinkIDGenerator.generate(recommended_link.link)
-    rummager_index(recommended_link.search_index).delete(es_doc_id)
+    rummager_index(recommended_link.search_index).delete_document("edition", es_doc_id)
   end
 
   def rummager_index(search_index)

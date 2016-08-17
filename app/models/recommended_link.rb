@@ -7,7 +7,7 @@ class RecommendedLink < ActiveRecord::Base
 
   def self.to_csv(*_args)
     CSV.generate do |csv|
-      csv << ['title', 'link', 'description', 'keywords', 'index', 'comment']
+      csv << %w(title link description keywords index comment)
 
       all.each do |link|
         csv << [link.title,

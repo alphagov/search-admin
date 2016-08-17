@@ -4,9 +4,8 @@ class ElasticSearchRecommendedLink
   #
   # TODO: Alter Rummager's endpoint to take an optional id and type param
   # in place of this functionality.
-  def initialize(recommended_link, include_id_and_type_in_body: false)
+  def initialize(recommended_link)
     @recommended_link = recommended_link
-    @include_id_and_type_in_body = include_id_and_type_in_body
   end
 
   def header
@@ -19,19 +18,10 @@ class ElasticSearchRecommendedLink
   end
 
   def body
-    es_body = {
+    {
       link: link,
       details: details.to_json
     }
-
-    if @include_id_and_type_in_body
-      es_body.merge(
-        _id: id,
-        _type: type
-      )
-    else
-      es_body
-    end
   end
 
   def details

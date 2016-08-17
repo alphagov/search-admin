@@ -234,10 +234,6 @@ GEM
       ruby-progressbar (~> 1.7)
       tins (<= 1.6.0)
     ruby-progressbar (1.8.1)
-    rummageable (1.2.0)
-      multi_json
-      null_logger
-      rest-client
     safe_yaml (1.0.4)
     sass (3.4.22)
     sass-rails (5.0.5)
@@ -301,7 +297,6 @@ DEPENDENCIES
   quiet_assets
   rails (= 4.2.7.1)
   rspec-rails (~> 3.3.3)
-  rummageable (~> 1.2.0)
   sass-rails (~> 5.0.3)
   uglifier (~> 2.7.2)
   unicorn (~> 4.9.0)
