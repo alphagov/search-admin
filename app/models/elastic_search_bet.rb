@@ -1,6 +1,4 @@
 class ElasticSearchBet
-  # _id and _type fields should be included in the body when
-  # being sent via Rummager but not when being sent directly to ElasticSearch.
   def initialize(query)
     @query = query
   end

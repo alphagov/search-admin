@@ -5,7 +5,7 @@ describe BetsController do
     allow(RummagerNotifier).to receive(:notify)
   end
 
-  let(:query) { FactoryGirl.create(:query) }
+  let(:query) { create(:query) }
   let(:bet_params) {
     {
       query_id: query.id,
@@ -24,7 +24,7 @@ describe BetsController do
     end
 
     it "logs the user which created the bet" do
-      user = FactoryGirl.create(:user)
+      user = create(:user)
       login_as(user)
 
       post :create, bet: bet_params
@@ -61,7 +61,7 @@ describe BetsController do
   end
 
   describe "Updating bets" do
-    let(:query) { FactoryGirl.create(:query, :with_best_bet) }
+    let(:query) { create(:query, :with_best_bet) }
     let(:bet) { query.bets.first }
 
     it "notifies the world of the change to the query" do

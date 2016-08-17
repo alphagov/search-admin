@@ -1,5 +1,5 @@
 class BetsController < ApplicationController
-  include QueryNotifiable
+  include Notifiable
 
   def create
     @bet = Bet.new(create_params)

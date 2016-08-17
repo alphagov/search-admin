@@ -1,16 +1,16 @@
 Given(/^a recommended link exists named "(.*)" with link "(.*)"$/) do |title, link|
-  @recommended_link = FactoryGirl.create(:recommended_link, title: title, link: link)
+  @recommended_link = create(:recommended_link, title: title, link: link)
 end
 
 Given(/^there are some recommended links$/) do
   @recommended_links = (1..3).map { |n|
-    FactoryGirl.create(:recommended_link, title: "Tax online #{n}", link: "https://www.tax.service.gov.uk/#{n}")
+    create(:recommended_link, title: "Tax online #{n}", link: "https://www.tax.service.gov.uk/#{n}")
   }
 end
 
 Given(/^a variety of recommended links exist$/) do
-  jobs_recommended_link = FactoryGirl.create(:recommended_link, title: "Jobs", link: "https://www.gov.uk/jobsearch")
-  visas_recommended_link = FactoryGirl.create(:recommended_link, title: "Visas", link: "https://www.gov.uk/apply-uk-visa")
+  create(:recommended_link, title: "Jobs", link: "https://www.gov.uk/jobsearch")
+  create(:recommended_link, title: "Visas", link: "https://www.gov.uk/apply-uk-visa")
 end
 
 When(/^I create a new recommended link$/) do

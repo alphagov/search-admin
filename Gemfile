@@ -21,7 +21,6 @@ group :development do
   # quiet_assets and byebug don't need pessimistic version lock
   # because our code doesn't depend on them.
   gem 'quiet_assets'
-  gem 'byebug'
 end
 
 group :test do
@@ -34,4 +33,5 @@ end
 group :test, :development do
   gem 'rspec-rails', '~> 3.3.3'
   gem 'govuk-lint', '~> 0.8.1'
+  gem 'pry-byebug'
 end

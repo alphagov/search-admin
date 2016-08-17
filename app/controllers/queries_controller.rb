@@ -1,5 +1,5 @@
 class QueriesController < ApplicationController
-  include QueryNotifiable
+  include Notifiable
 
   def index
     @queries = Query.includes(:best_bets, :worst_bets).order([:query, :match_type])

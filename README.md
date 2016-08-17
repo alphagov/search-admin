@@ -39,7 +39,7 @@ In normal production use, whenever a modification is made in search-admin, any n
 to rummager.  However, if you need to load from scratch, or if you think an update has gone astray, you can create a
 dump of data that rummager should have, and the load it in to rummager, using:
 
-    `bundle exec ruby bin/export_for_elasticsearch > ~/metasearch.dump`
+    `bundle exec ruby bin/export_best_bets_for_elasticsearch > ~/metasearch.dump`
     `cd /var/apps/rummager`  # Or wherever rummager is installed
     `bundle exec ruby bin/bulk_load metasearch < ~/metasearch.dump`
 

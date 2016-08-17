@@ -1,6 +1,10 @@
 <%= form_for(recommended_link) do |f| %>
   <div class="form-group">
-    <%= f.text_field :link, class: "form-control input-lg", disabled: true %>
+    <% if recommended_link.new_record? %>
+      <%= f.text_field :link, class: "form-control input-lg" %>
+    <% else %>
+      <%= f.text_field :link, class: "form-control input-lg", disabled: true %>
+    <% end %>
   </div>
 
   <div class="form-group">
@@ -14,6 +18,12 @@
   <div class="form-group">
     <%= f.text_field :keywords, class: "form-control input-lg" %>
   </div>
+
+  <% if recommended_link.new_record? %>
+    <div class="form-group">
+      <%= f.select :search_index, RecommendedLink::SEARCH_INDEXES.map { |t| [t.humanize, t] }, class: "form-control input-lg" %>
+    </div>
+  <% end %>
 
   <div class="form-group">
     <%= f.text_area :comment, class: "form-control input-lg" %>

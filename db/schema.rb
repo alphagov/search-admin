@@ -11,16 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160815115453) do
+ActiveRecord::Schema.define(version: 20160818081220) do
 
   create_table "bets", force: :cascade do |t|
     t.string  "link",     limit: 255
     t.integer "position", limit: 4,     default: 1
     t.text    "comment",  limit: 65535
-    t.integer "user_id",  limit: 4
     t.boolean "manual",                 default: false
     t.integer "query_id", limit: 4
     t.boolean "is_best",                default: true
+    t.integer "user_id",  limit: 4
   end
 
   create_table "queries", force: :cascade do |t|

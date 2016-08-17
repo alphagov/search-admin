@@ -19,14 +19,8 @@ class RecommendedLinksController < ApplicationController
 
       redirect_to recommended_link_path(@recommended_link), notice: "Your recommended link was created successfully"
     else
-      existing_recommended_link = check_for_duplicate_recommended_link(@recommended_link)
-      if existing_recommended_link
-        flash[:notice] = "The recommended link you created already exists"
-        redirect_to recommended_link_path(existing_recommended_link)
-      else
-        flash[:alert] = "We could not create your recommended link"
-        render :new
-      end
+      flash[:alert] = "We could not create your recommended link"
+      render :new
     end
   end
 
@@ -72,7 +66,7 @@ private
 
   def create_recommended_link_params
     params.require(:recommended_link)
-      .permit(:link, :title, :description, :keywords, :search_index)
+      .permit(:link, :title, :description, :keywords, :search_index, :comment)
       .merge(user_id: current_user.id)
   end
 
@@ -94,8 +88,7 @@ private
   end
 
   def rummager_delete_link(recommended_link)
-    es_doc_id = ElasticSearchRecommendedLinkIDGenerator.generate(recommended_link.link)
-    rummager_index(recommended_link.search_index).delete_document("edition", es_doc_id)
+    rummager_index(recommended_link.search_index).delete_document("edition", recommended_link.link)
   end
 
   def rummager_index(search_index)

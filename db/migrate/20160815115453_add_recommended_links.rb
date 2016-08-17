@@ -7,7 +7,7 @@ class AddRecommendedLinks < ActiveRecord::Migration
       t.string :keywords
       t.string :search_index
       t.text :comment
-      t.integer :user_id
+      t.references :user
     end
   end
 end

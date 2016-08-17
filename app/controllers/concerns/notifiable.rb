@@ -1,4 +1,4 @@
-module QueryNotifiable
+module Notifiable
   extend ActiveSupport::Concern
 
   def store_query_for_rummager(query)

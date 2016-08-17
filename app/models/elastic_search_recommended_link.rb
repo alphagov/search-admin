@@ -1,9 +1,4 @@
 class ElasticSearchRecommendedLink
-  # _id and _type fields should be included in the body when
-  # being sent via Rummager but not when being sent directly to ElasticSearch.
-  #
-  # TODO: Alter Rummager's endpoint to take an optional id and type param
-  # in place of this functionality.
   def initialize(recommended_link)
     @recommended_link = recommended_link
   end
@@ -35,7 +30,7 @@ class ElasticSearchRecommendedLink
   end
 
   def id
-    ElasticSearchRecommendedLinkIDGenerator.generate(link)
+    link
   end
 
 private
