@@ -91,7 +91,7 @@ def confirm_recommended_links_elasticsearch_format(dump, recommended_links)
     es_doc_header = {
       'index' => {
         '_id' => "#{recommended_link.link}",
-        '_type' => 'recommended-link'
+        '_type' => type(recommended_link)
       }
     }
 
@@ -105,7 +105,7 @@ def build_doc_from_recommended_link(recommended_link, include_es_data: false)
     title: recommended_link.title,
     link: recommended_link.link,
     description: recommended_link.description,
-    format: "recommended-link",
+    format: type(recommended_link),
     indexable_content: recommended_link.keywords
   }
 
@@ -116,5 +116,15 @@ def build_doc_from_recommended_link(recommended_link, include_es_data: false)
     }
   else
     details
+  end
+end
+
+private
+
+def type(recommended_link)
+  if recommended_link.link.start_with?("https://www.gov.uk")
+    'inside-government-link'
+  else
+    'recommended-link'
   end
 end

@@ -11,6 +11,7 @@ end
 Given(/^a variety of recommended links exist$/) do
   create(:recommended_link, title: "Jobs", link: "https://www.gov.uk/jobsearch")
   create(:recommended_link, title: "Visas", link: "https://www.gov.uk/apply-uk-visa")
+  create(:recommended_link, title: "Blogs", link: "https://www.blog.gov.uk/")
 end
 
 When(/^I create a new recommended link$/) do

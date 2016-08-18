@@ -36,7 +36,11 @@ class ElasticSearchRecommendedLink
 private
 
   def type
-    'recommended-link'
+    if @recommended_link.link.start_with?("https://www.gov.uk")
+      'inside-government-link'
+    else
+      'recommended-link'
+    end
   end
 
   def link
