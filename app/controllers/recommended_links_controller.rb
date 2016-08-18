@@ -66,7 +66,7 @@ private
 
   def create_recommended_link_params
     params.require(:recommended_link)
-      .permit(:link, :title, :description, :keywords, :search_index, :comment)
+      .permit(:link, :title, :description, :keywords, :comment)
       .merge(user_id: current_user.id)
   end
 
@@ -84,18 +84,14 @@ private
 
   def rummager_add_link(recommended_link)
     es_doc = ElasticSearchRecommendedLink.new(recommended_link)
-    rummager_index(recommended_link.search_index).add_document("edition", es_doc.id, es_doc.details)
+    rummager_index.add_document("edition", es_doc.id, es_doc.details)
   end
 
   def rummager_delete_link(recommended_link)
-    rummager_index(recommended_link.search_index).delete_document("edition", recommended_link.link)
+    rummager_index.delete_document("edition", recommended_link.link)
   end
 
-  def rummager_index(search_index)
-    if search_index == "government"
-      SearchAdmin.services(:rummager_index_government)
-    else
-      SearchAdmin.services(:rummager_index_mainstream)
-    end
+  def rummager_index
+    SearchAdmin.services(:rummager_index_mainstream)
   end
 end

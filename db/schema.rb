@@ -31,13 +31,12 @@ ActiveRecord::Schema.define(version: 20160818081220) do
   end
 
   create_table "recommended_links", force: :cascade do |t|
-    t.string  "title",        limit: 255
-    t.string  "link",         limit: 255
-    t.string  "description",  limit: 255
-    t.string  "keywords",     limit: 255
-    t.string  "search_index", limit: 255
-    t.text    "comment",      limit: 65535
-    t.integer "user_id",      limit: 4
+    t.string  "title",       limit: 255
+    t.string  "link",        limit: 255
+    t.string  "description", limit: 255
+    t.string  "keywords",    limit: 255
+    t.text    "comment",     limit: 65535
+    t.integer "user_id",     limit: 4
   end
 
   create_table "users", force: :cascade do |t|
