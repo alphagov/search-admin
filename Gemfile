@@ -8,7 +8,13 @@ gem 'plek', '~> 1.10.0'
 
 gem 'mysql2', '~> 0.3.19'
 gem 'gds-sso', '~> 9.3.0'
-gem 'gds-api-adapters', '~> 23.1.0'
+
+
+if ENV["API_DEV"]
+  gem "gds-api-adapters", path: "../gds-api-adapters"
+else
+  gem 'gds-api-adapters', '~> 34.0.0'
+end
 
 gem 'govuk_admin_template', '~> 4.1.1'
 
