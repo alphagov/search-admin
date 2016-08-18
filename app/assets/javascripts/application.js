@@ -1,3 +1,1 @@
-//= require jquery
-//= require jquery_ujs
-//= require best_bets
+//= require refresh_search_results

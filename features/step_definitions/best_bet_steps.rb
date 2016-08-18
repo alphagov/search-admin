@@ -29,28 +29,28 @@ Then(/^the best bet should be listed on the query page$/) do
 end
 
 Given(/^a query exists$/) do
-  @query = FactoryGirl.create(:query, :with_best_bet)
+  @query = create(:query, :with_best_bet)
   @query.bets.each { |b| b.update_attribute(:link, '/jobsearch') }
 end
 
 Given(/^there are some best bets$/) do
   @queries = (1..3).map { |n|
-    FactoryGirl.create(:query, query: "jobs-#{n}")
+    create(:query, query: "jobs-#{n}")
   }
 end
 
 Given(/^a variety of best bets exist$/) do
-  jobs_query = FactoryGirl.create(:query, query: "jobs", match_type: "exact")
-  FactoryGirl.create(:bet, :best, query: jobs_query, link: "/jobs-1", position: 1)
-  FactoryGirl.create(:bet, :best, query: jobs_query, link: "/jobs-2", position: 2)
+  jobs_query = create(:query, query: "jobs", match_type: "exact")
+  create(:bet, :best, query: jobs_query, link: "/jobs-1", position: 1)
+  create(:bet, :best, query: jobs_query, link: "/jobs-2", position: 2)
 
-  visas_query = FactoryGirl.create(:query, query: "visas", match_type: "exact")
-  FactoryGirl.create(:bet, :worst, query: visas_query, link: "/a-bad-visas-page")
+  visas_query = create(:query, query: "visas", match_type: "exact")
+  create(:bet, :worst, query: visas_query, link: "/a-bad-visas-page")
 end
 
 Given(/^a query with a worst bet exists$/) do
-  query = FactoryGirl.create(:query, :with_best_bet, query: "worst-bet", match_type: "exact")
-  FactoryGirl.create(:bet, :worst, query: query, link: "/worst-bet", position: nil, comment: 'a comment')
+  query = create(:query, :with_best_bet, query: "worst-bet", match_type: "exact")
+  create(:bet, :worst, query: query, link: "/worst-bet", position: nil, comment: 'a comment')
 end
 
 When(/^I edit a best bet$/) do

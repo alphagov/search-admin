@@ -1,12 +1,6 @@
 class ElasticSearchBet
-  # _id and _type fields should be included in the body when
-  # being sent via Rummager but not when being sent directly to ElasticSearch.
-  #
-  # TODO: Alter Rummager's endpoint to take an optional id and type param
-  # in place of this functionality.
-  def initialize(query, include_id_and_type_in_body: false)
+  def initialize(query)
     @query = query
-    @include_id_and_type_in_body = include_id_and_type_in_body
   end
 
   def header
@@ -19,33 +13,24 @@ class ElasticSearchBet
   end
 
   def body
-    es_body = {
+    {
       query_field => query_string,
       details: details.to_json
     }
-
-    if @include_id_and_type_in_body
-      es_body.merge(
-        _id: id,
-        _type: type
-      )
-    else
-      es_body
-    end
   end
 
   def id
     ElasticSearchBetIDGenerator.generate(query_string, match_type)
   end
 
+  def type
+    'best_bet'
+  end
+
 private
 
   def query_field
     "#{match_type}_query".to_sym
-  end
-
-  def type
-    'best_bet'
   end
 
   def query_string

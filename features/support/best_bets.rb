@@ -109,25 +109,29 @@ def check_for_queries_in_csv_format(queries)
 end
 
 def check_rummager_was_sent_an_exact_best_bet_document(query)
-  elasticsearch_doc = build_es_doc_from_query(query, include_id_and_type_in_body: true)
-  expect(SearchAdmin.services(:rummager_index)).to have_received(:add).with(elasticsearch_doc)
+  elasticsearch_doc = build_es_doc_from_query(query)
+  expect(SearchAdmin.services(:rummager_index_metasearch)).to have_received(:add_document).with(
+    "best_bet",
+    "#{query.query}-#{query.match_type}",
+    elasticsearch_doc
+  )
 end
 
 def check_rummager_was_sent_a_best_bet_delete(query_es_ids)
   query_es_ids.each do |id|
     # The `delete` happens twice because it is triggered when
     # creating a new query with no bets
-    expect(SearchAdmin.services(:rummager_index)).to have_received(:delete)
+    expect(SearchAdmin.services(:rummager_index_metasearch)).to have_received(:delete_document)
       .twice
-      .with(id, type: "best_bet")
+      .with("best_bet", id)
   end
 end
 
-def run_elasticsearch_exporter
+def run_best_bets_elasticsearch_exporter
   `#{Rails.root + 'bin/export_best_bets_for_elasticsearch'}`
 end
 
-def confirm_elasticsearch_format(dump, queries)
+def confirm_best_bets_elasticsearch_format(dump, queries)
   queries.each do |query|
     es_doc_header = {
       'index' => {
@@ -141,7 +145,7 @@ def confirm_elasticsearch_format(dump, queries)
   end
 end
 
-def build_es_doc_from_query(query, include_id_and_type_in_body: false)
+def build_es_doc_from_query(query)
   details_json = {
     best_bets: query.best_bets.map { |bet| { link: bet.link, position: bet.position } },
     worst_bets: query.worst_bets.map { |bet| { link: bet.link } }
@@ -149,17 +153,8 @@ def build_es_doc_from_query(query, include_id_and_type_in_body: false)
 
   query_field = "#{query.match_type}_query".to_sym
 
-  es_doc = {
+  {
     query_field => query.query,
     details: details_json
   }
-
-  if include_id_and_type_in_body
-    es_doc.merge(
-      _id: "#{query.query}-#{query.match_type}",
-      _type: 'best_bet'
-    )
-  else
-    es_doc
-  end
 end

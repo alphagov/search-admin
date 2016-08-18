@@ -11,16 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151016132421) do
+ActiveRecord::Schema.define(version: 20160818081220) do
 
   create_table "bets", force: :cascade do |t|
     t.string  "link",     limit: 255
     t.integer "position", limit: 4,     default: 1
     t.text    "comment",  limit: 65535
-    t.integer "user_id",  limit: 4
     t.boolean "manual",                 default: false
     t.integer "query_id", limit: 4
     t.boolean "is_best",                default: true
+    t.integer "user_id",  limit: 4
   end
 
   create_table "queries", force: :cascade do |t|
@@ -28,6 +28,16 @@ ActiveRecord::Schema.define(version: 20151016132421) do
     t.string   "match_type", limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "recommended_links", force: :cascade do |t|
+    t.string  "title",        limit: 255
+    t.string  "link",         limit: 255
+    t.string  "description",  limit: 255
+    t.string  "keywords",     limit: 255
+    t.string  "search_index", limit: 255
+    t.text    "comment",      limit: 65535
+    t.integer "user_id",      limit: 4
   end
 
   create_table "users", force: :cascade do |t|

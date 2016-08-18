@@ -1,5 +1,5 @@
 (function () {
-  // The Bets page contains a button to refresh the iframe.
+  // The Bets and External Links pages contain a button to refresh the iframe.
   $('#search-results-refresh').on('click', refreshSearchResults);
 
   function refreshSearchResults(argument) {

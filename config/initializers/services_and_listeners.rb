@@ -1,3 +1,5 @@
+require 'gds_api/rummager'
+
 module SearchAdmin
   def self.services(name, service = nil)
     @services ||= {}
@@ -7,7 +9,18 @@ module SearchAdmin
 end
 
 # Services
-SearchAdmin.services(:rummager_index, Rummageable::Index.new(Plek.current.find('search'), 'metasearch'))
+SearchAdmin.services(
+  :rummager_index_metasearch,
+  GdsApi::Rummager.new(Plek.current.find('rummager') + '/metasearch')
+)
+SearchAdmin.services(
+  :rummager_index_mainstream,
+  GdsApi::Rummager.new(Plek.current.find('rummager') + '/mainstream')
+)
+SearchAdmin.services(
+  :rummager_index_government,
+  GdsApi::Rummager.new(Plek.current.find('rummager') + '/government')
+)
 
 require 'gds_api/rummager'
 

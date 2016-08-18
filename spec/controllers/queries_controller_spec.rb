@@ -49,7 +49,7 @@ describe QueriesController do
     end
 
     it "redirects to the existing query if duplicated" do
-      existing_query = FactoryGirl.create(:query, query_params)
+      existing_query = create(:query, query_params)
       post :create, query: query_params
       expect(response).to redirect_to(query_path(existing_query))
       expect(flash[:notice]).to include('exist')
@@ -57,7 +57,7 @@ describe QueriesController do
   end
 
   describe '#update' do
-    let(:query) { FactoryGirl.create(:query, query: 'tax') }
+    let(:query) { create(:query, query: 'tax') }
 
     def update_query(options = {})
       put :update, id: query.id, query: query_params.merge(options)
@@ -105,7 +105,7 @@ describe QueriesController do
   end
 
   describe '#destroy' do
-    let(:query) { FactoryGirl.create(:query, query: 'tax') }
+    let(:query) { create(:query, query: 'tax') }
 
     def delete_query
       delete :destroy, id: query.id
