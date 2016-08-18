@@ -17,10 +17,6 @@ SearchAdmin.services(
   :rummager_index_mainstream,
   GdsApi::Rummager.new(Plek.current.find('rummager') + '/mainstream')
 )
-SearchAdmin.services(
-  :rummager_index_government,
-  GdsApi::Rummager.new(Plek.current.find('rummager') + '/government')
-)
 
 require 'gds_api/rummager'
 

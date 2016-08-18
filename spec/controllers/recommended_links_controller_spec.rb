@@ -6,20 +6,19 @@ describe RecommendedLinksController do
       title: 'Tax',
       link: 'https://www.tax.service.gov.uk/',
       description: 'Self assessment',
-      keywords: 'self, assessment, tax',
-      search_index: 'mainstream'
+      keywords: 'self, assessment, tax'
     }
   end
 
   describe '#create' do
     context 'on failure' do
       it "alerts the user" do
-        post :create, recommended_link: recommended_link_params.merge(search_index: nil)
+        post :create, recommended_link: recommended_link_params.merge(title: nil)
         expect(flash[:alert]).to include('could not create')
       end
 
       it "renders the new action" do
-        post :create, recommended_link: recommended_link_params.merge(search_index: nil)
+        post :create, recommended_link: recommended_link_params.merge(title: nil)
         expect(response).to render_template('new')
       end
     end

@@ -30,7 +30,6 @@ RSpec.configure do |config|
   config.before(:each) do
     SearchAdmin.services(:rummager_index_metasearch, double(:rummager_index_metasearch, add_document: nil, delete_document: nil))
     SearchAdmin.services(:rummager_index_mainstream, double(:rummager_index_mainstream, add_document: nil, delete_document: nil))
-    SearchAdmin.services(:rummager_index_government, double(:rummager_index_government, add_document: nil, delete_document: nil))
   end
 
   config.before(:each, type: 'controller') do

@@ -1,4 +1,4 @@
-def create_recommended_link(title: nil, link: nil, description: nil, keywords: nil, search_index: nil)
+def create_recommended_link(title: nil, link: nil, description: nil, keywords: nil)
   visit recommended_links_path
 
   click_on 'New recommended link'
@@ -7,7 +7,6 @@ def create_recommended_link(title: nil, link: nil, description: nil, keywords: n
   fill_in 'Title', with: title if title
   fill_in 'Description', with: description if description
   fill_in 'Keywords', with: keywords if keywords
-  select search_index.humanize, from: 'Search index' if search_index
 
   click_on 'Save'
 end
@@ -58,7 +57,7 @@ end
 def check_for_recommended_links_in_csv_format(recommended_links)
   headers, *rows = *CSV.parse(page.body)
 
-  expect(headers).to eq(%w(title link description keywords index comment))
+  expect(headers).to eq(%w(title link description keywords comment))
 
   recommended_links.each do |recommended_link|
     expect(rows).to include([
@@ -66,7 +65,6 @@ def check_for_recommended_links_in_csv_format(recommended_links)
       recommended_link.link,
       recommended_link.description,
       recommended_link.keywords,
-      recommended_link.search_index,
       ''
     ])
   end

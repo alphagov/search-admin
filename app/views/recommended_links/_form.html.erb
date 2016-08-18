@@ -19,12 +19,6 @@
     <%= f.text_field :keywords, class: "form-control input-lg" %>
   </div>
 
-  <% if recommended_link.new_record? %>
-    <div class="form-group">
-      <%= f.select :search_index, RecommendedLink::SEARCH_INDEXES.map { |t| [t.humanize, t] }, class: "form-control input-lg" %>
-    </div>
-  <% end %>
-
   <div class="form-group">
     <%= f.text_area :comment, class: "form-control input-lg" %>
   </div>
