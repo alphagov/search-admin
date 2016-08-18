@@ -3,7 +3,12 @@ class RecommendedLink < ActiveRecord::Base
   validates :link, uniqueness: true
 
   def format
-    if URI(link).host.downcase == "www.gov.uk"
+    uri = URI(link)
+    if uri.scheme.nil?
+      uri = URI("https://" + link)
+    end
+
+    if uri.host.downcase == "www.gov.uk"
       'inside-government-link'
     else
       'recommended-link'

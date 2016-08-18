@@ -26,12 +26,26 @@ The database.yml for this project is checked into source control so
 you'll need a local user with credentials that match those in
 database.yml.
 
-    `mysql> grant all on `search_admin\_%`.* to search_admin@localhost identified by 'search_admin';`
-
+    mysql> grant all on `search_admin\_%`.* to search_admin@localhost identified by 'search_admin';
 
 ### Running the test suite
 
 `bundle exec rake`
+
+## Import CSV files
+
+You can run `bundle exec rake csv:import filename=links.csv` to import all recommended links in the
+`links.csv` file into the search-admin database. You should then run the bulk load to Rummager as
+explained below.
+
+The format of the input CSV file is:
+
+* title: The title of the link
+* link: The URL of the link
+* description: A description of the link
+* keywords: A comma-separated (and therefore quoted) list of keywords
+
+The first line is considered to be a header and is therefore ignored.
 
 ## Bulk load to rummager
 
