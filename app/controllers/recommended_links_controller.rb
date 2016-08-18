@@ -15,7 +15,7 @@ class RecommendedLinksController < ApplicationController
   def create
     @recommended_link = RecommendedLink.new(create_recommended_link_params)
     if @recommended_link.save
-      rummager_add_link(@recommended_link)
+      RummagerLinkSynchronize.put(@recommended_link)
 
       redirect_to recommended_link_path(@recommended_link), notice: "Your recommended link was created successfully"
     else
@@ -37,7 +37,7 @@ class RecommendedLinksController < ApplicationController
     @recommended_link = find_recommended_link
 
     if @recommended_link.update_attributes(update_recommended_link_params)
-      rummager_add_link(@recommended_link)
+      RummagerLinkSynchronize.put(@recommended_link)
 
       redirect_to recommended_link_path(@recommended_link), notice: "Your recommended link was updated successfully"
     else
@@ -50,7 +50,7 @@ class RecommendedLinksController < ApplicationController
     recommended_link = find_recommended_link
 
     if recommended_link.destroy
-      rummager_delete_link(recommended_link)
+      RummagerLinkSynchronize.delete(recommended_link)
 
       redirect_to recommended_links_path, notice: "Your recommended link was deleted successfully"
     else
@@ -80,18 +80,5 @@ private
     if recommended_link.errors.include?(:recommended_link)
       RecommendedLink.where(link: recommended_link.link).first
     end
-  end
-
-  def rummager_add_link(recommended_link)
-    es_doc = ElasticSearchRecommendedLink.new(recommended_link)
-    rummager_index.add_document("edition", es_doc.id, es_doc.details)
-  end
-
-  def rummager_delete_link(recommended_link)
-    rummager_index.delete_document("edition", recommended_link.link)
-  end
-
-  def rummager_index
-    SearchAdmin.services(:rummager_index_mainstream)
   end
 end
