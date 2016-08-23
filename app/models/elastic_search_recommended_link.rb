@@ -1,4 +1,6 @@
 class ElasticSearchRecommendedLink
+  delegate :format, to: :recommended_link
+
   def initialize(recommended_link)
     @recommended_link = recommended_link
   end
@@ -7,7 +9,7 @@ class ElasticSearchRecommendedLink
     {
       index: {
         _id: id,
-        _type: type
+        _type: format
       }
     }
   end
@@ -24,7 +26,7 @@ class ElasticSearchRecommendedLink
       title: @recommended_link.title,
       link: @recommended_link.link,
       description: @recommended_link.description,
-      format: type,
+      format: format,
       indexable_content: @recommended_link.keywords
     }
   end
@@ -33,15 +35,15 @@ class ElasticSearchRecommendedLink
     link
   end
 
-private
-
-  def type
-    if @recommended_link.link.start_with?("https://www.gov.uk")
+  def format
+    if URI(@recommended_link.link).host.downcase == "www.gov.uk"
       'inside-government-link'
     else
       'recommended-link'
     end
   end
+
+private
 
   def link
     @recommended_link.link

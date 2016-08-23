@@ -5,6 +5,14 @@ class RecommendedLink < ActiveRecord::Base
   validates :search_index, inclusion: { in: SEARCH_INDEXES }
   validates :link, uniqueness: true
 
+  def format
+    if URI(link).host.downcase == "www.gov.uk"
+      'inside-government-link'
+    else
+      'recommended-link'
+    end
+  end
+
   def self.to_csv(*_args)
     CSV.generate do |csv|
       csv << %w(title link description keywords index comment)
