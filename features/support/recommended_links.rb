@@ -89,7 +89,7 @@ def confirm_recommended_links_elasticsearch_format(dump, recommended_links)
     es_doc_header = {
       'index' => {
         '_id' => "#{recommended_link.link}",
-        '_type' => 'recommended-link'
+        '_type' => recommended_link.format
       }
     }
 
@@ -103,7 +103,7 @@ def build_doc_from_recommended_link(recommended_link, include_es_data: false)
     title: recommended_link.title,
     link: recommended_link.link,
     description: recommended_link.description,
-    format: "recommended-link",
+    format: recommended_link.format,
     indexable_content: recommended_link.keywords
   }
 
