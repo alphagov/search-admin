@@ -110,10 +110,14 @@ end
 
 def check_rummager_was_sent_an_exact_best_bet_document(query)
   elasticsearch_doc = build_es_doc_from_query(query)
-  expect(SearchAdmin.services(:rummager_index_metasearch)).to have_received(:add_document).with(
-    "best_bet",
-    "#{query.query}-#{query.match_type}",
-    elasticsearch_doc
+  doc_id = "#{query.query}-#{query.match_type}"
+
+  assert_rummager_posted_item(
+    elasticsearch_doc.merge(
+      "_type" => "best_bet",
+      "_id" => doc_id
+    ),
+    index: "metasearch"
   )
 end
 
@@ -121,10 +125,13 @@ def check_rummager_was_sent_a_best_bet_delete(query_es_ids)
   query_es_ids.each do |id|
     # The `delete` happens twice because it is triggered when
     # creating a new query with no bets
-    expect(SearchAdmin.services(:rummager_index_metasearch)).to have_received(:delete_document)
-      .twice
-      .with("best_bet", id)
+    assert_rummager_deleted_item(id, index: "metasearch", times: 2)
   end
+end
+
+
+def check_rummager_was_sent_a_recommended_link_delete(link:, index:)
+  assert_rummager_deleted_item(link, index: index)
 end
 
 def run_best_bets_elasticsearch_exporter
