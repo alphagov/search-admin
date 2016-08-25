@@ -26,22 +26,43 @@ The database.yml for this project is checked into source control so
 you'll need a local user with credentials that match those in
 database.yml.
 
-    `mysql> grant all on `search_admin\_%`.* to search_admin@localhost identified by 'search_admin';`
-
+    mysql> grant all on `search_admin\_%`.* to search_admin@localhost identified by 'search_admin';
 
 ### Running the test suite
 
 `bundle exec rake`
 
+## Import CSV files
+
+You can run `bundle exec rake csv:import filename=links.csv` to import all recommended links in the
+`links.csv` file into the search-admin database. You should then run the bulk load to Rummager as
+explained below.
+
+The format of the input CSV file is:
+
+* title: The title of the link
+* link: The URL of the link
+* description: A description of the link
+* keywords: A comma-separated (and therefore quoted) list of keywords
+
+The first line is considered to be a header and is therefore ignored.
+
 ## Bulk load to rummager
 
 In normal production use, whenever a modification is made in search-admin, any necessary corresponding updates are sent
-to rummager.  However, if you need to load from scratch, or if you think an update has gone astray, you can create a
-dump of data that rummager should have, and the load it in to rummager, using:
+to rummager.  However, if you need to load from scratch, or if you think an update has gone astray, you can bulk load data from the local database.
 
-    `bundle exec ruby bin/export_best_bets_for_elasticsearch > ~/metasearch.dump`
-    `cd /var/apps/rummager`  # Or wherever rummager is installed
-    `bundle exec ruby bin/bulk_load metasearch < ~/metasearch.dump`
+### Best bets
+
+Create a dump of data that rummager should have, and the load it in to rummager, using:
+
+    bundle exec ruby bin/export_best_bets_for_elasticsearch > ~/metasearch.dump
+    cd /var/apps/rummager  # Or wherever rummager is installed
+    bundle exec ruby bin/bulk_load metasearch < ~/metasearch.dump
+
+### Recommended links
+
+Run `bundle exec rake sync:recommended-links`
 
 ## Licence
 
