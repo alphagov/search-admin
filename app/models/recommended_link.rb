@@ -1,6 +1,6 @@
 class RecommendedLink < ActiveRecord::Base
   validates :title, :link, :description, :keywords, presence: true
-  validates :link, uniqueness: true
+  validates :link, uniqueness: true, url: true
 
   def format
     uri = URI(link)
