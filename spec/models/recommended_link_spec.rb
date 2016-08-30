@@ -24,19 +24,17 @@ describe RecommendedLink do
     )
     expect(recommended_link.format).to eq "recommended-link"
   end
-
-  it "uses recommended-link format if it is external and has no scheme" do
-    recommended_link = create(
-      :recommended_link,
-      link: "www.hello-world.com"
-    )
-    expect(recommended_link.format).to eq "recommended-link"
-  end
 end
 
 describe RecommendedLink, 'validations' do
   it 'is invalid without a title attribute' do
     attributes = attributes_for(:recommended_link, title: nil)
+
+    expect(new_recommended_link_with(attributes)).not_to be_valid
+  end
+
+  it 'is invalid with an incomplete link' do
+    attributes = attributes_for(:recommended_link, link: 'www.hello-world.com')
 
     expect(new_recommended_link_with(attributes)).not_to be_valid
   end
