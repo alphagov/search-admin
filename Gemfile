@@ -18,7 +18,7 @@ end
 
 gem 'govuk_admin_template', '~> 4.1.1'
 
-gem 'sass-rails', '~> 5.0.3'
+gem 'sass-rails', '~> 5.0.6'
 gem 'uglifier', '~> 2.7.2'
 
 gem 'generic_form_builder', '~> 0.8.0'
