@@ -28,8 +28,11 @@ RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods
 
   config.before(:each) do
-    SearchAdmin.services(:rummager_index_metasearch, double(:rummager_index_metasearch, add_document: nil, delete_document: nil))
-    SearchAdmin.services(:rummager_index_mainstream, double(:rummager_index_mainstream, add_document: nil, delete_document: nil))
+    # rummager URLs are of the form: http://rummager.dev.gov.uk/mainstream/document/http://test.dev.gov.uk
+    # The part after /document/ is optional depending on the request type
+    rummager_url_regex = %r{#{Plek.find('rummager')}/.+/.+(/.*)?}
+    stub_request(:post, rummager_url_regex)
+    stub_request(:delete, rummager_url_regex)
   end
 
   config.before(:each, type: 'controller') do
