@@ -1,5 +1,5 @@
 When(/^I create a best bet$/) do
-  create_query(query: 'jobs', match_type: 'exact', links: [['/jobsearch', true, 1, 'a comment']])
+  create_query(query: 'some jobs', match_type: 'exact', links: [['/jobsearch', true, 1, 'a comment']])
 end
 
 When(/^I create a worst bet for a query$/) do
@@ -12,7 +12,7 @@ end
 
 Then(/^the query should be listed on the index page$/) do
   check_for_query_on_index_page(
-    query: 'jobs',
+    query: 'some jobs',
     match_type: 'exact'
   )
 end
@@ -24,7 +24,7 @@ Then(/^the best bet should be listed on the query page$/) do
     link: '/jobsearch',
     match_type: 'exact',
     position: 1,
-    query: 'jobs',
+    query: 'some jobs',
   )
 end
 
