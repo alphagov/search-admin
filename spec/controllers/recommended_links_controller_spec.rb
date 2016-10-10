@@ -71,6 +71,12 @@ describe RecommendedLinksController do
         update_recommended_link
         expect(response).to redirect_to(recommended_link_path(RecommendedLink.last))
       end
+
+      it 'notifies rummager of the changes' do
+        expect(RummagerLinkSynchronize).to receive(:put).with(recommended_link)
+
+        update_recommended_link(title: 'A new title')
+      end
     end
   end
 
