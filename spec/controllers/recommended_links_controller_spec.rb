@@ -62,6 +62,10 @@ describe RecommendedLinksController do
     end
 
     context 'on success' do
+      RSpec::Matchers.define :expected_link do |link|
+        match { |recommended_link| recommended_link.link == link }
+      end
+
       it "notifies the user" do
         update_recommended_link
         expect(flash[:notice]).to include('was updated')
@@ -72,10 +76,22 @@ describe RecommendedLinksController do
         expect(response).to redirect_to(recommended_link_path(RecommendedLink.last))
       end
 
-      it 'notifies rummager of the changes' do
-        expect(RummagerLinkSynchronize).to receive(:put).with(recommended_link)
+      it 'deletes the old document from rummager and adds the new one' do
+        old_link = recommended_link.link
+        new_link = 'http://new-link.com'
 
-        update_recommended_link(title: 'A new title')
+        expect(RummagerLinkSynchronize).to receive(:delete).with(
+          expected_link(old_link)
+        )
+        expect(RummagerLinkSynchronize).to receive(:put).with(
+          expected_link(new_link)
+        )
+
+        update_recommended_link(link: new_link)
+
+        recommended_link.reload
+
+        expect(recommended_link.link).to eq(new_link)
       end
     end
   end
