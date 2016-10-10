@@ -1,5 +1,5 @@
 class RecommendedLink < ActiveRecord::Base
-  validates :title, :link, :description, :keywords, presence: true
+  validates :title, :link, :description, presence: true
   validates :link, uniqueness: true, url: true
 
   def format
