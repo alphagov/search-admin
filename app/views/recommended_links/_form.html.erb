@@ -1,10 +1,6 @@
 <%= form_for(recommended_link) do |f| %>
   <div class="form-group">
-    <% if recommended_link.new_record? %>
-      <%= f.text_field :link, class: "form-control input-lg" %>
-    <% else %>
-      <%= f.text_field :link, class: "form-control input-lg", disabled: true %>
-    <% end %>
+    <%= f.text_field :link, class: "form-control input-lg" %>
   </div>
 
   <div class="form-group">

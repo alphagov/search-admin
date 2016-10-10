@@ -35,8 +35,15 @@ class RecommendedLinksController < ApplicationController
 
   def update
     @recommended_link = find_recommended_link
+    old_recommended_link = RecommendedLink.new(link: @recommended_link.link)
 
     if @recommended_link.update_attributes(update_recommended_link_params)
+
+      # Delete the record from rummager if the link has changed
+      if @recommended_link.link != old_recommended_link.link
+        RummagerLinkSynchronize.delete(old_recommended_link)
+      end
+
       RummagerLinkSynchronize.put(@recommended_link)
 
       redirect_to recommended_link_path(@recommended_link), notice: "Your recommended link was updated successfully"
@@ -72,7 +79,7 @@ private
 
   def update_recommended_link_params
     params.require(:recommended_link)
-      .permit(:title, :description, :keywords, :comment)
+      .permit(:link, :title, :description, :keywords, :comment)
       .merge(user_id: current_user.id)
   end
 
