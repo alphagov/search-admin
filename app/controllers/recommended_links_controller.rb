@@ -1,6 +1,6 @@
 class RecommendedLinksController < ApplicationController
   def index
-    @recommended_links = RecommendedLink.order([:title])
+    @recommended_links = RecommendedLink.order([:link])
 
     respond_to do |format|
       format.html
