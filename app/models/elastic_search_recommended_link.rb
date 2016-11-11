@@ -5,15 +5,6 @@ class ElasticSearchRecommendedLink
     @recommended_link = recommended_link
   end
 
-  def header
-    {
-      index: {
-        _id: id,
-        _type: format
-      }
-    }
-  end
-
   def body
     {
       link: link,
