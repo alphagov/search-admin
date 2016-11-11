@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160818081220) do
+ActiveRecord::Schema.define(version: 20161111124510) do
 
   create_table "bets", force: :cascade do |t|
     t.string  "link",     limit: 255
@@ -33,8 +33,8 @@ ActiveRecord::Schema.define(version: 20160818081220) do
   create_table "recommended_links", force: :cascade do |t|
     t.string  "title",       limit: 255
     t.string  "link",        limit: 255
-    t.string  "description", limit: 255
-    t.string  "keywords",    limit: 255
+    t.text    "description", limit: 65535
+    t.text    "keywords",    limit: 65535
     t.text    "comment",     limit: 65535
     t.integer "user_id",     limit: 4
   end
