@@ -11,17 +11,6 @@ describe ElasticSearchBet do
     create(:bet, :worst, link: '/people/steve-jobs', query: query)
   end
 
-  it "builds an elasticsearch header from the provided query" do
-    es_bet = ElasticSearchBet.new(query)
-
-    expect(es_bet.header).to eq(
-      index: {
-        _id: 'jobs-exact',
-        _type: 'best_bet'
-      }
-    )
-  end
-
   it "builds an elasticsearch doc from the provided best bets" do
     es_bet = ElasticSearchBet.new(query)
 

@@ -1,9 +1,0 @@
-#!/usr/bin/env ruby
-
-require File.expand_path('../../config/environment', __FILE__)
-
-Query.all.each do |query|
-  es_doc = ElasticSearchBet.new(query)
-  puts es_doc.header.to_json
-  puts es_doc.body.to_json
-end
