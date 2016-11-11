@@ -32,23 +32,9 @@ database.yml.
 
 `bundle exec rake`
 
-## Import CSV files
-
-You can run `bundle exec rake csv:import filename=links.csv` to import all recommended links in the
-`links.csv` file into the search-admin database.
-
-The format of the input CSV file is:
-
-* title: The title of the link
-* link: The URL of the link
-* description: A description of the link
-* keywords: A comma-separated (and therefore quoted) list of keywords
-
-The first line is considered to be a header and is therefore ignored.
-
 ### Recommended links
 
-Run `bundle exec rake sync:recommended-links` to send all recommended links to Rummager.
+Run `bundle exec rake publish_recommended_links` to send all recommended links to Rummager.
 
 ## Licence
 
