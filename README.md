@@ -48,7 +48,7 @@ The first line is considered to be a header and is therefore ignored.
 
 ### Recommended links
 
-Run `bundle exec rake sync:recommended-links` to send all recommended links to Rummager.
+Run `bundle exec rake publish_recommended_links` to send all recommended links to Rummager.
 
 ## Licence
 
