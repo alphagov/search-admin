@@ -10,6 +10,7 @@ class Bet < ActiveRecord::Base
   validates :position, numericality: {
                          allow_nil: false,
                          greater_than: 0,
+                         less_than: 2147483647, # Maximum value for integer
                          only_integer: true
                        }, if: :is_best?
 
