@@ -1,6 +1,6 @@
 # Search admin
 
-The `search-admin` application manages search "best bets" and "recommended links" along with other search and browse data.
+The `search-admin` application manages search "best bets" and "external links" along with other search and browse data.
 
 ## Live example
 
@@ -8,11 +8,11 @@ The `search-admin` application manages search "best bets" and "recommended links
 
 ## Technical documentation
 
-This is a Ruby on Rails application that manages search "best bets" and "recommended links" along with other search and browse data. It is behind the signon authentication system and doesn't have a public API.
+This is a Ruby on Rails application that manages search "best bets" and "external links" along with other search and browse data. It is behind the signon authentication system and doesn't have a public API.
 
 ### Dependencies
 
-- [alphagov/rummager](https://github.com/alphagov/rummager) - search-admin sends updates to rummager when best bets and recommended links are edited
+- [alphagov/rummager](https://github.com/alphagov/rummager) - search-admin sends updates to rummager when best bets and external links are edited
 
 ### Running the application
 
@@ -32,9 +32,9 @@ database.yml.
 
 `bundle exec rake`
 
-### Recommended links
+### External links
 
-Run `bundle exec rake publish_recommended_links` to send all recommended links to Rummager.
+Run `bundle exec rake publish_external_links` to send all external links to rummager.
 
 ## Licence
 

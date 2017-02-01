@@ -1,7 +1,7 @@
 def create_recommended_link(title: nil, link: nil, description: nil, keywords: nil)
   visit recommended_links_path
 
-  click_on 'New recommended link'
+  click_on 'New external link'
 
   fill_in 'Link', with: link if link
   fill_in 'Title', with: title if title
@@ -20,7 +20,7 @@ def edit_recommended_link(old_title: nil, old_link: nil, title: nil, description
     click_on old_title
   end
 
-  click_on "Edit recommended link"
+  click_on "Edit external link"
   fill_in 'Title', with: title if title
   fill_in 'Description', with: description if description
   fill_in 'Keywords', with: keywords if keywords
@@ -37,7 +37,7 @@ def delete_recommended_link(title: nil, link: nil)
     click_on title
   end
 
-  click_on "Delete recommended link"
+  click_on "Delete external link"
 end
 
 def check_for_recommended_link_on_index_page(title: nil)
