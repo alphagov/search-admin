@@ -17,9 +17,9 @@ class RecommendedLinksController < ApplicationController
     if @recommended_link.save
       RummagerLinkSynchronize.put(@recommended_link)
 
-      redirect_to recommended_link_path(@recommended_link), notice: "Your recommended link was created successfully"
+      redirect_to recommended_link_path(@recommended_link), notice: "Your external link was created successfully"
     else
-      flash[:alert] = "We could not create your recommended link"
+      flash[:alert] = "We could not create your external link"
       render :new
     end
   end
@@ -46,9 +46,9 @@ class RecommendedLinksController < ApplicationController
 
       RummagerLinkSynchronize.put(@recommended_link)
 
-      redirect_to recommended_link_path(@recommended_link), notice: "Your recommended link was updated successfully"
+      redirect_to recommended_link_path(@recommended_link), notice: "Your external link was updated successfully"
     else
-      flash[:alert] = "We could not update your recommended link"
+      flash[:alert] = "We could not update your external link"
       render :edit
     end
   end
@@ -59,9 +59,9 @@ class RecommendedLinksController < ApplicationController
     if recommended_link.destroy
       RummagerLinkSynchronize.delete(recommended_link)
 
-      redirect_to recommended_links_path, notice: "Your recommended link was deleted successfully"
+      redirect_to recommended_links_path, notice: "Your external link was deleted successfully"
     else
-      redirect_to recommended_link_path(recommended_link), alert: "We could not delete your recommended link"
+      redirect_to recommended_link_path(recommended_link), alert: "We could not delete your external link"
     end
   end
 
