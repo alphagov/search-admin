@@ -2,6 +2,10 @@
 
 The `search-admin` application manages search "best bets" and "recommended links" along with other search and browse data.
 
+## Screenshots
+
+![Search Admin](docs/images/screenshot.png)
+
 ## Live example
 
 - https://search-admin.publishing.service.gov.uk/
@@ -38,4 +42,4 @@ Run `bundle exec rake publish_recommended_links` to send all recommended links t
 
 ## Licence
 
-[MIT License](LICENCE)
+[MIT License](LICENSE)
