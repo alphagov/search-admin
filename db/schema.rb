@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161111124510) do
+ActiveRecord::Schema.define(version: 20170202095022) do
 
   create_table "bets", force: :cascade do |t|
     t.string  "link",     limit: 255
@@ -40,12 +40,14 @@ ActiveRecord::Schema.define(version: 20161111124510) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string  "name",                limit: 255
-    t.string  "email",               limit: 255
-    t.string  "uid",                 limit: 255
-    t.string  "organisation_slug",   limit: 255
-    t.string  "permissions",         limit: 255
-    t.boolean "remotely_signed_out",             default: false
+    t.string  "name",                    limit: 255
+    t.string  "email",                   limit: 255
+    t.string  "uid",                     limit: 255
+    t.string  "organisation_slug",       limit: 255
+    t.string  "permissions",             limit: 255
+    t.boolean "remotely_signed_out",                 default: false
+    t.boolean "disabled",                            default: false
+    t.string  "organisation_content_id", limit: 255
   end
 
 end

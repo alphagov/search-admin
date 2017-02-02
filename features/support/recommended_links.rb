@@ -94,7 +94,7 @@ def confirm_recommended_links_elasticsearch_format(dump, recommended_links)
   recommended_links.each do |recommended_link|
     es_doc_header = {
       'index' => {
-        '_id' => "#{recommended_link.link}",
+        '_id' => recommended_link.link,
         '_type' => recommended_link.format
       }
     }

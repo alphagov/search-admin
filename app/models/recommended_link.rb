@@ -8,7 +8,7 @@ class RecommendedLink < ActiveRecord::Base
       uri = URI("https://" + link)
     end
 
-    if uri.host.downcase == "www.gov.uk"
+    if uri.host.casecmp("www.gov.uk") == 0
       'inside-government-link'
     else
       'recommended-link'
