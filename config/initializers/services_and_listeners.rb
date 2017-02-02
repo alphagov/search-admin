@@ -30,7 +30,7 @@ module GdsApi
 
     def delete!(path)
       request_url = "#{base_url}#{path}"
-      delete_json!(request_url)
+      delete_json(request_url)
     end
   end
 end

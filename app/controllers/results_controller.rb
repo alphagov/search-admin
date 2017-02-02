@@ -5,8 +5,10 @@ class ResultsController < ApplicationController
   def show
     @path = params[:base_path]
     @path = URI.parse(@path).path if @path.starts_with?('http')
-
     @document = rummager.get("/content?link=#{@path}")
+  rescue GdsApi::HTTPNotFound
+    flash[:error] = "That URL wasn't found."
+    redirect_to results_path
   end
 
   def destroy
