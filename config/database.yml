@@ -1,8 +1,6 @@
 default: &default
   adapter: mysql2
   encoding: utf8
-  username: search_admin
-  password: search_admin
 
 development:
   <<: *default
@@ -11,6 +9,12 @@ development:
 test: &test
   <<: *default
   database: search_admin_test
+  username: search_admin
+  password: search_admin
 
 cucumber:
   <<: *test
+
+production:
+  <<: *default
+  url: <%= ENV['DATABASE_URL'] %>
