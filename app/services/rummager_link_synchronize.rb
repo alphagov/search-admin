@@ -1,4 +1,4 @@
-module RummagerLinkSynchronize
+class RummagerLinkSynchronize
   def self.put(recommended_link, client: self.client)
     es_doc = ElasticSearchRecommendedLink.new(recommended_link)
     client.add_document("edition", es_doc.id, es_doc.details)
@@ -9,6 +9,6 @@ module RummagerLinkSynchronize
   end
 
   def self.client
-    SearchAdmin.services(:rummager_index_mainstream)
+    ::Services.rummager_index_mainstream
   end
 end

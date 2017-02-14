@@ -10,10 +10,10 @@ class RummagerNotifier
 
     if query && query.bets.any?
       es_doc = ElasticSearchBet.new(query)
-      SearchAdmin.services(:rummager_index_metasearch).add_document(es_doc.type, es_doc.id, es_doc.body)
+      Services.rummager_index_metasearch.add_document(es_doc.type, es_doc.id, es_doc.body)
     else
       es_doc_id = ElasticSearchBetIDGenerator.generate(query_string, match_type)
-      SearchAdmin.services(:rummager_index_metasearch).delete_document("best_bet", CGI.escape(es_doc_id))
+      Services.rummager_index_metasearch.delete_document("best_bet", CGI.escape(es_doc_id))
     end
   end
 end
