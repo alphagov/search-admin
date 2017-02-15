@@ -1,0 +1,8 @@
+<%= form_tag similar_search_result_path(:result), method: :get do %>
+  <div class="form-group">
+    <%= label_tag "Path or URL of search result (eg. /guidance/pupil-premium-reviews)" %>
+    <%= text_field_tag :base_path, base_path, type: :search, class: 'form-control' %>
+  </div>
+
+  <%= submit_tag 'Show similar search results', class: 'btn btn-primary btn-md' %>
+<% end %>

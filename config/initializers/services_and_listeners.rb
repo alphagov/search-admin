@@ -1,25 +1,5 @@
 require 'gds_api/rummager'
 
-module SearchAdmin
-  def self.services(name, service = nil)
-    @services ||= {}
-    @services[name] = service if service
-    @services[name]
-  end
-end
-
-# Services
-SearchAdmin.services(
-  :rummager_index_metasearch,
-  GdsApi::Rummager.new(Plek.current.find('rummager') + '/metasearch')
-)
-SearchAdmin.services(
-  :rummager_index_mainstream,
-  GdsApi::Rummager.new(Plek.current.find('rummager') + '/mainstream')
-)
-
-require 'gds_api/rummager'
-
 # Extend the adapters to allow us to request URLs directly.
 module GdsApi
   class Rummager < Base
@@ -34,7 +14,3 @@ module GdsApi
     end
   end
 end
-
-# Don't use caching to prevent just-deleted docs to show up.
-rummager = GdsApi::Rummager.new(Plek.current.find('search'), disable_cache: true)
-SearchAdmin.services(:rummager, rummager)
