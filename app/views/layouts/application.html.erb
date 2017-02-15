@@ -17,6 +17,10 @@
   <li class='<%= controller_name == "results" ? "active" : nil %>'>
     <%= link_to 'Search results', results_path %>
   </li>
+
+  <li class='<%= controller_name == 'similar_search_results' ? 'active' : nil %>'>
+    <%= link_to 'Similar search results', new_similar_search_result_path %>
+  </li>
 <% end %>
 
 <% content_for :navbar_right do %>
