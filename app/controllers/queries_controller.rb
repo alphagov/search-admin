@@ -15,7 +15,7 @@ class QueriesController < ApplicationController
   def create
     query = Query.new(query_params)
     if query.save
-      store_query_for_rummager(query)
+      store_query_for_rummager(query, :create)
       send_change_notification
 
       redirect_to query_path(query), notice: "Your query was created successfully"
@@ -48,10 +48,8 @@ class QueriesController < ApplicationController
   def update
     query = find_query
 
-    store_query_for_rummager(query)
-
     if query.update_attributes(query_params)
-      store_query_for_rummager(query)
+      store_query_for_rummager(query, :update)
       send_change_notification
 
       redirect_to query_path(query), notice: "Your query was updated successfully"
@@ -65,7 +63,7 @@ class QueriesController < ApplicationController
     query = find_query
 
     if query.destroy
-      store_query_for_rummager(query)
+      store_query_for_rummager(query, :delete)
       send_change_notification
 
       redirect_to queries_path, notice: "Your query was deleted successfully"
