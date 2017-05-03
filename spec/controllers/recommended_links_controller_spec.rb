@@ -13,31 +13,31 @@ describe RecommendedLinksController do
   describe '#create' do
     context 'on failure' do
       it "alerts the user" do
-        post :create, recommended_link: recommended_link_params.merge(title: nil)
+        post :create, params: { recommended_link: recommended_link_params.merge(title: nil) }
         expect(flash[:alert]).to include('could not create')
       end
 
       it "renders the new action" do
-        post :create, recommended_link: recommended_link_params.merge(title: nil)
+        post :create, params: { recommended_link: recommended_link_params.merge(title: nil) }
         expect(response).to render_template('new')
       end
     end
 
     context 'on success' do
       it "notifies the user" do
-        post :create, recommended_link: recommended_link_params
+        post :create, params: { recommended_link: recommended_link_params }
         expect(flash[:notice]).to include('was created')
       end
 
       it "redirects to the recommended link" do
-        post :create, recommended_link: recommended_link_params
+        post :create, params: { recommended_link: recommended_link_params }
         expect(response).to redirect_to(recommended_link_path(RecommendedLink.last))
       end
     end
 
     it "displays an error if the recommended link is duplicated" do
       create(:recommended_link, recommended_link_params)
-      post :create, recommended_link: recommended_link_params
+      post :create, params: { recommended_link: recommended_link_params }
       expect(flash[:alert]).to include('could not create')
     end
   end
@@ -46,7 +46,7 @@ describe RecommendedLinksController do
     let(:recommended_link) { create(:recommended_link) }
 
     def update_recommended_link(options = {})
-      put :update, id: recommended_link.id, recommended_link: recommended_link_params.merge(options)
+      put :update, params: { id: recommended_link.id, recommended_link: recommended_link_params.merge(options) }
     end
 
     context 'on failure' do
@@ -100,7 +100,7 @@ describe RecommendedLinksController do
     let(:recommended_link) { create(:recommended_link) }
 
     def delete_recommended_link
-      delete :destroy, id: recommended_link.id
+      delete :destroy, params: { id: recommended_link.id }
     end
 
     context 'on failure' do

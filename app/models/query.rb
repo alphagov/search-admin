@@ -1,4 +1,4 @@
-class Query < ActiveRecord::Base
+class Query < ApplicationRecord
   MATCH_TYPES = %w(exact stemmed).freeze
 
   validates :query, presence: true
