@@ -5,7 +5,7 @@ class BetsController < ApplicationController
     @bet = Bet.new(create_params)
 
     if @bet.save
-      store_query_for_rummager(@bet.query)
+      store_query_for_rummager(@bet.query, :create)
       send_change_notification
 
       redirect_to query_path(@bet.query), notice: 'Bet created'
@@ -23,7 +23,7 @@ class BetsController < ApplicationController
     @bet = bet
 
     if @bet.update_attributes(bet_params)
-      store_query_for_rummager(@bet.query)
+      store_query_for_rummager(@bet.query, :update)
       send_change_notification
 
       redirect_to query_path(@bet.query), notice: 'Bet updated'
@@ -37,7 +37,7 @@ class BetsController < ApplicationController
     @bet = bet
 
     if @bet.destroy
-      store_query_for_rummager(@bet.query)
+      store_query_for_rummager(@bet.query, :update_bets)
       send_change_notification
 
       flash.notice = 'Bet deleted'

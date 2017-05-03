@@ -123,9 +123,7 @@ end
 
 def check_rummager_was_sent_a_best_bet_delete(query_es_ids)
   query_es_ids.each do |id|
-    # The `delete` happens twice because it is triggered when
-    # creating a new query with no bets
-    assert_rummager_deleted_item(id, index: "metasearch", times: 2)
+    assert_rummager_deleted_item(id, index: "metasearch")
   end
 end
 

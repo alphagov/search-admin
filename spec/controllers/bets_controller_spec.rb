@@ -42,7 +42,7 @@ describe BetsController do
       post :create, bet: bet_params
 
       expect(RummagerNotifier).to have_received(:notify)
-        .with([[query.query, query.match_type]])
+        .with([[query, :create]])
     end
 
     it "redirects to the query show when create is successful" do
@@ -68,7 +68,7 @@ describe BetsController do
       put :update, id: bet.id, bet: bet_params
 
       expect(RummagerNotifier).to have_received(:notify)
-        .with([[query.query, query.match_type]])
+        .with([[query, :update]])
     end
 
     it "redirects to the query show when update is successful" do

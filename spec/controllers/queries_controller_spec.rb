@@ -39,7 +39,7 @@ describe QueriesController do
       it "notifies the world of the new query" do
         post :create, query: query_params
         expect(RummagerNotifier).to have_received(:notify)
-          .with([%w(jobs exact)])
+          .with([[Query.last, :create]])
       end
     end
 
@@ -94,7 +94,7 @@ describe QueriesController do
       it "notifies the world of the new query" do
         update_query
         expect(RummagerNotifier).to have_received(:notify)
-          .with([%w(tax exact), %w(jobs exact)])
+          .with([[query, :update]])
       end
     end
 
@@ -142,7 +142,7 @@ describe QueriesController do
       it "notifies the world of the deletion" do
         delete_query
         expect(RummagerNotifier).to have_received(:notify)
-          .with([%w(tax exact)])
+          .with([[query, :delete]])
       end
     end
   end
