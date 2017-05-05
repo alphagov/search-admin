@@ -18,7 +18,7 @@ describe BetsController do
 
   describe "Creating bets" do
     it "allows all expected fields to be set" do
-      post :create, bet: bet_params
+      post :create, params: { bet: bet_params }
 
       expect(Bet.last.attributes.symbolize_keys).to include(bet_params)
     end
@@ -27,33 +27,33 @@ describe BetsController do
       user = create(:user)
       login_as(user)
 
-      post :create, bet: bet_params
+      post :create, params: { bet: bet_params }
 
       expect(Bet.last.user_id).to eq(user.id)
     end
 
     it "marks the bet as manually created" do
-      post :create, bet: bet_params
+      post :create, params: { bet: bet_params }
 
       expect(Bet.last).to be_manual
     end
 
     it "notifies the world of the change to the query" do
-      post :create, bet: bet_params
+      post :create, params: { bet: bet_params }
 
       expect(RummagerNotifier).to have_received(:notify)
         .with([[query, :create]])
     end
 
     it "redirects to the query show when create is successful" do
-      post :create, bet: bet_params
+      post :create, params: { bet: bet_params }
 
       expect(flash[:notice]).to include('Bet created')
       expect(response).to redirect_to(query_path(query))
     end
 
     it "redirects to the query show when create is unsuccessful" do
-      post :create, bet: bet_params.merge(link: '')
+      post :create, params: { bet: bet_params.merge(link: '') }
 
       expect(flash[:alert]).to include('could not be created')
       expect(response).to redirect_to(query_path(query))
@@ -65,21 +65,21 @@ describe BetsController do
     let(:bet) { query.bets.first }
 
     it "notifies the world of the change to the query" do
-      put :update, id: bet.id, bet: bet_params
+      put :update, params: { id: bet.id, bet: bet_params }
 
       expect(RummagerNotifier).to have_received(:notify)
         .with([[query, :update]])
     end
 
     it "redirects to the query show when update is successful" do
-      post :update, id: bet.id, bet: bet_params
+      post :update, params: { id: bet.id, bet: bet_params }
 
       expect(flash[:notice]).to include('Bet updated')
       expect(response).to redirect_to(query_path(query))
     end
 
     it "renders the edit template when update is unsuccessful" do
-      post :update, id: bet.id, bet: bet_params.merge(link: '')
+      post :update, params: { id: bet.id, bet: bet_params.merge(link: '') }
 
       expect(flash[:alert]).to include('could not be saved')
       expect(response).to render_template(:edit)

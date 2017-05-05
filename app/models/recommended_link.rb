@@ -1,4 +1,4 @@
-class RecommendedLink < ActiveRecord::Base
+class RecommendedLink < ApplicationRecord
   validates :title, :link, :description, presence: true
   validates :link, uniqueness: true, url: true
 

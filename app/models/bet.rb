@@ -1,6 +1,6 @@
 require 'csv'
 
-class Bet < ActiveRecord::Base
+class Bet < ApplicationRecord
   belongs_to :user
   belongs_to :query
 
