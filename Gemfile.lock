@@ -91,7 +91,7 @@ GEM
       railties (>= 3.0.0)
     faraday (0.11.0)
       multipart-post (>= 1.2, < 3)
-    gds-api-adapters (39.1.0)
+    gds-api-adapters (47.9.1)
       link_header
       lrucache (~> 0.1.1)
       null_logger
@@ -182,7 +182,7 @@ GEM
       pry (~> 0.10)
     public_suffix (2.0.5)
     rack (2.0.1)
-    rack-cache (1.7.0)
+    rack-cache (1.7.1)
       rack (>= 0.4)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -303,7 +303,7 @@ DEPENDENCIES
   cucumber-rails
   database_cleaner (~> 1.5.3)
   factory_girl_rails (~> 4.8.0)
-  gds-api-adapters (~> 39.1.0)
+  gds-api-adapters (~> 47.9.1)
   gds-sso (~> 13.2.0)
   generic_form_builder (~> 0.13.0)
   govuk-lint
