@@ -3,7 +3,6 @@ source 'https://rubygems.org'
 gem 'rails', '5.0.2'
 
 gem 'unicorn', '~> 4.9.0'
-gem 'airbrake', '~> 4.3.8'
 gem 'mysql2', '~> 0.4.5'
 gem 'sass-rails', '~> 5.0.6'
 gem 'uglifier', '~> 3.0.4'
@@ -13,11 +12,12 @@ gem 'generic_form_builder', '~> 0.13.0'
 gem 'plek', '~> 1.12.0'
 gem 'gds-sso', '~> 13.2.0'
 gem 'govuk_admin_template'
+gem "govuk_app_config", "~> 0.2.0"
 
 if ENV["API_DEV"]
   gem "gds-api-adapters", path: "../gds-api-adapters"
 else
-  gem 'gds-api-adapters', '~> 39.1.0'
+  gem 'gds-api-adapters', '~> 47.9.1'
 end
 
 group :test do
