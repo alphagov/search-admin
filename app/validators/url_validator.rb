@@ -2,13 +2,19 @@ require 'uri'
 
 class UrlValidator < ActiveModel::EachValidator
   def validate_each(record, attribute, value)
-    valid = begin
-      URI.parse(value).is_a?(URI::HTTP)
-    rescue URI::InvalidURIError
-      false
+    uri = parse(value)
+    unless uri&.host
+      msg = options[:message] || (uri ? "does not have a valid host" : "is an invalid URL")
+      record.errors[attribute] << msg
     end
-    unless valid
-      record.errors[attribute] << (options[:message] || "is an invalid URL")
-    end
+  end
+
+private
+
+  def parse(value)
+    uri = URI.parse(value)
+    uri.is_a?(URI::HTTP) ? uri : nil
+  rescue URI::InvalidURIError
+    nil
   end
 end
