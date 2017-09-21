@@ -37,7 +37,17 @@ describe RecommendedLink do
     it 'is invalid with an incomplete link' do
       attributes = attributes_for(:recommended_link, link: 'www.hello-world.com')
 
-      expect(new_recommended_link_with(attributes)).not_to be_valid
+      record = new_recommended_link_with(attributes)
+      expect(record).not_to be_valid
+      expect(record.errors.full_messages).to eq(["Link is an invalid URL"])
+    end
+
+    it 'is invalid with a link without a host' do
+      attributes = attributes_for(:recommended_link, link: 'http:/path-not-host')
+
+      record = new_recommended_link_with(attributes)
+      expect(record).not_to be_valid
+      expect(record.errors.full_messages).to eq(["Link does not have a valid host"])
     end
 
     it "is invalid with a duplicate link" do
