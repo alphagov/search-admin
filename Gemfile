@@ -10,7 +10,7 @@ gem 'generic_form_builder', '~> 0.13.0'
 
 # GDS managed gems
 gem 'plek', '~> 2.0.0'
-gem 'gds-sso', '~> 13.2.0'
+gem 'gds-sso', '~> 13.4.0'
 gem 'govuk_admin_template'
 gem "govuk_app_config", "~> 0.2.0"
 
