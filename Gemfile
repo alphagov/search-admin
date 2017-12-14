@@ -24,7 +24,7 @@ group :test do
   gem 'cucumber-rails', require: false
   gem 'database_cleaner', '~> 1.5.3'
   gem 'factory_girl_rails', '~> 4.9.0'
-  gem 'webmock', '~> 2.3.2'
+  gem 'webmock', '~> 3.1.1'
 end
 
 group :test, :development do
