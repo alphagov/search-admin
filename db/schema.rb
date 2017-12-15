@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170202095022) do
+ActiveRecord::Schema.define(version: 20171214153332) do
 
   create_table "bets", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string  "link"
@@ -36,6 +36,8 @@ ActiveRecord::Schema.define(version: 20170202095022) do
     t.text    "keywords",    limit: 65535
     t.text    "comment",     limit: 65535
     t.integer "user_id"
+    t.string  "content_id",  limit: 36
+    t.index ["content_id"], name: "index_recommended_links_on_content_id", unique: true, using: :btree
   end
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

@@ -1,6 +1,7 @@
 class RecommendedLink < ApplicationRecord
-  validates :title, :link, :description, presence: true
+  validates :title, :link, :description, :content_id, presence: true
   validates :link, uniqueness: true, url: true
+  validates :content_id, uniqueness: true
 
   def format
     uri = URI(link)

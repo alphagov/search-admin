@@ -9,7 +9,7 @@ class RecommendedLinksController < ApplicationController
   end
 
   def new
-    @recommended_link = RecommendedLink.new
+    @recommended_link = RecommendedLink.new(content_id: SecureRandom.uuid)
   end
 
   def create
@@ -35,7 +35,7 @@ class RecommendedLinksController < ApplicationController
 
   def update
     @recommended_link = find_recommended_link
-    old_recommended_link = RecommendedLink.new(link: @recommended_link.link)
+    old_recommended_link = RecommendedLink.new(link: @recommended_link.link, content_id: @recommended_link.content_id)
 
     if @recommended_link.update_attributes(update_recommended_link_params)
 
@@ -74,7 +74,7 @@ private
   def create_recommended_link_params
     params.require(:recommended_link)
       .permit(:link, :title, :description, :keywords, :comment)
-      .merge(user_id: current_user.id)
+      .merge(user_id: current_user.id, content_id: SecureRandom.uuid)
   end
 
   def update_recommended_link_params
