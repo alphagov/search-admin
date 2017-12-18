@@ -1,4 +1,7 @@
 def create_recommended_link(title: nil, link: nil, description: nil, keywords: nil)
+  stub_any_publishing_api_put_content
+  stub_any_publishing_api_publish
+
   visit recommended_links_path
 
   click_on 'New external link'
@@ -12,6 +15,9 @@ def create_recommended_link(title: nil, link: nil, description: nil, keywords: n
 end
 
 def edit_recommended_link(old_title: nil, old_link: nil, title: nil, description: nil, keywords: nil, comment: nil)
+  stub_any_publishing_api_put_content
+  stub_any_publishing_api_publish
+
   visit recommended_links_path
 
   recommended_link = RecommendedLink.where(link: old_link).last
@@ -29,6 +35,8 @@ def edit_recommended_link(old_title: nil, old_link: nil, title: nil, description
 end
 
 def delete_recommended_link(title: nil, link: nil)
+  stub_any_publishing_api_unpublish
+
   visit recommended_links_path
 
   recommended_link = RecommendedLink.where(link: link).last
