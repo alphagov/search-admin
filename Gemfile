@@ -23,7 +23,7 @@ end
 group :test do
   gem 'cucumber-rails', require: false
   gem 'database_cleaner', '~> 1.6.2'
-  gem 'factory_girl_rails', '~> 4.9.0'
+  gem 'factory_bot_rails', '~> 4.8.2'
   gem 'webmock', '~> 3.1.1'
 end
 
