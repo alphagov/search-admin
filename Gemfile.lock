@@ -126,7 +126,7 @@ GEM
       bootstrap-sass (= 3.3.5.1)
       jquery-rails (~> 4.3.1)
       rails (>= 3.2.0)
-    govuk_app_config (0.2.0)
+    govuk_app_config (0.3.0)
       sentry-raven (~> 2.6.3)
       statsd-ruby (~> 1.4.0)
     hashdiff (0.3.7)
@@ -329,7 +329,7 @@ DEPENDENCIES
   generic_form_builder (~> 0.13.0)
   govuk-lint
   govuk_admin_template
-  govuk_app_config (~> 0.2.0)
+  govuk_app_config (~> 0.3.0)
   mysql2 (~> 0.4.5)
   plek (~> 2.0.0)
   pry-byebug
