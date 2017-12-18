@@ -25,7 +25,7 @@ RSpec.configure do |config|
   config.infer_base_class_for_anonymous_controllers = false
   config.order = "random"
 
-  config.include FactoryGirl::Syntax::Methods
+  config.include FactoryBot::Syntax::Methods
 
   config.before(:each) do
     # rummager URLs are of the form: http://rummager.dev.gov.uk/mainstream/document/http://test.dev.gov.uk
