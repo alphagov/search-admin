@@ -38,7 +38,7 @@ database.yml.
 
 ### External links
 
-Run `bundle exec rake publish_external_links` to send all external links to rummager.
+Run `bundle exec rake publish_external_links:rummager` to send all external links to rummager, or `bundle exec rake publish_external_links:publishing_api` to send them to the publishing API.
 
 ## Licence
 
