@@ -6,11 +6,8 @@ Feature: Update publishing API on external change
   @stub_recommended_links
   Scenario: Creating an external link
     When I create a new external link
-    Then the external link should have been sent to the mainstream index
-    And the external link should have been published
+    Then the external link should have been published
     When I edit the external link named "Tax online" with link "https://www.tax.service.gov.uk/" to be named "The new tax online"
-    Then the edited external link should have been sent to the mainstream index
-    And the external link should have been republished
+    Then the external link should have been republished
     When I delete the external link named "The new tax online" with link "https://www.tax.service.gov.uk/"
-    Then the external link "https://www.tax.service.gov.uk/" should have been deleted in the mainstream index
-    And the external link should have been unpublished
+    Then the external link should have been unpublished
