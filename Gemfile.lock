@@ -99,7 +99,7 @@ GEM
     faraday (0.12.2)
       multipart-post (>= 1.2, < 3)
     ffi (1.9.18)
-    gds-api-adapters (47.9.1)
+    gds-api-adapters (50.6.0)
       link_header
       lrucache (~> 0.1.1)
       null_logger
@@ -323,7 +323,7 @@ DEPENDENCIES
   cucumber-rails
   database_cleaner (~> 1.6.2)
   factory_bot_rails (~> 4.8.2)
-  gds-api-adapters (~> 47.9.1)
+  gds-api-adapters (~> 50.6.0)
   gds-sso (~> 13.5.0)
   generic_form_builder (~> 0.13.0)
   govuk-lint
