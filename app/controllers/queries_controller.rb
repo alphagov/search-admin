@@ -18,10 +18,9 @@ class QueriesController < ApplicationController
     else
       existing_query = check_for_duplicate_query(query)
       if existing_query
-        flash[:notice] = "The query you created already exists"
-        redirect_to query_path(existing_query)
+        redirect_to query_path(existing_query), notice: "Query already exists"
       else
-        flash[:alert] = "We could not create your query"
+        flash[:alert] = "Error creating query"
         render :new
       end
     end
@@ -48,7 +47,7 @@ class QueriesController < ApplicationController
     if saver.update_attributes(query_params)
       redirect_to query_path(query), notice: "Your query was updated successfully"
     else
-      flash[:alert] = "We could not update your query"
+      flash[:alert] = "Error updating query"
       render :edit
     end
   end
@@ -60,7 +59,7 @@ class QueriesController < ApplicationController
     if saver.destroy
       redirect_to queries_path, notice: "Your query was deleted successfully"
     else
-      redirect_to query_path(query), alert: "We could not delete your query"
+      redirect_to query_path(query), alert: "Error deleting query"
     end
   end
 

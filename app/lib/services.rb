@@ -16,6 +16,6 @@ module Services
 
   def self.rummager
     @rummager ||=
-      GdsApi::Rummager.new(Plek.current.find('search', api_version: 'V2'), disable_cache: true)
+      GdsApi::Rummager.new(Plek.current.find('search'), disable_cache: true, api_version: 'V2')
   end
 end

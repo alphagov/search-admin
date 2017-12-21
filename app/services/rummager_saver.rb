@@ -41,7 +41,7 @@ private
   def update_elasticsearch(query, action)
     if action == :delete || (action == :update_bets && query.bets.empty?)
       es_doc_id = ElasticSearchBetIDGenerator.generate(query.query, query.match_type)
-      Services.rummager.delete_document(CGI.escape(es_doc_id))
+      Services.rummager.delete_document(CGI.escape(es_doc_id), 'metasearch')
     elsif query.bets.any? # don't create ES entry until query has some bets
       es_doc = ElasticSearchBet.new(query)
       Services.rummager.add_document(es_doc.id, es_doc.body, 'metasearch')
@@ -49,6 +49,6 @@ private
   end
 
   def query
-    @object.respond_to?(:query) ? @object.query : @object
+    @object.is_a?(Query) ? @object : @object.query
   end
 end

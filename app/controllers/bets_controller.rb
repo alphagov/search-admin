@@ -5,8 +5,7 @@ class BetsController < ApplicationController
     if saver.save
       redirect_to query_path(@bet.query), notice: 'Bet created'
     else
-      flash.now[:alert] = 'The bet could not be created because there are errors'
-      redirect_to query_path(@bet.query)
+      redirect_to query_path(@bet.query), alert: 'Error creating bet.'
     end
   end
 
@@ -21,7 +20,7 @@ class BetsController < ApplicationController
     if saver.update_attributes(bet_params)
       redirect_to query_path(@bet.query), notice: 'Bet updated'
     else
-      flash.now[:alert] = 'The bet could not be saved because there are errors'
+      flash.now[:alert] = 'Error updating bet'
       render 'edit'
     end
   end
@@ -33,7 +32,7 @@ class BetsController < ApplicationController
     if saver.destroy(action: :update_bets)
       flash.notice = 'Bet deleted'
     else
-      flash.alert = 'Could not delete bet'
+      flash.alert = 'Error deleting bet'
     end
 
     redirect_to query_path(@bet.query)

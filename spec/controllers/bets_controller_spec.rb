@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe BetsController do
   before do
-    allow(RummagerNotifier).to receive(:update_elasticsearch)
+    allow(Services.rummager).to receive(:add_document)
   end
 
   let(:query) { create(:query) }
@@ -41,8 +41,7 @@ describe BetsController do
     it "notifies the world of the change to the query" do
       post :create, params: { bet: bet_params }
 
-      expect(RummagerNotifier).to have_received(:update_elasticsearch)
-        .with(query, :create)
+      expect(Services.rummager).to have_received(:add_document)
     end
 
     it "redirects to the query show when create is successful" do
@@ -55,7 +54,7 @@ describe BetsController do
     it "redirects to the query show when create is unsuccessful" do
       post :create, params: { bet: bet_params.merge(link: '') }
 
-      expect(flash[:alert]).to include('could not be created')
+      expect(flash[:alert]).to include('Error creating')
       expect(response).to redirect_to(query_path(query))
     end
   end
@@ -67,8 +66,7 @@ describe BetsController do
     it "notifies the world of the change to the query" do
       put :update, params: { id: bet.id, bet: bet_params }
 
-      expect(RummagerNotifier).to have_received(:update_elasticsearch)
-        .with(query, :update)
+      expect(Services.rummager).to have_received(:add_document)
     end
 
     it "redirects to the query show when update is successful" do
@@ -81,7 +79,7 @@ describe BetsController do
     it "renders the edit template when update is unsuccessful" do
       post :update, params: { id: bet.id, bet: bet_params.merge(link: '') }
 
-      expect(flash[:alert]).to include('could not be saved')
+      expect(flash[:alert]).to include('Error updating')
       expect(response).to render_template(:edit)
     end
   end
