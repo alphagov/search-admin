@@ -1,6 +1,4 @@
 class QueriesController < ApplicationController
-  include Notifiable
-
   def index
     @queries = Query.includes(:best_bets, :worst_bets).order([:query, :match_type])
 
@@ -15,8 +13,7 @@ class QueriesController < ApplicationController
   def create
     query = Query.new(query_params)
     if query.save
-      store_query_for_rummager(query, :create)
-      send_change_notification
+      RummagerNotifier.update_elasticsearch(query, :create)
 
       redirect_to query_path(query), notice: "Your query was created successfully"
     else
@@ -49,8 +46,7 @@ class QueriesController < ApplicationController
     query = find_query
 
     if query.update_attributes(query_params)
-      store_query_for_rummager(query, :update)
-      send_change_notification
+      RummagerNotifier.update_elasticsearch(query, :update)
 
       redirect_to query_path(query), notice: "Your query was updated successfully"
     else
@@ -63,8 +59,7 @@ class QueriesController < ApplicationController
     query = find_query
 
     if query.destroy
-      store_query_for_rummager(query, :delete)
-      send_change_notification
+      RummagerNotifier.update_elasticsearch(query, :delete)
 
       redirect_to queries_path, notice: "Your query was deleted successfully"
     else

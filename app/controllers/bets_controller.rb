@@ -1,12 +1,9 @@
 class BetsController < ApplicationController
-  include Notifiable
-
   def create
     @bet = Bet.new(create_params)
 
     if @bet.save
-      store_query_for_rummager(@bet.query, :create)
-      send_change_notification
+      RummagerNotifier.update_elasticsearch(@bet.query, :create)
 
       redirect_to query_path(@bet.query), notice: 'Bet created'
     else
@@ -23,8 +20,7 @@ class BetsController < ApplicationController
     @bet = bet
 
     if @bet.update_attributes(bet_params)
-      store_query_for_rummager(@bet.query, :update)
-      send_change_notification
+      RummagerNotifier.update_elasticsearch(@bet.query, :update)
 
       redirect_to query_path(@bet.query), notice: 'Bet updated'
     else
@@ -37,8 +33,7 @@ class BetsController < ApplicationController
     @bet = bet
 
     if @bet.destroy
-      store_query_for_rummager(@bet.query, :update_bets)
-      send_change_notification
+      RummagerNotifier.update_elasticsearch(@bet.query, :update_bets)
 
       flash.notice = 'Bet deleted'
     else

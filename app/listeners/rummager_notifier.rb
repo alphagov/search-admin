@@ -1,10 +1,4 @@
 class RummagerNotifier
-  def self.notify(queries_with_action)
-    queries_with_action.each do |query, action|
-      update_elasticsearch(query, action)
-    end
-  end
-
   def self.update_elasticsearch(query, action)
     if action == :delete || (action == :update_bets && query.bets.empty?)
       es_doc_id = ElasticSearchBetIDGenerator.generate(query.query, query.match_type)

@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe QueriesController do
   before do
-    allow(RummagerNotifier).to receive(:notify)
+    allow(RummagerNotifier).to receive(:update_elasticsearch)
   end
 
   let(:query_params) { { query: 'jobs', match_type: 'exact' } }
@@ -21,7 +21,7 @@ describe QueriesController do
 
       it "does not notify other systems" do
         post :create, params: { query: query_params.merge(match_type: nil) }
-        expect(RummagerNotifier).not_to have_received(:notify)
+        expect(RummagerNotifier).not_to have_received(:update_elasticsearch)
       end
     end
 
@@ -38,8 +38,8 @@ describe QueriesController do
 
       it "notifies the world of the new query" do
         post :create, params: { query: query_params }
-        expect(RummagerNotifier).to have_received(:notify)
-          .with([[Query.last, :create]])
+        expect(RummagerNotifier).to have_received(:update_elasticsearch)
+          .with(Query.last, :create)
       end
     end
 
@@ -76,7 +76,7 @@ describe QueriesController do
 
       it "does not notify other systems" do
         update_query(match_type: nil)
-        expect(RummagerNotifier).not_to have_received(:notify)
+        expect(RummagerNotifier).not_to have_received(:update_elasticsearch)
       end
     end
 
@@ -93,8 +93,8 @@ describe QueriesController do
 
       it "notifies the world of the new query" do
         update_query
-        expect(RummagerNotifier).to have_received(:notify)
-          .with([[query, :update]])
+        expect(RummagerNotifier).to have_received(:update_elasticsearch)
+          .with(query, :update)
       end
     end
 
@@ -124,7 +124,7 @@ describe QueriesController do
 
       it "does not notify other systems" do
         delete_query
-        expect(RummagerNotifier).not_to have_received(:notify)
+        expect(RummagerNotifier).not_to have_received(:update_elasticsearch)
       end
     end
 
@@ -141,8 +141,8 @@ describe QueriesController do
 
       it "notifies the world of the deletion" do
         delete_query
-        expect(RummagerNotifier).to have_received(:notify)
-          .with([[query, :delete]])
+        expect(RummagerNotifier).to have_received(:update_elasticsearch)
+          .with(query, :delete)
       end
     end
   end
