@@ -9,11 +9,6 @@ module Services
     )
   end
 
-  def self.rummager_index_metasearch
-    @rummager_index_metasearch ||=
-      GdsApi::Rummager.new(Plek.current.find('rummager') + '/metasearch')
-  end
-
   def self.rummager_index_mainstream
     @rummager_index_mainstream ||=
       GdsApi::Rummager.new(Plek.current.find('rummager') + '/mainstream')
@@ -21,6 +16,6 @@ module Services
 
   def self.rummager
     @rummager ||=
-      GdsApi::Rummager.new(Plek.current.find('search'), disable_cache: true)
+      GdsApi::Rummager.new(Plek.current.find('search', api_version: 'V2'), disable_cache: true)
   end
 end
