@@ -12,9 +12,8 @@ class QueriesController < ApplicationController
 
   def create
     query = Query.new(query_params)
-    if query.save
-      RummagerNotifier.update_elasticsearch(query, :create)
-
+    saver = RummagerSaver.new(query)
+    if saver.save
       redirect_to query_path(query), notice: "Your query was created successfully"
     else
       existing_query = check_for_duplicate_query(query)
@@ -44,10 +43,9 @@ class QueriesController < ApplicationController
 
   def update
     query = find_query
+    saver = RummagerSaver.new(query)
 
-    if query.update_attributes(query_params)
-      RummagerNotifier.update_elasticsearch(query, :update)
-
+    if saver.update_attributes(query_params)
       redirect_to query_path(query), notice: "Your query was updated successfully"
     else
       flash[:alert] = "We could not update your query"
@@ -57,10 +55,9 @@ class QueriesController < ApplicationController
 
   def destroy
     query = find_query
+    saver = RummagerSaver.new(query)
 
-    if query.destroy
-      RummagerNotifier.update_elasticsearch(query, :delete)
-
+    if saver.destroy
       redirect_to queries_path, notice: "Your query was deleted successfully"
     else
       redirect_to query_path(query), alert: "We could not delete your query"

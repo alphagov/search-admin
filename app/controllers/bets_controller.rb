@@ -1,10 +1,8 @@
 class BetsController < ApplicationController
   def create
     @bet = Bet.new(create_params)
-
-    if @bet.save
-      RummagerNotifier.update_elasticsearch(@bet.query, :create)
-
+    saver = RummagerSaver.new(@bet)
+    if saver.save
       redirect_to query_path(@bet.query), notice: 'Bet created'
     else
       flash.now[:alert] = 'The bet could not be created because there are errors'
@@ -18,10 +16,9 @@ class BetsController < ApplicationController
 
   def update
     @bet = bet
+    saver = RummagerSaver.new(@bet)
 
-    if @bet.update_attributes(bet_params)
-      RummagerNotifier.update_elasticsearch(@bet.query, :update)
-
+    if saver.update_attributes(bet_params)
       redirect_to query_path(@bet.query), notice: 'Bet updated'
     else
       flash.now[:alert] = 'The bet could not be saved because there are errors'
@@ -31,10 +28,9 @@ class BetsController < ApplicationController
 
   def destroy
     @bet = bet
+    saver = RummagerSaver.new(@bet)
 
-    if @bet.destroy
-      RummagerNotifier.update_elasticsearch(@bet.query, :update_bets)
-
+    if saver.destroy(action: :update_bets)
       flash.notice = 'Bet deleted'
     else
       flash.alert = 'Could not delete bet'
