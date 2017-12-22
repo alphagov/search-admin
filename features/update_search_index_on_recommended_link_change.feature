@@ -3,6 +3,7 @@ Feature: Update search index on external change
   I want my external link changes to be sent to the correct index
   So that they can be used to alter the results of searches
 
+  @stub_recommended_links
   Scenario: Creating an external link
     When I create a new external link
     Then the external link should have been sent to the mainstream index

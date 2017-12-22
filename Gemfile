@@ -14,11 +14,7 @@ gem 'gds-sso', '~> 13.5.0'
 gem 'govuk_admin_template'
 gem "govuk_app_config", "~> 0.2.0"
 
-if ENV["API_DEV"]
-  gem "gds-api-adapters", path: "../gds-api-adapters"
-else
-  gem 'gds-api-adapters', '~> 50.7.0'
-end
+gem 'gds-api-adapters', '~> 50.8.0'
 
 group :test do
   gem 'cucumber-rails', require: false

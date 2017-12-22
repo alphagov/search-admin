@@ -12,11 +12,13 @@ Feature: Queries
     When I create a new query
     Then the query should be listed on the query index
 
+  @stub_best_bets
   Scenario: Editing a query
     Given a query exists
     When I edit the query
     Then the edited query should be listed on the query index
 
+  @stub_best_bets
   Scenario: Deleting a query
     Given a query exists
     When I delete the query

@@ -2,7 +2,8 @@ require 'spec_helper'
 
 describe QueriesController do
   before do
-    allow(RummagerNotifier).to receive(:notify)
+    allow(Services.rummager).to receive(:add_document)
+    allow(Services.rummager).to receive(:delete_document)
   end
 
   let(:query_params) { { query: 'jobs', match_type: 'exact' } }
@@ -11,7 +12,7 @@ describe QueriesController do
     context 'on failure' do
       it "alerts the user" do
         post :create, params: { query: query_params.merge(match_type: nil) }
-        expect(flash[:alert]).to include('could not create')
+        expect(flash[:alert]).to include('Error creating')
       end
 
       it "renders the new action" do
@@ -21,7 +22,7 @@ describe QueriesController do
 
       it "does not notify other systems" do
         post :create, params: { query: query_params.merge(match_type: nil) }
-        expect(RummagerNotifier).not_to have_received(:notify)
+        expect(Services.rummager).not_to have_received(:add_document)
       end
     end
 
@@ -36,10 +37,9 @@ describe QueriesController do
         expect(response).to redirect_to(query_path(Query.last))
       end
 
-      it "notifies the world of the new query" do
+      it "does not notifies the world of the new query - needs to wait for bets" do
         post :create, params: { query: query_params }
-        expect(RummagerNotifier).to have_received(:notify)
-          .with([[Query.last, :create]])
+        expect(Services.rummager).not_to have_received(:add_document)
       end
     end
 
@@ -66,7 +66,7 @@ describe QueriesController do
     context 'on failure' do
       it "alerts the user" do
         update_query(match_type: nil)
-        expect(flash[:alert]).to include('could not update')
+        expect(flash[:alert]).to include('Error updating')
       end
 
       it "renders the edit action" do
@@ -76,7 +76,7 @@ describe QueriesController do
 
       it "does not notify other systems" do
         update_query(match_type: nil)
-        expect(RummagerNotifier).not_to have_received(:notify)
+        expect(Services.rummager).not_to have_received(:add_document)
       end
     end
 
@@ -91,10 +91,22 @@ describe QueriesController do
         expect(response).to redirect_to(query_path(Query.last))
       end
 
-      it "notifies the world of the new query" do
-        update_query
-        expect(RummagerNotifier).to have_received(:notify)
-          .with([[query, :update]])
+      context 'when query has bets' do
+        before do
+          create(:bet, query: query)
+        end
+
+        it "notifies the world of the new query" do
+          update_query
+          expect(Services.rummager).to have_received(:add_document)
+        end
+      end
+
+      context 'when query has no bets' do
+        it "notifies the world of the new query" do
+          update_query
+          expect(Services.rummager).not_to have_received(:add_document)
+        end
       end
     end
 
@@ -113,18 +125,19 @@ describe QueriesController do
 
     context 'on failure' do
       before do
-        mock_query = double(:query, id: query.id, destroy: false)
+        mock_query = double(:query, id: query.id)
+        allow(mock_query).to receive(:destroy!).and_raise(ActiveRecord::ActiveRecordError)
         allow(Query).to receive(:find).with(query.id.to_s).and_return(mock_query)
       end
 
       it "alerts the user" do
         delete_query
-        expect(flash[:alert]).to include('could not delete')
+        expect(flash[:alert]).to include('Error deleting')
       end
 
       it "does not notify other systems" do
         delete_query
-        expect(RummagerNotifier).not_to have_received(:notify)
+        expect(Services.rummager).not_to have_received(:delete_document)
       end
     end
 
@@ -141,8 +154,7 @@ describe QueriesController do
 
       it "notifies the world of the deletion" do
         delete_query
-        expect(RummagerNotifier).to have_received(:notify)
-          .with([[query, :delete]])
+        expect(Services.rummager).to have_received(:delete_document)
       end
     end
   end

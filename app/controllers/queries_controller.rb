@@ -1,6 +1,4 @@
 class QueriesController < ApplicationController
-  include Notifiable
-
   def index
     @queries = Query.includes(:best_bets, :worst_bets).order([:query, :match_type])
 
@@ -14,18 +12,15 @@ class QueriesController < ApplicationController
 
   def create
     query = Query.new(query_params)
-    if query.save
-      store_query_for_rummager(query, :create)
-      send_change_notification
-
+    saver = RummagerSaver.new(query)
+    if saver.save
       redirect_to query_path(query), notice: "Your query was created successfully"
     else
       existing_query = check_for_duplicate_query(query)
       if existing_query
-        flash[:notice] = "The query you created already exists"
-        redirect_to query_path(existing_query)
+        redirect_to query_path(existing_query), notice: "Query already exists"
       else
-        flash[:alert] = "We could not create your query"
+        flash[:alert] = "Error creating query"
         render :new
       end
     end
@@ -47,28 +42,24 @@ class QueriesController < ApplicationController
 
   def update
     query = find_query
+    saver = RummagerSaver.new(query)
 
-    if query.update_attributes(query_params)
-      store_query_for_rummager(query, :update)
-      send_change_notification
-
+    if saver.update_attributes(query_params)
       redirect_to query_path(query), notice: "Your query was updated successfully"
     else
-      flash[:alert] = "We could not update your query"
+      flash[:alert] = "Error updating query"
       render :edit
     end
   end
 
   def destroy
     query = find_query
+    saver = RummagerSaver.new(query)
 
-    if query.destroy
-      store_query_for_rummager(query, :delete)
-      send_change_notification
-
+    if saver.destroy
       redirect_to queries_path, notice: "Your query was deleted successfully"
     else
-      redirect_to query_path(query), alert: "We could not delete your query"
+      redirect_to query_path(query), alert: "Error deleting query"
     end
   end
 

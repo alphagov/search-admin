@@ -112,18 +112,16 @@ def check_rummager_was_sent_an_exact_best_bet_document(query)
   elasticsearch_doc = build_es_doc_from_query(query)
   doc_id = "#{query.query}-#{query.match_type}"
 
-  assert_rummager_posted_item(
-    elasticsearch_doc.merge(
-      "_type" => "best_bet",
-      "_id" => doc_id
-    ),
-    index: "metasearch"
+  expect(@rummager).to have_received(:add_document).with(
+    doc_id,
+    elasticsearch_doc,
+    "metasearch",
   )
 end
 
 def check_rummager_was_sent_a_best_bet_delete(query_es_ids)
   query_es_ids.each do |id|
-    assert_rummager_deleted_item(id, index: "metasearch")
+    expect(@rummager).to have_received(:delete_document).with(id, "metasearch")
   end
 end
 

@@ -104,3 +104,26 @@ Then(/^the worst bet should be listed on the query page$/) do
     query: 'worst-bet',
   )
 end
+
+Then("I should be a notified of the error") do
+  expect(page).to have_content(/Error (creating|updating|deleting) (bet|query)/)
+end
+
+Then("the query should still be listed on the query index") do
+  expect(Query.all).not_to be_empty
+end
+
+Then("the query should still be listed on the query index with best bet") do
+  expect(Query.all).not_to be_empty
+  expect(Query.first.best_bets).not_to be_empty
+end
+
+When("I delete the last bet") do
+  @query = Query.last
+  delete_best_bet(@query, @query.best_bets.first)
+end
+
+Then("no query should be listed on the query index") do
+  expect(Query.count).to eq(1)
+  expect(Bet.all).to be_empty
+end
