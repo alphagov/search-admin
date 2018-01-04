@@ -15,8 +15,3 @@ Before "@stub_best_bets_with_500" do
   allow(@rummager).to receive(:add_document).and_raise(GdsApi::HTTPClientError.new(500))
   allow(Services).to receive(:rummager).and_return(@rummager)
 end
-
-Before "@stub_recommended_links" do
-  stub_any_rummager_delete(index: "mainstream")
-  stub_any_rummager_post(index: "mainstream")
-end

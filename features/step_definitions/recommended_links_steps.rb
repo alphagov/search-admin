@@ -21,6 +21,8 @@ When(/^I create a new external link$/) do
     description: 'File your self assessment online.',
     keywords: 'tax, self assessment, hmrc'
   )
+
+  @recommended_link_content_id = RecommendedLink.last.content_id
 end
 
 Then(/^the external link named "(.*)" should be listed on the external links index$/) do |title|

@@ -88,24 +88,6 @@ describe RecommendedLinksController do
         expect(response).to redirect_to(recommended_link_path(RecommendedLink.last))
       end
 
-      it 'deletes the old document from rummager and adds the new one' do
-        old_link = recommended_link.link
-        new_link = 'http://new-link.com'
-
-        expect(RummagerLinkSynchronize).to receive(:delete).with(
-          expected_link(old_link)
-        )
-        expect(RummagerLinkSynchronize).to receive(:put).with(
-          expected_link(new_link)
-        )
-
-        update_recommended_link(link: new_link)
-
-        recommended_link.reload
-
-        expect(recommended_link.link).to eq(new_link)
-      end
-
       it 'updates the link in the publishing API' do
         new_link = 'http://new-link.com'
 

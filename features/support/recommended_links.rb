@@ -94,6 +94,20 @@ def check_rummager_was_sent_a_recommended_link_delete(link:, index:)
   assert_rummager_deleted_item(link, index: index)
 end
 
+def check_recommended_link_was_published(recommended_link, publishing_count)
+  assert_publishing_api_put_content(
+    recommended_link.content_id,
+    request_json_includes(title: recommended_link.title)
+  )
+
+  expected_request_body = nil
+  assert_publishing_api_publish(recommended_link.content_id, expected_request_body, publishing_count)
+end
+
+def check_recommended_link_was_unpublished(content_id)
+  assert_publishing_api_unpublish(content_id)
+end
+
 def run_recommended_links_elasticsearch_exporter
   `#{Rails.root + 'bin/export_recommended_links_for_elasticsearch'}`
 end

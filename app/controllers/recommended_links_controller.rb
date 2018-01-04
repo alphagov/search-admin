@@ -17,7 +17,6 @@ class RecommendedLinksController < ApplicationController
 
     if @recommended_link.save
       ExternalContentPublisher.publish(@recommended_link)
-      RummagerLinkSynchronize.put(@recommended_link)
 
       redirect_to recommended_link_path(@recommended_link), notice: "Your external link was created successfully"
     else
@@ -40,13 +39,6 @@ class RecommendedLinksController < ApplicationController
     old_recommended_link = RecommendedLink.new(link: @recommended_link.link, content_id: @recommended_link.content_id)
 
     if @recommended_link.update_attributes(update_recommended_link_params)
-
-      # Delete the record from rummager if the link has changed
-      if @recommended_link.link != old_recommended_link.link
-        RummagerLinkSynchronize.delete(old_recommended_link)
-      end
-
-      RummagerLinkSynchronize.put(@recommended_link)
       ExternalContentPublisher.publish(@recommended_link)
 
       redirect_to recommended_link_path(@recommended_link), notice: "Your external link was updated successfully"
@@ -60,7 +52,6 @@ class RecommendedLinksController < ApplicationController
     recommended_link = find_recommended_link
 
     if recommended_link.destroy
-      RummagerLinkSynchronize.delete(recommended_link)
       ExternalContentPublisher.unpublish(recommended_link)
 
       redirect_to recommended_links_path, notice: "Your external link was deleted successfully"

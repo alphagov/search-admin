@@ -16,7 +16,8 @@ This is a Ruby on Rails application that manages search "best bets" and "externa
 
 ### Dependencies
 
-- [alphagov/rummager](https://github.com/alphagov/rummager) - search-admin sends updates to rummager when best bets and external links are edited
+- [alphagov/publishing-api](https://github.com/alphagov/publishing-api) - search-admin publishes external links to the publishing API
+- [alphagov/rummager](https://github.com/alphagov/rummager) - search-admin sends updates to rummager when best bets are edited
 
 ### Running the application
 
@@ -38,7 +39,7 @@ database.yml.
 
 ### External links
 
-Run `bundle exec rake publish_external_links:rummager` to send all external links to rummager, or `bundle exec rake publish_external_links:publishing_api` to send them to the publishing API.
+Run `bundle exec rake publish_external_links:publishing_api` to send all external links to the publishing API.
 
 ## Licence
 
