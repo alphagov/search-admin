@@ -83,4 +83,23 @@ describe BetsController do
       expect(response).to render_template(:edit)
     end
   end
+
+  describe "Deleting bets" do
+    let(:query) { create(:query, :with_best_bet, query: 'two words') }
+    let(:bet) { query.bets.first }
+
+    it "deleting the last bet will delete the query from Rummager" do
+      expect(Services.rummager).to receive(:delete_document).with("two%20words-exact", 'metasearch')
+
+      delete :destroy, params: { id: bet.id }
+    end
+
+    it "deleting one of a group of bets bets will update the query in Rummager" do
+      create(:bet, query: query)
+      es_doc_id = ElasticSearchBetIDGenerator.generate(query.query, query.match_type)
+      expect(Services.rummager).to receive(:add_document).with(es_doc_id, anything, 'metasearch')
+
+      delete :destroy, params: { id: bet.id }
+    end
+  end
 end
