@@ -5,7 +5,7 @@ gem 'rails', '5.1.4'
 gem 'unicorn', '~> 5.4.0'
 gem 'mysql2', '~> 0.4.5'
 gem 'sass-rails', '~> 5.0.6'
-gem 'uglifier', '~> 4.1.2'
+gem 'uglifier', '~> 4.1.3'
 gem 'generic_form_builder', '~> 0.13.0'
 
 # GDS managed gems
