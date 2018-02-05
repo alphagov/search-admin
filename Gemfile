@@ -2,7 +2,6 @@ source 'https://rubygems.org'
 
 gem 'rails', '5.1.4'
 
-gem 'unicorn', '~> 5.4.0'
 gem 'mysql2', '~> 0.4.5'
 gem 'sass-rails', '~> 5.0.6'
 gem 'uglifier', '~> 4.1.4'
