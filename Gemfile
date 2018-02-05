@@ -2,7 +2,6 @@ source 'https://rubygems.org'
 
 gem 'rails', '5.1.4'
 
-gem 'unicorn', '~> 5.4.0'
 gem 'mysql2', '~> 0.4.5'
 gem 'sass-rails', '~> 5.0.6'
 gem 'uglifier', '~> 4.1.4'
@@ -12,7 +11,7 @@ gem 'generic_form_builder', '~> 0.13.0'
 gem 'plek', '~> 2.1.0'
 gem 'gds-sso', '~> 13.5.1'
 gem 'govuk_admin_template'
-gem "govuk_app_config", "~> 1.2.1"
+gem "govuk_app_config", "~> 1.3.0"
 
 gem 'gds-api-adapters', '~> 51.2.0'
 
