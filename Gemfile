@@ -8,7 +8,7 @@ gem 'uglifier', '~> 4.1.4'
 gem 'generic_form_builder', '~> 0.13.0'
 
 # GDS managed gems
-gem 'plek', '~> 2.1.0'
+gem 'plek', '~> 2.1.1'
 gem 'gds-sso', '~> 13.5.1'
 gem 'govuk_admin_template'
 gem "govuk_app_config", "~> 1.3.0"
