@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 gem 'rails', '5.1.5'
 
-gem 'mysql2', '~> 0.4.5'
+gem 'mysql2', '~> 0.5.0'
 gem 'sass-rails', '~> 5.0.6'
 gem 'uglifier', '~> 4.1.6'
 gem 'generic_form_builder', '~> 0.13.0'
