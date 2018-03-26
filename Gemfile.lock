@@ -307,7 +307,7 @@ GEM
     tilt (2.0.8)
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
-    uglifier (4.1.6)
+    uglifier (4.1.8)
       execjs (>= 0.3.0, < 3)
     unf (0.1.4)
       unf_ext
@@ -351,7 +351,7 @@ DEPENDENCIES
   rails-controller-testing
   rspec-rails (~> 3.7.2)
   sass-rails (~> 5.0.6)
-  uglifier (~> 4.1.6)
+  uglifier (~> 4.1.8)
   webmock (~> 3.3.0)
 
 BUNDLED WITH
