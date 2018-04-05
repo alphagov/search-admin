@@ -13,7 +13,7 @@ gem 'gds-sso', '~> 13.6.0'
 gem 'govuk_admin_template'
 gem "govuk_app_config", "~> 1.4.2"
 
-gem 'gds-api-adapters', '~> 52.5.0'
+gem 'gds-api-adapters', '~> 52.5.1'
 
 group :test do
   gem 'cucumber-rails', require: false
