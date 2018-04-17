@@ -20,6 +20,7 @@ RSpec.describe TravelAdviceBetsImporter do
       allow(RummagerSaver).to receive(:new)
         .and_return(rummager_saver)
       allow(rummager_saver).to receive(:save)
+        .and_return(true)
       allow(logger).to receive(:puts)
     end
 
@@ -48,13 +49,20 @@ RSpec.describe TravelAdviceBetsImporter do
 
     it "logs stuff" do
       instance.import
-      expect(logger).to have_received(:puts).with("Saved best bet 'Spain' : '/foreign-travel-advice/spain' to Rummager.")
-      expect(logger).to have_received(:puts).with("Saved best bet 'Spain' : '/world/spain' to Rummager.")
+      expect(logger).to have_received(:puts)
+        .with("Saved best bet 'Spain': '/foreign-travel-advice/spain' (pos: 1) to Rummager.")
+      expect(logger).to have_received(:puts)
+        .with("Saved best bet 'Spain': '/world/spain' (pos: 2) to Rummager.")
+    end
+
+    it "increments an internal count of successful saves" do
+      instance.import
+      expect(instance.count).to eq(6)
     end
 
     context "with valid and invalid data" do
       before do
-        csv_data.push(["Narnia", "narnia"])
+        csv_data.push(%w(Narnia narnia))
       end
 
       it "skips invalid data" do
@@ -75,6 +83,7 @@ RSpec.describe TravelAdviceBetsImporter do
       it "doesn't save duplicates in Rummager" do
         instance.import
         expect(rummager_saver).to have_received(:save).exactly(5).times
+        expect(instance.count).to eq(5)
       end
     end
   end
