@@ -86,5 +86,18 @@ RSpec.describe TravelAdviceBetsImporter do
         expect(instance.count).to eq(5)
       end
     end
+
+    context "with existing non-conflicting bets" do
+      let(:query) { create(:query, query: "Spain") }
+      let!(:bet) { create(:bet, link: "/world/spain", query: query, position: 2) }
+      before { csv_data.push(%w(Espana /world/spain)) }
+
+      it "creates a best bet" do
+        instance.import
+        expect(Query.where(query: "Spain").count).to eq(1)
+        expect(Query.where(query: "Espana").count).to eq(1)
+        expect(Bet.where(link: "/world/spain").count).to eq(2)
+      end
+    end
   end
 end

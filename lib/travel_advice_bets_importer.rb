@@ -35,7 +35,7 @@ private
   attr_reader :logger, :user
 
   def create_bet(query, link, position)
-    return if Bet.find_by(link: link)
+    return if Bet.find_by(link: link, query: query)
 
     Bet.create(
       comment: "Created by bets importer.",
