@@ -18,12 +18,12 @@ class TravelAdviceBetsImporter
 
       query = Query.find_or_create_by(query: term) { |q| q.match_type = "exact" }
 
-      travel_advice_bet = create_travel_advice_bet(query, link)
+      travel_advice_bet = create_bet(query, travel_advice_path(link), 1)
       if travel_advice_bet
         success(travel_advice_bet) if RummagerSaver.new(travel_advice_bet).save
       end
 
-      help_page_bet = create_travel_advice_help_page_bet(query, link)
+      help_page_bet = create_bet(query, link, 2)
       if help_page_bet
         success(help_page_bet) if RummagerSaver.new(help_page_bet).save
       end
@@ -34,21 +34,7 @@ private
 
   attr_reader :logger, :user
 
-  def create_travel_advice_bet(query, link)
-    ta_path = travel_advice_path(link)
-    return if Bet.find_by(link: ta_path)
-
-    Bet.create(
-      comment: "Created by bets importer.",
-      is_best: true,
-      link: ta_path,
-      query_id: query.id,
-      user_id: user.id,
-      position: 1,
-    )
-  end
-
-  def create_travel_advice_help_page_bet(query, link)
+  def create_bet(query, link, position)
     return if Bet.find_by(link: link)
 
     Bet.create(
@@ -57,7 +43,7 @@ private
       link: link,
       query_id: query.id,
       user_id: user.id,
-      position: 2,
+      position: position,
     )
   end
 
