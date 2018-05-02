@@ -20,7 +20,7 @@ group :test do
   gem 'database_cleaner', '~> 1.7.0'
   gem 'factory_bot_rails', '~> 4.8.2'
   gem 'govuk-content-schema-test-helpers', '~> 1.6.1'
-  gem 'webmock', '~> 3.4.0'
+  gem 'webmock', '~> 3.4.1'
 end
 
 group :test, :development do
