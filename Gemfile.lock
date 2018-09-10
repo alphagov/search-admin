@@ -94,10 +94,10 @@ GEM
       unf (>= 0.0.5, < 1.0.0)
     erubi (1.7.1)
     execjs (2.7.0)
-    factory_bot (4.11.0)
+    factory_bot (4.11.1)
       activesupport (>= 3.0.0)
-    factory_bot_rails (4.11.0)
-      factory_bot (~> 4.11.0)
+    factory_bot_rails (4.11.1)
+      factory_bot (~> 4.11.1)
       railties (>= 3.0.0)
     faraday (0.12.2)
       multipart-post (>= 1.2, < 3)
@@ -342,7 +342,7 @@ PLATFORMS
 DEPENDENCIES
   cucumber-rails
   database_cleaner (~> 1.7.0)
-  factory_bot_rails (~> 4.11.0)
+  factory_bot_rails (~> 4.11.1)
   gds-api-adapters (~> 53.0.0)
   gds-sso (~> 13.6.0)
   generic_form_builder (~> 0.13.0)
