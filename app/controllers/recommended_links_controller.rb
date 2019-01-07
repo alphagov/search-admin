@@ -36,7 +36,6 @@ class RecommendedLinksController < ApplicationController
 
   def update
     @recommended_link = find_recommended_link
-    old_recommended_link = RecommendedLink.new(link: @recommended_link.link, content_id: @recommended_link.content_id)
 
     if @recommended_link.update_attributes(update_recommended_link_params)
       ExternalContentPublisher.publish(@recommended_link)
@@ -63,7 +62,7 @@ class RecommendedLinksController < ApplicationController
 private
 
   def find_recommended_link
-    @_recommended_link ||= RecommendedLink.find(params[:id])
+    @find_recommended_link ||= RecommendedLink.find(params[:id])
   end
 
   def create_recommended_link_params

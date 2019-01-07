@@ -38,6 +38,6 @@ FactoryBot.define do
   end
 
   factory :user do
-    permissions { ["signin"] }
+    permissions { %w(signin) }
   end
 end

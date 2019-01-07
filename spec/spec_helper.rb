@@ -3,7 +3,7 @@ ENV["RAILS_ENV"] ||= 'test'
 ENV["GOVUK_APP_DOMAIN"] = 'test.gov.uk'
 ENV["GOVUK_ASSET_ROOT"] = 'http://static.test.gov.uk'
 
-require File.expand_path("../../config/environment", __FILE__)
+require File.expand_path("../../config/environment", __dir__)
 require 'rspec/rails'
 
 # Requires supporting ruby files with custom matchers and macros, etc,

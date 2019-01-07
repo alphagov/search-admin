@@ -14,7 +14,6 @@ module Services
       GdsApi::Rummager.new(Plek.current.find('search'),
                            disable_cache: true,
                            api_version: 'V2',
-                           bearer_token: ENV['PUBLISHING_API_BEARER_TOKEN'] || 'example'
-      )
+                           bearer_token: ENV['RUMMAGER_BEARER_TOKEN'] || 'example')
   end
 end

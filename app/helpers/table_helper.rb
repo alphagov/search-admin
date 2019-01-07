@@ -11,17 +11,17 @@ module TableHelper
     end
   end
 
-  def display_value(v)
-    if v.is_a?(Hash)
-      table_for(v)
-    elsif v.is_a?(Array)
+  def display_value(value)
+    if value.is_a?(Hash)
+      table_for(value)
+    elsif value.is_a?(Array)
       content_tag :ul do
-        v.map { |ae| content_tag :li, display_value(ae) }.join.html_safe
+        value.map { |ae| content_tag :li, display_value(ae) }.join.html_safe
       end
-    elsif v.blank?
+    elsif value.blank?
       "<em>empty</em>".html_safe
     else
-      v
+      value
     end
   end
 end

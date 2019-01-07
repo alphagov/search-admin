@@ -1,6 +1,5 @@
 class ResultsController < ApplicationController
-  def index
-  end
+  def index; end
 
   def show
     @path = params[:base_path]

@@ -10,11 +10,11 @@ class BetsController < ApplicationController
   end
 
   def edit
-    @bet = bet
+    @bet = find_bet
   end
 
   def update
-    @bet = bet
+    @bet = find_bet
     saver = RummagerSaver.new(@bet)
 
     if saver.update_attributes(bet_params)
@@ -26,7 +26,7 @@ class BetsController < ApplicationController
   end
 
   def destroy
-    @bet = bet
+    @bet = find_bet
     saver = RummagerSaver.new(@bet)
 
     if saver.destroy(action: :update_bets)
@@ -40,8 +40,8 @@ class BetsController < ApplicationController
 
 private
 
-  def bet
-    @_bet ||= Bet.find(params[:id])
+  def find_bet
+    @find_bet ||= Bet.find(params[:id])
   end
 
   def bet_params
