@@ -11,9 +11,11 @@ module Services
 
   def self.rummager
     @rummager ||=
-      GdsApi::Rummager.new(Plek.current.find('search'),
-                           disable_cache: true,
-                           api_version: 'V2',
-                           bearer_token: ENV['RUMMAGER_BEARER_TOKEN'] || 'example')
+      GdsApi::Rummager.new(
+        Plek.current.find('search'),
+        disable_cache: true,
+        api_version: 'V2',
+        bearer_token: ENV['RUMMAGER_BEARER_TOKEN'] || 'example'
+      )
   end
 end
