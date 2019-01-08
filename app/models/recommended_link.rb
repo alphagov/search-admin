@@ -9,7 +9,7 @@ class RecommendedLink < ApplicationRecord
       uri = URI("https://" + link)
     end
 
-    if uri.host.casecmp("www.gov.uk") == 0
+    if uri.host.casecmp("www.gov.uk").zero?
       'inside-government-link'
     else
       'recommended-link'
@@ -25,8 +25,7 @@ class RecommendedLink < ApplicationRecord
                 link.link,
                 link.description,
                 link.keywords,
-                link.comment.to_s
-              ]
+                link.comment.to_s]
       end
     end
   end

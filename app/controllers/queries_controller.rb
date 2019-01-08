@@ -1,6 +1,6 @@
 class QueriesController < ApplicationController
   def index
-    @queries = Query.includes(:best_bets, :worst_bets).order([:query, :match_type])
+    @queries = Query.includes(:best_bets, :worst_bets).order(%i(query match_type))
 
     respond_to do |format|
       format.html
@@ -66,7 +66,7 @@ class QueriesController < ApplicationController
 private
 
   def find_query
-    @_query ||= Query.find(params[:id])
+    @find_query ||= Query.find(params[:id])
   end
 
   def query_params

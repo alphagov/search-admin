@@ -28,8 +28,7 @@ class Query < ApplicationRecord
                   query.match_type,
                   bet.link,
                   bet.is_best ? 'best' : 'worst',
-                  bet.comment.to_s
-                ]
+                  bet.comment.to_s]
         end
       end
     end
