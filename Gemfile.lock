@@ -104,7 +104,7 @@ GEM
     faraday (0.15.4)
       multipart-post (>= 1.2, < 3)
     ffi (1.9.25)
-    gds-api-adapters (57.1.0)
+    gds-api-adapters (57.2.3)
       addressable
       link_header
       null_logger
@@ -347,7 +347,7 @@ DEPENDENCIES
   cucumber-rails
   database_cleaner (~> 1.7.0)
   factory_bot_rails (~> 4.11.1)
-  gds-api-adapters (~> 57.1.0)
+  gds-api-adapters (~> 57.2.3)
   gds-sso (~> 14.0.0)
   generic_form_builder (~> 0.13.0)
   govuk-content-schema-test-helpers (~> 1.6.1)
