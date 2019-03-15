@@ -2,7 +2,7 @@ desc "Resend all local queries to rummager to be reindexed"
 task reindex_best_bets: :environment do
   message = <<-MSG
     Rebuilding the elasticsearch index will just resend all locally stored best bets across to
-    be inserted in to elasticsearch. This means that any orphaned entried in the elasticsearch
+    be inserted in to elasticsearch. This means that any orphaned entries in the elasticsearch
     index would still exist. This can be avoided by running the below rake task on Rummager
     before rebuilding the index.
 
