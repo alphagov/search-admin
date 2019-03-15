@@ -5,6 +5,8 @@ default: &default
 development:
   <<: *default
   database: search_admin_development
+  username: search_admin
+  password: search_admin
 
 test: &test
   <<: *default
