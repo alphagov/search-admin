@@ -37,7 +37,7 @@ describe QueriesController do
         expect(response).to redirect_to(query_path(Query.last))
       end
 
-      it "does not notifies the world of the new query - needs to wait for bets" do
+      it "does not notify the world of the new query - needs to wait for bets" do
         post :create, params: { query: query_params }
         expect(Services.rummager).not_to have_received(:add_document)
       end
@@ -96,9 +96,16 @@ describe QueriesController do
           create(:bet, query: query)
         end
 
+        it "notifies the world to forget the previous query" do
+          update_query
+          expect(Services.rummager).to have_received(:delete_document)
+            .with("#{query.query}-#{query.match_type}", any_args)
+        end
+
         it "notifies the world of the new query" do
           update_query
           expect(Services.rummager).to have_received(:add_document)
+            .with("#{query_params[:query]}-#{query_params[:match_type]}", any_args)
         end
       end
 
