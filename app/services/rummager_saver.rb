@@ -42,12 +42,22 @@ class RummagerSaver
 private
 
   def update_elasticsearch(query, action)
-    if action != :delete && query_object.bets.any?
-      es_doc = ElasticSearchBet.new(query_object)
-      Services.rummager.add_document(es_doc.id, es_doc.body, 'metasearch')
-    elsif action != :create # so hitting save with no best bets will delete the query
-      es_doc_id = ElasticSearchBetIDGenerator.generate(query_object.query, query_object.match_type)
-      Services.rummager.delete_document(URI.escape(es_doc_id), 'metasearch') # rubocop:disable Lint/UriEscapeUnescape
+    if %i[update create].include?(action) && query.bets.any? # prevents queries with no bets being indexed
+      add_to_elasticsearch
+    elsif action == :delete || action == :update && query.bets.none? # removes queries with no bets from the index
+      remove_from_elasticsearch
+    elsif action == :update_bets # removing the final bet will de-index the query, removing any others will re-index
+      query.bets.any? ? add_to_elasticsearch : remove_from_elasticsearch
     end
+  end
+
+  def add_to_elasticsearch
+    es_doc = ElasticSearchBet.new(query_object)
+    Services.rummager.add_document(es_doc.id, es_doc.body, 'metasearch')
+  end
+
+  def remove_from_elasticsearch
+    es_doc_id = ElasticSearchBetIDGenerator.generate(query_object.query, query_object.match_type)
+    Services.rummager.delete_document(URI.escape(es_doc_id), 'metasearch') # rubocop:disable Lint/UriEscapeUnescape
   end
 end
