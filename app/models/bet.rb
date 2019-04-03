@@ -21,4 +21,12 @@ class Bet < ApplicationRecord
   def self.worst
     where.not(is_best: true)
   end
+
+  def is_query?
+    false
+  end
+
+  def query_object
+    self.query
+  end
 end

@@ -1,6 +1,20 @@
 require 'spec_helper'
 
 describe Query do
+  describe "#is_query?" do
+    it "should return true" do
+      query = create(:query)
+      expect(query.is_query?).to eq true
+    end
+  end
+
+  describe "#query_object" do
+    it "should return itself" do
+      query = create(:query)
+      expect(query.query_object).to eq query
+    end
+  end
+
   describe '#sorted_best_bets' do
     it "sorts the best bets by position" do
       query = create(:query)

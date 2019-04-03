@@ -18,6 +18,14 @@ class Query < ApplicationRecord
     "#{query} (#{match_type})"
   end
 
+  def is_query?
+    true
+  end
+
+  def query_object
+    self
+  end
+
   def self.to_csv(*_args)
     CSV.generate do |csv|
       csv << ['query', 'match_type', 'link', 'best/worst', 'comment']
