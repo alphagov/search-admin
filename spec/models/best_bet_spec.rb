@@ -3,12 +3,13 @@ require 'spec_helper'
 describe Bet do
   context 'for a best bet' do
     before do
+      @query = create(:query)
       @best_bet_attributes = {
         comment: "Boost the most common job page to the top",
         is_best: true,
         link: "/jobsearch",
         position: 1,
-        query_id: 1,
+        query_id: @query.id,
         user_id: 1,
       }
     end
@@ -66,6 +67,22 @@ describe Bet do
 
       expect(best_bet).to_not be_valid
       expect(best_bet.errors).to have_key(:user_id)
+    end
+
+    describe "#is_query?" do
+      it "should return false" do
+        best_bet = Bet.new(@best_bet_attributes)
+
+        expect(best_bet.is_query?).to eq false
+      end
+    end
+
+    describe "#query_object" do
+      it "should return its parent query" do
+        best_bet = Bet.new(@best_bet_attributes)
+
+        expect(best_bet.query_object).to eq @query
+      end
     end
   end
 

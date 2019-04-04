@@ -3,6 +3,7 @@ require 'spec_helper'
 describe BetsController do
   before do
     allow(Services.rummager).to receive(:add_document)
+    allow(Services.rummager).to receive(:delete_document)
   end
 
   let(:query) { create(:query) }
@@ -67,6 +68,12 @@ describe BetsController do
       put :update, params: { id: bet.id, bet: bet_params }
 
       expect(Services.rummager).to have_received(:add_document)
+    end
+
+    it "does not notify the world to forget the query" do
+      put :update, params: { id: bet.id, bet: bet_params }
+
+      expect(Services.rummager).not_to have_received(:delete_document)
     end
 
     it "redirects to the query show when update is successful" do
