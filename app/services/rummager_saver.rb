@@ -1,4 +1,9 @@
 class RummagerSaver
+  class InvalidAction < StandardError
+    def initialize(message)
+      super(message)
+    end
+  end
   delegate :is_query?, :query_object, to: :@object
 
   def initialize(object)
@@ -42,12 +47,16 @@ class RummagerSaver
 private
 
   def update_elasticsearch(query, action)
-    if %i[update create].include?(action) && query.bets.any? # prevents queries with no bets being indexed
-      add_to_elasticsearch
+    if action == :create && query.bets.none? # prevents queries with no bets being indexed
+      true
     elsif action == :delete || action == :update && query.bets.none? # removes queries with no bets from the index
       remove_from_elasticsearch
+    elsif %i[update create].include?(action)
+      add_to_elasticsearch
     elsif action == :update_bets # removing the final bet will de-index the query, removing any others will re-index
       query.bets.any? ? add_to_elasticsearch : remove_from_elasticsearch
+    else
+      raise InvalidAction.new("#{action} not one of: :update, :create, :update_bets, : delete")
     end
   end
 
