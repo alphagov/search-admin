@@ -4,14 +4,14 @@ FactoryBot.define do
   end
 
   factory :bet do
-    link "/death-and-taxes"
+    link { "/death-and-taxes" }
 
     trait(:worst) {
-      is_best false
+      is_best { false }
     }
 
     trait(:best) {
-      is_best true
+      is_best { true }
       position { generate :numeric_position }
     }
 
@@ -19,8 +19,8 @@ FactoryBot.define do
   end
 
   factory :query do
-    query "tax"
-    match_type "exact"
+    query { "tax" }
+    match_type { "exact" }
 
     trait :with_best_bet do
       after(:create) do |query|
@@ -30,10 +30,10 @@ FactoryBot.define do
   end
 
   factory :recommended_link do
-    title "Tax online"
-    link "https://www.tax.service.gov.uk/"
-    description "File your self assessment online."
-    keywords "tax, self assessment, hmrc"
+    title { "Tax online" }
+    link { "https://www.tax.service.gov.uk/" }
+    description { "File your self assessment online." }
+    keywords { "tax, self assessment, hmrc" }
     content_id { SecureRandom.uuid }
   end
 
