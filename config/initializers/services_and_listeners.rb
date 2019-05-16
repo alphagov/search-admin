@@ -2,7 +2,7 @@ require 'gds_api/rummager'
 
 # Extend the adapters to allow us to request URLs directly.
 module GdsApi
-  class Rummager < Base
+  class Search < Base
     def get(path)
       request_url = "#{base_url}#{path}"
       get_json(request_url)
