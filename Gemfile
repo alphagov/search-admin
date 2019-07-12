@@ -11,7 +11,7 @@ gem 'generic_form_builder', '~> 0.13.0'
 gem 'plek', '~> 3.0.0'
 gem 'gds-sso', '~> 14.0.0'
 gem 'govuk_admin_template'
-gem "govuk_app_config", "~> 1.20.0"
+gem "govuk_app_config", "~> 1.20.1"
 
 gem 'gds-api-adapters', '~> 59.5.1'
 
