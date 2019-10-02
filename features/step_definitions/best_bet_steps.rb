@@ -1,36 +1,36 @@
 When(/^I create a best bet$/) do
-  create_query(query: 'some jobs', match_type: 'exact', links: [['/jobsearch', true, 1, 'a comment']])
+  create_query(query: "some jobs", match_type: "exact", links: [["/jobsearch", true, 1, "a comment"]])
 end
 
 When(/^I create a worst bet for a query$/) do
-  create_query(query: 'worst-bet', match_type: 'exact', links: [['/worst-bet', false, nil, 'a comment']])
+  create_query(query: "worst-bet", match_type: "exact", links: [["/worst-bet", false, nil, "a comment"]])
 end
 
 When(/^I create several exact best bets for the same query$/) do
-  create_query(query: 'jobs', match_type: 'exact', links: [['/jobsearch', true, 1], ['/policy-areas/employment', true, 2]])
+  create_query(query: "jobs", match_type: "exact", links: [["/jobsearch", true, 1], ["/policy-areas/employment", true, 2]])
 end
 
 Then(/^the query should be listed on the index page$/) do
   check_for_query_on_index_page(
-    query: 'some jobs',
-    match_type: 'exact'
+    query: "some jobs",
+    match_type: "exact",
   )
 end
 
 Then(/^the best bet should be listed on the query page$/) do
   check_for_bet_on_query_page(
-    comment: 'a comment',
+    comment: "a comment",
     is_best: true,
-    link: '/jobsearch',
-    match_type: 'exact',
+    link: "/jobsearch",
+    match_type: "exact",
     position: 1,
-    query: 'some jobs',
+    query: "some jobs",
   )
 end
 
 Given(/^a query exists$/) do
   @query = create(:query, :with_best_bet)
-  @query.bets.each { |b| b.update_attribute(:link, '/jobsearch') }
+  @query.bets.each { |b| b.update_attribute(:link, "/jobsearch") }
 end
 
 Given(/^there are some best bets$/) do
@@ -50,21 +50,21 @@ end
 
 Given(/^a query with a worst bet exists$/) do
   query = create(:query, :with_best_bet, query: "worst-bet", match_type: "exact")
-  create(:bet, :worst, query: query, link: "/worst-bet", position: nil, comment: 'a comment')
+  create(:bet, :worst, query: query, link: "/worst-bet", position: nil, comment: "a comment")
 end
 
 When(/^I edit a best bet$/) do
-  edit_best_bet(@query.best_bets.first, '/job-policy')
+  edit_best_bet(@query.best_bets.first, "/job-policy")
 end
 
 Then(/^the edited best bet should be listed on the query page$/) do
   bet = @query.best_bets.first
   check_for_bet_on_query_page(
-    link: 'job-policy',
+    link: "job-policy",
     is_best: bet.is_best?,
     position: bet.position,
     query: @query.query,
-    match_type: @query.match_type
+    match_type: @query.match_type,
   )
 end
 
@@ -96,12 +96,12 @@ end
 
 Then(/^the worst bet should be listed on the query page$/) do
   check_for_bet_on_query_page(
-    comment: 'a comment',
+    comment: "a comment",
     is_best: false,
-    link: '/worst-bet',
-    match_type: 'exact',
+    link: "/worst-bet",
+    match_type: "exact",
     position: nil,
-    query: 'worst-bet',
+    query: "worst-bet",
   )
 end
 

@@ -16,10 +16,10 @@ end
 
 When(/^I create a new external link$/) do
   create_recommended_link(
-    title: 'Tax online',
-    link: 'https://www.tax.service.gov.uk/',
-    description: 'File your self assessment online.',
-    keywords: 'tax, self assessment, hmrc'
+    title: "Tax online",
+    link: "https://www.tax.service.gov.uk/",
+    description: "File your self assessment online.",
+    keywords: "tax, self assessment, hmrc",
   )
 
   @recommended_link_content_id = RecommendedLink.last.content_id
@@ -33,7 +33,7 @@ When(/^I edit the external link named "(.*)" with link "(.*)" to be named "(.*)"
   edit_recommended_link(
     old_title: old_title,
     old_link: link,
-    title: new_title
+    title: new_title,
   )
 end
 
@@ -54,6 +54,6 @@ When(/^I visit the external link$/) do
 end
 
 Then(/^I should see the external links search results on the page$/) do
-  expect(page).to have_selector('iframe')
-  expect(find('iframe')[:src]).to include 'gov.uk/search?q=Tax+online'
+  expect(page).to have_selector("iframe")
+  expect(find("iframe")[:src]).to include "gov.uk/search?q=Tax+online"
 end

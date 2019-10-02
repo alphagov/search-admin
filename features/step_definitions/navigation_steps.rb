@@ -5,7 +5,7 @@ end
 
 Then(/^I can click a link to navigate to the index of queries$/) do
   within(".breadcrumb") do
-    click_link 'Queries'
+    click_link "Queries"
   end
 
   expect(current_path).to eq queries_path
@@ -18,7 +18,7 @@ end
 
 Then(/^I can click a link to navigate to the index of external links$/) do
   within(".breadcrumb") do
-    click_link 'External links'
+    click_link "External links"
   end
 
   expect(current_path).to eq recommended_links_path
