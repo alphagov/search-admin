@@ -1,15 +1,15 @@
-ENV["GOVUK_APP_DOMAIN"] = 'test.gov.uk'
-ENV["GOVUK_ASSET_ROOT"] = 'http://static.test.gov.uk'
+ENV["GOVUK_APP_DOMAIN"] = "test.gov.uk"
+ENV["GOVUK_ASSET_ROOT"] = "http://static.test.gov.uk"
 
-Before('@no-txn') { DatabaseCleaner.strategy = :truncation }
-After('@no-txn') { DatabaseCleaner.strategy = :transaction }
+Before("@no-txn") { DatabaseCleaner.strategy = :truncation }
+After("@no-txn") { DatabaseCleaner.strategy = :transaction }
 
-require 'cucumber/rails'
-require 'cucumber/rspec/doubles'
+require "cucumber/rails"
+require "cucumber/rspec/doubles"
 
-require 'webmock/cucumber'
-require 'gds_api/test_helpers/publishing_api_v2'
-require 'gds_api/test_helpers/rummager'
+require "webmock/cucumber"
+require "gds_api/test_helpers/publishing_api_v2"
+require "gds_api/test_helpers/rummager"
 
 WebMock.disable_net_connect!
 

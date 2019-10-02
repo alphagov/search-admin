@@ -4,14 +4,14 @@ def create_recommended_link(title: nil, link: nil, description: nil, keywords: n
 
   visit recommended_links_path
 
-  click_on 'New external link'
+  click_on "New external link"
 
-  fill_in 'Link', with: link if link
-  fill_in 'Title', with: title if title
-  fill_in 'Description', with: description if description
-  fill_in 'Keywords', with: keywords if keywords
+  fill_in "Link", with: link if link
+  fill_in "Title", with: title if title
+  fill_in "Description", with: description if description
+  fill_in "Keywords", with: keywords if keywords
 
-  click_on 'Save'
+  click_on "Save"
 end
 
 def edit_recommended_link(old_title: nil, old_link: nil, title: nil, description: nil, keywords: nil, comment: nil)
@@ -27,11 +27,11 @@ def edit_recommended_link(old_title: nil, old_link: nil, title: nil, description
   end
 
   click_on "Edit external link"
-  fill_in 'Title', with: title if title
-  fill_in 'Description', with: description if description
-  fill_in 'Keywords', with: keywords if keywords
-  fill_in 'Comment', with: comment if comment
-  click_on 'Save'
+  fill_in "Title", with: title if title
+  fill_in "Description", with: description if description
+  fill_in "Keywords", with: keywords if keywords
+  fill_in "Comment", with: comment if comment
+  click_on "Save"
 end
 
 def delete_recommended_link(title: nil, link: nil)
@@ -51,7 +51,7 @@ end
 def check_for_recommended_link_on_index_page(title: nil)
   visit recommended_links_path
 
-  within('.recommended-links-list') do
+  within(".recommended-links-list") do
     expect(page).to have_content(title)
   end
 end
@@ -73,7 +73,7 @@ def check_for_recommended_links_in_csv_format(recommended_links)
       recommended_link.link,
       recommended_link.description,
       recommended_link.keywords,
-      ''
+      "",
     ])
   end
 end
@@ -84,9 +84,9 @@ def check_rummager_was_sent_an_exact_recommended_link_document(recommended_link:
     elasticsearch_doc.merge(
       "_type" => "edition",
       "link" => recommended_link.link,
-      "_id" => recommended_link.link
+      "_id" => recommended_link.link,
     ),
-    index: index
+    index: index,
   )
 end
 
@@ -97,7 +97,7 @@ end
 def check_recommended_link_was_published(recommended_link, publishing_count)
   assert_publishing_api_put_content(
     recommended_link.content_id,
-    request_json_includes(title: recommended_link.title)
+    request_json_includes(title: recommended_link.title),
   )
 
   expected_request_body = nil
@@ -109,16 +109,16 @@ def check_recommended_link_was_unpublished(content_id)
 end
 
 def run_recommended_links_elasticsearch_exporter
-  `#{Rails.root + 'bin/export_recommended_links_for_elasticsearch'}`
+  `#{Rails.root + "bin/export_recommended_links_for_elasticsearch"}`
 end
 
 def confirm_recommended_links_elasticsearch_format(dump, recommended_links)
   recommended_links.each do |recommended_link|
     es_doc_header = {
-      'index' => {
-        '_id' => recommended_link.link,
-        '_type' => recommended_link.format
-      }
+      "index" => {
+        "_id" => recommended_link.link,
+        "_type" => recommended_link.format,
+      },
     }
 
     es_doc = build_doc_from_recommended_link(recommended_link, include_es_data: true)
@@ -132,13 +132,13 @@ def build_doc_from_recommended_link(recommended_link, include_es_data: false)
     link: recommended_link.link,
     description: recommended_link.description,
     format: recommended_link.format,
-    indexable_content: recommended_link.keywords
+    indexable_content: recommended_link.keywords,
   }
 
   if include_es_data
     {
       link: recommended_link.link,
-      details: details.to_json
+      details: details.to_json,
     }
   else
     details
