@@ -1,4 +1,4 @@
-require 'spec_helper'
+require "spec_helper"
 
 RSpec.describe RummagerSaver do
   let(:query)          { create(:query) }

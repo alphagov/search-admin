@@ -8,7 +8,7 @@ class ElasticSearchRecommendedLink
   def body
     {
       link: link,
-      details: details.to_json
+      details: details.to_json,
     }
   end
 
@@ -18,7 +18,7 @@ class ElasticSearchRecommendedLink
       link: link,
       description: description,
       format: format,
-      indexable_content: indexable_content
+      indexable_content: indexable_content,
     }
   end
 

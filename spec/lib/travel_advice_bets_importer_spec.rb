@@ -6,7 +6,7 @@ RSpec.describe TravelAdviceBetsImporter do
     [
       ["Angola", "/world/angola"],
       ["Belgium", "/world/belgium"],
-      ["Spain", "/world/spain"]
+      ["Spain", "/world/spain"],
     ]
   }
   let(:logger) { double(:logger) }
@@ -36,7 +36,7 @@ RSpec.describe TravelAdviceBetsImporter do
         "/foreign-travel-advice/belgium",
         "/world/belgium",
         "/foreign-travel-advice/spain",
-        "/world/spain"
+        "/world/spain",
       ])
     end
 

@@ -3,9 +3,9 @@ class BetsController < ApplicationController
     @bet = Bet.new(create_params)
     saver = RummagerSaver.new(@bet)
     if saver.save
-      redirect_to query_path(@bet.query), notice: 'Bet created'
+      redirect_to query_path(@bet.query), notice: "Bet created"
     else
-      redirect_to query_path(@bet.query), alert: 'Error creating bet.'
+      redirect_to query_path(@bet.query), alert: "Error creating bet."
     end
   end
 
@@ -18,10 +18,10 @@ class BetsController < ApplicationController
     saver = RummagerSaver.new(@bet)
 
     if saver.update_attributes(bet_params)
-      redirect_to query_path(@bet.query), notice: 'Bet updated'
+      redirect_to query_path(@bet.query), notice: "Bet updated"
     else
-      flash.now[:alert] = 'Error updating bet'
-      render 'edit'
+      flash.now[:alert] = "Error updating bet"
+      render "edit"
     end
   end
 
@@ -30,9 +30,9 @@ class BetsController < ApplicationController
     saver = RummagerSaver.new(@bet)
 
     if saver.destroy(action: :update_bets)
-      flash.notice = 'Bet deleted'
+      flash.notice = "Bet deleted"
     else
-      flash.alert = 'Error deleting bet'
+      flash.alert = "Error deleting bet"
     end
 
     redirect_to query_path(@bet.query)

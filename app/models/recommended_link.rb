@@ -10,9 +10,9 @@ class RecommendedLink < ApplicationRecord
     end
 
     if uri.host.casecmp("www.gov.uk").zero?
-      'inside-government-link'
+      "inside-government-link"
     else
-      'recommended-link'
+      "recommended-link"
     end
   end
 

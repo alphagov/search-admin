@@ -1,4 +1,4 @@
-require 'csv'
+require "csv"
 
 class Bet < ApplicationRecord
   belongs_to :user
@@ -11,7 +11,7 @@ class Bet < ApplicationRecord
                          allow_nil: false,
                          greater_than: 0,
                          less_than: 2147483647, # Maximum value for integer
-                         only_integer: true
+                         only_integer: true,
                        }, if: :is_best?
 
   def self.best

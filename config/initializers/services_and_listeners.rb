@@ -1,4 +1,4 @@
-require 'gds_api/rummager'
+require "gds_api/rummager"
 
 # Extend the adapters to allow us to request URLs directly.
 module GdsApi

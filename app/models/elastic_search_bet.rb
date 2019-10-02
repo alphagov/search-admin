@@ -7,15 +7,15 @@ class ElasticSearchBet
     {
       index: {
         _id: id,
-        _type: type
-      }
+        _type: type,
+      },
     }
   end
 
   def body
     {
       query_field => query_string,
-      details: details.to_json
+      details: details.to_json,
     }
   end
 
@@ -24,7 +24,7 @@ class ElasticSearchBet
   end
 
   def type
-    'best_bet'
+    "best_bet"
   end
 
 private
@@ -44,7 +44,7 @@ private
   def details
     {
       best_bets: best_bets.map { |bet| { link: bet.link, position: bet.position } },
-      worst_bets: worst_bets.map { |bet| { link: bet.link } }
+      worst_bets: worst_bets.map { |bet| { link: bet.link } },
     }
   end
 
