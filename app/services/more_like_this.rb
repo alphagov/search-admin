@@ -21,7 +21,7 @@ class MoreLikeThis
 
     search_results.reduce([]) do |mlt_results, search_result|
       mlt_results << ElasticSearchMltResult.new(
-        search_result.slice(*ElasticSearchMltResult::VALID_FIELDS)
+        search_result.slice(*ElasticSearchMltResult::VALID_FIELDS),
       )
     end
   end
@@ -29,7 +29,7 @@ class MoreLikeThis
 private
 
   def tagged_taxon_content_id
-    taxon_content_ids = content_item['taxons'] || []
+    taxon_content_ids = content_item["taxons"] || []
     return if taxon_content_ids.empty?
 
     # TODO: handle multiple tagged taxons in results
@@ -42,14 +42,14 @@ private
       start: 0,
       count: 25,
       filter_taxons: [tagged_taxon_content_id],
-      fields: %w(title link format content_store_document_type)
-    )['results']
+      fields: %w(title link format content_store_document_type),
+    )["results"]
   end
 
   def content_item
     Services.rummager.search(
       filter_link: base_path,
-      fields: %w(taxons)
-    )['results'].first
+      fields: %w(taxons),
+    )["results"].first
   end
 end

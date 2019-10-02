@@ -1,7 +1,7 @@
-require 'spec_helper'
+require "spec_helper"
 
 describe Bet do
-  context 'for a best bet' do
+  context "for a best bet" do
     before do
       @query = create(:query)
       @best_bet_attributes = {
@@ -86,7 +86,7 @@ describe Bet do
     end
   end
 
-  context 'for a worst bet' do
+  context "for a worst bet" do
     before do
       @worst_bet_attributes = {
         comment: "Mark as worst bet",
@@ -98,13 +98,13 @@ describe Bet do
       }
     end
 
-    it 'is valid with a nil position' do
+    it "is valid with a nil position" do
       worst_bet = Bet.new(@worst_bet_attributes)
 
       expect(worst_bet).to be_valid
     end
 
-    it 'is valid with a position of 0' do
+    it "is valid with a position of 0" do
       worst_bet = Bet.new(@worst_bet_attributes.merge(position: 0))
 
       expect(worst_bet).to be_valid

@@ -1,4 +1,4 @@
-require 'spec_helper'
+require "spec_helper"
 
 RSpec.describe ExternalContentPresenter do
   context "for the publishing API" do
@@ -45,7 +45,7 @@ RSpec.describe ExternalContentPresenter do
       validator = GovukContentSchemaTestHelpers::Validator.new(
         "external_content",
         "schema",
-        payload
+        payload,
       )
 
       expect(validator).to be_valid

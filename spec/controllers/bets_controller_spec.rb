@@ -1,4 +1,4 @@
-require 'spec_helper'
+require "spec_helper"
 
 describe BetsController do
   before do
@@ -10,9 +10,9 @@ describe BetsController do
   let(:bet_params) {
     {
       query_id: query.id,
-      link: '/visas-and-immigration',
+      link: "/visas-and-immigration",
       position: 1,
-      comment: 'Created to help UKVI',
+      comment: "Created to help UKVI",
       is_best: true,
     }
   }
@@ -48,14 +48,14 @@ describe BetsController do
     it "redirects to the query show when create is successful" do
       post :create, params: { bet: bet_params }
 
-      expect(flash[:notice]).to include('Bet created')
+      expect(flash[:notice]).to include("Bet created")
       expect(response).to redirect_to(query_path(query))
     end
 
     it "redirects to the query show when create is unsuccessful" do
-      post :create, params: { bet: bet_params.merge(link: '') }
+      post :create, params: { bet: bet_params.merge(link: "") }
 
-      expect(flash[:alert]).to include('Error creating')
+      expect(flash[:alert]).to include("Error creating")
       expect(response).to redirect_to(query_path(query))
     end
   end
@@ -79,24 +79,24 @@ describe BetsController do
     it "redirects to the query show when update is successful" do
       post :update, params: { id: bet.id, bet: bet_params }
 
-      expect(flash[:notice]).to include('Bet updated')
+      expect(flash[:notice]).to include("Bet updated")
       expect(response).to redirect_to(query_path(query))
     end
 
     it "renders the edit template when update is unsuccessful" do
-      post :update, params: { id: bet.id, bet: bet_params.merge(link: '') }
+      post :update, params: { id: bet.id, bet: bet_params.merge(link: "") }
 
-      expect(flash[:alert]).to include('Error updating')
+      expect(flash[:alert]).to include("Error updating")
       expect(response).to render_template(:edit)
     end
   end
 
   describe "Deleting bets" do
-    let(:query) { create(:query, :with_best_bet, query: 'two words') }
+    let(:query) { create(:query, :with_best_bet, query: "two words") }
     let(:bet) { query.bets.first }
 
     it "deleting the last bet will delete the query from Rummager" do
-      expect(Services.rummager).to receive(:delete_document).with("two%20words-exact", 'metasearch')
+      expect(Services.rummager).to receive(:delete_document).with("two%20words-exact", "metasearch")
 
       delete :destroy, params: { id: bet.id }
     end
@@ -104,7 +104,7 @@ describe BetsController do
     it "deleting one of a group of bets bets will update the query in Rummager" do
       create(:bet, query: query)
       es_doc_id = ElasticSearchBetIDGenerator.generate(query.query, query.match_type)
-      expect(Services.rummager).to receive(:add_document).with(es_doc_id, anything, 'metasearch')
+      expect(Services.rummager).to receive(:add_document).with(es_doc_id, anything, "metasearch")
 
       delete :destroy, params: { id: bet.id }
     end

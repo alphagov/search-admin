@@ -1,4 +1,4 @@
-require 'spec_helper'
+require "spec_helper"
 
 describe QueriesController do
   before do
@@ -6,18 +6,18 @@ describe QueriesController do
     allow(Services.rummager).to receive(:delete_document)
   end
 
-  let(:query_params) { { query: 'jobs', match_type: 'exact' } }
+  let(:query_params) { { query: "jobs", match_type: "exact" } }
 
-  describe '#create' do
-    context 'on failure' do
+  describe "#create" do
+    context "on failure" do
       it "alerts the user" do
         post :create, params: { query: query_params.merge(match_type: nil) }
-        expect(flash[:alert]).to include('Error creating')
+        expect(flash[:alert]).to include("Error creating")
       end
 
       it "renders the new action" do
         post :create, params: { query: query_params.merge(match_type: nil) }
-        expect(response).to render_template('new')
+        expect(response).to render_template("new")
       end
 
       it "does not notify other systems" do
@@ -26,10 +26,10 @@ describe QueriesController do
       end
     end
 
-    context 'on success' do
+    context "on success" do
       it "notifies the user" do
         post :create, params: { query: query_params }
-        expect(flash[:notice]).to include('was created')
+        expect(flash[:notice]).to include("was created")
       end
 
       it "redirects to the query" do
@@ -44,34 +44,34 @@ describe QueriesController do
     end
 
     it "converts the query to lower case" do
-      post :create, params: { query: query_params.merge(query: 'Jobs') }
-      expect(Query.last.query).to eq('jobs')
+      post :create, params: { query: query_params.merge(query: "Jobs") }
+      expect(Query.last.query).to eq("jobs")
     end
 
     it "redirects to the existing query if duplicated" do
       existing_query = create(:query, query_params)
       post :create, params: { query: query_params }
       expect(response).to redirect_to(query_path(existing_query))
-      expect(flash[:notice]).to include('exist')
+      expect(flash[:notice]).to include("exist")
     end
   end
 
-  describe '#update' do
-    let(:query) { create(:query, query: 'tax') }
+  describe "#update" do
+    let(:query) { create(:query, query: "tax") }
 
     def update_query(options = {})
       put :update, params: { id: query.id, query: query_params.merge(options) }
     end
 
-    context 'on failure' do
+    context "on failure" do
       it "alerts the user" do
         update_query(match_type: nil)
-        expect(flash[:alert]).to include('Error updating')
+        expect(flash[:alert]).to include("Error updating")
       end
 
       it "renders the edit action" do
         update_query(match_type: nil)
-        expect(response).to render_template('edit')
+        expect(response).to render_template("edit")
       end
 
       it "does not notify other systems" do
@@ -80,10 +80,10 @@ describe QueriesController do
       end
     end
 
-    context 'on success' do
+    context "on success" do
       it "notifies the user" do
         update_query
-        expect(flash[:notice]).to include('was updated')
+        expect(flash[:notice]).to include("was updated")
       end
 
       it "redirects to the query" do
@@ -91,7 +91,7 @@ describe QueriesController do
         expect(response).to redirect_to(query_path(Query.last))
       end
 
-      context 'when query has bets' do
+      context "when query has bets" do
         before do
           create(:bet, query: query)
         end
@@ -109,7 +109,7 @@ describe QueriesController do
         end
       end
 
-      context 'when query has no bets' do
+      context "when query has no bets" do
         it "notifies the world of the new query" do
           update_query
           expect(Services.rummager).not_to have_received(:add_document)
@@ -118,19 +118,19 @@ describe QueriesController do
     end
 
     it "converts the query to lower case" do
-      update_query(query: 'Jobs')
-      expect(Query.last.query).to eq('jobs')
+      update_query(query: "Jobs")
+      expect(Query.last.query).to eq("jobs")
     end
   end
 
-  describe '#destroy' do
-    let(:query) { create(:query, query: 'tax') }
+  describe "#destroy" do
+    let(:query) { create(:query, query: "tax") }
 
     def delete_query
       delete :destroy, params: { id: query.id }
     end
 
-    context 'on failure' do
+    context "on failure" do
       before do
         mock_query = double(:query, id: query.id)
         allow(mock_query).to receive(:destroy!).and_raise(ActiveRecord::ActiveRecordError)
@@ -139,7 +139,7 @@ describe QueriesController do
 
       it "alerts the user" do
         delete_query
-        expect(flash[:alert]).to include('Error deleting')
+        expect(flash[:alert]).to include("Error deleting")
       end
 
       it "does not notify other systems" do
@@ -148,10 +148,10 @@ describe QueriesController do
       end
     end
 
-    context 'on success' do
+    context "on success" do
       it "notifies the user" do
         delete_query
-        expect(flash[:notice]).to include('was deleted')
+        expect(flash[:notice]).to include("was deleted")
       end
 
       it "redirects to the query index" do
