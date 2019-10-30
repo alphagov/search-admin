@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-gem "rails", "5.2.3"
+gem "rails", "6.0.0"
 
 gem "generic_form_builder", "~> 0.13.0"
 gem "mysql2", "~> 0.4.5"
