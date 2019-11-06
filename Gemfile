@@ -9,7 +9,7 @@ gem 'uglifier', '~> 4.2.0'
 gem 'bootsnap', '~> 1.1', '>= 1.1.7'
 
 # GDS managed gems
-gem 'gds-sso', '~> 14.1.1'
+gem 'gds-sso', '~> 14.2.0'
 gem 'govuk_admin_template'
 gem 'govuk_app_config', '~> 2.0.1'
 gem 'plek', '~> 3.0.0'
