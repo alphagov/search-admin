@@ -4,7 +4,7 @@ class AddContentIdToRecommendedLinks < ActiveRecord::Migration[5.0]
     add_index :recommended_links, :content_id, unique: true
 
     RecommendedLink.all.each do |link|
-      link.update_attributes(content_id: SecureRandom.uuid())
+      link.update(content_id: SecureRandom.uuid())
     end
   end
 

@@ -23,7 +23,7 @@ class RummagerSaver
   def update_attributes(params)
     ActiveRecord::Base.transaction do
       update_elasticsearch(query_object, :delete) if is_query? && query_object.bets.any? # prevent old queries still being indexed in search
-      @object.update_attributes!(params)
+      @object.update!(params)
       update_elasticsearch(query_object, :update)
     end
     true
