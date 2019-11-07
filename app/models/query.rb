@@ -3,7 +3,7 @@ class Query < ApplicationRecord
 
   validates :query, presence: true
   validates :match_type, inclusion: { in: MATCH_TYPES }
-  validates :query, uniqueness: { scope: :match_type }
+  validates :query, uniqueness: { scope: :match_type, case_sensitive: true }
 
   has_many :bets, dependent: :destroy
   has_many :best_bets, -> { best }, class_name: "Bet"
