@@ -37,7 +37,7 @@ class RecommendedLinksController < ApplicationController
   def update
     @recommended_link = find_recommended_link
 
-    if @recommended_link.update_attributes(update_recommended_link_params)
+    if @recommended_link.update(update_recommended_link_params)
       ExternalContentPublisher.publish(@recommended_link)
 
       redirect_to recommended_link_path(@recommended_link), notice: "Your external link was updated successfully"
