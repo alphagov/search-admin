@@ -14,7 +14,7 @@ gem 'govuk_admin_template'
 gem 'govuk_app_config', '~> 2.0.1'
 gem 'plek', '~> 3.0.0'
 
-gem 'gds-api-adapters', '~> 61.1.0'
+gem 'gds-api-adapters', '~> 62.0.0'
 
 group :test do
   gem 'cucumber-rails', require: false
