@@ -37,7 +37,7 @@ private
   end
 
   def search_results
-    Services.rummager.search(
+    Services.search_api.search(
       similar_to: base_path,
       start: 0,
       count: 25,
@@ -47,7 +47,7 @@ private
   end
 
   def content_item
-    Services.rummager.search(
+    Services.search_api.search(
       filter_link: base_path,
       fields: %w(taxons),
     )["results"].first

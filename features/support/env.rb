@@ -9,12 +9,12 @@ require "cucumber/rspec/doubles"
 
 require "webmock/cucumber"
 require "gds_api/test_helpers/publishing_api_v2"
-require "gds_api/test_helpers/rummager"
+require "gds_api/test_helpers/search"
 
 WebMock.disable_net_connect!
 
 World(FactoryBot::Syntax::Methods)
-World(GdsApi::TestHelpers::Rummager)
+World(GdsApi::TestHelpers::Search)
 World(GdsApi::TestHelpers::PublishingApiV2)
 
 # Capybara defaults to CSS3 selectors rather than XPath.

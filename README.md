@@ -17,7 +17,7 @@ This is a Ruby on Rails application that manages search "best bets" and "externa
 ### Dependencies
 
 - [alphagov/publishing-api](https://github.com/alphagov/publishing-api) - search-admin publishes external links to the publishing API
-- [alphagov/rummager](https://github.com/alphagov/rummager) - search-admin sends updates to rummager when best bets are edited
+- [alphagov/search-api](https://github.com/alphagov/search-api) - search-admin sends updates to search-api when best bets are edited
 
 ### Running the application
 

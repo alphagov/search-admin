@@ -1,4 +1,4 @@
-require "gds_api/rummager"
+require "gds_api/search"
 require "gds_api/publishing_api_v2"
 
 module Services
@@ -9,9 +9,10 @@ module Services
     )
   end
 
-  def self.rummager
-    @rummager ||=
-      GdsApi::Rummager.new(
+  # TODO: update RUMMAGER_BEARER_TOKEN to SEARCH_API_BEARER_TOKEN
+  def self.search_api
+    @search_api ||=
+      GdsApi::Search.new(
         Plek.current.find("search"),
         api_version: "V2",
         bearer_token: ENV["RUMMAGER_BEARER_TOKEN"] || "example",

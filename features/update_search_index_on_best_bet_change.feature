@@ -13,33 +13,33 @@ Feature: Update search index on best bet change
     Then the best bets should have been deleted in the metasearch index
 
   @stub_best_bets_with_404
-  Scenario: Can successfully delete best bet that does exist in Rummager
+  Scenario: Can successfully delete best bet that does exist in Search-api
     Given a query exists
     When I delete the query
     Then the query should not be listed on the query index
 
   @stub_best_bets
-  Scenario: Deleting last bet will delete the best bet from Rummager
+  Scenario: Deleting last bet will delete the best bet from Search-api
     Given a query exists
     When I delete all the best bets
     Then the best bets should have been deleted in the metasearch index
 
   @stub_best_bets_with_500
-  Scenario: Error deleting from Rummager will block local delete of query
+  Scenario: Error deleting from Search-api will block local delete of query
     Given a query exists
     When I delete the query
     Then I should be a notified of the error
     And the query should still be listed on the query index
 
   @stub_best_bets_with_500
-  Scenario: Error deleting from Rummager will block local delete of best bet
+  Scenario: Error deleting from Search-api will block local delete of best bet
     Given a query exists
     When I delete the last bet
     Then I should be a notified of the error
     And the query should still be listed on the query index with best bet
 
   @stub_best_bets_with_500
-  Scenario: Error creating best bet in Rummager will block local creation of best bet
+  Scenario: Error creating best bet in Search-api will block local creation of best bet
     When I create a best bet
     Then I should be a notified of the error
     And no query should be listed on the query index

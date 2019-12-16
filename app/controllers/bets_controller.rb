@@ -1,7 +1,7 @@
 class BetsController < ApplicationController
   def create
     @bet = Bet.new(create_params)
-    saver = RummagerSaver.new(@bet)
+    saver = SearchApiSaver.new(@bet)
     if saver.save
       redirect_to query_path(@bet.query), notice: "Bet created"
     else
@@ -15,7 +15,7 @@ class BetsController < ApplicationController
 
   def update
     @bet = find_bet
-    saver = RummagerSaver.new(@bet)
+    saver = SearchApiSaver.new(@bet)
 
     if saver.update_attributes(bet_params)
       redirect_to query_path(@bet.query), notice: "Bet updated"
@@ -27,7 +27,7 @@ class BetsController < ApplicationController
 
   def destroy
     @bet = find_bet
-    saver = RummagerSaver.new(@bet)
+    saver = SearchApiSaver.new(@bet)
 
     if saver.destroy(action: :update_bets)
       flash.notice = "Bet deleted"

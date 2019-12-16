@@ -10,16 +10,16 @@ RSpec.describe TravelAdviceBetsImporter do
     ]
   }
   let(:logger) { double(:logger) }
-  let(:rummager_saver) { double(:rummager_saver) }
+  let(:search_api_saver) { double(:search_api_saver) }
   let(:user) { create(:user) }
 
   subject(:instance) { described_class.new(csv_data, user, logger) }
 
   describe "import" do
     before do
-      allow(RummagerSaver).to receive(:new)
-        .and_return(rummager_saver)
-      allow(rummager_saver).to receive(:save)
+      allow(SearchApiSaver).to receive(:new)
+        .and_return(search_api_saver)
+      allow(search_api_saver).to receive(:save)
         .and_return(true)
       allow(logger).to receive(:puts)
     end
@@ -40,19 +40,19 @@ RSpec.describe TravelAdviceBetsImporter do
       ])
     end
 
-    it "saves bets in Rummager" do
+    it "saves bets in Search-api" do
       instance.import
-      expect(rummager_saver).to have_received(:save).exactly(6).times
-      expect(RummagerSaver).to have_received(:new).with(Bet.first)
-      expect(RummagerSaver).to have_received(:new).with(Bet.last)
+      expect(search_api_saver).to have_received(:save).exactly(6).times
+      expect(SearchApiSaver).to have_received(:new).with(Bet.first)
+      expect(SearchApiSaver).to have_received(:new).with(Bet.last)
     end
 
     it "logs stuff" do
       instance.import
       expect(logger).to have_received(:puts)
-        .with("Saved best bet 'Spain': '/foreign-travel-advice/spain' (pos: 1) to Rummager.")
+        .with("Saved best bet 'Spain': '/foreign-travel-advice/spain' (pos: 1) to Search-api.")
       expect(logger).to have_received(:puts)
-        .with("Saved best bet 'Spain': '/world/spain' (pos: 2) to Rummager.")
+        .with("Saved best bet 'Spain': '/world/spain' (pos: 2) to Search-api.")
     end
 
     it "increments an internal count of successful saves" do
@@ -80,9 +80,9 @@ RSpec.describe TravelAdviceBetsImporter do
         expect(Bet.where(link: "/world/spain").count).to eq(1)
       end
 
-      it "doesn't save duplicates in Rummager" do
+      it "doesn't save duplicates in Search-api" do
         instance.import
-        expect(rummager_saver).to have_received(:save).exactly(5).times
+        expect(search_api_saver).to have_received(:save).exactly(5).times
         expect(instance.count).to eq(5)
       end
     end
