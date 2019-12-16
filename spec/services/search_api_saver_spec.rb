@@ -1,7 +1,7 @@
 require "spec_helper"
 
 RSpec.describe SearchApiSaver do
-  let(:query)          { create(:query) }
+  let(:query) { create(:query) }
   let(:search_api_saver) { described_class.new(query) }
 
   describe "#destroy" do
