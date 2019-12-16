@@ -9,7 +9,7 @@ module Services
     )
   end
 
-  # search-api used to be called rummager
+  # TODO: update RUMMAGER_BEARER_TOKEN to SEARCH_API_BEARER_TOKEN
   def self.search_api
     @search_api ||=
       GdsApi::Search.new(

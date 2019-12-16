@@ -108,25 +108,25 @@ def check_for_queries_in_csv_format(queries)
   end
 end
 
-def check_rummager_was_sent_an_exact_best_bet_document(query)
+def check_search_api_was_sent_an_exact_best_bet_document(query)
   elasticsearch_doc = build_es_doc_from_query(query)
   doc_id = "#{query.query}-#{query.match_type}"
 
-  expect(@rummager).to have_received(:add_document).with(
+  expect(@search_api).to have_received(:add_document).with(
     doc_id,
     elasticsearch_doc,
     "metasearch",
   )
 end
 
-def check_rummager_was_sent_a_best_bet_delete(query_es_ids)
+def check_search_api_was_sent_a_best_bet_delete(query_es_ids)
   query_es_ids.each do |id|
-    expect(@rummager).to have_received(:delete_document).with(id, "metasearch")
+    expect(@search_api).to have_received(:delete_document).with(id, "metasearch")
   end
 end
 
-def check_rummager_was_sent_a_recommended_link_delete(link:, index:)
-  assert_rummager_deleted_item(link, index: index)
+def check_search_api_was_sent_a_recommended_link_delete(link:, index:)
+  assert_search_api_deleted_item(link, index: index)
 end
 
 def run_best_bets_elasticsearch_exporter

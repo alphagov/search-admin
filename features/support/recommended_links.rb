@@ -78,9 +78,9 @@ def check_for_recommended_links_in_csv_format(recommended_links)
   end
 end
 
-def check_rummager_was_sent_an_exact_recommended_link_document(recommended_link:, index:)
+def check_search_api_was_sent_an_exact_recommended_link_document(recommended_link:, index:)
   elasticsearch_doc = build_doc_from_recommended_link(recommended_link)
-  assert_rummager_posted_item(
+  assert_search_api_posted_item(
     elasticsearch_doc.merge(
       "_type" => "edition",
       "link" => recommended_link.link,
@@ -90,8 +90,8 @@ def check_rummager_was_sent_an_exact_recommended_link_document(recommended_link:
   )
 end
 
-def check_rummager_was_sent_a_recommended_link_delete(link:, index:)
-  assert_rummager_deleted_item(link, index: index)
+def check_search_api_was_sent_a_recommended_link_delete(link:, index:)
+  assert_search_api_deleted_item(link, index: index)
 end
 
 def check_recommended_link_was_published(recommended_link, publishing_count)

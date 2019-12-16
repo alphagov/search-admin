@@ -95,13 +95,13 @@ describe BetsController do
     let(:query) { create(:query, :with_best_bet, query: "two words") }
     let(:bet) { query.bets.first }
 
-    it "deleting the last bet will delete the query from Rummager" do
+    it "deleting the last bet will delete the query from Search-api" do
       expect(Services.search_api).to receive(:delete_document).with("two%20words-exact", "metasearch")
 
       delete :destroy, params: { id: bet.id }
     end
 
-    it "deleting one of a group of bets bets will update the query in Rummager" do
+    it "deleting one of a group of bets bets will update the query in Search-api" do
       create(:bet, query: query)
       es_doc_id = ElasticSearchBetIDGenerator.generate(query.query, query.match_type)
       expect(Services.search_api).to receive(:add_document).with(es_doc_id, anything, "metasearch")

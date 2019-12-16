@@ -54,6 +54,6 @@ private
 
   def success(bet)
     @count += 1
-    logger.puts "Saved best bet '#{bet.query.query}': '#{bet.link}' (pos: #{bet.position}) to Rummager."
+    logger.puts "Saved best bet '#{bet.query.query}': '#{bet.link}' (pos: #{bet.position}) to Search-api."
   end
 end
