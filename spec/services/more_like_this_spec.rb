@@ -4,7 +4,7 @@ RSpec.describe MoreLikeThis do
   describe ".from_base_path" do
     context "with an unknown base path in search" do
       before do
-        allow(Services.rummager).to receive(:search)
+        allow(Services.search_api).to receive(:search)
           .with(
             filter_link: "/unknown",
             fields: %w(taxons),
@@ -21,7 +21,7 @@ RSpec.describe MoreLikeThis do
 
     context "with a content item without a taxon link" do
       before do
-        allow(Services.rummager).to receive(:search)
+        allow(Services.search_api).to receive(:search)
           .with(
             filter_link: "/item",
             fields: %w(taxons),
@@ -40,7 +40,7 @@ RSpec.describe MoreLikeThis do
 
     context "without any search results" do
       before do
-        allow(Services.rummager).to receive(:search)
+        allow(Services.search_api).to receive(:search)
           .with(
             filter_link: "/item",
             fields: %w(taxons),
@@ -49,7 +49,7 @@ RSpec.describe MoreLikeThis do
             "taxons" => %w[714bc7d1-afb0-4e10-9558-268da5dbbbba],
           ])
 
-        allow(Services.rummager).to receive(:search)
+        allow(Services.search_api).to receive(:search)
           .with(
             hash_including(
               similar_to: "/item",
@@ -68,7 +68,7 @@ RSpec.describe MoreLikeThis do
 
     context "with a valid base path with similar results" do
       before do
-        allow(Services.rummager).to receive(:search)
+        allow(Services.search_api).to receive(:search)
           .with(
             filter_link: "/item",
             fields: %w(taxons),
@@ -77,7 +77,7 @@ RSpec.describe MoreLikeThis do
             "taxons" => %w[714bc7d1-afb0-4e10-9558-268da5dbbbba],
           ])
 
-        allow(Services.rummager).to receive(:search)
+        allow(Services.search_api).to receive(:search)
           .with(
             hash_including(
               similar_to: "/item",

@@ -2,8 +2,8 @@ require "spec_helper"
 
 describe QueriesController do
   before do
-    allow(Services.rummager).to receive(:add_document)
-    allow(Services.rummager).to receive(:delete_document)
+    allow(Services.search_api).to receive(:add_document)
+    allow(Services.search_api).to receive(:delete_document)
   end
 
   let(:query_params) { { query: "jobs", match_type: "exact" } }
@@ -22,7 +22,7 @@ describe QueriesController do
 
       it "does not notify other systems" do
         post :create, params: { query: query_params.merge(match_type: nil) }
-        expect(Services.rummager).not_to have_received(:add_document)
+        expect(Services.search_api).not_to have_received(:add_document)
       end
     end
 
@@ -39,7 +39,7 @@ describe QueriesController do
 
       it "does not notify the world of the new query - needs to wait for bets" do
         post :create, params: { query: query_params }
-        expect(Services.rummager).not_to have_received(:add_document)
+        expect(Services.search_api).not_to have_received(:add_document)
       end
     end
 
@@ -76,7 +76,7 @@ describe QueriesController do
 
       it "does not notify other systems" do
         update_query(match_type: nil)
-        expect(Services.rummager).not_to have_received(:add_document)
+        expect(Services.search_api).not_to have_received(:add_document)
       end
     end
 
@@ -98,13 +98,13 @@ describe QueriesController do
 
         it "notifies the world to forget the previous query" do
           update_query
-          expect(Services.rummager).to have_received(:delete_document)
+          expect(Services.search_api).to have_received(:delete_document)
             .with("#{query.query}-#{query.match_type}", any_args)
         end
 
         it "notifies the world of the new query" do
           update_query
-          expect(Services.rummager).to have_received(:add_document)
+          expect(Services.search_api).to have_received(:add_document)
             .with("#{query_params[:query]}-#{query_params[:match_type]}", any_args)
         end
       end
@@ -112,7 +112,7 @@ describe QueriesController do
       context "when query has no bets" do
         it "notifies the world of the new query" do
           update_query
-          expect(Services.rummager).not_to have_received(:add_document)
+          expect(Services.search_api).not_to have_received(:add_document)
         end
       end
     end
@@ -144,7 +144,7 @@ describe QueriesController do
 
       it "does not notify other systems" do
         delete_query
-        expect(Services.rummager).not_to have_received(:delete_document)
+        expect(Services.search_api).not_to have_received(:delete_document)
       end
     end
 
@@ -161,7 +161,7 @@ describe QueriesController do
 
       it "notifies the world of the deletion" do
         delete_query
-        expect(Services.rummager).to have_received(:delete_document)
+        expect(Services.search_api).to have_received(:delete_document)
       end
     end
   end

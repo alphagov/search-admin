@@ -62,11 +62,11 @@ private
 
   def add_to_elasticsearch
     es_doc = ElasticSearchBet.new(query_object)
-    Services.rummager.add_document(es_doc.id, es_doc.body, "metasearch")
+    Services.search_api.add_document(es_doc.id, es_doc.body, "metasearch")
   end
 
   def remove_from_elasticsearch
     es_doc_id = ElasticSearchBetIDGenerator.generate(query_object.query, query_object.match_type)
-    Services.rummager.delete_document(URI.escape(es_doc_id), "metasearch") # rubocop:disable Lint/UriEscapeUnescape
+    Services.search_api.delete_document(URI.escape(es_doc_id), "metasearch") # rubocop:disable Lint/UriEscapeUnescape
   end
 end

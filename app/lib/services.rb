@@ -10,8 +10,8 @@ module Services
   end
 
   # search-api used to be called rummager
-  def self.rummager
-    @rummager ||=
+  def self.search_api
+    @search_api ||=
       GdsApi::Search.new(
         Plek.current.find("search"),
         api_version: "V2",

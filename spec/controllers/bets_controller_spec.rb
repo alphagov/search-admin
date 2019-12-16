@@ -2,8 +2,8 @@ require "spec_helper"
 
 describe BetsController do
   before do
-    allow(Services.rummager).to receive(:add_document)
-    allow(Services.rummager).to receive(:delete_document)
+    allow(Services.search_api).to receive(:add_document)
+    allow(Services.search_api).to receive(:delete_document)
   end
 
   let(:query) { create(:query) }
@@ -42,7 +42,7 @@ describe BetsController do
     it "notifies the world of the change to the query" do
       post :create, params: { bet: bet_params }
 
-      expect(Services.rummager).to have_received(:add_document)
+      expect(Services.search_api).to have_received(:add_document)
     end
 
     it "redirects to the query show when create is successful" do
@@ -67,13 +67,13 @@ describe BetsController do
     it "notifies the world of the change to the query" do
       put :update, params: { id: bet.id, bet: bet_params }
 
-      expect(Services.rummager).to have_received(:add_document)
+      expect(Services.search_api).to have_received(:add_document)
     end
 
     it "does not notify the world to forget the query" do
       put :update, params: { id: bet.id, bet: bet_params }
 
-      expect(Services.rummager).not_to have_received(:delete_document)
+      expect(Services.search_api).not_to have_received(:delete_document)
     end
 
     it "redirects to the query show when update is successful" do
@@ -96,7 +96,7 @@ describe BetsController do
     let(:bet) { query.bets.first }
 
     it "deleting the last bet will delete the query from Rummager" do
-      expect(Services.rummager).to receive(:delete_document).with("two%20words-exact", "metasearch")
+      expect(Services.search_api).to receive(:delete_document).with("two%20words-exact", "metasearch")
 
       delete :destroy, params: { id: bet.id }
     end
@@ -104,7 +104,7 @@ describe BetsController do
     it "deleting one of a group of bets bets will update the query in Rummager" do
       create(:bet, query: query)
       es_doc_id = ElasticSearchBetIDGenerator.generate(query.query, query.match_type)
-      expect(Services.rummager).to receive(:add_document).with(es_doc_id, anything, "metasearch")
+      expect(Services.search_api).to receive(:add_document).with(es_doc_id, anything, "metasearch")
 
       delete :destroy, params: { id: bet.id }
     end
