@@ -12,7 +12,7 @@ class QueriesController < ApplicationController
 
   def create
     query = Query.new(query_params)
-    saver = RummagerSaver.new(query)
+    saver = SearchApiSaver.new(query)
     if saver.save
       redirect_to query_path(query), notice: "Your query was created successfully"
     else
@@ -42,7 +42,7 @@ class QueriesController < ApplicationController
 
   def update
     query = find_query
-    saver = RummagerSaver.new(query)
+    saver = SearchApiSaver.new(query)
 
     if saver.update_attributes(query_params)
       redirect_to query_path(query), notice: "Your query was updated successfully"
@@ -54,7 +54,7 @@ class QueriesController < ApplicationController
 
   def destroy
     query = find_query
-    saver = RummagerSaver.new(query)
+    saver = SearchApiSaver.new(query)
 
     if saver.destroy
       redirect_to queries_path, notice: "Your query was deleted successfully"

@@ -16,7 +16,7 @@ task reindex_best_bets: :environment do
 
   Query.all.each do |query|
     puts "Processing: #{query.query} (#{query.match_type})"
-    RummagerSaver.new(query).save
+    SearchApiSaver.new(query).save
   end
 
   puts "Finished reindexing best bets in rummager (#{(Time.now.to_f - start).round(2)} sec)"

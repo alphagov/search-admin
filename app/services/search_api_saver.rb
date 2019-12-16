@@ -1,4 +1,4 @@
-class RummagerSaver
+class SearchApiSaver
   class InvalidAction < StandardError
     def initialize(message)
       super(message)

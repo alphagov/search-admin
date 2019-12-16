@@ -17,7 +17,7 @@ RSpec.describe TravelAdviceBetsImporter do
 
   describe "import" do
     before do
-      allow(RummagerSaver).to receive(:new)
+      allow(SearchApiSaver).to receive(:new)
         .and_return(rummager_saver)
       allow(rummager_saver).to receive(:save)
         .and_return(true)
@@ -43,8 +43,8 @@ RSpec.describe TravelAdviceBetsImporter do
     it "saves bets in Rummager" do
       instance.import
       expect(rummager_saver).to have_received(:save).exactly(6).times
-      expect(RummagerSaver).to have_received(:new).with(Bet.first)
-      expect(RummagerSaver).to have_received(:new).with(Bet.last)
+      expect(SearchApiSaver).to have_received(:new).with(Bet.first)
+      expect(SearchApiSaver).to have_received(:new).with(Bet.last)
     end
 
     it "logs stuff" do

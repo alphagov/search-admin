@@ -20,12 +20,12 @@ class TravelAdviceBetsImporter
 
       travel_advice_bet = create_bet(query, travel_advice_path(link), 1)
       if travel_advice_bet
-        success(travel_advice_bet) if RummagerSaver.new(travel_advice_bet).save
+        success(travel_advice_bet) if SearchApiSaver.new(travel_advice_bet).save
       end
 
       help_page_bet = create_bet(query, link, 2)
       if help_page_bet
-        success(help_page_bet) if RummagerSaver.new(help_page_bet).save
+        success(help_page_bet) if SearchApiSaver.new(help_page_bet).save
       end
     end
   end
