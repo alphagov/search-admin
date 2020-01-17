@@ -2,11 +2,11 @@ source "https://rubygems.org"
 
 gem "rails", "6.0.2.1"
 
+gem "bootsnap", "~> 1.1", ">= 1.1.7"
 gem "generic_form_builder", "~> 0.13.1"
 gem "mysql2", "~> 0.4.5"
 gem "sass-rails", "~> 6.0"
 gem "uglifier", "~> 4.2.0"
-gem "bootsnap", "~> 1.1", ">= 1.1.7"
 
 # GDS managed gems
 gem "gds-sso", "~> 14.2.0"
