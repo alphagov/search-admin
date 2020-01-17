@@ -40,6 +40,7 @@ class QueriesController < ApplicationController
     @query = find_query
   end
 
+  # rubocop:disable Rails/ActiveRecordAliases
   def update
     query = find_query
     saver = SearchApiSaver.new(query)
@@ -51,6 +52,7 @@ class QueriesController < ApplicationController
       render :edit
     end
   end
+  # rubocop:enable Rails/ActiveRecordAliases
 
   def destroy
     query = find_query
