@@ -30,7 +30,7 @@ class Query < ApplicationRecord
     CSV.generate do |csv|
       csv << ["query", "match_type", "link", "best/worst", "comment"]
 
-      all.includes(:bets).each do |query|
+      all.includes(:bets).find_each do |query|
         query.bets.each do |bet|
           csv << [query.query,
                   query.match_type,
