@@ -36,7 +36,7 @@ class SearchApiSaver
       @object.destroy!
       begin
         update_elasticsearch(query_object, action)
-      rescue GdsApi::HTTPNotFound # rubocop:disable Lint/HandleExceptions
+      rescue GdsApi::HTTPNotFound # rubocop:disable Lint/SuppressedException
       end
     end
     true

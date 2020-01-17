@@ -1,5 +1,12 @@
 AllCops:
-  TargetRubyVersion: 2.3
+  Exclude:
+    - 'tmp/**/*'
+    - 'db/**/*'
 
 Metrics/BlockLength:
   Enabled: false
+
+inherit_gem:
+  rubocop-govuk:
+    - config/default.yml
+    - config/rails.yml

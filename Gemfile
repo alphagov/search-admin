@@ -25,9 +25,9 @@ group :test do
 end
 
 group :test, :development do
-  gem 'govuk-lint'
+  gem 'listen', '~> 3.2'
   gem 'pry-byebug'
   gem 'rails-controller-testing' # support `expect(..).to render_template(..)` for rails >= 5.0
   gem 'rspec-rails', '~> 4.0.0.beta4'
-  gem 'listen', '~> 3.2'
+  gem 'rubocop-govuk'
 end
