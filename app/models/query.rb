@@ -6,8 +6,8 @@ class Query < ApplicationRecord
   validates :query, uniqueness: { scope: :match_type, case_sensitive: true }
 
   has_many :bets, dependent: :destroy
-  has_many :best_bets, -> { best }, class_name: "Bet"
-  has_many :worst_bets, -> { worst }, class_name: "Bet"
+  has_many :best_bets, -> { best }, class_name: "Bet", inverse_of: :query
+  has_many :worst_bets, -> { worst }, class_name: "Bet", inverse_of: :query
 
   # Use `sort_by` to prevent N+1 queries when Queries are loaded in a list.
   def sorted_best_bets
@@ -30,7 +30,7 @@ class Query < ApplicationRecord
     CSV.generate do |csv|
       csv << ["query", "match_type", "link", "best/worst", "comment"]
 
-      all.includes(:bets).each do |query|
+      all.includes(:bets).find_each do |query|
         query.bets.each do |bet|
           csv << [query.query,
                   query.match_type,

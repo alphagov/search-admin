@@ -1,3 +1,4 @@
+# rubocop:disable Rails/OutputSafety
 module TableHelper
   def table_for(hash)
     content_tag :table, class: "table key-value-table" do
@@ -25,3 +26,4 @@ module TableHelper
     end
   end
 end
+# rubocop:enable Rails/OutputSafety

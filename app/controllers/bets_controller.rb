@@ -13,6 +13,7 @@ class BetsController < ApplicationController
     @bet = find_bet
   end
 
+  # rubocop:disable Rails/ActiveRecordAliases
   def update
     @bet = find_bet
     saver = SearchApiSaver.new(@bet)
@@ -24,6 +25,7 @@ class BetsController < ApplicationController
       render "edit"
     end
   end
+  # rubocop:enable Rails/ActiveRecordAliases
 
   def destroy
     @bet = find_bet
