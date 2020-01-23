@@ -11,7 +11,7 @@ gem "uglifier", "~> 4.2.0"
 # GDS managed gems
 gem "gds-sso", "~> 14.2.0"
 gem "govuk_admin_template"
-gem "govuk_app_config", "~> 2.0.1"
+gem "govuk_app_config", "~> 2.0.2"
 gem "plek", "~> 3.0.0"
 
 gem "gds-api-adapters", "~> 63.3.0"
