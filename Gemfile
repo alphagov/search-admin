@@ -18,7 +18,7 @@ gem "gds-api-adapters", "~> 63.4.0"
 
 group :test do
   gem "cucumber-rails", require: false
-  gem "database_cleaner", "~> 1.7.0"
+  gem "database_cleaner", "~> 1.8.2"
   gem "factory_bot_rails", "~> 5"
   gem "govuk-content-schema-test-helpers", "~> 1.6.1"
   gem "webmock", "~> 3.8.1"
