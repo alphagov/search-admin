@@ -1,13 +1,106 @@
 /*
  *= require_self
  */
+$govuk-typography-use-rem: false;
+@import "govuk_publishing_components/all_components";
 
-@import "govuk_admin_template";
+.actions {
+  margin-bottom: govuk-spacing(6);
+}
 
-@import "layout";
-@import "forms";
-@import "table";
+// search-results responsive iframe 
+.search-results {
+  position: relative;
+  overflow: hidden;
+  padding-top: 56.25%;
+  border: 1px solid govuk-colour("black");
+}
 
-@import "bets/list";
-@import "queries-recommended-links/list";
-@import "queries-recommended-links/show";
+.search-results__iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.comment {
+  color: govuk-colour("mid-grey");
+  display: block;
+}
+
+small, .small {
+  font-size: 85%;
+}
+
+// worst best minus symbol
+.app-symbol {
+  margin-right: govuk-spacing(2);
+  font-weight: bold;
+
+}
+
+.app-symbol--minus {
+  color: govuk-colour("red");
+}
+
+// delete button is wrapped in a form and we wan't it to be
+// inline with the other button
+.app-display-inline {
+  display: inline-block;
+  width: auto;
+  vertical-align: top;
+}
+
+// inset variant with a red border
+.app-inset-text--warning {
+  border-color: $govuk-error-colour;
+}
+
+// smaller font-size for tables
+// 19px is the default from the gem
+.app-table__container {
+  .gem-c-table {
+    font-size: 16px;
+  }
+}
+
+// applied to table rows when filtered with javascript
+.js-hidden {
+  display: none;
+}
+
+// navigation is too long to be alongside the crown
+// so we just stack it below it 
+@include govuk-media-query($from: desktop) {
+  .gem-c-header__content {
+    float: left;
+    width: 100%;
+    padding-left: 0;
+  }
+
+  .govuk-header__navigation--end {
+    text-align:left;
+  }
+}
+
+// custom styles for the content item data returned from api
+// uses the ruby table_for component so can't amend markup
+// TODO: maybe we can flatten the nested data and use teh summary-list component
+.key-value-table {	
+  @extend .govuk-table;
+
+  td:first-child {	
+    font-weight: bold;	
+    width: 10%;	
+  }	
+
+  ul {	
+    padding: 0;	
+
+    li {	
+      list-style: none;	
+    }	
+  }	
+}
