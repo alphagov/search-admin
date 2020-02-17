@@ -1,8 +1,15 @@
-<ol class="breadcrumb">
-  <li><%= link_to 'Queries', queries_path %></li>
-  <li class="active">New query</li>
-</ol>
+<%= render "govuk_publishing_components/components/breadcrumbs", {
+  breadcrumbs: [
+    {
+      title: "Queries",
+      url: queries_path
+    },
+    {
+      title: "New query"
+    }
+  ]
+} %>
 
-<%= page_title 'New query' %>
+<%= render "common/page_title", title: "New query" %>
 
 <%= render 'form', query: Query.new %>

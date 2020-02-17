@@ -1,33 +1,44 @@
-<ol class="breadcrumb">
-  <li class="active">Queries</li>
-</ol>
-
-<%= page_title 'Queries' %>
+<%= render "common/page_title", title: "Queries" %>
 
 <div class="actions">
-  <%= link_to icon(:plus) + ' New query', new_query_path, class: 'btn btn-primary'%>
-  <%= link_to icon(:download) + ' Download CSV', queries_path(format: 'csv'), class: 'btn btn-default' %>
+  <%= render "govuk_publishing_components/components/button", {
+    text: "New query",
+    href: new_query_path,
+    inline_layout: true
+  } %>
+  <%= render "govuk_publishing_components/components/button", {
+    text: "Download CSV",
+    href: queries_path(format: 'csv'),
+    secondary_quiet: true,
+    inline_layout: true
+  } %>
 </div>
 
-<table class="table queries-list table-bordered" data-module="filterable-table">
-  <thead>
-    <tr class="table-header">
-      <th>Term</th>
-      <th>Match</th>
-      <th>Bets</th>
-    </tr>
+<div class="govuk-!-margin-top-6 app-table__container queries" data-module="filterable-table">
+  <%= render "govuk_publishing_components/components/input", {
+    label: {
+      text: "Filter queries"
+    },
+    name: "table-filter",
+    type: "search",
+    search_icon: true,
+    tabindex: 0
+  } %>
 
-    <tr class="table-header if-no-js-hide table-header-secondary">
-      <th colspan='4'>
-        <form class='table-filter'>
-          <input id="table-filter" type="text" class="form-control normal js-filter-table-input" placeholder="Filter table">
-        </form>
-      </th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @queries.each do |query| %>
-      <%= render 'queries/query_item', query: query %>
+  <%= GovukPublishingComponents::AppHelpers::TableHelper.helper(self) do |t| %>
+    <%= t.head do %>
+      <%= t.header "Term" %>
+      <%= t.header "Match" %>
+      <%= t.header "Bets" %>
     <% end %>
-  </tbody>
-</table>
+    <%= t.body do %>
+      <% @queries.each do |query| %>
+        <%= t.row do %>
+          <%= t.cell link_to(query.query, query_path(query), class:"govuk-link") %>
+          <%= t.cell query.match_type %>
+          <%= t.cell render "query_item_bets", query: query %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+</div>
