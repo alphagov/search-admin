@@ -3,48 +3,37 @@
   <%= csrf_meta_tags %>
 <% end %>
 
-<% content_for :app_title, "GOV.UK Search Admin" %>
+<%= render "govuk_publishing_components/components/layout_for_admin", {
+  environment: GovukPublishingComponents::AppHelpers::Environment.current_acceptance_environment,
+  product_name: "Search Admin",
+  browser_title: yield(:page_title).presence || "Search Admin"
+} do %>
+  <%= render "govuk_publishing_components/components/skip_link" %>
+  <%= render "govuk_publishing_components/components/layout_header", {
+    product_name: "Search Admin",
+    environment: GovukPublishingComponents::AppHelpers::Environment.current_acceptance_environment,
+    navigation_items: navigation_items
+  } %>
+  <div class="govuk-width-container">
+    <main class="govuk-main-wrapper govuk-!-padding-top-2" id="main-content" role="main">
+      <% flash.each do |type, msg| %>	
+        <% if type == 'notice' %>
+          <%= render "govuk_publishing_components/components/success_alert", {
+            message: msg
+          } %>
+        <% else%>
+          <%= render "govuk_publishing_components/components/error_alert", {
+            message: msg
+          } %>
+        <% end %>	
+      <% end -%>
 
-<% content_for :navbar_items do %>
-  <li class='<%= controller_name.in?(%w[queries bets]) ? "active" : nil %>'>
-    <%= link_to 'Queries', queries_path %>
-  </li>
+      <%= yield %>
+    </main>
 
-  <li class='<%= controller_name == "recommended_links" ? "active" : nil %>'>
-    <%= link_to 'External links', recommended_links_path %>
-  </li>
+    <p class="govuk-body">Version: <%= CURRENT_RELEASE_SHA %></p>
+  </div>
 
-  <li class='<%= controller_name == "results" ? "active" : nil %>'>
-    <%= link_to 'Search results', results_path %>
-  </li>
-
-  <li class='<%= controller_name == 'similar_search_results' ? 'active' : nil %>'>
-    <%= link_to 'Similar search results', new_similar_search_result_path %>
-  </li>
+  <%= render "govuk_publishing_components/components/layout_footer", {} %>
+  <%= yield :extra_javascript %>
 <% end %>
-
-<% content_for :navbar_right do %>
-  <%= link_to current_user.name, Plek.new.external_url_for('signon') %>
-  &bull; <%= link_to 'Sign out', '/auth/gds/sign_out' %>
-<% end %>
-
-<% content_for :content do %>
-  <% flash.each do |type, msg| %>
-    <%= content_tag :div, msg, class: "alert flash-#{type}" %>
-  <% end -%>
-  <%= yield %>
-<% end %>
-
-<% content_for :body_end do %>
-<%= javascript_include_tag "application" %>
-<script>
-  $(document).ready(function() {
-    <%= yield :document_ready %>
-  });
-</script>
-<% end %>
-
-<% content_for :footer_version, CURRENT_RELEASE_SHA %>
-
-<%# use the govuk_admin_foundation layout %>
-<%= render :template => 'layouts/govuk_admin_template' %>
