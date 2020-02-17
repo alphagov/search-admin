@@ -1,21 +1,47 @@
 <%= form_for(bet) do |f| %>
-  <div class="form-group">
-    <%= f.text_field :link, class: "form-control input-lg" %>
-  </div>
+  <%= render "govuk_publishing_components/components/input", {
+    label: {
+      text: 'Link'
+    },
+    name: "bet[link]",
+    value: bet.link,
+    id: "bet_link"
+  } %>
 
-  <div class="form-group">
-    <%= f.number_field :position, class: "form-control input-lg" %>
-  </div>
+  <%= render "govuk_publishing_components/components/input", {
+    label: {
+      text: 'Position'
+    },
+    type: "number",
+    name: "bet[position]",
+    value: bet.position,
+    id: "bet_position"
+  } %>
 
-  <div class="form-group">
-    <%= f.check_box :is_worst, label: 'Is worst bet?' %>
-  </div>
+  <%= render "govuk_publishing_components/components/checkboxes", {
+    name: "bet[is_worst]",
+    items: [
+      {
+        label: "Is worst bet?",
+        value: 1,
+        checked: !bet.is_best
+      }
+    ]
+  } %>
 
-  <div class="form-group">
-    <%= f.text_area :comment, class: "form-control input-lg" %>
-  </div>
-
-  <%= f.hidden_field :query_id, value: query.id %>
-
-  <%= f.button "Save", class: "btn btn-success btn-lg" %>
+  <%= render "govuk_publishing_components/components/textarea", {
+    label: {
+      text: "Comment"
+    },
+    name: "bet[comment]",
+    value: bet.comment
+  } %>
+  
+  <input type="hidden" name="bet[query_id]" value="<%= query.id %>" />
+  
+  <%= render "govuk_publishing_components/components/button", {
+    text: "Save",
+    name: "bet[id]",
+    margin_bottom: true
+  } %>
 <% end %>
