@@ -1,23 +1,49 @@
 <%= form_for(recommended_link) do |f| %>
-  <div class="form-group">
-    <%= f.text_field :link, class: "form-control input-lg" %>
-  </div>
+  <% errors = recommended_link.errors.messages %>
+  <%= render "govuk_publishing_components/components/input", {
+    label: {
+      text: 'Link'
+    },
+    name: "recommended_link[link]",
+    value: recommended_link.link,
+    error_message: ("Link #{errors[:link].join(' or ')}" if errors[:link].present?)
+  } %>
 
-  <div class="form-group">
-    <%= f.text_field :title, class: "form-control input-lg" %>
-  </div>
+  <%= render "govuk_publishing_components/components/input", {
+    label: {
+      text: 'Title'
+    },
+    name: "recommended_link[title]",
+    value: recommended_link.title,
+    error_message: ("Title #{errors[:title][0]}" if errors[:title].present?)
+  } %>
 
-  <div class="form-group">
-    <%= f.text_area :description, class: "form-control input-lg" %>
-  </div>
+  <%= render "govuk_publishing_components/components/textarea", {
+    label: {
+      text: 'Description'
+    },
+    name: "recommended_link[description]",
+    value: recommended_link.description,
+    error_message: ("Description #{errors[:description][0]}" if errors[:description].present?)
+  } %>
 
-  <div class="form-group">
-    <%= f.text_area :keywords, class: "form-control input-lg" %>
-  </div>
+  <%= render "govuk_publishing_components/components/textarea", {
+    label: {
+      text: 'Keywords'
+    },
+    name: "recommended_link[keywords]",
+    value: recommended_link.keywords
+  } %>
 
-  <div class="form-group">
-    <%= f.text_area :comment, class: "form-control input-lg" %>
-  </div>
+  <%= render "govuk_publishing_components/components/textarea", {
+    label: {
+      text: 'Comment'
+    },
+    name: "recommended_link[comment]",
+    value: recommended_link.comment
+  } %>
 
-  <%= f.button "Save", class: "btn btn-success btn-lg" %>
+  <%= render "govuk_publishing_components/components/button", {
+    text: "Save"
+  } %>
 <% end %>

@@ -1,34 +1,47 @@
-<ol class="breadcrumb">
-  <li class="active">External links</li>
-</ol>
-
-<%= page_title 'External links' %>
+<%= render "common/page_title", title: "External links" %>
 
 <div class="actions">
-  <%= link_to icon(:plus) + ' New external link', new_recommended_link_path, class: 'btn btn-primary'%>
-  <%= link_to icon(:download) + ' Download CSV', recommended_links_path(format: 'csv'), class: 'btn btn-default' %>
+  <%= render "govuk_publishing_components/components/button", {
+    text: "New external link",
+    href: new_recommended_link_path,
+    inline_layout: true
+  } %>
+  <%= render "govuk_publishing_components/components/button", {
+    text: "Download CSV",
+    href: recommended_links_path(format: 'csv'),
+    secondary_quiet: true,
+    inline_layout: true
+  } %>
 </div>
 
-<table class="table recommended-links-list table-bordered" data-module="filterable-table">
-  <thead>
-    <tr class="table-header">
-      <th>Title</th>
-      <th>Link</th>
-      <th>Description</th>
-      <th>Keywords</th>
-    </tr>
-
-    <tr class="table-header if-no-js-hide table-header-secondary">
-      <th colspan="4">
-        <form class="table-filter">
-          <input id="table-filter" type="text" class="form-control normal js-filter-table-input" placeholder="Filter table">
-        </form>
-      </th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @recommended_links.each do |recommended_link| %>
-      <%= render 'recommended_links/recommended_link_item', recommended_link: recommended_link %>
+<div class="govuk-!-margin-top-6 app-table__container" data-module="filterable-table">
+  <%= render "govuk_publishing_components/components/input", {
+    label: {
+      text: "Filter external links"
+    },
+    name: "table-filter",
+    type: "search",
+    search_icon: true,
+    tabindex: 0
+  } %>
+  <div class="external-links">
+    <%= GovukPublishingComponents::AppHelpers::TableHelper.helper(self) do |t| %>
+      <%= t.head do %>
+        <%= t.header "Title" %>
+        <%= t.header "Link" %>
+        <%= t.header "Description" %>
+        <%= t.header "Keywords" %>
+      <% end %>
+      <%= t.body do %>
+        <% @recommended_links.each do |recommended_link| %>
+          <%= t.row do %>
+            <%= t.cell link_to(recommended_link.title, recommended_link_path(recommended_link), class:'govuk-link') %>
+            <%= t.cell link_to(recommended_link.link, recommended_link.link, class:'govuk-link') %>
+            <%= t.cell recommended_link.description %>
+            <%= t.cell recommended_link.keywords %>
+          <% end %>
+        <% end %>
+      <% end %>
     <% end %>
-  </tbody>
-</table>
+  </div>
+</div>
