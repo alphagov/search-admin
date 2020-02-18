@@ -1,8 +1,16 @@
 <%= form_tag similar_search_result_path(:result), method: :get do %>
-  <div class="form-group">
-    <%= label_tag "Path or URL of search result (eg. /guidance/pupil-premium-reviews)" %>
-    <%= text_field_tag :base_path, base_path, type: :search, class: 'form-control' %>
-  </div>
+  <%= render "govuk_publishing_components/components/input", {
+    label: {
+      text: 'Path or URL of search result (eg. /guidance/pupil-premium-reviews)'
+    },
+    name: "base_path",
+    value: base_path,
+    type: "search"
+  } %>
 
-  <%= submit_tag 'Show similar search results', class: 'btn btn-primary btn-md' %>
+  <%= render "govuk_publishing_components/components/button", {
+    text: "Show similar search results",
+    name: "commit",
+    type: "submit"
+  } %>
 <% end %>
