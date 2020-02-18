@@ -1,33 +1,27 @@
-<ol class="breadcrumb">
-  <li><%= link_to 'Search results', results_path %></li>
-  <li class="active">Inspect Result</li>
-</ol>
+<%= render "govuk_publishing_components/components/breadcrumbs", {
+  breadcrumbs: [
+    {
+      title: "Search results",
+      url: results_path
+    },
+    {
+      title: "Inspect Result"
+    }
+  ]
+} %>
 
-<%= page_title "Search results" %>
+<%= render "common/page_title", title: "Search results" %>
 
 <%= render 'form' %>
 
 <% if @document %>
   <%= table_for @document.to_hash %>
 
-  <div class="callout callout-danger">
-        <div class="callout-title">
-          Remove search result
-        </div>
-        <div class="callout-body">
-          <p>
-            This will remove the item from all search results. You must archive the item to make this permanent.
-          </p>
-
-          <%= button_to "Remove result",
-            result_path(@path),
-            method: "delete",
-            class: "btn btn-danger btn-lg",
-            data: { confirm: "Are you sure you want to delete this result?" } %>
-        </div>
-      </div>
-<% else %>
-  <div class='alert alert-danger'>
-    <p>That URL wasn't found. Please try again.</p>
+  <div class="gem-c-inset-text govuk-inset-text app-inset-text--warning">
+    <div>
+      <h2 class="govuk-heading-m">Remove search result</h2>
+      <p class="govuk-body">This will remove the item from all search results. You must archive the item to make this permanent.</p>
+      <%= delete_button "Remove result", result_path(@path) %>
+    </div>
   </div>
 <% end %>
