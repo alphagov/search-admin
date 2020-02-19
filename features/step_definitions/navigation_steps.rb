@@ -4,7 +4,7 @@ Given(/^I am viewing a specific query$/) do
 end
 
 Then(/^I can click a link to navigate to the index of queries$/) do
-  within(".breadcrumb") do
+  within(".govuk-breadcrumbs__list") do
     click_link "Queries"
   end
 
@@ -17,7 +17,7 @@ Given(/^I am viewing a specific external link$/) do
 end
 
 Then(/^I can click a link to navigate to the index of external links$/) do
-  within(".breadcrumb") do
+  within(".govuk-breadcrumbs__list") do
     click_link "External links"
   end
 
