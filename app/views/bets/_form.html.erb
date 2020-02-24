@@ -1,3 +1,4 @@
+<%= bet.inspect %>
 <%= form_for(bet) do |f| %>
   <%= render "govuk_publishing_components/components/input", {
     label: {
@@ -40,6 +41,27 @@
 
   <input type="hidden" name="bet[query_id]" value="<%= query.id %>" />
 
+  <h3 class="govuk-heading-m">Set bet expiry</h3>
+
+  <%= render "govuk_publishing_components/components/checkboxes", {
+    name: "bet[is_permanent]",
+    items: [
+      {
+        label: "Make permanent?",
+        value: 1,
+        checked: false
+      }
+    ]
+  } %>
+  <p class="govuk-body">or<p/>
+
+  <%= render "govuk_publishing_components/components/date_input", {
+    name: "bet[expiry_date]",
+    legend_text: "Set and expiry date",
+    hint: "For example, 31 03 2020",
+    error_message: false
+  } %>
+  
   <%= render "govuk_publishing_components/components/button", {
     text: "Save",
     name: "bet[id]",
