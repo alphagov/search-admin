@@ -1,24 +1,32 @@
-<table class="table recommended-links-list table-bordered" data-module="filterable-table">
-  <thead>
-    <tr class="table-header">
-      <th>#</th>
-      <th>Title</th>
-      <th>Score</th>
-      <th>Format</th>
-      <th>Content store document type</th>
-    </tr>
+<div class="govuk-!-margin-top-6 app-table__container" data-module="filterable-table">
+  <%= render "govuk_publishing_components/components/input", {
+    label: {
+      text: "Filter search results"
+    },
+    name: "table-filter",
+    type: "search",
+    search_icon: true,
+    tabindex: 0
+  } %>
 
-    <tr class="table-header if-no-js-hide table-header-secondary">
-      <th colspan="5">
-        <form class="table-filter">
-          <input id="table-filter" type="text" class="form-control normal js-filter-table-input" placeholder="Filter table">
-        </form>
-      </th>
-    </tr>
-  </thead>
-  <tbody>
-    <% results.each_with_index do |result, index| %>
-      <%= render 'result', result: result, index: index %>
+  <%= GovukPublishingComponents::AppHelpers::TableHelper.helper(self) do |t| %>
+    <%= t.head do %>
+      <%= t.header "#" %>
+      <%= t.header "Title" %>
+      <%= t.header "Score" %>
+      <%= t.header "Format" %>
+      <%= t.header "Content store document type" %>
     <% end %>
-  </tbody>
-</table>
+    <%= t.body do %>
+      <% results.each_with_index do |result, index| %>
+        <%= t.row do %>
+          <%= t.cell index + 1 %>
+          <%= t.cell link_to(result.title, Plek.new.website_root + result.link, target: 'blank', class: 'govuk-link') %>
+          <%= t.cell result.es_score %>
+          <%= t.cell result.format %>
+          <%= t.cell result.content_store_document_type %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+</div>

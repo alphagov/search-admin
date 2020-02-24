@@ -37,6 +37,6 @@ end
 
 Then(/^I should see all related items$/) do
   expect(current_path).to eq(similar_search_result_path(:result))
-  expect(page).to_not have_selector(".alert")
+  expect(page).to_not have_selector(".gem-c-error-alert")
   expect(page).to have_selector("table tbody tr", count: 1)
 end

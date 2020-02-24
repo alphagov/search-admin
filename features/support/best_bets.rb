@@ -25,7 +25,7 @@ def edit_query(query_text: nil, match_type: nil, new_query_text: nil)
 
   query = Query.where(query: query_text, match_type: match_type).last
 
-  within("#query-#{query.id}") do
+  within(".queries") do
     click_on query_text
   end
 
@@ -39,7 +39,7 @@ def delete_query(query_text: nil, match_type: nil)
 
   query = Query.where(query: query_text, match_type: match_type).last
 
-  within("#query-#{query.id}") do
+  within(".queries") do
     click_on query_text
   end
 
@@ -49,7 +49,7 @@ end
 def check_for_query_on_index_page(query: nil, match_type: nil)
   visit queries_path
 
-  within(".query") do
+  within(".queries .govuk-table__body .govuk-table__row") do
     expect(page).to have_content(query)
     expect(page).to have_content(match_type)
   end
@@ -61,7 +61,7 @@ def check_for_bet_on_query_page(link: nil, is_best: nil, position: nil, query: n
 
   bet_type = is_best ? "best" : "worst"
 
-  within(".#{bet_type}-bets .bet") do
+  within(".#{bet_type}-bets .govuk-table__body .govuk-table__row") do
     expect(page).to have_css "td", text: link
     expect(page).to have_css "td", text: comment
     expect(page).to have_css "td", text: position if is_best
@@ -79,7 +79,7 @@ end
 def delete_best_bet(query, best_bet)
   visit query_path(query)
 
-  within ".best-bets #bet-#{best_bet.id}" do
+  within ".best-bets .govuk-table__body .govuk-table__row:first-child" do
     click_on "Delete"
   end
 end

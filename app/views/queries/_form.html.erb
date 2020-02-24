@@ -1,11 +1,32 @@
 <%= form_for(query) do |f| %>
-  <div class="form-group">
-    <%= f.text_field :query, class: "form-control input-lg" %>
-  </div>
+  <%= render "govuk_publishing_components/components/input", {
+    label: {
+      text: 'Query'
+    },
+    name: "query[query]",
+    value: query.query,
+    id: "query_query"
+  } %>
 
-  <div class="form-group">
-    <%= f.select :match_type, Query::MATCH_TYPES.map { |t| [t.humanize, t] }, class: "form-control input-lg" %>
-  </div>
+  <%
+    match_types = Query::MATCH_TYPES.map do |t|
+      {
+        text: t.humanize,
+        value: t,
+        selected: ((t.humanize.present? && @query) && @query.match_type.include?(t))
+      }
+    end
+  %>
 
-  <%= f.button "Save", class: "btn btn-success btn-lg" %>
+
+  <%= render "govuk_publishing_components/components/select", {
+    id: "query_match_type",
+    name: "query[match_type]",
+    label: "Match type",
+    options: match_types
+  } %>
+
+  <%= render "govuk_publishing_components/components/button", {
+    text: "Save"
+  } %>
 <% end %>

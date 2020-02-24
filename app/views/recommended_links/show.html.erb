@@ -1,24 +1,37 @@
-<ol class="breadcrumb">
-  <li><%= link_to 'External links', recommended_links_path %></li>
-  <li class="active"><%= @recommended_link.title %></li>
-</ol>
+<%= render "govuk_publishing_components/components/breadcrumbs", {
+  breadcrumbs: [
+    {
+      title: "External links",
+      url: recommended_links_path
+    },
+    {
+      title: @recommended_link.title
+    }
+  ]
+} %>
 
-<%= page_title @recommended_link.title %>
+<%= render "common/page_title", title: @recommended_link.title %>
 
 <div class="actions">
-  <%= link_to "Edit external link", edit_recommended_link_path(@recommended_link), class: 'btn btn-default' %>
-  <%= delete_button "Delete external link", recommended_link_path(@recommended_link) %>
+  <%= render "govuk_publishing_components/components/button", {
+    text: "Edit external link",
+    href: edit_recommended_link_path(@recommended_link),
+    inline_layout: true
+  } %>
+  <%= delete_button "Delete external link", recommended_link_path(@recommended_link), true %>
 </div>
 
-<h3>Search results</h3>
-<%= link_to 'Visit URL', @search_url, target: '_blank' %>
+<h3 class="govuk-heading-m">Search results</h3>
+<%= link_to 'Visit URL', @search_url, target: '_blank', class: 'govuk-link' %>
 
-<div class='callout callout-info add-bottom-margin'>
-  <div class="callout-title">
+<%= render "govuk_publishing_components/components/inset_text", {
+} do %>
+  <div>
     There is a slight delay between the updating of an external link and the
     indexing by the search engine. If you're seeing unexpected results,
-    <a href='' id='search-results-refresh'>try refreshing these results</a>.
+    <a href="" id="search-results-refresh" class="govuk-link">try refreshing these results</a>.
   </div>
+<% end %>
+<div class="search-results">
+  <iframe src="<%= @search_url %>" class="search-results__iframe"></iframe>
 </div>
-
-<iframe src="<%= @search_url %>" id="search-results"></iframe>

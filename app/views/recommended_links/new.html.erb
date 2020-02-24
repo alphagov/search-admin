@@ -1,8 +1,15 @@
-<ol class="breadcrumb">
-  <li><%= link_to 'External links', recommended_links_path %></li>
-  <li class="active">New external link</li>
-</ol>
+<%= render "govuk_publishing_components/components/breadcrumbs", {
+  breadcrumbs: [
+    {
+      title: "External links",
+      url: recommended_links_path
+    },
+    {
+      title: "New external link"
+    }
+  ]
+} %>
 
-<%= page_title 'New external link' %>
+<%= render "common/page_title", title:"New external link" %>
 
 <%= render 'form', recommended_link: @recommended_link %>

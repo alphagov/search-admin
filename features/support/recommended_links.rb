@@ -22,7 +22,7 @@ def edit_recommended_link(old_title: nil, old_link: nil, title: nil, description
 
   recommended_link = RecommendedLink.where(link: old_link).last
 
-  within("#recommended-link-#{recommended_link.id}") do
+  within(".external-links") do
     click_on old_title
   end
 
@@ -41,7 +41,7 @@ def delete_recommended_link(title: nil, link: nil)
 
   recommended_link = RecommendedLink.where(link: link).last
 
-  within("#recommended-link-#{recommended_link.id}") do
+  within(".external-links") do
     click_on title
   end
 
@@ -51,7 +51,7 @@ end
 def check_for_recommended_link_on_index_page(title: nil)
   visit recommended_links_path
 
-  within(".recommended-links-list") do
+  within(".external-links") do
     expect(page).to have_content(title)
   end
 end

@@ -1,8 +1,15 @@
 <%= form_tag '/results/result', method: 'get' do %>
-  <div class="form-group">
-    <label for='base_path'>Path or URL of search result (eg. /book-driving-test)</label>
-    <input id='base_path' type='search' value="<%= @path %>" name='base_path' class='form-control' />
-  </div>
+  <%= render "govuk_publishing_components/components/input", {
+    label: {
+      text: 'Path or URL of search result (eg. /book-driving-test)'
+    },
+    name: "base_path",
+    value: @path,
+    type: "search"
+  } %>
 
-  <input type='submit' value='Show search result' class='btn btn-primary btn-md' />
+  <%= render "govuk_publishing_components/components/button", {
+    text: "Show search result",
+    margin_bottom: true
+  } %>
 <% end %>

@@ -1,9 +1,19 @@
-<ol class="breadcrumb">
-  <li><%= link_to 'Queries', queries_path %></li>
-  <li><%= link_to @query.display_name, query_path(@query) %></li>
-  <li class="active">Edit</li>
-</ol>
+<%= render "govuk_publishing_components/components/breadcrumbs", {
+  breadcrumbs: [
+    {
+      title: "Queries",
+      url: queries_path
+    },
+    {
+      title: @query.display_name,
+      url: query_path(@query)
+    },
+    {
+      title: "Edit"
+    }
+  ]
+} %>
 
-<%= page_title @query.display_name %>
+<%= render "common/page_title", title: @query.display_name %>
 
 <%= render 'form', query: @query %>

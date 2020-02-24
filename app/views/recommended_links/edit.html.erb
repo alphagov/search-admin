@@ -1,9 +1,19 @@
-<ol class="breadcrumb">
-  <li><%= link_to 'External links', recommended_links_path %></li>
-  <li><%= link_to @recommended_link.title, recommended_link_path(@recommended_link) %></li>
-  <li class="active">Edit</li>
-</ol>
+<%= render "govuk_publishing_components/components/breadcrumbs", {
+  breadcrumbs: [
+    {
+      title: "External links",
+      url: recommended_links_path
+    },
+    {
+      title: @recommended_link.title,
+      url: recommended_link_path(@recommended_link)
+    },
+    {
+      title: "Edit"
+    }
+  ]
+} %>
 
-<%= page_title @recommended_link.title %>
+<%= render "common/page_title", title: @recommended_link.title %>
 
 <%= render 'form', recommended_link: @recommended_link %>

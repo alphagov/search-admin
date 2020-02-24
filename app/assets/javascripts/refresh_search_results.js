@@ -3,7 +3,7 @@
   $('#search-results-refresh').on('click', refreshSearchResults);
 
   function refreshSearchResults(argument) {
-    var iframe = document.getElementById('search-results');
+    var iframe = document.querySelector('.search-results__iframe');
     var currentCacheBust = findParameterInUrl(iframe.src, 'cachebust');
     var newCacheBust = (new Date()).getTime();
 

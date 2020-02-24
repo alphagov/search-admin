@@ -1,71 +1,84 @@
-<ol class="breadcrumb">
-  <li><%= link_to 'Queries', queries_path %></li>
-  <li class="active"><%= @query.display_name %></li>
-</ol>
+<%= render "govuk_publishing_components/components/breadcrumbs", {
+  breadcrumbs: [
+    {
+      title: "Queries",
+      url: queries_path
+    },
+    {
+      title: "Queries"
+    }
+  ]
+} %>
 
-<%= page_title @query.display_name %>
+<%= render "common/page_title", title: @query.display_name %>
 
 <div class="actions">
-  <%= link_to "Edit query", edit_query_path(@query), class: 'btn btn-default' %>
-  <%= delete_button "Delete query", query_path(@query) %>
+  <%= render "govuk_publishing_components/components/button", {
+    text: "Edit query",
+    href: edit_query_path(@query),
+    inline_layout: true
+  } %>
+  <%= delete_button "Delete query", query_path(@query), true %>
 </div>
 
-<h3>Best bets</h3>
+<h3 class="govuk-heading-m">Best bets</h3>
 
-<table class="table best-bets bets-list">
-  <thead>
-    <tr class="table-header">
-      <th>Link</th>
-      <th>Position</th>
-      <th>Comment</th>
-      <th>Delete</th>
-    </tr>
-  </thead>
-  <tbody>
-  <% @best_bets.each do |bet| %>
-    <tr class="bet" id="bet-<%= bet.id %>">
-      <td><%= link_to bet.link, edit_bet_path(bet) %></td>
-      <td><%= bet.position %></td>
-      <td><%= bet.comment %></td>
-      <td><%= delete_button 'Delete', bet_path(bet) %></td>
-    </tr>
+<div class="best-bets">
+  <%= GovukPublishingComponents::AppHelpers::TableHelper.helper(self) do |t| %>
+    <%= t.head do %>
+      <%= t.header "Link" %>
+      <%= t.header "Position" %>
+      <%= t.header "Comment" %>
+      <%= t.header "Delete" %>
+    <% end %>
+    <%= t.body do %>
+      <% @best_bets.each do |bet| %>
+        <%= t.row do %>
+          <%= t.cell link_to bet.link, edit_bet_path(bet), class:"govuk-link" %>
+          <%= t.cell bet.position %>
+          <%= t.cell bet.comment %>
+          <%= t.cell delete_button 'Delete', bet_path(bet) %>
+        <% end %>
+      <% end %>
+    <% end %>
   <% end %>
-  </tbody>
-</table>
+</div>
 
-<h3>Worst bets</h3>
+<h3 class="govuk-heading-m">Worst bets</h3>
 
-<table class="table worst-bets bets-list">
-  <thead>
-    <tr class="table-header">
-      <th>Link</th>
-      <th>Comment</th>
-      <th>Delete</th>
-    </tr>
-  </thead>
-  <tbody>
-  <% @worst_bets.each do |bet| %>
-    <tr class="bet" id="bet-<%= bet.id %>">
-      <td><%= link_to bet.link, edit_bet_path(bet) %></td>
-      <td><%= bet.comment %></td>
-      <td><%= delete_button 'Delete', bet_path(bet) %></td>
-    </tr>
+<div class="worst-bets">
+  <%= GovukPublishingComponents::AppHelpers::TableHelper.helper(self) do |t| %>
+    <%= t.head do %>
+      <%= t.header "Link" %>
+      <%= t.header "Comment" %>
+      <%= t.header "Delete" %>
+    <% end %>
+    <%= t.body do %>
+      <% @worst_bets.each do |bet| %>
+        <%= t.row do %>
+          <%= t.cell link_to bet.link, edit_bet_path(bet), class:"govuk-link" %>
+          <%= t.cell bet.comment %>
+          <%= t.cell delete_button 'Delete', bet_path(bet) %>
+        <% end %>
+      <% end %>
+    <% end %>
   <% end %>
-  </tbody>
-</table>
+</div>
 
-<h3>Add new bet</h3>
+<h3 class="govuk-heading-m">Add new bet</h3>
 <%= render 'bets/form', bet: @new_bet, query: @query %>
 
-<h3>Search results</h3>
-<%= link_to 'Visit URL', @search_url, target: '_blank' %>
+<h3 class="govuk-heading-m">Search results</h3>
+<%= link_to 'Visit URL', @search_url, target: '_blank', class: 'govuk-link' %>
 
-<div class='callout callout-info add-bottom-margin'>
-  <div class="callout-title">
-    There is a slight delay between the updating of a bet and the indexing
+<%= render "govuk_publishing_components/components/inset_text", {
+} do %>
+  <div>
+  There is a slight delay between the updating of a bet and the indexing
     by the search engine. If you're seeing unexpected results,
-    <a href='' id='search-results-refresh'>try refreshing these results</a>.
-  </div>
+    <a href="" id="search-results-refresh" class="govuk-link">try refreshing these results</a>.
 </div>
-
-<iframe src="<%= @search_url %>" id="search-results"></iframe>
+<% end %>
+<div class="search-results">
+  <iframe src="<%= @search_url %>" class="search-results__iframe"></iframe>
+</div>
