@@ -6,7 +6,8 @@ class Bet < ApplicationRecord
 
   attr_accessor :is_worst
 
-  validates :link, :query_id, :user_id, presence: true
+  validates :query_id, :user_id, presence: true
+  validates :link, presence: true, bet_link: true
   validates :position, numericality: {
                          allow_nil: false,
                          greater_than: 0,

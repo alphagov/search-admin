@@ -5,7 +5,7 @@ class BetsController < ApplicationController
     if saver.save
       redirect_to query_path(@bet.query), notice: "Bet created"
     else
-      redirect_to query_path(@bet.query), alert: "Error creating bet."
+      redirect_to query_path(@bet.query), alert: "Error creating bet. #{@bet.errors.full_messages.to_sentence}"
     end
   end
 
