@@ -4,6 +4,7 @@
       text: 'Link'
     },
     name: "bet[link]",
+    hint: "/govuk-path or https://example.org/external-path",
     value: bet.link,
     id: "bet_link"
   } %>
@@ -36,9 +37,9 @@
     name: "bet[comment]",
     value: bet.comment
   } %>
-  
+
   <input type="hidden" name="bet[query_id]" value="<%= query.id %>" />
-  
+
   <%= render "govuk_publishing_components/components/button", {
     text: "Save",
     name: "bet[id]",
