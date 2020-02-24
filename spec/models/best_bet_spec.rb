@@ -2,6 +2,10 @@ require "spec_helper"
 
 describe Bet do
   context "for a best bet" do
+    let!(:recommended_link) { create(:recommended_link, link: external_link) }
+    let(:external_bet_link) { external_link }
+    let(:external_link) { "https://www.example.gov.uk/campaign" }
+
     before do
       @query = create(:query)
       @best_bet_attributes = {
@@ -34,6 +38,38 @@ describe Bet do
 
       expect(best_bet).to_not be_valid
       expect(best_bet.errors).to have_key(:link)
+    end
+
+    context "when given a external link" do
+      subject(:bet) { described_class.new(@best_bet_attributes.merge(link: external_bet_link)) }
+
+      it { is_expected.to be_valid }
+
+      context "when the external link has no corresponding recommended link" do
+        let(:external_bet_link) { "https://invalid.example.org" }
+        it { is_expected.to_not be_valid }
+      end
+
+      context "when the link doesn't start with http" do
+        let(:external_bet_link) { "www.example.gov.uk/campaign" }
+        it { is_expected.to_not be_valid }
+      end
+
+      context "when the link is an internal link" do
+        let(:external_link) { "https://www.gov.uk/campaign" }
+        it { is_expected.to_not be_valid }
+      end
+    end
+
+    context "when given an internal link" do
+      subject(:bet) { described_class.new(@best_bet_attributes.merge(link: internal_link)) }
+      let(:internal_link) { "/harry-potter" }
+      it { is_expected.to be_valid }
+
+      context "when the internal link doesn't start with a forward slash" do
+        let(:internal_link) { "harry-potter" }
+        it { is_expected.to_not be_valid }
+      end
     end
 
     it "is valid without a comment" do
