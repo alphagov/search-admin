@@ -62,7 +62,7 @@ GEM
     autoprefixer-rails (9.7.4)
       execjs
     backports (3.16.1)
-    bootsnap (1.4.5)
+    bootsnap (1.4.6)
       msgpack (~> 1.0)
     bootstrap-sass (3.4.1)
       autoprefixer-rails (>= 5.2.1)
@@ -384,7 +384,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  bootsnap (~> 1.1, >= 1.1.7)
+  bootsnap (~> 1.4)
   cucumber-rails
   database_cleaner (~> 1.8.2)
   factory_bot_rails (~> 5)
