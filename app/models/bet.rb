@@ -1,6 +1,8 @@
 require "csv"
 
 class Bet < ApplicationRecord
+  DEFAULT_VALIDITY = 3.months.freeze
+
   belongs_to :user
   belongs_to :query
 
@@ -14,6 +16,18 @@ class Bet < ApplicationRecord
                          less_than: 2147483647, # Maximum value for integer
                          only_integer: true,
                        }, if: :is_best?
+
+  def set_default_expiration_date
+    self.expiration_date =
+      self.created_at.present? ? self.created_at + DEFAULT_VALIDITY : Time.zone.now + DEFAULT_VALIDITY
+  end
+
+  def set_created_at
+    if self.created_at.nil?
+      self.created_at =
+        self.query.present? ? self.query.created_at : Time.zone.now
+    end
+  end
 
   def self.best
     where(is_best: true)

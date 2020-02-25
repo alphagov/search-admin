@@ -105,6 +105,12 @@ describe Bet do
       expect(best_bet.errors).to have_key(:user_id)
     end
 
+    it "is valid with a nil expiration date" do
+      best_bet = Bet.create(@best_bet_attributes)
+      expect(best_bet.expiration_date).to be nil
+      expect(best_bet).to be_valid
+    end
+
     describe "#is_query?" do
       it "should return false" do
         best_bet = Bet.new(@best_bet_attributes)
@@ -124,12 +130,13 @@ describe Bet do
 
   context "for a worst bet" do
     before do
+      @query = create(:query)
       @worst_bet_attributes = {
         comment: "Mark as worst bet",
         is_best: false,
         link: "/jobsearch",
         position: nil,
-        query_id: 1,
+        query_id: @query.id,
         user_id: 1,
       }
     end
@@ -143,6 +150,12 @@ describe Bet do
     it "is valid with a position of 0" do
       worst_bet = Bet.new(@worst_bet_attributes.merge(position: 0))
 
+      expect(worst_bet).to be_valid
+    end
+
+    it "is valid with a nil expiration date" do
+      worst_bet = Bet.create(@worst_bet_attributes)
+      expect(worst_bet.expiration_date).to be nil
       expect(worst_bet).to be_valid
     end
   end
