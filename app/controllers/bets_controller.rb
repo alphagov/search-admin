@@ -1,7 +1,9 @@
 class BetsController < ApplicationController
   def create
-    @bet = Bet.new(create_params)
+    attrs = param_parser.bet_attributes
+    @bet = Bet.new(attrs)
     saver = SearchApiSaver.new(@bet)
+
     if saver.save
       redirect_to query_path(@bet.query), notice: "Bet created"
     else
@@ -17,8 +19,9 @@ class BetsController < ApplicationController
   def update
     @bet = find_bet
     saver = SearchApiSaver.new(@bet)
+    attrs = param_parser.bet_attributes
 
-    if saver.update_attributes(bet_params)
+    if saver.update_attributes(attrs)
       redirect_to query_path(@bet.query), notice: "Bet updated"
     else
       flash.now[:alert] = "Error updating bet"
@@ -59,15 +62,7 @@ private
     )
   end
 
-  def create_params
-    bet_params.merge(user_id: current_user.id, manual: true, is_best: best_bet?)
-  end
-
-  def best_bet?
-    !is_worst_bet?
-  end
-
-  def is_worst_bet?
-    bet_params.delete(:is_worst).to_i == 1
+  def param_parser
+    BetParamsParser.new(bet_params, current_user.id)
   end
 end
