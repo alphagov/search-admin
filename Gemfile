@@ -13,7 +13,7 @@ gem "gds-sso", "~> 14.2.0"
 gem "govuk_admin_template"
 gem "govuk_app_config", "~> 2.0.3"
 gem "plek", "~> 3.0.0"
-gem "govuk_publishing_components", "~> 21.26.1"
+gem "govuk_publishing_components", "~> 21.26.2"
 
 gem "gds-api-adapters", "~> 63.5.1"
 
