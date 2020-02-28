@@ -59,6 +59,7 @@ private
       :query,
       :query_id,
       :source,
+      expiration_date: %i[day month year],
     )
   end
 

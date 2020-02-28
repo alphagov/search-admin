@@ -5,6 +5,11 @@ describe Bet do
     let!(:recommended_link) { create(:recommended_link, link: external_link) }
     let(:external_bet_link) { external_link }
     let(:external_link) { "https://www.example.gov.uk/campaign" }
+    let(:day) { Time.zone.now.day }
+    let(:month) { Time.zone.now.month }
+    let(:year) { Time.zone.now.year }
+    let(:date) { Time.zone.local(year, month, day) }
+
 
     before do
       @query = create(:query)
@@ -42,7 +47,6 @@ describe Bet do
 
     context "when given a external link" do
       subject(:bet) { described_class.new(@best_bet_attributes.merge(link: external_bet_link)) }
-
       it { is_expected.to be_valid }
 
       context "when the external link has no corresponding recommended link" do
@@ -109,6 +113,12 @@ describe Bet do
       best_bet = Bet.create(@best_bet_attributes)
       expect(best_bet.expiration_date).to be nil
       expect(best_bet).to be_valid
+    end
+
+    it "cannot be created with an expiration date in the past" do
+      best_bet = Bet.create(@best_bet_attributes.merge(expiration_date: date - 1.year))
+      expect(best_bet.errors).to include(:expiration_date)
+      expect(best_bet).to_not be_valid
     end
 
     describe "#is_query?" do

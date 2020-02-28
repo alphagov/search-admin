@@ -40,6 +40,15 @@
 
   <input type="hidden" name="bet[query_id]" value="<%= query.id %>" />
 
+  <h3 class="govuk-heading-m">Set bet expiry</h3>
+
+  <%= render "govuk_publishing_components/components/date_input", {
+    name: "bet[expiration_date]",
+    legend_text: "Set and expiry date",
+    hint: "For example, 31 03 2020",
+    error_message: false
+  } %>
+
   <%= render "govuk_publishing_components/components/button", {
     text: "Save",
     name: "bet[id]",

@@ -7,7 +7,7 @@ class Bet < ApplicationRecord
   belongs_to :query
 
   attr_accessor :is_worst
-
+  validate :expiration_date_cannot_be_in_the_past
   validates :query_id, :user_id, presence: true
   validates :link, presence: true, bet_link: true
   validates :position, numericality: {
@@ -16,6 +16,12 @@ class Bet < ApplicationRecord
                          less_than: 2147483647, # Maximum value for integer
                          only_integer: true,
                        }, if: :is_best?
+
+  def expiration_date_cannot_be_in_the_past
+    if expiration_date.present? && expiration_date < Time.zone.today
+      errors.add(:expiration_date, "can't be in the past")
+    end
+  end
 
   def set_default_expiration_date
     self.expiration_date =
