@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_25_114827) do
+ActiveRecord::Schema.define(version: 2020_02_28_171904) do
 
   create_table "bets", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "link"
@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(version: 2020_02_25_114827) do
     t.integer "user_id"
     t.datetime "created_at"
     t.datetime "expiration_date"
+    t.boolean "permanent", default: false
   end
 
   create_table "queries", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

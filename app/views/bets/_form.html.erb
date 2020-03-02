@@ -42,9 +42,21 @@
 
   <h3 class="govuk-heading-m">Set bet expiry</h3>
 
+  <%= render "govuk_publishing_components/components/checkboxes", {
+    name: "bet[permanent]",
+    items: [
+      {
+        label: "Make permanent?",
+        value: 1,
+        checked: false
+      }
+    ]
+  } %>
+  <p class="govuk-body">or<p/>
+
   <%= render "govuk_publishing_components/components/date_input", {
     name: "bet[expiration_date]",
-    legend_text: "Set and expiry date",
+    legend_text: "Set an expiry date",
     hint: "For example, 31 03 2020",
     error_message: false
   } %>
