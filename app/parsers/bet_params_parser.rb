@@ -18,22 +18,15 @@ class BetParamsParser
 private
 
   def date_attributes
-    dates_provided? ? parse_date(date_params) : ""
+    date_complete? ? DateParser.new(date_hash).date : ""
   end
 
-  def date_params
-    bet_params[:expiration_date]
+  def date_hash
+    bet_params[:expiration_date].to_h.deep_symbolize_keys
   end
 
-  def dates_provided?
-    date_params.values.join.present?
-  end
-
-  def parse_date(date)
-    d = date["day"].to_i
-    m = date["month"].to_i
-    y = date["year"].to_i
-    Time.zone.local(y, m, d)
+  def date_complete?
+    date_hash.values.reject(&:empty?).count == 3
   end
 
   def best_bet?
