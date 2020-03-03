@@ -1,6 +1,5 @@
-def create_query(query: nil, match_type: nil, links: [])
+def create_query(user: nil, query: nil, match_type: nil, bets: [])
   visit queries_path
-
   click_on "New query"
 
   fill_in "Query", with: query if query
@@ -8,15 +7,20 @@ def create_query(query: nil, match_type: nil, links: [])
 
   click_on "Save"
 
-  links.each do |(link, is_best, position, comment)|
+  unless user == :admin
+    check_query_page_has_no_date_fields
+  end
+  bets.each do |(link, is_best, position, comment, permanent)|
     fill_in "Link", with: link
     if is_best
       fill_in "Position", with: position
     else
       check "Is worst bet?"
     end
+    if permanent == 1
+      check "Make permanent?"
+    end
     fill_in "Comment", with: comment
-    check "Make permanent?"
     click_on "Save"
   end
 end
@@ -52,7 +56,7 @@ def check_for_query_on_index_page(query: nil, match_type: nil)
   end
 end
 
-def check_for_bet_on_query_page(link: nil, is_best: nil, position: nil, query: nil, match_type: nil, comment: nil)
+def check_for_bet_on_query_page(permanent: nil, link: nil, is_best: nil, position: nil, query: nil, match_type: nil, comment: nil)
   query = Query.where(query: query, match_type: match_type).first
   visit query_path(query)
 
@@ -62,13 +66,16 @@ def check_for_bet_on_query_page(link: nil, is_best: nil, position: nil, query: n
     expect(page).to have_css "td", text: link
     expect(page).to have_css "td", text: comment
     expect(page).to have_css "td", text: position if is_best
+    expect(pate).to have_css "td", text: "Permanent" if permanent
   end
 end
 
-def edit_best_bet(best_bet, link)
-  visit query_path(best_bet.query)
-  click_on best_bet.link
-
+def edit_best_bet(bet:, link:, permanent: nil)
+  visit query_path(bet.query)
+  click_on bet.link
+  if permanent
+    check "Make permanent?"
+  end
   fill_in "Link", with: link
   click_on "Save"
 end
@@ -156,4 +163,9 @@ def build_es_doc_from_query(query)
     query_field => query.query,
     details: details_json,
   }
+end
+
+def check_query_page_has_no_date_fields
+  expect(page).to_not have_content "Make permanent?"
+  expect(page).to_not have_content "Set an expiry date"
 end

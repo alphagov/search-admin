@@ -12,6 +12,7 @@ class BetParamsParser
       user_id: user_id,
       manual: true,
       is_best: best_bet?,
+      permanent: permanent?,
     )
   end
 
@@ -35,5 +36,9 @@ private
 
   def is_worst_bet?
     bet_params[:is_worst] == "1"
+  end
+
+  def permanent?
+    bet_params[:permanent] == "1"
   end
 end

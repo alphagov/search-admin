@@ -20,10 +20,17 @@ class Bet < ApplicationRecord
   after_validation do
     self.expiration_date = nil if self.permanent
   end
-  
-  def set_default_expiration_date
-    self.expiration_date =
-      self.created_at.present? ? self.created_at + DEFAULT_VALIDITY : Time.zone.now + DEFAULT_VALIDITY
+
+  def set_defaults
+    if self.expiration_date.nil?
+      self.expiration_date = default_expiration_date
+      self.permanent = false
+      self.save
+    end
+  end
+
+  def default_expiration_date
+    self.created_at.present? ? self.created_at + DEFAULT_VALIDITY : Time.zone.now + DEFAULT_VALIDITY
   end
 
   def set_created_at

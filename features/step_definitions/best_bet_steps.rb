@@ -1,13 +1,33 @@
+Given(/^I am an admin user$/) do
+  login_as(:admin_user)
+end
+
+Given(/^I am a basic user$/) do
+  login_as(:user)
+end
+
 When(/^I create a best bet$/) do
-  create_query(query: "some jobs", match_type: "exact", links: [["/jobsearch", true, 1, "a comment"]])
+  create_query(query: "some jobs", match_type: "exact", bets: [["/jobsearch", true, 1, "a comment"]])
+end
+
+When(/^I create a best bet with invalid attributes$/) do
+  create_query(query: "some jobs", match_type: "exact", bets: [["", true, 1, "a comment"]])
+end
+
+When(/^I create a best bet as an admin$/) do
+  create_query(user: :admin, query: "some jobs", match_type: "exact", bets: [["/jobsearch", true, 1, "a comment", 1]])
 end
 
 When(/^I create a worst bet for a query$/) do
-  create_query(query: "worst-bet", match_type: "exact", links: [["/worst-bet", false, nil, "a comment"]])
+  create_query(query: "worst-bet", match_type: "exact", bets: [["/worst-bet", false, nil, "a comment"]])
+end
+
+When(/^I create a worst bet for a query as an admin$/) do
+  create_query(user: :admin, query: "worst-bet", match_type: "exact", bets: [["/worst-bet", false, nil, "a comment", 1]])
 end
 
 When(/^I create several exact best bets for the same query$/) do
-  create_query(query: "jobs", match_type: "exact", links: [["/jobsearch", true, 1], ["/policy-areas/employment", true, 2]])
+  create_query(query: "jobs", match_type: "exact", bets: [["/jobsearch", true, 1], ["/policy-areas/employment", true, 2]])
 end
 
 Then(/^the query should be listed on the index page$/) do
@@ -19,12 +39,11 @@ end
 
 Then(/^the best bet should be listed on the query page$/) do
   check_for_bet_on_query_page(
-    comment: "a comment",
     is_best: true,
     link: "/jobsearch",
     match_type: "exact",
     position: 1,
-    query: "some jobs",
+    query: "some jobs"
   )
 end
 
@@ -53,8 +72,12 @@ Given(/^a query with a worst bet exists$/) do
   create(:bet, :worst, query: query, link: "/worst-bet", position: nil, comment: "a comment")
 end
 
+When(/^I edit a best bet as an admin$/) do
+  edit_best_bet(bet: @query.best_bets.first, link: "/job-policy", permanent: true)
+end
+
 When(/^I edit a best bet$/) do
-  edit_best_bet(@query.best_bets.first, "/job-policy")
+  edit_best_bet(bet:@query.best_bets.first, link: "/job-policy")
 end
 
 Then(/^the edited best bet should be listed on the query page$/) do
@@ -96,7 +119,6 @@ end
 
 Then(/^the worst bet should be listed on the query page$/) do
   check_for_bet_on_query_page(
-    comment: "a comment",
     is_best: false,
     link: "/worst-bet",
     match_type: "exact",

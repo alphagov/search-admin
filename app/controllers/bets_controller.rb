@@ -2,6 +2,9 @@ class BetsController < ApplicationController
   def create
     attrs = param_parser.bet_attributes
     @bet = Bet.new(attrs)
+    unless admin_user?
+      @bet.set_defaults
+    end
     saver = SearchApiSaver.new(@bet)
 
     if saver.save
@@ -19,8 +22,12 @@ class BetsController < ApplicationController
   def update
     @bet = find_bet
     saver = SearchApiSaver.new(@bet)
-    attrs = param_parser.bet_attributes
-
+    attrs =
+      if admin_user?
+        param_parser.bet_attributes
+      else
+        param_parser.bet_attributes.except(:expiration_date, :permanent)
+      end
     if saver.update_attributes(attrs)
       redirect_to query_path(@bet.query), notice: "Bet updated"
     else

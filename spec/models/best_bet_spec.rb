@@ -1,23 +1,26 @@
 require "spec_helper"
 
 describe Bet do
-  context "for a best bet" do
-    let!(:recommended_link) { create(:recommended_link, link: external_link) }
-    let(:external_bet_link) { external_link }
-    let(:external_link) { "https://www.example.gov.uk/campaign" }
-    let(:date) { Time.zone.now }
+  DEFAULT_VALIDITY = 3.months
+  let!(:recommended_link) { create(:recommended_link, link: external_link) }
+  let(:external_bet_link) { external_link }
+  let(:external_link) { "https://www.example.gov.uk/campaign" }
+  let(:query) { create(:query) }
+  let(:user) { create(:user) }
+  let(:admin) { create(:admin_user) }
+  let(:date) { Time.zone.now }
 
 
-    before do
-      @query = create(:query)
+  context "best bet" do
+    before(:each) do
       @best_bet_attributes = {
         comment: "Boost the most common job page to the top",
         is_best: true,
         link: "/jobsearch",
         position: 1,
-        query_id: @query.id,
-        user_id: 1,
-        permanent: true
+        permanent: true,
+        query_id: query.id,
+        user_id: user.id,
       }
     end
 
@@ -107,6 +110,7 @@ describe Bet do
       expect(best_bet.errors).to have_key(:user_id)
     end
 
+
     describe "#is_query?" do
       it "should return false" do
         best_bet = Bet.new(@best_bet_attributes)
@@ -119,7 +123,7 @@ describe Bet do
       it "should return its parent query" do
         best_bet = Bet.new(@best_bet_attributes)
 
-        expect(best_bet.query_object).to eq @query
+        expect(best_bet.query_object).to eq query
       end
     end
 
@@ -167,22 +171,22 @@ describe Bet do
       }
     end
 
-    it "is valid with a nil position" do
-      worst_bet = Bet.new(@worst_bet_attributes)
+      it "is valid with a nil position" do
+        worst_bet = Bet.new(@worst_bet_attributes)
 
-      expect(worst_bet).to be_valid
-    end
+        expect(worst_bet).to be_valid
+      end
 
-    it "is valid with a position of 0" do
-      worst_bet = Bet.new(@worst_bet_attributes.merge(position: 0))
+      it "is valid with a position of 0" do
+        worst_bet = Bet.new(@worst_bet_attributes.merge(position: 0))
 
-      expect(worst_bet).to be_valid
-    end
+        expect(worst_bet).to be_valid
+      end
 
-    it "it is valid with a nil expiration date" do
-      worst_bet = Bet.create(@worst_bet_attributes)
-      expect(worst_bet.expiration_date).to be nil
-      expect(worst_bet).to be_valid
+      it "it is valid with a nil expiration date" do
+        worst_bet = Bet.create(@worst_bet_attributes)
+        expect(worst_bet.expiration_date).to be nil
+        expect(worst_bet).to be_valid
     end
   end
 end
