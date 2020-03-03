@@ -16,6 +16,7 @@ def create_query(query: nil, match_type: nil, links: [])
       check "Is worst bet?"
     end
     fill_in "Comment", with: comment
+    check "Make permanent?"
     click_on "Save"
   end
 end

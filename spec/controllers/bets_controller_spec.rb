@@ -9,10 +9,6 @@ describe BetsController do
 
   let(:user) { create(:user) }
   let(:query) { create(:query) }
-  let(:day) { Time.zone.now.day }
-  let(:month) { Time.zone.now.month }
-  let(:year) { Time.zone.now.year + 1 }
-  let(:date) { Time.zone.local(year, month, day) }
 
   let(:bet_params) {
     {
@@ -21,15 +17,14 @@ describe BetsController do
       position: 1,
       comment: "Created to help UKVI",
       is_best: true,
-      expiration_date: { "day" => day, "month" => month, "year" => year },
+      permanent: true
     }
   }
 
   describe "Creating bets" do
     it "allows all expected fields to be set" do
-      parsed_params = bet_params.merge(expiration_date: date)
       post :create, params: { bet: bet_params }
-      expect(Bet.last.attributes.symbolize_keys).to include(parsed_params)
+      expect(Bet.last.attributes.symbolize_keys).to include(bet_params)
     end
 
     it "logs the user which created the bet" do

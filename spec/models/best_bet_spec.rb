@@ -5,10 +5,7 @@ describe Bet do
     let!(:recommended_link) { create(:recommended_link, link: external_link) }
     let(:external_bet_link) { external_link }
     let(:external_link) { "https://www.example.gov.uk/campaign" }
-    let(:day) { Time.zone.now.day }
-    let(:month) { Time.zone.now.month }
-    let(:year) { Time.zone.now.year }
-    let(:date) { Time.zone.local(year, month, day) }
+    let(:date) { Time.zone.now }
 
 
     before do
@@ -20,6 +17,7 @@ describe Bet do
         position: 1,
         query_id: @query.id,
         user_id: 1,
+        permanent: true
       }
     end
 
@@ -109,18 +107,6 @@ describe Bet do
       expect(best_bet.errors).to have_key(:user_id)
     end
 
-    it "is valid with a nil expiration date" do
-      best_bet = Bet.create(@best_bet_attributes)
-      expect(best_bet.expiration_date).to be nil
-      expect(best_bet).to be_valid
-    end
-
-    it "cannot be created with an expiration date in the past" do
-      best_bet = Bet.create(@best_bet_attributes.merge(expiration_date: date - 1.year))
-      expect(best_bet.errors).to include(:expiration_date)
-      expect(best_bet).to_not be_valid
-    end
-
     describe "#is_query?" do
       it "should return false" do
         best_bet = Bet.new(@best_bet_attributes)
@@ -136,6 +122,35 @@ describe Bet do
         expect(best_bet.query_object).to eq @query
       end
     end
+
+    describe "bet_date validations" do
+      it "Temporary bets must have an expiration date" do
+        bet_date_attrs = { permanent: false, expiration_date: "" }
+        best_bet = Bet.new(@best_bet_attributes.merge(bet_date_attrs))
+        expect(best_bet).to_not be_valid
+        expect(best_bet.errors).to have_key (:expiration_date)
+      end
+
+      it "Temporary bets must have an expiration date in the future" do
+        bet_date_attrs = { permanent: false, expiration_date: date - 1.day }
+        best_bet = Bet.new(@best_bet_attributes.merge(bet_date_attrs))
+        expect(best_bet).to_not be_valid
+        expect(best_bet.errors).to have_key (:expiration_date)
+      end
+
+      it "Permanent bets are valid with a nil expiration date" do
+        best_bet = Bet.new(@best_bet_attributes)
+        expect(best_bet.expiration_date).to be_nil
+        expect(best_bet).to be_valid
+      end
+
+      it "Making a temporary bet permanent deletes its expiration date" do
+        bet_date_attrs = { permanent: false, expiration_date: date + 1.day }
+        best_bet = Bet.new(@best_bet_attributes.merge(bet_date_attrs))
+        best_bet.update(permanent: true)
+        expect(best_bet.expiration_date).to be_nil
+      end
+    end
   end
 
   context "for a worst bet" do
@@ -148,6 +163,7 @@ describe Bet do
         position: nil,
         query_id: @query.id,
         user_id: 1,
+        permanent: true
       }
     end
 
@@ -163,7 +179,7 @@ describe Bet do
       expect(worst_bet).to be_valid
     end
 
-    it "is valid with a nil expiration date" do
+    it "it is valid with a nil expiration date" do
       worst_bet = Bet.create(@worst_bet_attributes)
       expect(worst_bet.expiration_date).to be nil
       expect(worst_bet).to be_valid

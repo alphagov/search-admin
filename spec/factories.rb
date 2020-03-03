@@ -5,6 +5,7 @@ FactoryBot.define do
 
   factory :bet do
     link { "/death-and-taxes" }
+    expiration_date { Time.zone.now + 1.day }
 
     trait(:worst) {
       is_best { false }
@@ -13,6 +14,10 @@ FactoryBot.define do
     trait(:best) {
       is_best { true }
       position { generate :numeric_position }
+    }
+
+    trait(:permanent) {
+      permanent { true }
     }
 
     user

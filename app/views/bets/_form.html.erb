@@ -48,7 +48,7 @@
       {
         label: "Make permanent?",
         value: 1,
-        checked: false
+        checked: bet.permanent?
       }
     ]
   } %>
@@ -58,7 +58,11 @@
     name: "bet[expiration_date]",
     legend_text: "Set an expiry date",
     hint: "For example, 31 03 2020",
-    error_message: false
+    items: [
+      { :name => "day", :value => "#{ bet.expiration_date.day if bet.expiration_date.present?}", :width => 2 },
+      { :name => "month", :value => "#{bet.expiration_date.month if bet.expiration_date.present?}", :width => 2 },
+      { :name => "year", :value => "#{bet.expiration_date.year if bet.expiration_date.present?}", :width => 4 }
+    ]
   } %>
 
   <%= render "govuk_publishing_components/components/button", {
