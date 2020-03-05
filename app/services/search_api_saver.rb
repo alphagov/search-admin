@@ -53,7 +53,7 @@ private
       remove_from_elasticsearch
     elsif %i[update create].include?(action)
       add_to_elasticsearch
-    elsif action == :update_bets || action == :deactivate # removing the final bet will de-index the query, removing any others will re-index
+    elsif %i[update_bets deactivate].include?(action) # removing the final bet will de-index the query, removing any others will re-index
       query.bets.active.any? ? add_to_elasticsearch : remove_from_elasticsearch
     else
       raise InvalidAction.new("#{action} not one of: :update, :create, :update_bets, : delete, :deactivate")
