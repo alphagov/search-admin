@@ -20,71 +20,75 @@
   } %>
   <%= delete_button "Delete query", query_path(@query), true %>
 </div>
+<% if @best_bets.any?%>
 
-<h3 class="govuk-heading-m">Best bets</h3>
+  <h3 class="govuk-heading-m">Best bets</h3>
 
-<div class="best-bets">
-  <%= GovukPublishingComponents::AppHelpers::TableHelper.helper(self) do |t| %>
-    <%= t.head do %>
-      <%= t.header "Link" %>
-      <%= t.header "Position" %>
-      <%= t.header "Created" %>
-      <%= t.header "Author" %>
-      <%= t.header "Status" %>
-      <%= t.header "Action" %>
-      <%= t.header "Delete" %>
-    <% end %>
-    <%= t.body do %>
-      <% @best_bets.each do |bet| %>
-        <%= t.row do %>
-          <%= t.cell link_to bet.link, edit_bet_path(bet), class:"govuk-link" %>
-          <%= t.cell bet.position %>
-          <%= t.cell bet.created_at.strftime("%d %b %Y") %>
-          <%= t.cell bet.try(:user).try(:name) || "" %>
-          <%= t.cell bet.valid_until %>
-          <% if bet.active? %>
-            <%= t.cell button_to 'Deactivate', deactivate_bet_path(bet), class: "govuk-button govuk-button--secondary" %>
-          <% else %>
-            <%= t.cell link_to 'Activate', edit_bet_path(bet,  active: "true"), class: "govuk-button govuk-button--secondary"%>
+  <div class="best-bets">
+    <%= GovukPublishingComponents::AppHelpers::TableHelper.helper(self) do |t| %>
+      <%= t.head do %>
+        <%= t.header "Link" %>
+        <%= t.header "Position" %>
+        <%= t.header "Last edit" %>
+        <%= t.header "Author" %>
+        <%= t.header "Status" %>
+        <%= t.header "Action" %>
+        <%= t.header "Delete" %>
+      <% end %>
+      <%= t.body do %>
+        <% @best_bets.each do |bet| %>
+          <%= t.row do %>
+            <%= t.cell link_to bet.link, edit_bet_path(bet), class:"govuk-link" %>
+            <%= t.cell bet.position %>
+            <%= t.cell (bet.updated_at || bet.created_at).strftime("%d %b %Y") %>
+            <%= t.cell bet.try(:user).try(:name) || "" %>
+            <%= t.cell bet.valid_until %>
+            <% if bet.active? %>
+              <%= t.cell button_to 'Deactivate', deactivate_bet_path(bet), class: "govuk-button govuk-button--secondary" %>
+            <% else %>
+              <%= t.cell link_to 'Activate', edit_bet_path(bet,  active: "true"), class: "govuk-button govuk-button--secondary"%>
+            <% end %>
+            <%= t.cell delete_button 'Delete', bet_path(bet) %>
           <% end %>
-          <%= t.cell delete_button 'Delete', bet_path(bet) %>
         <% end %>
       <% end %>
     <% end %>
-  <% end %>
-</div>
+  </div>
+<% end %>
 
-<h3 class="govuk-heading-m">Worst bets</h3>
+<% if @worst_bets.any? %>
 
-<div class="worst-bets">
-  <%= GovukPublishingComponents::AppHelpers::TableHelper.helper(self) do |t| %>
-    <%= t.head do %>
-      <%= t.header "Link" %>
-      <%= t.header "Created" %>
-      <%= t.header "Author" %>
-      <%= t.header "Status" %>
-      <%= t.header "Action" %>
-      <%= t.header "Delete" %>
-    <% end %>
-    <%= t.body do %>
-      <% @worst_bets.each do |bet| %>
-        <%= t.row do %>
-          <%= t.cell link_to bet.link, edit_bet_path(bet), class:"govuk-link" %>
-          <%= t.cell bet.created_at.strftime("%d %b %Y") %>
-          <%= t.cell bet.try(:user).try(:name) || " " %>
-          <%= t.cell bet.valid_until %>
-          <% if bet.active? %>
-            <%= t.cell button_to 'Deactivate', deactivate_bet_path(bet), class: "govuk-button govuk-button--secondary" %>
-          <% else %>
-            <%= t.cell link_to 'Activate', edit_bet_path(bet,  active: "true"), class: "govuk-button govuk-button--secondary"%>
+  <h3 class="govuk-heading-m">Worst bets</h3>
+
+  <div class="worst-bets">
+    <%= GovukPublishingComponents::AppHelpers::TableHelper.helper(self) do |t| %>
+      <%= t.head do %>
+        <%= t.header "Link" %>
+        <%= t.header "Last edit" %>
+        <%= t.header "Author" %>
+        <%= t.header "Status" %>
+        <%= t.header "Action" %>
+        <%= t.header "Delete" %>
+      <% end %>
+      <%= t.body do %>
+        <% @worst_bets.each do |bet| %>
+          <%= t.row do %>
+            <%= t.cell link_to bet.link, edit_bet_path(bet), class:"govuk-link" %>
+            <%= t.cell (bet.updated_at || bet.created_at).strftime("%d %b %Y") %>
+            <%= t.cell bet.try(:user).try(:name) || " " %>
+            <%= t.cell bet.valid_until %>
+            <% if bet.active? %>
+              <%= t.cell button_to 'Deactivate', deactivate_bet_path(bet), class: "govuk-button govuk-button--secondary" %>
+            <% else %>
+              <%= t.cell link_to 'Activate', edit_bet_path(bet,  active: "true"), class: "govuk-button govuk-button--secondary"%>
+            <% end %>
+            <%= t.cell delete_button 'Delete', bet_path(bet) %>
           <% end %>
-          <%= t.cell delete_button 'Delete', bet_path(bet) %>
         <% end %>
       <% end %>
     <% end %>
-  <% end %>
-</div>
-
+  </div>
+<% end %>
 <h3 class="govuk-heading-m">Add new bet</h3>
 <%= render 'bets/form', bet: @new_bet, query: @query %>
 
