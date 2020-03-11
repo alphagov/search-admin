@@ -68,7 +68,7 @@ class Bet < ApplicationRecord
     if self.permanent
       "Permanent"
     elsif self.not_expired?
-      "Expires #{self.expiration_date.strftime("%d %b %Y")}"
+      "Expires #{self.expiration_date.strftime('%d %b %Y')}"
     else
       "Expired"
     end

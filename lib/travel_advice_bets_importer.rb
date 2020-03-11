@@ -44,7 +44,7 @@ private
       query_id: query.id,
       user_id: user.id,
       position: position,
-      permanent: true
+      permanent: true,
     )
   end
 

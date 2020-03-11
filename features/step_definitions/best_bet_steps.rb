@@ -43,7 +43,7 @@ Then(/^the best bet should be listed on the query page$/) do
     link: "/jobsearch",
     match_type: "exact",
     position: 1,
-    query: "some jobs"
+    query: "some jobs",
   )
 end
 
@@ -77,7 +77,7 @@ When(/^I edit a best bet as an admin$/) do
 end
 
 When(/^I edit a best bet$/) do
-  edit_best_bet(bet:@query.best_bets.first, link: "/job-policy")
+  edit_best_bet(bet: @query.best_bets.first, link: "/job-policy")
 end
 
 Then(/^the edited best bet should be listed on the query page$/) do
