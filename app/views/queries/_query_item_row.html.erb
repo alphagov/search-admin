@@ -1,0 +1,41 @@
+<% if query.bets.empty? %>
+  <%= t.row do %>
+    <%= t.cell link_to(query.query, query_path(query)) %>
+    <%= t.cell query.match_type %>
+    <%= t.cell "" %>
+    <%= t.cell "" %>
+    <%= t.cell "" %>
+  <% end %>
+<% end %>
+<% if query.sorted_best_bets.any? %>
+  <% query.sorted_best_bets.each_with_index do |bet, index| %>
+    <% link_and_comment = capture do %>
+      <p class="govuk-body-s"><%= link_to bet.link, edit_bet_path(bet), class:"govuk-link" %></p>
+      <p class="govuk-body-s"><%= bet.try(:comment) %></p>
+    <% end %>
+    <%= t.row do %>
+      <% hidden_class = "govuk-visually-hidden" if index > 0 %>
+      <%= t.cell link_to(query.query, query_path(query), class:"govuk-link #{hidden_class}") %>
+      <%= t.cell query.match_type %>
+      <%= t.cell link_and_comment %>
+      <%= t.cell "Best" %>
+      <%= t.cell bet.valid_until %>
+    <% end %>
+  <% end %>
+<% end %>
+<% if query.worst_bets.any? %>
+  <% query.worst_bets.each_with_index do |bet, index| %>
+    <% link_and_comment = capture do %>
+      <p class="govuk-body-s"><%= link_to bet.link, edit_bet_path(bet), class:"govuk-link" %></p>
+      <p class="govuk-body-s"><%= bet.try(:comment) %></p>
+    <% end %>
+    <%= t.row do %>
+      <% hidden_class = "govuk-visually-hidden" if index > 0 or query.sorted_best_bets.any? %>
+      <%= t.cell link_to(query.query, query_path(query), class:"govuk-link #{hidden_class}") %>
+      <%= t.cell query.match_type %>
+      <%= t.cell link_and_comment %>
+      <%= t.cell "Worst" %>
+      <%= t.cell bet.valid_until %>
+    <% end %>
+  <% end %>
+<% end %>

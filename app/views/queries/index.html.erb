@@ -30,14 +30,12 @@
       <%= t.header "Term" %>
       <%= t.header "Match" %>
       <%= t.header "Bets" %>
+      <%= t.header "Type" %>
+      <%= t.header "Status" %>
     <% end %>
     <%= t.body do %>
       <% @queries.each do |query| %>
-        <%= t.row do %>
-          <%= t.cell link_to(query.query, query_path(query), class:"govuk-link") %>
-          <%= t.cell query.match_type %>
-          <%= t.cell render "query_item_bets", query: query %>
-        <% end %>
+        <%= render 'query_item_row', query: query, t: t %>
       <% end %>
     <% end %>
   <% end %>
