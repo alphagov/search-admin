@@ -32,6 +32,15 @@ describe Bet do
       expect(best_bet).to be_persisted
     end
 
+    it "can be deactivated" do
+      best_bet = Bet.create(@best_bet_attributes)
+      expect(best_bet).to be_active
+      best_bet.deactivate
+      expect(best_bet.permanent).to be nil
+      expect(best_bet.expiration_date).to be nil
+      expect(best_bet).not_to be_active
+    end
+
     it "is invalid without a query" do
       best_bet = Bet.new(@best_bet_attributes.merge(query_id: nil))
 

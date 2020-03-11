@@ -147,6 +147,64 @@ describe BetsController do
       end
     end
 
+    describe "Reactivating bets" do
+      let(:query) { create(:query, :with_best_bet) }
+      let(:bet) { query.bets.first }
+
+      context "when logged in as a basic signin user" do
+        before do
+          bet.deactivate
+          @user = create(:user)
+          login_as(@user)
+        end
+
+        it "notifies the world of the change to the query" do
+          post :update, params: { id: bet.id, bet: permanent_bet_params.merge(active: "true") }
+          expect(Services.search_api).to have_received(:add_document)
+          expect(Bet.find(bet.id)).to be_active
+          expect(Bet.find(bet.id).permanent).to be false
+        end
+
+        it "does not notify the world to forget the query" do
+
+          put :update, params: { id: bet.id, bet: permanent_bet_params }
+          expect(Services.search_api).not_to have_received(:delete_document)
+        end
+
+        it "redirects to the query show when update is successful" do
+
+          post :update, params: { id: bet.id, bet: permanent_bet_params.merge(active: "true") }
+
+          expect(flash[:notice]).to include("Bet reactivated")
+          expect(response).to redirect_to(query_path(query))
+        end
+      end
+    end
+
+    describe "Deactivating bets" do
+      let(:query) { create(:query, :with_best_bet, query: "two words") }
+      let(:bet) { query.bets.first }
+
+      it "redirects to the query show when the bet has been deactivated" do
+        post :deactivate, params: { id: bet.id, bet: permanent_bet_params }
+        expect(flash[:notice]).to include("Bet deactivated")
+        expect(response).to redirect_to(query_path(query))
+      end
+
+      it "deactivating the last bet will delete the query from Search API" do
+        expect(Services.search_api).to receive(:delete_document).with("two%20words-exact", "metasearch")
+        post :deactivate, params: { id: bet.id }
+      end
+
+      it "deactivating one of a group of best bets will update the query in Search-api" do
+        create(:bet, query: query)
+        es_doc_id = ElasticSearchBetIDGenerator.generate(query.query, query.match_type)
+        expect(Services.search_api).to receive(:add_document).with(es_doc_id, anything, "metasearch")
+
+        post :deactivate, params: { id: bet.id }
+      end
+    end
+
     describe "Deleting bets" do
       let(:query) { create(:query, :with_best_bet, query: "two words") }
       let(:bet) { query.bets.first }
@@ -157,7 +215,7 @@ describe BetsController do
         delete :destroy, params: { id: bet.id }
       end
 
-      it "deleting one of a group of bets bets will update the query in Search-api" do
+      it "deleting one of a group of best bets will update the query in Search-api" do
         create(:bet, query: query)
         es_doc_id = ElasticSearchBetIDGenerator.generate(query.query, query.match_type)
         expect(Services.search_api).to receive(:add_document).with(es_doc_id, anything, "metasearch")

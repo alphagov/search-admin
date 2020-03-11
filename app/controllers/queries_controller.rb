@@ -40,25 +40,23 @@ class QueriesController < ApplicationController
     @query = find_query
   end
 
-  # rubocop:disable Rails/ActiveRecordAliases
   def update
     query = find_query
     saver = SearchApiSaver.new(query)
 
-    if saver.update_attributes(query_params)
+    if saver.update(query_params)
       redirect_to query_path(query), notice: "Your query was updated successfully"
     else
       flash[:alert] = "Error updating query"
       render :edit
     end
   end
-  # rubocop:enable Rails/ActiveRecordAliases
 
   def destroy
     query = find_query
     saver = SearchApiSaver.new(query)
 
-    if saver.destroy
+    if saver.destroy(action: :delete)
       redirect_to queries_path, notice: "Your query was deleted successfully"
     else
       redirect_to query_path(query), alert: "Error deleting query"

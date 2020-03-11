@@ -18,7 +18,13 @@ class Bet < ApplicationRecord
                        }, if: :is_best?
 
   after_validation do
-    self.expiration_date = nil if self.permanent
+    permanent_and_inactive_bets_have_no_expiration_date
+  end
+
+  def permanent_and_inactive_bets_have_no_expiration_date
+    if self.permanent || self.permanent.nil?
+      self.expiration_date = nil
+    end
   end
 
   def set_defaults
@@ -37,6 +43,34 @@ class Bet < ApplicationRecord
     if self.created_at.nil?
       self.created_at =
         self.query.present? ? self.query.created_at : Time.zone.now
+    end
+  end
+
+  def deactivate
+    self.permanent = nil
+    self.save!
+  end
+
+  def active?
+    self.permanent || self.not_expired?
+  end
+
+  def self.active
+    self.select(&:active?)
+  end
+
+  def not_expired?
+    self.expiration_date.present? && self.expiration_date >= Time.zone.now
+  end
+
+  #to do: move into a view helper
+  def valid_until
+    if self.permanent
+      "Permanent"
+    elsif self.not_expired?
+      "Expires #{self.expiration_date.strftime("%d %b %Y")}"
+    else
+      "Expired"
     end
   end
 

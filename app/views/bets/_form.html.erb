@@ -39,9 +39,10 @@
   } %>
 
   <input type="hidden" name="bet[query_id]" value="<%= query.id %>" />
-  <% if current_user.permissions.include?("admin") %> ">
-    <h3 class="govuk-heading-m">Set bet expiry</h3>
+  <input type="hidden" name="bet[active]" value="<%= params["active"] %>" />
 
+  <% if current_user.permissions.include?("admin") %>
+    <h3 class="govuk-heading-m">Set bet expiry</h3>
     <%= render "govuk_publishing_components/components/checkboxes", {
       name: "bet[permanent]",
       items: [

@@ -18,24 +18,32 @@ class BetsController < ApplicationController
     @bet = find_bet
   end
 
-  # rubocop:disable Rails/ActiveRecordAliases
   def update
     @bet = find_bet
-    saver = SearchApiSaver.new(@bet)
     attrs =
-      if admin_user?
-        param_parser.bet_attributes
-      else
-        param_parser.bet_attributes.except(:expiration_date, :permanent)
-      end
-    if saver.update_attributes(attrs)
-      redirect_to query_path(@bet.query), notice: "Bet updated"
+      admin_user? ? param_parser.bet_attributes : param_parser.bet_attributes.except(:expiration_date, :permanent)
+    if !admin_user? && reactivating?
+      @bet.set_defaults
+    end
+    notice = reactivating? ? "Bet reactivated" : "Bet updated"
+    saver = SearchApiSaver.new(@bet)
+    if saver.update(attrs)
+      redirect_to query_path(@bet.query), notice: notice
     else
-      flash.now[:alert] = "Error updating bet"
+      flash.now[:alert] = "Error updating bet. #{@bet.errors.full_messages.to_sentence}"
       render "edit"
     end
   end
-  # rubocop:enable Rails/ActiveRecordAliases
+
+  def deactivate
+    @bet = find_bet
+    saver = SearchApiSaver.new(@bet)
+    if saver.destroy(action: :deactivate)
+      redirect_to query_path(@bet.query), notice: "Bet deactivated"
+    else
+      redirect_to query_path(@bet.query), alert: "Error deactivating bet"
+    end
+  end
 
   def destroy
     @bet = find_bet
@@ -73,5 +81,9 @@ private
 
   def param_parser
     BetParamsParser.new(bet_params, current_user.id)
+  end
+
+  def reactivating?
+    params["bet"]["active"] == "true"
   end
 end
