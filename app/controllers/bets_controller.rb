@@ -20,14 +20,11 @@ class BetsController < ApplicationController
 
   def update
     @bet = find_bet
-    attrs =
-      admin_user? ? param_parser.bet_attributes : param_parser.bet_attributes.except(:expiration_date, :permanent)
     if !admin_user? && reactivating?
       @bet.set_defaults
     end
-    notice = reactivating? ? "Bet reactivated" : "Bet updated"
     saver = SearchApiSaver.new(@bet)
-    if saver.update(attrs)
+    if saver.update(update_attrs)
       redirect_to query_path(@bet.query), notice: notice
     else
       flash.now[:alert] = "Error updating bet. #{@bet.errors.full_messages.to_sentence}"
@@ -85,5 +82,13 @@ private
 
   def reactivating?
     params["bet"]["active"] == "true"
+  end
+
+  def notice
+    reactivating? ? "Bet reactivated" : "Bet updated"
+  end
+
+  def update_attrs
+    admin_user? ? param_parser.bet_attributes : param_parser.bet_attributes.except(:expiration_date, :permanent)
   end
 end
