@@ -14,7 +14,7 @@
   } %>
 </div>
 
-<div class="govuk-!-margin-top-6 app-table__container queries" data-module="filterable-table">
+<div class="govuk-!-margin-top-6 app-table__container queries queries-table" data-module="filterable-table">
   <%= render "govuk_publishing_components/components/input", {
     label: {
       text: "Filter queries"
@@ -30,7 +30,6 @@
       <%= t.header "Query" %>
       <%= t.header "Match" %>
       <%= t.header "Bets" %>
-      <%= t.header "Type" %>
       <%= t.header "Status" %>
     <% end %>
     <%= t.body do %>
