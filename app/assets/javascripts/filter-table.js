@@ -1,3 +1,25 @@
+var combineQueryRows = function() {
+  var $queriesTable = $('.queries-table')
+
+  if ($queriesTable) {
+    $queriesTable.find('tr').each(function(index) {
+       var rows = $queriesTable.find("tr");
+        for(var i = 0; i <= rows.length; i++) {
+          var $currentRow = $(rows[i])
+          var currentRowQuery = $currentRow.find("td").first().text()
+          var $nextRow = $(rows[i+1])
+          var nextRowQuery = $nextRow.find("td").first().text()
+          if (currentRowQuery.toLowerCase().trim() === nextRowQuery.toLowerCase().trim()) {
+            $nextRow.addClass('govuk-table__row--group')
+            $currentRow.addClass('govuk-table__row--group')
+          }
+        }
+    });
+  }
+};
+combineQueryRows();
+
+// this has been modified to use css to hide/show rows
 ;(function() {
   var $formElement = $('[data-module=filterable-table]');
 
@@ -7,10 +29,19 @@
     $searchField.keyup(function() {
       var $rows = $('.govuk-table__body .govuk-table__row')
       $rows.hide()
+      $rows.removeClass('govuk-table__row--matching')
       var input = this.value.split(" ")
       $.each(input, function(i, value) {
-        $rows.filter(":contains('" + value + "')").show()
+        var $matchingRows = $rows.filter(":contains('" + value + "')")
+        $matchingRows.addClass('govuk-table__row--matching')
+        $matchingRows.show()
       });
+
+      //reset back to original state when no characters in the search box
+      if ($searchField.val().length === 0) {
+        $rows.removeClass('govuk-table__row--hidden')
+        $rows.removeClass('govuk-table__row--matching')
+      }
     });
   }
 })();
