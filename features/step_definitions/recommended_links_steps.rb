@@ -29,10 +29,9 @@ Then(/^the external link named "(.*)" should be listed on the external links ind
   check_for_recommended_link_on_index_page(title: title)
 end
 
-When(/^I edit the external link named "(.*)" with link "(.*)" to be named "(.*)"$/) do |old_title, link, new_title|
+When(/^I edit the external link named "(.*)" to be named "(.*)"$/) do |old_title, new_title|
   edit_recommended_link(
     old_title: old_title,
-    old_link: link,
     title: new_title,
   )
 end
@@ -41,8 +40,8 @@ Then(/^the edited external link named "(.*)" should be listed on the external li
   check_for_recommended_link_on_index_page(title: title)
 end
 
-When(/^I delete the external link named "(.*)" with link "(.*)"$/) do |title, link|
-  delete_recommended_link(title: title, link: link)
+When(/^I delete the external link named "(.*)"$/) do |title|
+  delete_recommended_link(title: title)
 end
 
 Then(/^the external link named "(.*)" should not be listed on the external links index$/) do |title|

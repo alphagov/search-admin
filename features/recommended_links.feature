@@ -17,11 +17,11 @@ Feature: External links
   @stub_recommended_links
   Scenario: Editing an external link
     Given an external link exists named "Tax online" with link "https://www.tax.service.gov.uk/"
-    When I edit the external link named "Tax online" with link "https://www.tax.service.gov.uk/" to be named "The new tax online"
+    When I edit the external link named "Tax online" to be named "The new tax online"
     Then the edited external link named "The new tax online" should be listed on the external links index
 
   @stub_recommended_links
   Scenario: Deleting an external link
     Given an external link exists named "Tax online" with link "https://www.tax.service.gov.uk/"
-    When I delete the external link named "Tax online" with link "https://www.tax.service.gov.uk/"
+    When I delete the external link named "Tax online"
     Then the external link named "Tax online" should not be listed on the external links index

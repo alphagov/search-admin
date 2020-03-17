@@ -7,7 +7,7 @@ Then(/^the query should be listed on the query index$/) do
 end
 
 When(/^I edit the query$/) do
-  edit_query(query_text: @query.query, match_type: @query.match_type, new_query_text: "visas")
+  edit_query(query_text: @query.query, new_query_text: "visas")
 end
 
 Then(/^the edited query should be listed on the query index$/) do
@@ -15,7 +15,7 @@ Then(/^the edited query should be listed on the query index$/) do
 end
 
 When(/^I delete the query$/) do
-  delete_query(query_text: @query.query, match_type: @query.match_type)
+  delete_query(query_text: @query.query)
 end
 
 Then(/^the query should not be listed on the query index$/) do
