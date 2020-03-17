@@ -14,13 +14,11 @@ def create_recommended_link(title: nil, link: nil, description: nil, keywords: n
   click_on "Save"
 end
 
-def edit_recommended_link(old_title: nil, old_link: nil, title: nil, description: nil, keywords: nil, comment: nil)
+def edit_recommended_link(old_title: nil, title: nil, description: nil, keywords: nil, comment: nil)
   stub_any_publishing_api_put_content
   stub_any_publishing_api_publish
 
   visit recommended_links_path
-
-  recommended_link = RecommendedLink.where(link: old_link).last
 
   within(".external-links") do
     click_on old_title
@@ -34,12 +32,10 @@ def edit_recommended_link(old_title: nil, old_link: nil, title: nil, description
   click_on "Save"
 end
 
-def delete_recommended_link(title: nil, link: nil)
+def delete_recommended_link(title: nil)
   stub_any_publishing_api_unpublish
 
   visit recommended_links_path
-
-  recommended_link = RecommendedLink.where(link: link).last
 
   within(".external-links") do
     click_on title

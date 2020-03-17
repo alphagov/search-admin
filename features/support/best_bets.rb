@@ -20,10 +20,8 @@ def create_query(query: nil, match_type: nil, links: [])
   end
 end
 
-def edit_query(query_text: nil, match_type: nil, new_query_text: nil)
+def edit_query(query_text: nil, new_query_text: nil)
   visit queries_path
-
-  query = Query.where(query: query_text, match_type: match_type).last
 
   within(".queries") do
     click_on query_text
@@ -34,10 +32,8 @@ def edit_query(query_text: nil, match_type: nil, new_query_text: nil)
   click_on "Save"
 end
 
-def delete_query(query_text: nil, match_type: nil)
+def delete_query(query_text: nil)
   visit queries_path
-
-  query = Query.where(query: query_text, match_type: match_type).last
 
   within(".queries") do
     click_on query_text
@@ -76,7 +72,7 @@ def edit_best_bet(best_bet, link)
   click_on "Save"
 end
 
-def delete_best_bet(query, best_bet)
+def delete_best_bet(query, _best_bet)
   visit query_path(query)
 
   within ".best-bets .govuk-table__body .govuk-table__row:first-child" do
