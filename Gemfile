@@ -9,13 +9,14 @@ gem "sass-rails", "~> 5.1.0"
 gem "uglifier", "~> 4.2.0"
 
 # GDS managed gems
+gem "gds-api-adapters", "~> 63.5.1"
 gem "gds-sso", "~> 14.3.0"
 gem "govuk_admin_template"
 gem "govuk_app_config", "~> 2.1.1"
 gem "govuk_publishing_components", "~> 21.29.1"
+gem "govuk_sidekiq", "~> 3.0"
 gem "plek", "~> 3.0.0"
-
-gem "gds-api-adapters", "~> 63.5.1"
+gem "sidekiq-scheduler", "~> 3.0"
 
 group :test do
   gem "cucumber-rails", require: false
