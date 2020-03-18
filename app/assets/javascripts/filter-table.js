@@ -2,19 +2,17 @@ var combineQueryRows = function() {
   var $queriesTable = $('.queries-table')
 
   if ($queriesTable) {
-    $queriesTable.find('tr').each(function(index) {
-       var rows = $queriesTable.find("tr");
-        for(var i = 0; i <= rows.length; i++) {
-          var $currentRow = $(rows[i])
-          var currentRowQuery = $currentRow.find("td").first().text()
-          var $nextRow = $(rows[i+1])
-          var nextRowQuery = $nextRow.find("td").first().text()
-          if (currentRowQuery.toLowerCase().trim() === nextRowQuery.toLowerCase().trim()) {
-            $nextRow.addClass('govuk-table__row--group')
-            $currentRow.addClass('govuk-table__row--group')
-          }
-        }
-    });
+    var rows = $queriesTable.find("tr");
+    for(var i = 0; i <= rows.length; i++) {
+      var $currentRow = $(rows[i])
+      var currentRowQuery = $currentRow.find("td").first().text()
+      var $nextRow = $(rows[i+1])
+      var nextRowQuery = $nextRow.find("td").first().text()
+      if (currentRowQuery.toLowerCase().trim() === nextRowQuery.toLowerCase().trim()) {
+        $nextRow.addClass('govuk-table__row--group')
+        $currentRow.addClass('govuk-table__row--group')
+      }
+    }
   }
 };
 combineQueryRows();
