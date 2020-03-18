@@ -5,7 +5,7 @@
       url: queries_path
     },
     {
-      title: "Queries"
+      title: "Bets for '#{@query.display_name}'"
     }
   ]
 } %>
@@ -20,51 +20,27 @@
   } %>
   <%= delete_button "Delete query", query_path(@query), true %>
 </div>
+<% if @query.sorted_best_bets.any?%>
 
-<h3 class="govuk-heading-m">Best bets</h3>
-
-<div class="best-bets">
-  <%= GovukPublishingComponents::AppHelpers::TableHelper.helper(self) do |t| %>
-    <%= t.head do %>
-      <%= t.header "Link" %>
-      <%= t.header "Position" %>
-      <%= t.header "Comment" %>
-      <%= t.header "Delete" %>
+  <h3 class="govuk-heading-m">Best bets</h3>
+  
+  <div class="best-bets">
+    <%= GovukPublishingComponents::AppHelpers::TableHelper.helper(self) do |t| %>
+      <%= render 'bet_table', bets: @query.sorted_best_bets, type: :best, query: @query, t: t %>
     <% end %>
-    <%= t.body do %>
-      <% @best_bets.each do |bet| %>
-        <%= t.row do %>
-          <%= t.cell link_to bet.link, edit_bet_path(bet), class:"govuk-link" %>
-          <%= t.cell bet.position %>
-          <%= t.cell bet.comment %>
-          <%= t.cell delete_button 'Delete', bet_path(bet) %>
-        <% end %>
-      <% end %>
-    <% end %>
-  <% end %>
-</div>
+  </div>
+<% end %>
 
-<h3 class="govuk-heading-m">Worst bets</h3>
+<% if @query.worst_bets.any? %>
 
-<div class="worst-bets">
-  <%= GovukPublishingComponents::AppHelpers::TableHelper.helper(self) do |t| %>
-    <%= t.head do %>
-      <%= t.header "Link" %>
-      <%= t.header "Comment" %>
-      <%= t.header "Delete" %>
-    <% end %>
-    <%= t.body do %>
-      <% @worst_bets.each do |bet| %>
-        <%= t.row do %>
-          <%= t.cell link_to bet.link, edit_bet_path(bet), class:"govuk-link" %>
-          <%= t.cell bet.comment %>
-          <%= t.cell delete_button 'Delete', bet_path(bet) %>
-        <% end %>
-      <% end %>
-    <% end %>
-  <% end %>
-</div>
+  <h3 class="govuk-heading-m">Worst bets</h3>
 
+  <div class="worst-bets">
+    <%= GovukPublishingComponents::AppHelpers::TableHelper.helper(self) do |t| %>
+      <%= render 'bet_table', bets: @query.worst_bets, type: :worst, query: @query, t: t %>
+    <% end %>
+  </div>
+<% end %>
 <h3 class="govuk-heading-m">Add new bet</h3>
 <%= render 'bets/form', bet: @new_bet, query: @query %>
 

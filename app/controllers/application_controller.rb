@@ -5,4 +5,8 @@ class ApplicationController < ActionController::Base
 
   include GDS::SSO::ControllerMethods
   before_action :authenticate_user!
+
+  def admin_user?
+    current_user.permissions.include?("admin")
+  end
 end

@@ -1,7 +1,12 @@
 class BetsController < ApplicationController
   def create
-    @bet = Bet.new(create_params)
+    attrs = param_parser.bet_attributes
+    @bet = Bet.new(attrs)
+    unless admin_user?
+      @bet.set_defaults
+    end
     saver = SearchApiSaver.new(@bet)
+
     if saver.save
       redirect_to query_path(@bet.query), notice: "Bet created"
     else
@@ -13,19 +18,29 @@ class BetsController < ApplicationController
     @bet = find_bet
   end
 
-  # rubocop:disable Rails/ActiveRecordAliases
   def update
     @bet = find_bet
+    if !admin_user? && reactivating?
+      @bet.set_defaults
+    end
     saver = SearchApiSaver.new(@bet)
-
-    if saver.update_attributes(bet_params)
-      redirect_to query_path(@bet.query), notice: "Bet updated"
+    if saver.update(update_attrs)
+      redirect_to query_path(@bet.query), notice: notice
     else
-      flash.now[:alert] = "Error updating bet"
+      flash.now[:alert] = "Error updating bet. #{@bet.errors.full_messages.to_sentence}"
       render "edit"
     end
   end
-  # rubocop:enable Rails/ActiveRecordAliases
+
+  def deactivate
+    @bet = find_bet
+    saver = SearchApiSaver.new(@bet)
+    if saver.destroy(action: :deactivate)
+      redirect_to query_path(@bet.query), notice: "Bet deactivated"
+    else
+      redirect_to query_path(@bet.query), alert: "Error deactivating bet"
+    end
+  end
 
   def destroy
     @bet = find_bet
@@ -56,18 +71,24 @@ private
       :query,
       :query_id,
       :source,
+      :permanent,
+      expiration_date: %i[day month year],
     )
   end
 
-  def create_params
-    bet_params.merge(user_id: current_user.id, manual: true, is_best: best_bet?)
+  def param_parser
+    BetParamsParser.new(bet_params, current_user.id)
   end
 
-  def best_bet?
-    !is_worst_bet?
+  def reactivating?
+    params["bet"]["active"] == "true"
   end
 
-  def is_worst_bet?
-    bet_params.delete(:is_worst).to_i == 1
+  def notice
+    reactivating? ? "Bet reactivated" : "Bet updated"
+  end
+
+  def update_attrs
+    admin_user? ? param_parser.bet_attributes : param_parser.bet_attributes.except(:expiration_date, :permanent)
   end
 end

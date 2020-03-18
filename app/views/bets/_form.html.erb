@@ -39,10 +39,36 @@
   } %>
 
   <input type="hidden" name="bet[query_id]" value="<%= query.id %>" />
+  <input type="hidden" name="bet[active]" value="<%= params["active"] %>" />
 
-  <%= render "govuk_publishing_components/components/button", {
-    text: "Save",
-    name: "bet[id]",
-    margin_bottom: true
-  } %>
+  <% if current_user.permissions.include?("admin") %>
+    <h3 class="govuk-heading-m">Set bet expiry</h3>
+    <%= render "govuk_publishing_components/components/checkboxes", {
+      name: "bet[permanent]",
+      items: [
+        {
+          label: "Make permanent?",
+          value: 1,
+          checked: bet.permanent?
+        }
+      ]
+    } %>
+    <p class="govuk-body">or<p/>
+
+    <%= render "govuk_publishing_components/components/date_input", {
+      name: "bet[expiration_date]",
+      legend_text: "Set an expiry date",
+      hint: "For example, 31 03 2020",
+      items: [
+        { :name => "day", :value => "#{ bet.expiration_date.day if bet.expiration_date.present?}", :width => 2 },
+        { :name => "month", :value => "#{bet.expiration_date.month if bet.expiration_date.present?}", :width => 2 },
+        { :name => "year", :value => "#{bet.expiration_date.year if bet.expiration_date.present?}", :width => 4 }
+      ]
+    } %>
+  <% end %>
+    <%= render "govuk_publishing_components/components/button", {
+      text: "Save",
+      name: "bet[id]",
+      margin_bottom: true
+    } %>
 <% end %>

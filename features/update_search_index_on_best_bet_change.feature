@@ -40,6 +40,6 @@ Feature: Update search index on best bet change
 
   @stub_best_bets_with_500
   Scenario: Error creating best bet in Search-api will block local creation of best bet
-    When I create a best bet
+    When I create a best bet with invalid attributes
     Then I should be a notified of the error
     And no query should be listed on the query index

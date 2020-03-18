@@ -7,7 +7,7 @@ RSpec.describe SearchApiSaver do
   describe "#destroy" do
     context "when passed an unrecognised action" do
       it "raises a custom InvalidAction Error" do
-        error_message = "invalid_action not one of: :update, :create, :update_bets, : delete"
+        error_message = "invalid_action not one of: :update, :create, :update_bets, : delete, :deactivate"
 
         expect { search_api_saver.destroy(action: :invalid_action) }.to raise_error(
           SearchApiSaver::InvalidAction, error_message

@@ -4,11 +4,46 @@
 $govuk-typography-use-rem: false;
 @import "govuk_publishing_components/all_components";
 
+// by default cells have a bottom border applied
+//remove borders in the group
+.govuk-table__row--group td {
+  border: 0;
+}
+
+// hide the query in grouped rows other than the first row
+.govuk-table__row--group +
+.govuk-table__row--group {
+  td:first-child {
+    visibility: hidden;
+  }
+}
+
+// at the end of the grop apply top border to cell to create a divider
+.govuk-table__row--group + .govuk-table__row:not(.govuk-table__row--group) td {
+   border-top: 1px solid #b1b4b6;
+  // use  $govuk-border-colour instead of hex
+}
+
+// filtering
+
+.govuk-table__row--matching {
+  display: table-row;
+  // apply borders when matched
+  td {
+    border-bottom: 1px solid #b1b4b6;
+    // use  $govuk-border-colour instead of hex
+  }
+  // show the query when filtering
+  &.govuk-table__row--group td:first-child {
+    visibility: visible;
+  }
+}
+
 .actions {
   margin-bottom: govuk-spacing(6);
 }
 
-// search-results responsive iframe 
+// search-results responsive iframe
 .search-results {
   position: relative;
   overflow: hidden;
@@ -72,7 +107,7 @@ small, .small {
 }
 
 // navigation is too long to be alongside the crown
-// so we just stack it below it 
+// so we just stack it below it
 @include govuk-media-query($from: desktop) {
   .gem-c-header__content {
     float: left;
@@ -88,19 +123,19 @@ small, .small {
 // custom styles for the content item data returned from api
 // uses the ruby table_for component so can't amend markup
 // TODO: maybe we can flatten the nested data and use teh summary-list component
-.key-value-table {	
+.key-value-table {
   @extend .govuk-table;
 
-  td:first-child {	
-    font-weight: bold;	
-    width: 10%;	
-  }	
+  td:first-child {
+    font-weight: bold;
+    width: 10%;
+  }
 
-  ul {	
-    padding: 0;	
+  ul {
+    padding: 0;
 
-    li {	
-      list-style: none;	
-    }	
-  }	
+    li {
+      list-style: none;
+    }
+  }
 }

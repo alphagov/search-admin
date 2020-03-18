@@ -5,15 +5,15 @@
       url: queries_path
     },
     {
-      title: @bet.query.display_name,
+      title: "Bets for '#{@bet.query.display_name}'",
       url: query_path(@bet.query)
     },
     {
-      title: "Edit #{@bet.link}"
+      title: params["active"] == "true" ? "Activate '#{@bet.link}'" : "Edit '#{@bet.link}'"
     }
   ]
 } %>
 
-<%= render "common/page_title", title: "Edit #{@bet.link}" %>
+<%= render "common/page_title", title: params["active"] == "true" ? "Activate '#{@bet.link}'" : "Edit '#{@bet.link}'" %>
 
 <%= render 'form', bet: @bet, query: @bet.query %>

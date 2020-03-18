@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
-  resources :bets, except: %i[index show]
+  resources :bets, except: %i[index show] do
+    member do
+      post :deactivate
+    end
+  end
   resources :queries
   resources :recommended_links, path: "/recommended-links"
   resources :results, only: %i[index show destroy]

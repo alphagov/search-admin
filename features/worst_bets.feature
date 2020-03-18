@@ -4,7 +4,14 @@ Feature: Worst bets
   So that better results are provided to the users.
 
   @stub_best_bets
-  Scenario: Creating a worst bet for a query
+  Scenario: Admin user creating a worst bet for a query
+    Given I am an admin user
+    When I create a worst bet for a query as an admin
+    Then the worst bet should be listed on the query page
+
+  @stub_best_bets
+  Scenario: Admin user creating a worst bet for a query
+    Given I am a basic user
     When I create a worst bet for a query
     Then the worst bet should be listed on the query page
 
