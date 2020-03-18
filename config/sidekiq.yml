@@ -1,0 +1,6 @@
+---
+:concurrency: 2
+:schedule:
+  expired_bet_worker:
+    every: '1h'
+    class: ExpiredBetWorker
