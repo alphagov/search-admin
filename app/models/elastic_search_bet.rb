@@ -49,10 +49,10 @@ private
   end
 
   def best_bets
-    @query.best_bets.sort_by { |b| [b.position, b.link] }
+    @query.best_bets.select(&:active?).sort_by { |b| [b.position, b.link] }
   end
 
   def worst_bets
-    @query.worst_bets.sort_by(&:link)
+    @query.worst_bets.select(&:active?).sort_by(&:link)
   end
 end

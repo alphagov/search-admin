@@ -4,6 +4,8 @@ describe ElasticSearchBet do
   let(:query) { create(:query, query: "jobs", match_type: "exact") }
 
   before do
+    create(:bet, :best, link: "/jobs/inactive-jobs", position: 3, query: query, permanent: true, expiration_date: nil).deactivate
+
     create(:bet, :best, link: "/jobs/more-jobs", position: 2, query: query)
     create(:bet, :best, link: "/jobsearch", position: 1, query: query)
 
