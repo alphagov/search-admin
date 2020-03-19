@@ -4,3 +4,6 @@
   expired_bet_worker:
     every: '1h'
     class: ExpiredBetWorker
+  delete_old_bets_worker:
+    cron: '0 0 1 * * Europe/London'
+    class: DeleteOldBetsWorker
