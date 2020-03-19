@@ -6,6 +6,8 @@ class Bet < ApplicationRecord
   belongs_to :user
   belongs_to :query
 
+  scope :best,        -> { where(is_best: true) }
+  scope :worst,       -> { where(is_best: false) }
   scope :impermanent, -> { where(permanent: false) }
 
   attr_accessor :is_worst
@@ -74,14 +76,6 @@ class Bet < ApplicationRecord
     else
       "Expired"
     end
-  end
-
-  def self.best
-    where(is_best: true)
-  end
-
-  def self.worst
-    where.not(is_best: true)
   end
 
   def is_query?
