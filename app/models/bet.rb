@@ -6,6 +6,8 @@ class Bet < ApplicationRecord
   belongs_to :user
   belongs_to :query
 
+  scope :impermanent, -> { where(permanent: false) }
+
   attr_accessor :is_worst
   validates :expiration_date, bet_date: true
   validates :query_id, :user_id, presence: true

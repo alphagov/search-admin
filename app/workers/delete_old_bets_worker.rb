@@ -21,15 +21,15 @@ class DeleteOldBetsWorker
 private
 
   def old_expired_bets
-    Bet.where(
-      "NOT permanent AND expiration_date IS NOT NULL AND expiration_date <= ?",
+    Bet.impermanent.where(
+      "expiration_date IS NOT NULL AND expiration_date <= ?",
       OLD_BET_THRESHOLD.ago,
     )
   end
 
   def old_disabled_bets
-    Bet.where(
-      "NOT permanent AND expiration_date IS NULL AND ((updated_at IS NULL AND created_at <= ?) OR (updated_at IS NOT NULL AND updated_at <= ?))",
+    Bet.impermanent.where(
+      "expiration_date IS NULL AND ((updated_at IS NULL AND created_at <= ?) OR (updated_at IS NOT NULL AND updated_at <= ?))",
       OLD_BET_THRESHOLD.ago,
       OLD_BET_THRESHOLD.ago,
     )
