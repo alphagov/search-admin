@@ -6,22 +6,15 @@ $govuk-typography-use-rem: false;
 
 // by default cells have a bottom border applied
 //remove borders in the group
-.govuk-table__row--group td {
+.govuk-table__row--group-fst td {
   border: 0;
 }
 
 // hide the query in grouped rows other than the first row
-.govuk-table__row--group +
-.govuk-table__row--group {
+.govuk-table__row--group-snd {
   td:first-child {
     visibility: hidden;
   }
-}
-
-// at the end of the grop apply top border to cell to create a divider
-.govuk-table__row--group + .govuk-table__row:not(.govuk-table__row--group) td {
-   border-top: 1px solid #b1b4b6;
-  // use  $govuk-border-colour instead of hex
 }
 
 // filtering
@@ -34,7 +27,7 @@ $govuk-typography-use-rem: false;
     // use  $govuk-border-colour instead of hex
   }
   // show the query when filtering
-  &.govuk-table__row--group td:first-child {
+  &.govuk-table__row--group-snd td:first-child {
     visibility: visible;
   }
 }
