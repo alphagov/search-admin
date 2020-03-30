@@ -9,8 +9,8 @@ var combineQueryRows = function() {
       var $nextRow = $(rows[i+1])
       var nextRowQuery = $nextRow.find("td").first().text()
       if (currentRowQuery.toLowerCase().trim() === nextRowQuery.toLowerCase().trim()) {
-        $nextRow.addClass('govuk-table__row--group')
-        $currentRow.addClass('govuk-table__row--group')
+        $currentRow.addClass('govuk-table__row--group-fst')
+        $nextRow.addClass('govuk-table__row--group-snd')
       }
     }
   }
