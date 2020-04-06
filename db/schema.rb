@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_05_162117) do
+ActiveRecord::Schema.define(version: 2020_04_06_141157) do
 
   create_table "bets", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "link"
@@ -31,6 +31,7 @@ ActiveRecord::Schema.define(version: 2020_03_05_162117) do
     t.string "match_type"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["query", "match_type"], name: "index_queries_on_query_and_match_type", unique: true
   end
 
   create_table "recommended_links", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -42,6 +43,7 @@ ActiveRecord::Schema.define(version: 2020_03_05_162117) do
     t.integer "user_id"
     t.string "content_id", limit: 36
     t.index ["content_id"], name: "index_recommended_links_on_content_id", unique: true
+    t.index ["link"], name: "index_recommended_links_on_link", unique: true
   end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
