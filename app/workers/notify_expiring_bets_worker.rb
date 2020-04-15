@@ -6,7 +6,7 @@ class NotifyExpiringBetsWorker
   def perform
     unless soon_to_expire_bets.empty?
       addresses.each do |address|
-        NotificationsMailer.expiring_bets_list(address, soon_to_expire_bets).deliver_now
+        BetsMailer.new.expiring_bets_list(address, soon_to_expire_bets).deliver_now
       end
     end
 
@@ -20,7 +20,7 @@ class NotifyExpiringBetsWorker
       grouped[address] << bet
     end
     grouped_bets.each do |address, bets|
-      NotificationsMailer.expiring_bets_list(address, bets).deliver_now
+      BetsMailer.new.expiring_bets_list(address, bets).deliver_now
     end
   end
 
