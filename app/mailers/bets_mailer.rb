@@ -1,5 +1,7 @@
 class BetsMailer < ApplicationMailer
   def expiring_bets_list(address, bets)
+    return if bets.empty?
+
     @when = bets.first.expiration_date
     @grouped_bets = bets.each_with_object({}) do |bet, grouped|
       grouped[bet.query.display_name] ||= []
