@@ -42,7 +42,6 @@ When(/^I type in a locked GOV.UK link$/) do
   stub_request(:get, "https://search.test.gov.uk/content?link=/a-locked-document").
     to_return(body: { "raw_source" => { "title" => "Stubbed page about SORN" } }.to_json)
 
-
   fill_in "base_path", with: "/a-locked-document"
   click_on "Show search result"
 end
