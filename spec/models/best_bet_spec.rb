@@ -10,7 +10,6 @@ describe Bet do
   let(:admin) { create(:admin_user) }
   let(:date) { Time.zone.now }
 
-
   context "best bet" do
     before(:each) do
       @best_bet_attributes = {
@@ -118,7 +117,6 @@ describe Bet do
       expect(best_bet).to_not be_valid
       expect(best_bet.errors).to have_key(:user_id)
     end
-
 
     describe "#is_query?" do
       it "should return false" do

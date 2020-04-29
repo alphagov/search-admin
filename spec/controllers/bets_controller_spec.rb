@@ -219,7 +219,6 @@ describe BetsController do
     end
   end
 
-
   context "when logged in as an admin user" do
     before do
       admin_user = create(:admin_user)
