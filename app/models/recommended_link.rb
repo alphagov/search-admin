@@ -18,7 +18,7 @@ class RecommendedLink < ApplicationRecord
 
   def self.to_csv(*_args)
     CSV.generate do |csv|
-      csv << %w(title link description keywords comment)
+      csv << %w[title link description keywords comment]
 
       all.find_each do |link|
         csv << [link.title,

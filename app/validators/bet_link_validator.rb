@@ -16,7 +16,7 @@ class BetLinkValidator < ActiveModel::EachValidator
 private
 
   def validate_external_link(uri, value)
-    if %w(www.gov.uk gov.uk).include? uri.host
+    if %w[www.gov.uk gov.uk].include? uri.host
       record_error("looks like an internal link so should just be a path: use /random, not gov.uk/random.")
     end
 

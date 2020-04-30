@@ -7,7 +7,7 @@ RSpec.describe MoreLikeThis do
         allow(Services.search_api).to receive(:search)
           .with(
             filter_link: "/unknown",
-            fields: %w(taxons),
+            fields: %w[taxons],
           )
           .and_return("results" => [])
       end
@@ -24,7 +24,7 @@ RSpec.describe MoreLikeThis do
         allow(Services.search_api).to receive(:search)
           .with(
             filter_link: "/item",
-            fields: %w(taxons),
+            fields: %w[taxons],
           )
           .and_return("results" => [
             "taxons" => [],
@@ -43,7 +43,7 @@ RSpec.describe MoreLikeThis do
         allow(Services.search_api).to receive(:search)
           .with(
             filter_link: "/item",
-            fields: %w(taxons),
+            fields: %w[taxons],
           )
           .and_return("results" => [
             "taxons" => %w[714bc7d1-afb0-4e10-9558-268da5dbbbba],
@@ -71,7 +71,7 @@ RSpec.describe MoreLikeThis do
         allow(Services.search_api).to receive(:search)
           .with(
             filter_link: "/item",
-            fields: %w(taxons),
+            fields: %w[taxons],
           )
           .and_return("results" => [
             "taxons" => %w[714bc7d1-afb0-4e10-9558-268da5dbbbba],
