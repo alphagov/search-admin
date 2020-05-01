@@ -62,7 +62,7 @@ RSpec.describe TravelAdviceBetsImporter do
 
     context "with valid and invalid data" do
       before do
-        csv_data.push(%w(Narnia narnia))
+        csv_data.push(%w[Narnia narnia])
       end
 
       it "skips invalid data" do
@@ -90,7 +90,7 @@ RSpec.describe TravelAdviceBetsImporter do
     context "with existing non-conflicting bets" do
       let(:query) { create(:query, query: "Spain") }
       let!(:bet) { create(:bet, :permanent, link: "/world/spain", query: query, position: 2) }
-      before { csv_data.push(%w(Espana /world/spain)) }
+      before { csv_data.push(%w[Espana /world/spain]) }
 
       it "creates a best bet" do
         instance.import

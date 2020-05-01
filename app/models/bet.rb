@@ -26,37 +26,37 @@ class Bet < ApplicationRecord
   end
 
   def permanent_and_inactive_bets_have_no_expiration_date
-    if self.permanent || self.permanent.nil?
+    if permanent || permanent.nil?
       self.expiration_date = nil
     end
   end
 
   def set_defaults
-    if self.expiration_date.nil?
+    if expiration_date.nil?
       self.expiration_date = default_expiration_date
       self.permanent = false
-      self.save
+      save
     end
   end
 
   def default_expiration_date
-    self.created_at.present? ? self.created_at + DEFAULT_VALIDITY : Time.zone.now + DEFAULT_VALIDITY
+    created_at.present? ? created_at + DEFAULT_VALIDITY : Time.zone.now + DEFAULT_VALIDITY
   end
 
   def set_created_at
-    if self.created_at.nil?
+    if created_at.nil?
       self.created_at =
-        self.query.present? ? self.query.created_at : Time.zone.now
+        query.present? ? query.created_at : Time.zone.now
     end
   end
 
   def deactivate
     self.permanent = nil
-    self.save!
+    save!
   end
 
   def active?
-    self.permanent || self.not_expired?
+    permanent || not_expired?
   end
 
   def self.active
@@ -64,15 +64,15 @@ class Bet < ApplicationRecord
   end
 
   def not_expired?
-    self.expiration_date.present? && self.expiration_date >= Time.zone.now
+    expiration_date.present? && expiration_date >= Time.zone.now
   end
 
-  #to do: move into a view helper
+  # to do: move into a view helper
   def valid_until
-    if self.permanent
+    if permanent
       "Permanent"
-    elsif self.not_expired?
-      "Expires #{self.expiration_date.strftime('%d %b %Y')}"
+    elsif not_expired?
+      "Expires #{expiration_date.strftime('%d %b %Y')}"
     else
       "Expired"
     end
@@ -83,6 +83,6 @@ class Bet < ApplicationRecord
   end
 
   def query_object
-    self.query
+    query
   end
 end

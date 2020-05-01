@@ -42,14 +42,14 @@ private
       start: 0,
       count: 25,
       filter_taxons: [tagged_taxon_content_id],
-      fields: %w(title link format content_store_document_type),
+      fields: %w[title link format content_store_document_type],
     )["results"]
   end
 
   def content_item
     Services.search_api.search(
       filter_link: base_path,
-      fields: %w(taxons),
+      fields: %w[taxons],
     )["results"].first
   end
 end

@@ -8,10 +8,8 @@ class DateParser
   end
 
   def date
-    begin
-      Time.zone.local(year, month, day)
-    rescue ArgumentError
-      ""
-    end
+    Time.zone.local(year, month, day)
+  rescue ArgumentError
+    ""
   end
 end

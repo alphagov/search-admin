@@ -4,8 +4,8 @@ When(/^I visit the results form$/) do
 end
 
 When(/^I type in a valid GOV.UK link$/) do
-  stub_request(:get, "https://search.test.gov.uk/content?link=/make-a-sorn").
-    to_return(body: { "raw_source" => { "title" => "Stubbed page about SORN" } }.to_json)
+  stub_request(:get, "https://search.test.gov.uk/content?link=/make-a-sorn")
+    .to_return(body: { "raw_source" => { "title" => "Stubbed page about SORN" } }.to_json)
 
   fill_in "base_path", with: "/make-a-sorn"
   click_on "Show search result"
@@ -17,8 +17,8 @@ end
 
 When(/^I click on the button to remove the result$/) do
   stub_request(:delete, "https://search.test.gov.uk/content?link=/make-a-sorn")
-  stub_request(:get, "https://search.test.gov.uk/content?link=/make-a-sorn").
-    to_return(status: 404)
+  stub_request(:get, "https://search.test.gov.uk/content?link=/make-a-sorn")
+    .to_return(status: 404)
   click_on "Remove result"
 end
 
@@ -27,8 +27,8 @@ Then(/^the result should have been removed from the index$/) do
 end
 
 When(/^I type in an non\-existing GOV\.UK link$/) do
-  stub_request(:get, "https://search.test.gov.uk/content?link=/does-not-exist").
-    to_return(status: 404)
+  stub_request(:get, "https://search.test.gov.uk/content?link=/does-not-exist")
+    .to_return(status: 404)
 
   fill_in "base_path", with: "/does-not-exist"
   click_on "Show search result"
@@ -39,16 +39,16 @@ Then(/^I should see that the link is invalid$/) do
 end
 
 When(/^I type in a locked GOV.UK link$/) do
-  stub_request(:get, "https://search.test.gov.uk/content?link=/a-locked-document").
-    to_return(body: { "raw_source" => { "title" => "Stubbed page about SORN" } }.to_json)
+  stub_request(:get, "https://search.test.gov.uk/content?link=/a-locked-document")
+    .to_return(body: { "raw_source" => { "title" => "Stubbed page about SORN" } }.to_json)
 
   fill_in "base_path", with: "/a-locked-document"
   click_on "Show search result"
 end
 
 When(/^I click on the button to remove the locked result$/) do
-  stub_request(:delete, "https://search.test.gov.uk/content?link=/a-locked-document").
-    to_return(status: 423, body: { "result" => "Index is locked." }.to_json)
+  stub_request(:delete, "https://search.test.gov.uk/content?link=/a-locked-document")
+    .to_return(status: 423, body: { "result" => "Index is locked." }.to_json)
 
   click_on "Remove result"
 end

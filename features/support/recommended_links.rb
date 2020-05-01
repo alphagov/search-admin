@@ -61,7 +61,7 @@ end
 def check_for_recommended_links_in_csv_format(recommended_links)
   headers, *rows = *CSV.parse(page.body)
 
-  expect(headers).to eq(%w(title link description keywords comment))
+  expect(headers).to eq(%w[title link description keywords comment])
 
   recommended_links.each do |recommended_link|
     expect(rows).to include([

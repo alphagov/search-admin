@@ -1,5 +1,5 @@
 class Query < ApplicationRecord
-  MATCH_TYPES = %w(exact stemmed).freeze
+  MATCH_TYPES = %w[exact stemmed].freeze
 
   validates :query, presence: true
   validates :match_type, inclusion: { in: MATCH_TYPES }
