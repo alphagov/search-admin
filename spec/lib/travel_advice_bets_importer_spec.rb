@@ -2,13 +2,13 @@ require "spec_helper"
 require "travel_advice_bets_importer"
 
 RSpec.describe TravelAdviceBetsImporter do
-  let(:csv_data) {
+  let(:csv_data) do
     [
       ["Angola", "/world/angola"],
       ["Belgium", "/world/belgium"],
       ["Spain", "/world/spain"],
     ]
-  }
+  end
   let(:logger) { double(:logger) }
   let(:search_api_saver) { double(:search_api_saver) }
   let(:user) { create(:user) }

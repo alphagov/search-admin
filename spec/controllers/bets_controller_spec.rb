@@ -8,7 +8,7 @@ describe BetsController do
 
   let(:query) { create(:query) }
 
-  let(:permanent_bet_params) {
+  let(:permanent_bet_params) do
     {
       query_id: query.id,
       link: "/visas-and-immigration",
@@ -17,7 +17,7 @@ describe BetsController do
       is_best: true,
       permanent: "1",
     }
-  }
+  end
 
   describe "Creating bets" do
     context "when logged in as an admin user" do

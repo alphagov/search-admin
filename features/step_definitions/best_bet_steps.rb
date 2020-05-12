@@ -53,9 +53,9 @@ Given(/^a query exists$/) do
 end
 
 Given(/^there are some best bets$/) do
-  @queries = (1..3).map { |n|
+  @queries = (1..3).map do |n|
     create(:query, query: "jobs-#{n}")
-  }
+  end
 end
 
 Given(/^a variety of best bets exist$/) do
