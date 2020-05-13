@@ -7,18 +7,18 @@ FactoryBot.define do
     link { "/death-and-taxes" }
     expiration_date { Time.zone.now + 1.day }
 
-    trait(:worst) {
+    trait(:worst) do
       is_best { false }
-    }
+    end
 
-    trait(:best) {
+    trait(:best) do
       is_best { true }
       position { generate :numeric_position }
-    }
+    end
 
-    trait(:permanent) {
+    trait(:permanent) do
       permanent { true }
-    }
+    end
 
     user
   end

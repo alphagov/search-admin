@@ -3,9 +3,9 @@ Given(/^an external link exists named "(.*)" with link "(.*)"$/) do |title, link
 end
 
 Given(/^there are some external links$/) do
-  @recommended_links = (1..3).map { |n|
+  @recommended_links = (1..3).map do |n|
     create(:recommended_link, title: "Tax online #{n}", link: "https://www.tax.service.gov.uk/#{n}")
-  }
+  end
 end
 
 Given(/^a variety of external links exist$/) do
