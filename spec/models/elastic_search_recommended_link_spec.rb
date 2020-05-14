@@ -2,12 +2,14 @@ require "spec_helper"
 
 describe ElasticSearchRecommendedLink do
   let(:recommended_link) do
-    create(:recommended_link,
-           title: "Tax",
-           link: "https://www.tax.service.gov.uk/",
-           description: "Self assessment",
-           keywords: "self, assessment, tax",
-           content_id: SecureRandom.uuid)
+    create(
+      :recommended_link,
+      title: "Tax",
+      link: "https://www.tax.service.gov.uk/",
+      description: "Self assessment",
+      keywords: "self, assessment, tax",
+      content_id: SecureRandom.uuid,
+    )
   end
 
   it "builds an elasticsearch doc from the provided recommended link" do
