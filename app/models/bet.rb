@@ -14,12 +14,14 @@ class Bet < ApplicationRecord
   validates :expiration_date, bet_date: true
   validates :query_id, :user_id, presence: true
   validates :link, presence: true, bet_link: true
-  validates :position, numericality: {
-    allow_nil: false,
-    greater_than: 0,
-    less_than: 2147483647, # Maximum value for integer
-    only_integer: true,
-  }, if: :is_best?
+  validates :position,
+            numericality: {
+              allow_nil: false,
+              greater_than: 0,
+              less_than: 2_147_483_647, # Maximum value for integer
+              only_integer: true,
+            },
+            if: :is_best?
 
   after_validation do
     permanent_and_inactive_bets_have_no_expiration_date
