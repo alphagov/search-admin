@@ -3,7 +3,7 @@ class AddPermanentToBet < ActiveRecord::Migration[6.0]
     add_column :bets, :permanent, :bool, default: false
     Bet.reset_column_information
     Bet.all.each do |b|
-      b.update_attribute :permanent, true
+      b.update!(permanent: true)
     end
   end
 end
