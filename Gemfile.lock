@@ -125,7 +125,7 @@ GEM
     fugit (1.3.3)
       et-orbi (~> 1.1, >= 1.1.8)
       raabro (~> 1.1)
-    gds-api-adapters (63.6.0)
+    gds-api-adapters (67.0.0)
       addressable
       link_header
       null_logger
@@ -431,7 +431,7 @@ DEPENDENCIES
   cucumber-rails
   database_cleaner (~> 1.8.5)
   factory_bot_rails (~> 5)
-  gds-api-adapters (~> 63.6.0)
+  gds-api-adapters (~> 67.0.0)
   gds-sso (~> 14.3.0)
   generic_form_builder (~> 0.13.1)
   govuk-content-schema-test-helpers (~> 1.6.1)
