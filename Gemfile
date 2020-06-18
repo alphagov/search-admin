@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-gem "rails", "6.0.3.1"
+gem "rails", "6.0.3.2"
 
 gem "bootsnap", "~> 1.4"
 gem "generic_form_builder", "~> 0.13.1"
