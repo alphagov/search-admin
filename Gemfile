@@ -22,7 +22,7 @@ gem "plek", "~> 3.0.0"
 group :test do
   gem "cucumber-rails", require: false
   gem "database_cleaner", "~> 1.8.5"
-  gem "factory_bot_rails", "~> 5"
+  gem "factory_bot_rails", "~> 6"
   gem "govuk-content-schema-test-helpers", "~> 1.6.1"
   gem "webmock", "~> 3.8.3"
 end
