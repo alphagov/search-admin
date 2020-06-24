@@ -8,7 +8,7 @@ class Bet < ApplicationRecord
 
   scope :best,        -> { where(is_best: true) }
   scope :worst,       -> { where(is_best: false) }
-  scope :impermanent, -> { where(permanent: false) }
+  scope :impermanent, -> { where("permanent IS NULL OR NOT permanent") }
 
   attr_accessor :is_worst
   validates :expiration_date, bet_date: true

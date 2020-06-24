@@ -1,7 +1,7 @@
 class DeleteOldBetsWorker
   # All expired bets older than this, or all disabled bets last
   # updated longer ago than this, are deleted
-  OLD_BET_THRESHOLD = 90.days
+  OLD_BET_THRESHOLD = 30.days
 
   include Sidekiq::Worker
 
