@@ -17,7 +17,7 @@ gem "govuk_app_config", "~> 2.2.0"
 gem "govuk_publishing_components", "~> 21.56.2"
 gem "govuk_sidekiq", "~> 3.0"
 gem "mail-notify"
-gem "plek", "~> 3.0.0"
+gem "plek", "~> 4.0.0"
 
 group :test do
   gem "cucumber-rails", require: false
