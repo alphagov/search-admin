@@ -10,7 +10,7 @@ gem "sidekiq-scheduler", "~> 3.0"
 gem "uglifier", "~> 4.2.0"
 
 # GDS managed gems
-gem "gds-api-adapters", "~> 67.0.0"
+gem "gds-api-adapters", "~> 67.0.1"
 gem "gds-sso", "~> 15.0.0"
 gem "govuk_admin_template"
 gem "govuk_app_config", "~> 2.2.1"
