@@ -15,7 +15,7 @@ gem "gds-sso", "~> 15.0.1"
 gem "govuk_admin_template"
 gem "govuk_app_config", "~> 2.2.1"
 gem "govuk_publishing_components", "~> 21.60.0"
-gem "govuk_sidekiq", "~> 3.0"
+gem "govuk_sidekiq", "~> 4.0"
 gem "mail-notify"
 gem "plek", "~> 4.0.0"
 
