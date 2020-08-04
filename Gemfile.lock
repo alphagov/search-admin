@@ -443,31 +443,31 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  bootsnap (~> 1.4)
+  bootsnap
   cucumber-rails
-  database_cleaner (~> 1.8.5)
-  factory_bot_rails (~> 6)
-  gds-api-adapters (~> 67.0.1)
-  gds-sso (~> 15.0.1)
-  generic_form_builder (~> 0.13.1)
-  govuk-content-schema-test-helpers (~> 1.6.1)
+  database_cleaner
+  factory_bot_rails
+  gds-api-adapters
+  gds-sso
+  generic_form_builder
+  govuk-content-schema-test-helpers
   govuk_admin_template
-  govuk_app_config (~> 2.2.1)
-  govuk_publishing_components (~> 21.60.1)
-  govuk_sidekiq (~> 4.0)
-  listen (~> 3.2)
+  govuk_app_config
+  govuk_publishing_components
+  govuk_sidekiq
+  listen
   mail-notify
-  mysql2 (~> 0.4.5)
-  plek (~> 4.0.0)
+  mysql2
+  plek
   pry-byebug
   rails (= 6.0.3.2)
   rails-controller-testing
-  rspec-rails (~> 4.0.1)
+  rspec-rails
   rubocop-govuk
-  sass-rails (~> 5.1.0)
-  sidekiq-scheduler (~> 3.0)
-  uglifier (~> 4.2.0)
-  webmock (~> 3.8.3)
+  sass-rails
+  sidekiq-scheduler
+  uglifier
+  webmock
 
 BUNDLED WITH
    1.17.3
