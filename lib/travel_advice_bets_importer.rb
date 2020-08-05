@@ -16,7 +16,7 @@ class TravelAdviceBetsImporter
     data.each do |term, link|
       next unless link =~ /^\/world\//
 
-      query = Query.find_or_create_by(query: term) { |q| q.match_type = "exact" }
+      query = Query.find_or_create_by!(query: term) { |q| q.match_type = "exact" }
 
       travel_advice_bet = create_bet(query, travel_advice_path(link), 1)
       if travel_advice_bet
@@ -37,7 +37,7 @@ private
   def create_bet(query, link, position)
     return if Bet.find_by(link: link, query: query)
 
-    Bet.create(
+    Bet.create!(
       comment: "Created by bets importer.",
       is_best: true,
       link: link,

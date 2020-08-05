@@ -25,14 +25,14 @@ describe Bet do
 
     it "can be created given valid attributes" do
       best_bet = Bet.new(@best_bet_attributes)
-      best_bet.save
+      best_bet.save!
 
       expect(best_bet).to be_valid
       expect(best_bet).to be_persisted
     end
 
     it "can be deactivated" do
-      best_bet = Bet.create(@best_bet_attributes)
+      best_bet = Bet.create!(@best_bet_attributes)
       expect(best_bet).to be_active
       best_bet.deactivate
       expect(best_bet.permanent).to be nil
@@ -158,7 +158,7 @@ describe Bet do
       it "Making a temporary bet permanent deletes its expiration date" do
         bet_date_attrs = { permanent: false, expiration_date: date + 1.day }
         best_bet = Bet.new(@best_bet_attributes.merge(bet_date_attrs))
-        best_bet.update(permanent: true)
+        best_bet.update!(permanent: true)
         expect(best_bet.expiration_date).to be_nil
       end
     end
@@ -191,7 +191,7 @@ describe Bet do
     end
 
     it "it is valid with a nil expiration date" do
-      worst_bet = Bet.create(@worst_bet_attributes)
+      worst_bet = Bet.create!(@worst_bet_attributes)
       expect(worst_bet.expiration_date).to be nil
       expect(worst_bet).to be_valid
     end
