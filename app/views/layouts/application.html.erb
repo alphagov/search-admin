@@ -1,6 +1,6 @@
 <% content_for :head do %>
   <%= stylesheet_link_tag "application", :media => "all" %>
-  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
 <% end %>
 
 <%= render "govuk_publishing_components/components/layout_for_admin", {
@@ -16,7 +16,7 @@
   } %>
   <div class="govuk-width-container">
     <main class="govuk-main-wrapper govuk-!-padding-top-2" id="main-content" role="main">
-      <% flash.each do |type, msg| %>	
+      <% flash.each do |type, msg| %>
         <% if type == 'notice' %>
           <%= render "govuk_publishing_components/components/success_alert", {
             message: msg
@@ -25,7 +25,7 @@
           <%= render "govuk_publishing_components/components/error_alert", {
             message: msg
           } %>
-        <% end %>	
+        <% end %>
       <% end -%>
 
       <%= yield %>
