@@ -34,7 +34,7 @@ describe Query, "associations" do
     query = create :query
     bets = query.bets
 
-    query.destroy
+    query.destroy!
 
     expect(bets).to eq []
   end

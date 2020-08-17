@@ -29,6 +29,6 @@ private
   end
 
   def soon_to_expire_bets
-    @soon_to_expire_bets ||= Bet.impermanent.where(expiration_date: DateTime.now.beginning_of_day + THRESHOLD)
+    @soon_to_expire_bets ||= Bet.impermanent.where(expiration_date: Time.zone.now.beginning_of_day + THRESHOLD)
   end
 end

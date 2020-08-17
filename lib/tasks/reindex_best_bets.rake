@@ -12,12 +12,12 @@ task reindex_best_bets: :environment do
   puts message
 
   puts "Starting to reindex #{Query.count} best bets in search_api"
-  start = Time.now.to_f
+  start = Time.zone.now.to_f
 
   Query.all.each do |query|
     puts "Processing: #{query.query} (#{query.match_type})"
-    SearchApiSaver.new(query).save
+    SearchApiSaver.new(query).save!
   end
 
-  puts "Finished reindexing best bets in search_api (#{(Time.now.to_f - start).round(2)} sec)"
+  puts "Finished reindexing best bets in search_api (#{(Time.zone.now.to_f - start).round(2)} sec)"
 end
