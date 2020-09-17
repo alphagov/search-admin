@@ -67,6 +67,6 @@ private
 
   def remove_from_elasticsearch
     es_doc_id = ElasticSearchBetIDGenerator.generate(query_object.query, query_object.match_type)
-    Services.search_api.delete_document(URI.escape(es_doc_id), "metasearch") # rubocop:disable Lint/UriEscapeUnescape
+    Services.search_api.delete_document(URI.encode_www_form_component(es_doc_id).gsub("+", "%20"), "metasearch")
   end
 end

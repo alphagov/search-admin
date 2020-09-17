@@ -19,7 +19,7 @@ class BetParamsParser
 private
 
   def date_attributes
-    date_complete? ? DateParser.new(date_hash).date : ""
+    date_complete? ? DateParser.new(**date_hash).date : ""
   end
 
   def date_hash
