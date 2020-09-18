@@ -1,6 +1,9 @@
 ENV["GOVUK_APP_DOMAIN"] = "test.gov.uk"
 ENV["GOVUK_ASSET_ROOT"] = "http://static.test.gov.uk"
 
+require "simplecov"
+SimpleCov.start "rails"
+
 Before("@no-txn") { DatabaseCleaner.strategy = :truncation }
 After("@no-txn") { DatabaseCleaner.strategy = :transaction }
 
