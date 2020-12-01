@@ -5,7 +5,7 @@ gem "rails", "6.0.3.4"
 gem "bootsnap"
 gem "generic_form_builder"
 gem "mysql2"
-gem "sass-rails"
+gem "sassc-rails"
 gem "sidekiq-scheduler"
 gem "uglifier"
 
