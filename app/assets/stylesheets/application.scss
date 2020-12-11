@@ -1,6 +1,3 @@
-/*
- *= require_self
- */
 $govuk-typography-use-rem: false;
 @import "govuk_publishing_components/all_components";
 
@@ -58,7 +55,8 @@ $govuk-typography-use-rem: false;
   display: block;
 }
 
-small, .small {
+small,
+.small {
   font-size: 85%;
 }
 
@@ -66,7 +64,6 @@ small, .small {
 .app-symbol {
   margin-right: govuk-spacing(2);
   font-weight: bold;
-
 }
 
 .app-symbol--minus {
@@ -109,15 +106,15 @@ small, .small {
   }
 
   .govuk-header__navigation--end {
-    text-align:left;
+    text-align: left;
   }
 }
 
 // custom styles for the content item data returned from api
 // uses the ruby table_for component so can't amend markup
-// TODO: maybe we can flatten the nested data and use teh summary-list component
+// TODO: maybe we can flatten the nested data and use the summary-list component
 .key-value-table {
-  @extend .govuk-table;
+  @extend .govuk-table; // stylelint-disable-line scss/at-extend-no-missing-placeholder
 
   td:first-child {
     font-weight: bold;
