@@ -1,6 +1,6 @@
 # Search admin
 
-The `search-admin` application manages search "best bets" and "external links" along with other search and browse data.
+Manages search "best bets" and "external links" along with other search and browse data.
 
 ## Screenshots
 
@@ -12,30 +12,11 @@ The `search-admin` application manages search "best bets" and "external links" a
 
 ## Technical documentation
 
-This is a Ruby on Rails application that manages search "best bets" and "external links" along with other search and browse data. It is behind the signon authentication system and doesn't have a public API.
+This is a Ruby on Rails app, and should follow [our Rails app conventions](https://docs.publishing.service.gov.uk/manual/conventions-for-rails-applications.html).
 
-### Dependencies
+You can use the [GOV.UK Docker environment](https://github.com/alphagov/govuk-docker) to run the application and its tests with all the necessary dependencies. Follow [the usage instructions](https://github.com/alphagov/govuk-docker#usage) to get started.
 
-- [alphagov/publishing-api](https://github.com/alphagov/publishing-api) - search-admin publishes external links to the publishing API
-- [alphagov/search-api](https://github.com/alphagov/search-api) - search-admin sends updates to search-api when best bets are edited
-
-### Running the application
-
-`./startup.sh`
-
-The app runs on port 3073. If you're using the dev VM it will be available at http://search-admin.dev.gov.uk/
-
-#### Creating the mysql user
-
-The database.yml for this project is checked into source control so
-you'll need a local user with credentials that match those in
-database.yml.
-
-``` sql
-    mysql> create user 'search_admin'@'localhost' identified by 'search_admin';
-    mysql> grant all on `search_admin\_%`.* to search_admin@localhost;
-    mysql> flush privileges;
-```
+**Use GOV.UK Docker to run any commands that follow.**
 
 ### Running the test suite
 
