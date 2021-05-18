@@ -55,7 +55,8 @@ describe Bet do
     end
 
     context "when given a external link" do
-      subject(:bet) { described_class.new(@best_bet_attributes.merge(link: external_bet_link)) }
+      let(:subject_link) { external_bet_link }
+      subject(:bet) { described_class.new(@best_bet_attributes.merge(link: subject_link)) }
       it { is_expected.to be_valid }
 
       context "when the external link has no corresponding recommended link" do
@@ -69,8 +70,14 @@ describe Bet do
       end
 
       context "when the link is an internal link" do
-        let(:external_link) { "https://www.gov.uk/campaign" }
+        let(:subject_link) { "https://www.gov.uk/campaign" }
         it { is_expected.to_not be_valid }
+
+        context "when there is a corresponding recommended link" do
+          let(:external_link) { subject_link }
+
+          it { is_expected.to be_valid }
+        end
       end
     end
 
