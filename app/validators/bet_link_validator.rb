@@ -16,16 +16,16 @@ class BetLinkValidator < ActiveModel::EachValidator
 private
 
   def validate_external_link(uri, value)
-    if %w[www.gov.uk gov.uk].include? uri.host
-      record_error("looks like an internal link so should just be a path: use /random, not gov.uk/random.")
+    if RecommendedLink.find_by(link: value).nil?
+      if %w[www.gov.uk gov.uk].include?(uri.host)
+        record_error("looks like an internal link so should just be a path: use /random, not gov.uk/random.")
+      else
+        record_error("looks like an external link, so you should first create a recommended link in search admin (click External links)")
+      end
     end
 
     unless uri.is_a?(URI::HTTP)
       record_error("looks like an external link, so you should prepend it with http:// or https://, like https://#{value}")
-    end
-
-    if RecommendedLink.find_by(link: value).nil?
-      record_error("looks like an external link, so you should first create a recommended link in search admin (click External links)")
     end
   end
 
