@@ -2,7 +2,7 @@ module ApplicationHelper
   def navigation_items
     return [] unless current_user
 
-    items = [
+    [
       {
         text: "Queries",
         href: queries_path,
@@ -32,8 +32,6 @@ module ApplicationHelper
         href: "/auth/gds/sign_out",
       },
     ]
-
-    items
   end
 
   def is_current?(link)

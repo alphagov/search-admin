@@ -105,7 +105,7 @@ def check_recommended_link_was_unpublished(content_id)
 end
 
 def run_recommended_links_elasticsearch_exporter
-  `#{Rails.root + "bin/export_recommended_links_for_elasticsearch"}`
+  `#{"#{Rails.root}bin/export_recommended_links_for_elasticsearch"}`
 end
 
 def confirm_recommended_links_elasticsearch_format(dump, recommended_links)

@@ -1,9 +1,6 @@
 class SearchApiSaver
-  class InvalidAction < StandardError
-    def initialize(message)
-      super(message)
-    end
-  end
+  class InvalidAction < StandardError; end
+
   delegate :is_query?, :query_object, to: :@object
 
   def initialize(object)

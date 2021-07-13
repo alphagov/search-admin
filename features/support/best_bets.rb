@@ -134,7 +134,7 @@ def check_search_api_was_sent_a_recommended_link_delete(link:, index:)
 end
 
 def run_best_bets_elasticsearch_exporter
-  `#{Rails.root + "bin/export_best_bets_for_elasticsearch"}`
+  `#{"#{Rails.root}bin/export_best_bets_for_elasticsearch"}`
 end
 
 def confirm_best_bets_elasticsearch_format(dump, queries)

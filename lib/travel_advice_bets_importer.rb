@@ -5,7 +5,7 @@ class TravelAdviceBetsImporter
   # @param user [User] search admin user.
   # @param logger [IO] stream for logging.
   #
-  def initialize(data, user, logger = STDOUT)
+  def initialize(data, user, logger = $stdout)
     @count = 0
     @data = data
     @user = user
@@ -19,13 +19,13 @@ class TravelAdviceBetsImporter
       query = Query.find_or_create_by!(query: term) { |q| q.match_type = "exact" }
 
       travel_advice_bet = create_bet(query, travel_advice_path(link), 1)
-      if travel_advice_bet
-        success(travel_advice_bet) if SearchApiSaver.new(travel_advice_bet).save
+      if travel_advice_bet && SearchApiSaver.new(travel_advice_bet).save
+        success(travel_advice_bet)
       end
 
       help_page_bet = create_bet(query, link, 2)
-      if help_page_bet
-        success(help_page_bet) if SearchApiSaver.new(help_page_bet).save
+      if help_page_bet && SearchApiSaver.new(help_page_bet).save
+        success(help_page_bet)
       end
     end
   end

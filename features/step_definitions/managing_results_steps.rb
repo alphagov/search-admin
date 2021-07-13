@@ -26,7 +26,7 @@ Then(/^the result should have been removed from the index$/) do
   expect(page).to have_content "That URL wasn't found."
 end
 
-When(/^I type in an non\-existing GOV\.UK link$/) do
+When(/^I type in an non-existing GOV\.UK link$/) do
   stub_request(:get, "https://search.test.gov.uk/content?link=/does-not-exist")
     .to_return(status: 404)
 

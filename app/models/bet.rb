@@ -11,6 +11,7 @@ class Bet < ApplicationRecord
   scope :impermanent, -> { where("permanent IS NULL OR NOT permanent") }
 
   attr_accessor :is_worst
+
   validates :expiration_date, bet_date: true
   validates :query_id, :user_id, presence: true
   validates :link, presence: true, bet_link: true
