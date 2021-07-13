@@ -1,5 +1,5 @@
 module ButtonsHelper
-  def delete_button(text, path, is_inline = false)
+  def delete_button(text, path, is_inline: false)
     button_to text,
               path,
               method: :delete,
