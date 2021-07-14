@@ -6,7 +6,7 @@ class RecommendedLink < ApplicationRecord
   def format
     uri = URI(link)
     if uri.scheme.nil?
-      uri = URI("https://" + link)
+      uri = URI("https://#{link}")
     end
 
     if uri.host.casecmp("www.gov.uk").zero?

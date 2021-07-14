@@ -1,7 +1,10 @@
 class MoreLikeThis
   class Error < StandardError; end
+
   class NotFoundInSearch < Error; end
+
   class NotTaggedToATaxon < Error; end
+
   class NoSearchResults < Error; end
 
   attr_reader :base_path

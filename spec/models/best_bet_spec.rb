@@ -1,7 +1,6 @@
 require "spec_helper"
 
 describe Bet do
-  DEFAULT_VALIDITY = 3.months
   let!(:recommended_link) { create(:recommended_link, link: external_link) }
   let(:external_bet_link) { external_link }
   let(:external_link) { "https://www.example.gov.uk/campaign" }

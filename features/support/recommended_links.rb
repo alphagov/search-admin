@@ -104,10 +104,6 @@ def check_recommended_link_was_unpublished(content_id)
   assert_publishing_api_unpublish(content_id)
 end
 
-def run_recommended_links_elasticsearch_exporter
-  `#{Rails.root + "bin/export_recommended_links_for_elasticsearch"}`
-end
-
 def confirm_recommended_links_elasticsearch_format(dump, recommended_links)
   recommended_links.each do |recommended_link|
     es_doc_header = {

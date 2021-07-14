@@ -18,12 +18,12 @@
     href: edit_query_path(@query),
     inline_layout: true
   } %>
-  <%= delete_button "Delete query", query_path(@query), true %>
+  <%= delete_button "Delete query", query_path(@query), is_inline: true %>
 </div>
 <% if @query.sorted_best_bets.any?%>
 
   <h3 class="govuk-heading-m">Best bets</h3>
-  
+
   <div class="best-bets">
     <%= GovukPublishingComponents::AppHelpers::TableHelper.helper(self) do |t| %>
       <%= render 'bet_table', bets: @query.sorted_best_bets, type: :best, query: @query, t: t %>
