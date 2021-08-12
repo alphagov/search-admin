@@ -39,5 +39,18 @@ module SearchAdmin
     # to use CSS that has same function names as SCSS such as max.
     # https://github.com/alphagov/govuk-frontend/issues/1350
     config.assets.css_compressor = nil
+
+    # Enable per-form CSRF tokens. Previous versions had false.
+    config.action_controller.per_form_csrf_tokens = false
+
+    # Enable origin-checking CSRF mitigation. Previous versions had false.
+    config.action_controller.forgery_protection_origin_check = false
+
+    # Make Ruby 2.4 preserve the timezone of the receiver when calling `to_time`.
+    # Previous versions had false.
+    ActiveSupport.to_time_preserves_timezone = false
+
+    # Require `belongs_to` associations by default. Previous versions had false.
+    config.active_record.belongs_to_required_by_default = false
   end
 end
