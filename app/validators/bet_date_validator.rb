@@ -29,6 +29,6 @@ private
   end
 
   def record_error(msg)
-    record.errors[attribute] << msg
+    record.errors.add(attribute, message: msg)
   end
 end

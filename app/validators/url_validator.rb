@@ -5,7 +5,7 @@ class UrlValidator < ActiveModel::EachValidator
     uri = parse(value)
     unless uri&.host
       msg = options[:message] || (uri ? "does not have a valid host" : "is an invalid URL")
-      record.errors[attribute] << msg
+      record.errors.add(attribute, message: msg)
     end
   end
 
