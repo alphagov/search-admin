@@ -2,7 +2,7 @@ $govuk-typography-use-rem: false;
 @import "govuk_publishing_components/all_components";
 
 // by default cells have a bottom border applied
-//remove borders in the group
+// remove borders in the group
 .govuk-table__row--group-fst td {
   border: 0;
 }
