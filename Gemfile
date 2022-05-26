@@ -7,6 +7,7 @@ gem "generic_form_builder"
 gem "mysql2"
 gem "sassc-rails"
 gem "sidekiq-scheduler"
+gem "sprockets-rails"
 gem "uglifier"
 
 # GDS managed gems

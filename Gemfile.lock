@@ -520,6 +520,7 @@ DEPENDENCIES
   sassc-rails
   sidekiq-scheduler
   simplecov
+  sprockets-rails
   uglifier
   webmock
 
