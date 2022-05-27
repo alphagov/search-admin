@@ -1,12 +1,13 @@
 source "https://rubygems.org"
 
-gem "rails", "6.1.6"
+gem "rails", "7.0.3"
 
 gem "bootsnap"
 gem "generic_form_builder"
 gem "mysql2"
 gem "sassc-rails"
 gem "sidekiq-scheduler"
+gem "sprockets-rails"
 gem "uglifier"
 
 # GDS managed gems
