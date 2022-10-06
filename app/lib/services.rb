@@ -13,7 +13,7 @@ module Services
   def self.search_api
     @search_api ||=
       GdsApi::Search.new(
-        Plek.current.find("search"),
+        Plek.find("search"),
         api_version: "V2",
         bearer_token: ENV["RUMMAGER_BEARER_TOKEN"] || "example",
       )
