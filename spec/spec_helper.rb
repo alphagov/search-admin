@@ -31,9 +31,9 @@ RSpec.configure do |config|
   config.include FactoryBot::Syntax::Methods
 
   config.before(:each) do
-    # search URLs are of the form: http://search.dev.gov.uk/mainstream/document/http://test.dev.gov.uk
+    # search URLs are of the form: http://search-api.dev.gov.uk/mainstream/document/http://test.dev.gov.uk
     # The part after /document/ is optional depending on the request type
-    search_url_regex = %r{#{Plek.find('search')}/.+/.+(/.*)?}
+    search_url_regex = %r{#{Plek.find('search-api')}/.+/.+(/.*)?}
     stub_request(:post, search_url_regex)
     stub_request(:delete, search_url_regex)
   end

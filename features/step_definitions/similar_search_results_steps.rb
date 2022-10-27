@@ -6,7 +6,7 @@ end
 When(/^I type in a valid GOV\.UK link with related items$/) do
   stub_request(
     :get,
-    "https://search.test.gov.uk/search.json?fields%5B%5D=taxons&filter_link=/guidance/pupil-premium-reviews",
+    "https://search-api.test.gov.uk/search.json?fields%5B%5D=taxons&filter_link=/guidance/pupil-premium-reviews",
   ).to_return(
     body: {
       "results" => [{
@@ -18,7 +18,7 @@ When(/^I type in a valid GOV\.UK link with related items$/) do
 
   stub_request(
     :get,
-    /https:\/\/search.test.gov.uk\/search.json\?.*similar_to=\/guidance\/pupil-premium-reviews.*/,
+    /https:\/\/search-api.test.gov.uk\/search.json\?.*similar_to=\/guidance\/pupil-premium-reviews.*/,
   ).to_return(
     body: {
       "results" => [{
