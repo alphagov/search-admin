@@ -28,4 +28,4 @@ Run `bundle exec rake publish_external_links:publishing_api` to send all externa
 
 ## Licence
 
-[MIT License](LICENSE)
+[MIT License](LICENCE)
