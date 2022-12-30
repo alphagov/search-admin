@@ -21,6 +21,7 @@ gem "mail-notify"
 gem "plek"
 
 group :test do
+  gem "brakeman"
   gem "cucumber-rails", require: false
   gem "database_cleaner"
   gem "factory_bot_rails"
