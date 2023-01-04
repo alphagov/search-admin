@@ -4,6 +4,7 @@ gem "rails", "7.0.4"
 
 gem "bootsnap"
 gem "generic_form_builder"
+gem "mail", "~> 2.7.1" # TODO: remove once https://www.github.com/mikel/mail/issues/1489 is fixed.
 gem "mysql2"
 gem "sassc-rails"
 gem "sidekiq-scheduler"
