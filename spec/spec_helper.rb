@@ -41,11 +41,4 @@ RSpec.configure do |config|
   config.before(:each, type: "controller") do
     login_as_stub_user
   end
-
-  require "govuk-content-schema-test-helpers"
-
-  GovukContentSchemaTestHelpers.configure do |schema_config|
-    schema_config.schema_type = "publisher_v2"
-    schema_config.project_root = Rails.root
-  end
 end

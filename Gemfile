@@ -25,7 +25,7 @@ group :test do
   gem "cucumber-rails", require: false
   gem "database_cleaner"
   gem "factory_bot_rails"
-  gem "govuk-content-schema-test-helpers"
+  gem "govuk_schemas"
   gem "simplecov"
   gem "webmock"
 end
