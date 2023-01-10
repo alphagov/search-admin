@@ -40,6 +40,10 @@ module SearchAdmin
     # https://github.com/alphagov/govuk-frontend/issues/1350
     config.assets.css_compressor = nil
 
+    # Set asset path to be application specific so that we can put all GOV.UK
+    # assets into an S3 bucket and distinguish app by path.
+    config.assets.prefix = "/assets/search-admin"
+
     # Enable per-form CSRF tokens. Previous versions had false.
     config.action_controller.per_form_csrf_tokens = false
 
