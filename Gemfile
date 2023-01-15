@@ -2,7 +2,7 @@ source "https://rubygems.org"
 
 gem "rails", "7.0.4"
 
-gem "bootsnap"
+gem "bootsnap", require: false
 gem "generic_form_builder"
 gem "mail", "~> 2.7.1" # TODO: remove once https://www.github.com/mikel/mail/issues/1489 is fixed.
 gem "mysql2"
