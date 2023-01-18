@@ -502,7 +502,6 @@ DEPENDENCIES
   govuk_schemas
   govuk_sidekiq
   listen
-  mail (~> 2.8.0)
   mail-notify
   mysql2
   plek
