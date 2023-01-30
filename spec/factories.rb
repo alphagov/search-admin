@@ -29,7 +29,7 @@ FactoryBot.define do
 
     trait :with_best_bet do
       after(:create) do |query|
-        create(:bet, :best, query: query)
+        create(:bet, :best, query:)
       end
     end
   end

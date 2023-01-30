@@ -192,7 +192,7 @@ describe BetsController do
     end
 
     it "deactivating one of a group of best bets will update the query in Search-api" do
-      create(:bet, query: query)
+      create(:bet, query:)
       es_doc_id = ElasticSearchBetIDGenerator.generate(query.query, query.match_type)
       expect(Services.search_api).to receive(:add_document).with(es_doc_id, anything, "metasearch")
 
@@ -211,7 +211,7 @@ describe BetsController do
     end
 
     it "deleting one of a group of best bets will update the query in Search-api" do
-      create(:bet, query: query)
+      create(:bet, query:)
       es_doc_id = ElasticSearchBetIDGenerator.generate(query.query, query.match_type)
       expect(Services.search_api).to receive(:add_document).with(es_doc_id, anything, "metasearch")
 

@@ -7,7 +7,7 @@ class ExternalContentPresenter
     {
       description: @recommended_link.description,
       details: {
-        hidden_search_terms: hidden_search_terms,
+        hidden_search_terms:,
         url: @recommended_link.link,
       },
       document_type: "external_content",
