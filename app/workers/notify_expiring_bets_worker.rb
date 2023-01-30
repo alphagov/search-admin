@@ -1,3 +1,6 @@
+require "active_support"
+require "sidekiq-scheduler"
+
 class NotifyExpiringBetsWorker
   THRESHOLD = 7.days
 

@@ -1,3 +1,6 @@
+require "active_support"
+require "sidekiq-scheduler"
+
 class DeleteOldBetsWorker
   # All expired bets older than this, or all disabled bets last
   # updated longer ago than this, are deleted

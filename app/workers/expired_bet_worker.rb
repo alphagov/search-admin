@@ -1,3 +1,6 @@
+require "active_support"
+require "sidekiq-scheduler"
+
 class ExpiredBetWorker
   include Sidekiq::Worker
 
