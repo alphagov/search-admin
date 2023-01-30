@@ -35,15 +35,15 @@ private
   attr_reader :logger, :user
 
   def create_bet(query, link, position)
-    return if Bet.find_by(link: link, query: query)
+    return if Bet.find_by(link:, query:)
 
     Bet.create!(
       comment: "Created by bets importer.",
       is_best: true,
-      link: link,
+      link:,
       query_id: query.id,
       user_id: user.id,
-      position: position,
+      position:,
       permanent: true,
     )
   end

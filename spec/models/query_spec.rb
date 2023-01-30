@@ -18,9 +18,9 @@ describe Query do
   describe "#sorted_best_bets" do
     it "sorts the best bets by position" do
       query = create(:query)
-      create(:bet, query: query, position: 3)
-      create(:bet, query: query, position: 1)
-      create(:bet, query: query, position: 2)
+      create(:bet, query:, position: 3)
+      create(:bet, query:, position: 1)
+      create(:bet, query:, position: 2)
 
       list = query.sorted_best_bets
 

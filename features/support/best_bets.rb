@@ -57,7 +57,7 @@ def check_for_query_on_index_page(query: nil, match_type: nil)
 end
 
 def check_for_bet_on_query_page(permanent: nil, link: nil, is_best: nil, position: nil, query: nil, match_type: nil, comment: nil)
-  query = Query.where(query: query, match_type: match_type).first
+  query = Query.where(query:, match_type:).first
   visit query_path(query)
 
   bet_type = is_best ? "best" : "worst"
@@ -130,7 +130,7 @@ def check_search_api_was_sent_a_best_bet_delete(query_es_ids)
 end
 
 def check_search_api_was_sent_a_recommended_link_delete(link:, index:)
-  assert_search_api_deleted_item(link, index: index)
+  assert_search_api_deleted_item(link, index:)
 end
 
 def confirm_best_bets_elasticsearch_format(dump, queries)

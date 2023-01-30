@@ -2,17 +2,16 @@
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
 #
-# This file is the source Rails uses to define your schema when running `rails
-# db:schema:load`. When creating a new database, `rails db:schema:load` tends to
+# This file is the source Rails uses to define your schema when running `bin/rails
+# db:schema:load`. When creating a new database, `bin/rails db:schema:load` tends to
 # be faster and is potentially less error prone than running all of your
 # migrations from scratch. Old migrations may fail to apply correctly if those
 # migrations use external dependencies or application code.
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[6.1].define(version: 2020_04_06_141157) do
-
-  create_table "bets", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+ActiveRecord::Schema[7.0].define(version: 2020_04_06_141157) do
+  create_table "bets", charset: "utf8mb3", force: :cascade do |t|
     t.string "link"
     t.integer "position", default: 1
     t.text "comment"
@@ -20,21 +19,21 @@ ActiveRecord::Schema[6.1].define(version: 2020_04_06_141157) do
     t.integer "query_id"
     t.boolean "is_best", default: true
     t.integer "user_id"
-    t.datetime "created_at"
-    t.datetime "expiration_date"
+    t.datetime "created_at", precision: nil
+    t.datetime "expiration_date", precision: nil
     t.boolean "permanent", default: false
-    t.datetime "updated_at"
+    t.datetime "updated_at", precision: nil
   end
 
-  create_table "queries", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "queries", charset: "utf8mb3", force: :cascade do |t|
     t.string "query"
     t.string "match_type"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.index ["query", "match_type"], name: "index_queries_on_query_and_match_type", unique: true
   end
 
-  create_table "recommended_links", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "recommended_links", charset: "utf8mb3", force: :cascade do |t|
     t.string "title"
     t.string "link"
     t.text "description"
@@ -46,7 +45,7 @@ ActiveRecord::Schema[6.1].define(version: 2020_04_06_141157) do
     t.index ["link"], name: "index_recommended_links_on_link", unique: true
   end
 
-  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "users", charset: "utf8mb3", force: :cascade do |t|
     t.string "name"
     t.string "email"
     t.string "uid"
