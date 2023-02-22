@@ -73,7 +73,7 @@ RSpec.describe TravelAdviceBetsImporter do
 
     context "with existing, conflicting bets" do
       let(:query) { create(:query, query: "Spain") }
-      let!(:bet) { create(:bet, :permanent, link: "/world/spain", query: query, position: 2) }
+      let!(:bet) { create(:bet, :permanent, link: "/world/spain", query:, position: 2) }
 
       it "doesn't create duplicates" do
         expect { instance.import }.to change(Bet, :count).by(5)
@@ -89,7 +89,7 @@ RSpec.describe TravelAdviceBetsImporter do
 
     context "with existing non-conflicting bets" do
       let(:query) { create(:query, query: "Spain") }
-      let!(:bet) { create(:bet, :permanent, link: "/world/spain", query: query, position: 2) }
+      let!(:bet) { create(:bet, :permanent, link: "/world/spain", query:, position: 2) }
       before { csv_data.push(%w[Espana /world/spain]) }
 
       it "creates a best bet" do

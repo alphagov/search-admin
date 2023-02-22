@@ -69,7 +69,7 @@ end
 
 Given(/^a query with a worst bet exists$/) do
   query = create(:query, :with_best_bet, query: "worst-bet", match_type: "exact")
-  create(:bet, :worst, query: query, link: "/worst-bet", position: nil, comment: "a comment")
+  create(:bet, :worst, query:, link: "/worst-bet", position: nil, comment: "a comment")
 end
 
 When(/^I edit a best bet as an admin$/) do

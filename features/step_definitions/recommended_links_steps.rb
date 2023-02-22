@@ -1,5 +1,5 @@
 Given(/^an external link exists named "(.*)" with link "(.*)"$/) do |title, link|
-  @recommended_link = create(:recommended_link, title: title, link: link)
+  @recommended_link = create(:recommended_link, title:, link:)
 end
 
 Given(/^there are some external links$/) do
@@ -26,26 +26,26 @@ When(/^I create a new external link$/) do
 end
 
 Then(/^the external link named "(.*)" should be listed on the external links index$/) do |title|
-  check_for_recommended_link_on_index_page(title: title)
+  check_for_recommended_link_on_index_page(title:)
 end
 
 When(/^I edit the external link named "(.*)" to be named "(.*)"$/) do |old_title, new_title|
   edit_recommended_link(
-    old_title: old_title,
+    old_title:,
     title: new_title,
   )
 end
 
 Then(/^the edited external link named "(.*)" should be listed on the external links index$/) do |title|
-  check_for_recommended_link_on_index_page(title: title)
+  check_for_recommended_link_on_index_page(title:)
 end
 
 When(/^I delete the external link named "(.*)"$/) do |title|
-  delete_recommended_link(title: title)
+  delete_recommended_link(title:)
 end
 
 Then(/^the external link named "(.*)" should not be listed on the external links index$/) do |title|
-  check_for_absence_of_recommended_link_on_index_page(title: title)
+  check_for_absence_of_recommended_link_on_index_page(title:)
 end
 
 When(/^I visit the external link$/) do

@@ -93,7 +93,7 @@ describe QueriesController do
 
       context "when query has bets" do
         before do
-          create(:bet, query: query)
+          create(:bet, query:)
         end
 
         it "notifies the world to forget the previous query" do

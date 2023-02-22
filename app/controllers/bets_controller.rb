@@ -25,7 +25,7 @@ class BetsController < ApplicationController
     end
     saver = SearchApiSaver.new(@bet)
     if saver.update(update_attrs)
-      redirect_to query_path(@bet.query), notice: notice
+      redirect_to(query_path(@bet.query), notice:)
     else
       flash.now[:alert] = "Error updating bet. #{@bet.errors.full_messages.to_sentence}"
       render "edit"
