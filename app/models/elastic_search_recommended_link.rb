@@ -7,18 +7,18 @@ class ElasticSearchRecommendedLink
 
   def body
     {
-      link: link,
+      link:,
       details: details.to_json,
     }
   end
 
   def details
     {
-      title: title,
-      link: link,
-      description: description,
-      format: format,
-      indexable_content: indexable_content,
+      title:,
+      link:,
+      description:,
+      format:,
+      indexable_content:,
     }
   end
 

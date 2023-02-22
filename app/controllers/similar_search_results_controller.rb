@@ -8,7 +8,7 @@ class SimilarSearchResultsController < ApplicationController
 
     render :show,
            locals: {
-             base_path: base_path,
+             base_path:,
              results: MoreLikeThis.from_base_path(base_path),
            }
   rescue MoreLikeThis::NotFoundInSearch

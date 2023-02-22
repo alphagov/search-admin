@@ -9,7 +9,7 @@ class BetParamsParser
   def bet_attributes
     bet_params.merge(
       expiration_date: date_attributes,
-      user_id: user_id,
+      user_id:,
       manual: true,
       is_best: best_bet?,
       permanent: permanent?,

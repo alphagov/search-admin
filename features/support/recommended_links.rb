@@ -82,12 +82,12 @@ def check_search_api_was_sent_an_exact_recommended_link_document(recommended_lin
       "link" => recommended_link.link,
       "_id" => recommended_link.link,
     ),
-    index: index,
+    index:,
   )
 end
 
 def check_search_api_was_sent_a_recommended_link_delete(link:, index:)
-  assert_search_api_deleted_item(link, index: index)
+  assert_search_api_deleted_item(link, index:)
 end
 
 def check_recommended_link_was_published(recommended_link, publishing_count)
