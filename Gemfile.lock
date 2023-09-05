@@ -160,7 +160,7 @@ GEM
       null_logger
       plek (>= 1.9.0)
       rest-client (~> 2.0)
-    gds-sso (18.0.0)
+    gds-sso (18.1.0)
       oauth2 (~> 2.0)
       omniauth (~> 2.1)
       omniauth-oauth2 (~> 1.8)
@@ -169,8 +169,8 @@ GEM
       warden (~> 1.2)
       warden-oauth2 (~> 0.0.1)
     generic_form_builder (0.13.1)
-    globalid (1.1.0)
-      activesupport (>= 5.0)
+    globalid (1.2.0)
+      activesupport (>= 6.1)
     google-protobuf (3.24.2)
     googleapis-common-protos-types (1.8.0)
       google-protobuf (~> 3.18)
@@ -502,8 +502,8 @@ GEM
     raabro (1.4.0)
     racc (1.7.1)
     rack (2.2.8)
-    rack-protection (3.0.6)
-      rack
+    rack-protection (3.1.0)
+      rack (~> 2.2, >= 2.2.4)
     rack-proxy (0.7.7)
       rack
     rack-test (2.1.0)
