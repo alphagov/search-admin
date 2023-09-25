@@ -31,7 +31,9 @@
       <%= yield %>
     </main>
 
-    <p class="govuk-body">Version: <%= CURRENT_RELEASE_SHA %></p>
+    <% if ENV.key? "SENTRY_RELEASE" %>
+      <p class="govuk-body-s">Version: <%= ENV["SENTRY_RELEASE"] %></p>
+    <% end %>
   </div>
 
   <%= render "govuk_publishing_components/components/layout_footer", {} %>
