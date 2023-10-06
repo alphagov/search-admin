@@ -78,6 +78,29 @@ describe Bet do
           it { is_expected.to be_valid }
         end
       end
+
+      describe "#valid_until" do
+        it "valid_until is permanent if permanent is set to true" do
+          best_bet = Bet.new(@best_bet_attributes)
+
+          expect(best_bet.valid_until).to eq("Permanent")
+        end
+
+        it "returns an expiry date if expiration date is in the future" do
+          expiration_date = 1.day.from_now
+          bet_date_attrs = { permanent: false, expiration_date: }
+          best_bet = Bet.new(@best_bet_attributes.merge(bet_date_attrs))
+
+          expect(best_bet.valid_until).to eq("Expires #{expiration_date.strftime('%d %b %Y')}")
+        end
+
+        it "returns a status of Expired if expiration date is in the past" do
+          bet_date_attrs = { permanent: false }
+          best_bet = Bet.new(@best_bet_attributes.merge(bet_date_attrs))
+
+          expect(best_bet.valid_until).to eq("Expired")
+        end
+      end
     end
 
     context "when given an internal link" do

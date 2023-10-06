@@ -28,7 +28,7 @@ class Query < ApplicationRecord
 
   def self.to_csv(*_args)
     CSV.generate do |csv|
-      csv << ["query", "match_type", "link", "best/worst", "comment"]
+      csv << ["query", "match_type", "link", "best/worst", "comment", "status"]
 
       all.includes(:bets).find_each do |query|
         query.bets.each do |bet|
@@ -36,7 +36,8 @@ class Query < ApplicationRecord
                   query.match_type,
                   bet.link,
                   bet.is_best ? "best" : "worst",
-                  bet.comment.to_s]
+                  bet.comment.to_s,
+                  bet.valid_until]
         end
       end
     end
