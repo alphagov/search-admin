@@ -96,4 +96,8 @@ class Bet < ApplicationRecord
   def last_edit_date
     updated_at || created_at
   end
+
+  def author
+    user.try(:name) || " "
+  end
 end

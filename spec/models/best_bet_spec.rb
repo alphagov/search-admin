@@ -163,6 +163,16 @@ describe Bet do
       end
     end
 
+    describe "#author" do
+      it "should return the name of user" do
+        user_name = "Ahsoka Tano"
+        user = create(:user, name: user_name)
+        best_bet = Bet.new(@best_bet_attributes.merge(user_id: user.id))
+
+        expect(best_bet.author).to eq(user_name)
+      end
+    end
+
     describe "bet_date validations" do
       it "Temporary bets must have an expiration date" do
         bet_date_attrs = { permanent: false, expiration_date: "" }
