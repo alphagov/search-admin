@@ -92,4 +92,8 @@ class Bet < ApplicationRecord
   def query_object
     query
   end
+
+  def last_edit_date
+    updated_at || created_at
+  end
 end

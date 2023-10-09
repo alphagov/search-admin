@@ -28,7 +28,7 @@ class Query < ApplicationRecord
 
   def self.to_csv(*_args)
     CSV.generate do |csv|
-      csv << ["query", "match_type", "link", "best/worst", "comment", "status", "position"]
+      csv << ["query", "match_type", "link", "best/worst", "comment", "status", "position", "last edit date"]
 
       all.includes(:bets).find_each do |query|
         query.bets.each do |bet|
@@ -38,7 +38,8 @@ class Query < ApplicationRecord
                   bet.is_best ? "best" : "worst",
                   bet.comment.to_s,
                   bet.valid_until,
-                  bet.position]
+                  bet.position,
+                  bet.last_edit_date.strftime("%d %b %Y")]
         end
       end
     end
