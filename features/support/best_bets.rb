@@ -103,7 +103,7 @@ end
 def check_for_queries_in_csv_format(queries)
   headers, *rows = *CSV.parse(page.body)
 
-  expect(headers).to eq(["query", "match_type", "link", "best/worst", "comment", "status"])
+  expect(headers).to eq(["query", "match_type", "link", "best/worst", "comment", "status", "position"])
 
   queries.each do |query|
     query.bets.each do |bet|
