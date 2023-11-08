@@ -6,6 +6,7 @@ gem "bootsnap", require: false
 gem "generic_form_builder"
 gem "mysql2"
 gem "sassc-rails"
+gem "sentry-sidekiq"
 gem "sidekiq-scheduler"
 gem "sprockets-rails"
 gem "uglifier"
