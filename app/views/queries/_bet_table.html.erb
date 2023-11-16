@@ -25,8 +25,8 @@
       <% if type == :best %>
         <%= t.cell bet.position %>
       <% end %>
-      <%= t.cell (bet.updated_at || bet.created_at).strftime("%d %b %Y") %>
-      <%= t.cell bet.try(:user).try(:name) || " " %>
+      <%= t.cell bet.last_edit_date.strftime("%d %b %Y") %>
+      <%= t.cell bet.author %>
       <%= t.cell bet.valid_until %>
       <% if bet.active? %>
         <%= t.cell button_to 'Deactivate', deactivate_bet_path(bet), class: "govuk-button govuk-button--secondary" %>
