@@ -104,7 +104,7 @@ end
 When(/^I delete all the best bets$/) do
   @query_es_ids = []
 
-  Query.all.each do |query|
+  Query.all.find_each do |query|
     @query_es_ids << "#{query.query}-#{query.match_type}"
 
     query.bets.each do |bet|

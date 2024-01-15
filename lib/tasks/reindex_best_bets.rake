@@ -14,7 +14,7 @@ task reindex_best_bets: :environment do
   puts "Starting to reindex #{Query.count} best bets in search_api"
   start = Time.zone.now.to_f
 
-  Query.all.each do |query|
+  Query.all.find_each do |query|
     puts "Processing: #{query.query} (#{query.match_type})"
     SearchApiSaver.new(query).save # rubocop:disable Rails/SaveBang
   end
