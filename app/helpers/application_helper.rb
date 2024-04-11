@@ -14,11 +14,6 @@ module ApplicationHelper
         active: is_current?(recommended_links_path),
       },
       {
-        text: "Similar search results",
-        href: new_similar_search_result_path,
-        active: is_current?(new_similar_search_result_path),
-      },
-      {
         text: current_user.name,
         href: Plek.new.external_url_for("signon"),
       },
