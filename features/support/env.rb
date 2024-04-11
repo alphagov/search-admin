@@ -7,6 +7,8 @@ SimpleCov.start "rails"
 Before("@no-txn") { DatabaseCleaner.strategy = :truncation }
 After("@no-txn") { DatabaseCleaner.strategy = :transaction }
 
+Before { login_as(:user) }
+
 require "cucumber/rails"
 require "cucumber/rspec/doubles"
 
