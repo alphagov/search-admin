@@ -12,11 +12,6 @@ Rails.application.routes.draw do
   end
   resources :queries
   resources :recommended_links, path: "/recommended-links"
-  resources(
-    :similar_search_results,
-    only: %i[new show],
-    path: "similar-search-results",
-  )
 
   root "queries#index"
 
