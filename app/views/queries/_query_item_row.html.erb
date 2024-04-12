@@ -1,9 +1,0 @@
-<% if query.bets.empty? %>
-  <%= render 'query_row_no_bets', query: query, t: t %>
-<% end %>
-<% if query.sorted_best_bets.any? %>
-  <%= render 'query_row_bets', bets: query.sorted_best_bets, type: :best, query: query, t: t %>
-<% end %>
-<% if query.worst_bets.any? %>
-  <%= render 'query_row_bets', bets: query.worst_bets, type: :worst, query: query, t: t %>
-<% end %>

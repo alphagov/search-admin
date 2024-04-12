@@ -4,11 +4,6 @@ module ApplicationHelper
 
     [
       {
-        text: "Queries",
-        href: queries_path,
-        active: is_current?(queries_path),
-      },
-      {
         text: "External links",
         href: recommended_links_path,
         active: is_current?(recommended_links_path),

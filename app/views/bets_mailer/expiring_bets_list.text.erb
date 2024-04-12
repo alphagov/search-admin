@@ -1,6 +1,0 @@
-Hello,
-
-The following best and worst bets expire on <%= @when.strftime('%d %b %Y') %>.
-<% @grouped_bets.keys.sort.each do |query| %><% @grouped_bets[query].sort.each do |bet| %>
-- <%= query %>: <%= bet %>
-<% end %><% end %>

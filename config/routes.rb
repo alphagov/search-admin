@@ -5,15 +5,9 @@ Rails.application.routes.draw do
     GovukHealthcheck::ActiveRecord,
   )
 
-  resources :bets, except: %i[index show] do
-    member do
-      post :deactivate
-    end
-  end
-  resources :queries
   resources :recommended_links, path: "/recommended-links"
 
-  root "queries#index"
+  root "recommended_links#index"
 
   mount GovukAdminTemplate::Engine, at: "/style-guide"
 end
