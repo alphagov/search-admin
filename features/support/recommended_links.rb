@@ -74,22 +74,6 @@ def check_for_recommended_links_in_csv_format(recommended_links)
   end
 end
 
-def check_search_api_was_sent_an_exact_recommended_link_document(recommended_link:, index:)
-  elasticsearch_doc = build_doc_from_recommended_link(recommended_link)
-  assert_search_api_posted_item(
-    elasticsearch_doc.merge(
-      "_type" => "edition",
-      "link" => recommended_link.link,
-      "_id" => recommended_link.link,
-    ),
-    index:,
-  )
-end
-
-def check_search_api_was_sent_a_recommended_link_delete(link:, index:)
-  assert_search_api_deleted_item(link, index:)
-end
-
 def check_recommended_link_was_published(recommended_link, publishing_count)
   assert_publishing_api_put_content(
     recommended_link.content_id,
@@ -102,20 +86,6 @@ end
 
 def check_recommended_link_was_unpublished(content_id)
   assert_publishing_api_unpublish(content_id)
-end
-
-def confirm_recommended_links_elasticsearch_format(dump, recommended_links)
-  recommended_links.each do |recommended_link|
-    es_doc_header = {
-      "index" => {
-        "_id" => recommended_link.link,
-        "_type" => recommended_link.format,
-      },
-    }
-
-    es_doc = build_doc_from_recommended_link(recommended_link, include_es_data: true)
-    expect(dump).to include("#{es_doc_header.to_json}\n#{es_doc.to_json}")
-  end
 end
 
 def build_doc_from_recommended_link(recommended_link, include_es_data: false)
