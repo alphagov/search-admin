@@ -3,9 +3,9 @@ source "https://rubygems.org"
 gem "rails", "7.1.3.2"
 
 gem "bootsnap", require: false
+gem "dartsass-rails"
 gem "generic_form_builder"
 gem "mysql2"
-gem "sassc-rails"
 gem "sentry-sidekiq"
 gem "sidekiq-scheduler"
 gem "sprockets-rails"
@@ -20,6 +20,10 @@ gem "govuk_publishing_components"
 gem "govuk_sidekiq"
 gem "mail-notify"
 gem "plek"
+
+group :development do
+  gem "foreman"
+end
 
 group :test do
   gem "brakeman"
