@@ -67,4 +67,7 @@ Rails.application.configure do
 
   # Allow requests for all domains e.g. <app>.dev.gov.uk
   config.hosts.clear
+
+  # Ensure latest assets are always available when using Dart SASS in watch mode
+  config.assets.digest = false
 end

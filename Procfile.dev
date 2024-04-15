@@ -1,0 +1,3 @@
+web: bin/rails server --restart
+worker: bundle exec sidekiq -C ./config/sidekiq.yml
+css: bin/rails dartsass:watch
