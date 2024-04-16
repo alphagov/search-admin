@@ -8,7 +8,6 @@ gem "generic_form_builder"
 gem "mysql2"
 gem "sentry-sidekiq"
 gem "sprockets-rails"
-gem "uglifier"
 
 # GDS managed gems
 gem "gds-api-adapters"

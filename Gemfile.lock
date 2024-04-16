@@ -699,8 +699,6 @@ GEM
     timeout (0.4.1)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
-    uglifier (4.2.0)
-      execjs (>= 0.3.0, < 3)
     unicode-display_width (2.5.0)
     uri (0.13.0)
     version_gem (1.1.4)
@@ -751,7 +749,6 @@ DEPENDENCIES
   sentry-sidekiq
   simplecov
   sprockets-rails
-  uglifier
   webmock
 
 BUNDLED WITH
