@@ -24,7 +24,12 @@ Bundler.require(*Rails.groups)
 module SearchAdmin
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 7.0
+    config.load_defaults 7.1
+
+    # Please, add to the `ignore` list any other `lib` subdirectories that do
+    # not contain `.rb` files, or that should not be reloaded or eager loaded.
+    # Common ones are `templates`, `generators`, or `middleware`, for example.
+    config.autoload_lib(ignore: %w[assets tasks])
 
     # Configuration for the application, engines, and railties goes here.
     #
@@ -45,5 +50,8 @@ module SearchAdmin
     # Set asset path to be application specific so that we can put all GOV.UK
     # assets into an S3 bucket and distinguish app by path.
     config.assets.prefix = "/assets/search-admin"
+
+    # Use YAML to serialize data into DB columns (implicit pre Rails 7.1 behaviour)
+    config.active_record.default_column_serializer = YAML
   end
 end
