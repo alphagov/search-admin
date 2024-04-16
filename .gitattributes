@@ -1,0 +1,4 @@
+# Make Git treat Yarn releases as binary files to avoid showing irrelevant diffs for them
+# see: https://yarnpkg.com/getting-started/qa#which-files-should-be-gitignored
+/.yarn/releases/** binary
+/.yarn/plugins/** binary
