@@ -1,0 +1,2 @@
+# govuk-helm-charts expects a sidekiq.yml file to be present in the config directory (unless
+# manually overriding the default `worker` command) and will fail to run workers without one
