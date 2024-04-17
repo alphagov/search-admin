@@ -1,33 +1,33 @@
-# Files in the config/locales directory are used for internationalization
-# and are automatically loaded by Rails. If you want to use locales other
-# than English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t 'hello'
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t('hello') %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# The following keys must be escaped otherwise they will not be retrieved by
-# the default I18n backend:
-#
-# true, false, on, off, yes, no
-#
-# Instead, surround them with single quotes.
-#
-# en:
-#   'true': 'foo'
-#
-# To learn more, please read the Rails Internationalization guide
-# available at https://guides.rubyonrails.org/i18n.html.
-
 en:
-  hello: "Hello world"
+  helpers:
+    label:
+      recommended_link:
+        link: URL
+        title: Title
+        description: Description
+        keywords: Keywords (optional)
+        comment: Comment (optional)
+    hint:
+      recommended_link:
+        link: "for example, https://www.hogwarts.gov.uk"
+        description: >-
+          This will be shown underneath the title in search results.
+        keywords: >-
+          Enter keywords that describe the content of the link. These will not be shown to users,
+          but the search engine will use them to help users find the link.
+        comment: >-
+          Add information that will help other GOV.UK staff users understand why this external link
+          has been added. This will not be shown to users.
+  activerecord:
+    errors:
+      models:
+        recommended_link:
+          attributes:
+            link:
+              blank: "Enter a URL"
+              unique: "Another external link already exists with this URL"
+              url: "Enter a valid URL"
+            title:
+              blank: "Enter a title"
+            description:
+              blank: "Enter a description"

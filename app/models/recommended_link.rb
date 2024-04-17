@@ -1,7 +1,7 @@
 class RecommendedLink < ApplicationRecord
   validates :title, :link, :description, :content_id, presence: true
-  validates :link, uniqueness: { case_sensitive: true }, url: true
-  validates :content_id, uniqueness: { case_sensitive: true }
+  validates :link, uniqueness: { case_sensitive: true, message: :unique }, url: { message: :url }
+  validates :content_id, uniqueness: { case_sensitive: true, message: :unique }
 
   def format
     uri = URI(link)

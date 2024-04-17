@@ -6,7 +6,7 @@ def create_recommended_link(title: nil, link: nil, description: nil, keywords: n
 
   click_on "New external link"
 
-  fill_in "Link", with: link if link
+  fill_in "URL", with: link if link
   fill_in "Title", with: title if title
   fill_in "Description", with: description if description
   fill_in "Keywords", with: keywords if keywords

@@ -4,7 +4,6 @@ gem "rails", "7.1.3.2"
 
 gem "bootsnap", require: false
 gem "dartsass-rails"
-gem "generic_form_builder"
 gem "mysql2"
 gem "sentry-sidekiq"
 gem "sprockets-rails"
@@ -18,6 +17,9 @@ gem "govuk_publishing_components"
 gem "govuk_sidekiq"
 gem "mail-notify"
 gem "plek"
+
+# X-Gov gems
+gem "govuk_design_system_formbuilder"
 
 group :development do
   gem "foreman"
@@ -36,7 +38,6 @@ end
 group :test, :development do
   gem "listen"
   gem "pry-byebug"
-  gem "rails-controller-testing" # support `expect(..).to render_template(..)` for rails >= 5.0
   gem "rspec-rails"
   gem "rubocop-govuk"
 end

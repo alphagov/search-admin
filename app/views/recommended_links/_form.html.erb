@@ -1,49 +1,11 @@
 <%= form_for(recommended_link) do |f| %>
-  <% errors = recommended_link.errors.messages %>
-  <%= render "govuk_publishing_components/components/input", {
-    label: {
-      text: 'Link'
-    },
-    name: "recommended_link[link]",
-    value: recommended_link.link,
-    error_message: ("Link #{errors[:link].join(' or ')}" if errors[:link].present?)
-  } %>
+  <%= f.govuk_error_summary link_base_errors_to: :link %>
 
-  <%= render "govuk_publishing_components/components/input", {
-    label: {
-      text: 'Title'
-    },
-    name: "recommended_link[title]",
-    value: recommended_link.title,
-    error_message: ("Title #{errors[:title][0]}" if errors[:title].present?)
-  } %>
+  <%= f.govuk_text_field :link %>
+  <%= f.govuk_text_field :title %>
+  <%= f.govuk_text_area :description %>
+  <%= f.govuk_text_area :keywords %>
+  <%= f.govuk_text_area :comment %>
 
-  <%= render "govuk_publishing_components/components/textarea", {
-    label: {
-      text: 'Description'
-    },
-    name: "recommended_link[description]",
-    value: recommended_link.description,
-    error_message: ("Description #{errors[:description][0]}" if errors[:description].present?)
-  } %>
-
-  <%= render "govuk_publishing_components/components/textarea", {
-    label: {
-      text: 'Keywords'
-    },
-    name: "recommended_link[keywords]",
-    value: recommended_link.keywords
-  } %>
-
-  <%= render "govuk_publishing_components/components/textarea", {
-    label: {
-      text: 'Comment'
-    },
-    name: "recommended_link[comment]",
-    value: recommended_link.comment
-  } %>
-
-  <%= render "govuk_publishing_components/components/button", {
-    text: "Save"
-  } %>
+  <%= f.govuk_submit "Save" %>
 <% end %>

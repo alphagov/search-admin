@@ -20,18 +20,6 @@ describe RecommendedLinksController do
   end
 
   describe "#create" do
-    context "on failure" do
-      it "alerts the user" do
-        post :create, params: { recommended_link: recommended_link_params.merge(title: nil) }
-        expect(flash[:alert]).to include("could not create")
-      end
-
-      it "renders the new action" do
-        post :create, params: { recommended_link: recommended_link_params.merge(title: nil) }
-        expect(response).to render_template("new")
-      end
-    end
-
     context "on success" do
       it "sends the link to the publishing API" do
         expect(ExternalContentPublisher).to receive(:publish).with(
@@ -50,12 +38,6 @@ describe RecommendedLinksController do
         expect(response).to redirect_to(recommended_link_path(RecommendedLink.last))
       end
     end
-
-    it "displays an error if the recommended link is duplicated" do
-      create(:recommended_link, recommended_link_params)
-      post :create, params: { recommended_link: recommended_link_params }
-      expect(flash[:alert]).to include("could not create")
-    end
   end
 
   describe "#update" do
@@ -63,18 +45,6 @@ describe RecommendedLinksController do
 
     def update_recommended_link(options = {})
       put :update, params: { id: recommended_link.id, recommended_link: recommended_link_params.merge(options) }
-    end
-
-    context "on failure" do
-      it "alerts the user" do
-        update_recommended_link(title: nil)
-        expect(flash[:alert]).to include("could not update")
-      end
-
-      it "renders the edit action" do
-        update_recommended_link(title: nil)
-        expect(response).to render_template("edit")
-      end
     end
 
     context "on success" do

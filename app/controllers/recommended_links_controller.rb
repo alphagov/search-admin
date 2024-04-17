@@ -20,7 +20,6 @@ class RecommendedLinksController < ApplicationController
 
       redirect_to recommended_link_path(@recommended_link), notice: "Your external link was created successfully"
     else
-      flash[:alert] = "We could not create your external link"
       render :new
     end
   end
@@ -42,7 +41,6 @@ class RecommendedLinksController < ApplicationController
 
       redirect_to recommended_link_path(@recommended_link), notice: "Your external link was updated successfully"
     else
-      flash[:alert] = "We could not update your external link"
       render :edit
     end
   end
@@ -75,11 +73,5 @@ private
     params.require(:recommended_link)
       .permit(:link, :title, :description, :keywords, :comment)
       .merge(user_id: current_user.id)
-  end
-
-  def check_for_duplicate_recommended_link(recommended_link)
-    if recommended_link.errors.include?(:recommended_link)
-      RecommendedLink.where(link: recommended_link.link).first
-    end
   end
 end

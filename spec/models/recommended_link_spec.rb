@@ -39,7 +39,7 @@ describe RecommendedLink do
 
       record = new_recommended_link_with(attributes)
       expect(record).not_to be_valid
-      expect(record.errors.full_messages).to eq(["Link is an invalid URL"])
+      expect(record.errors.messages[:link]).to eq(["Enter a valid URL"])
     end
 
     it "is invalid with a link without a host" do
@@ -47,7 +47,7 @@ describe RecommendedLink do
 
       record = new_recommended_link_with(attributes)
       expect(record).not_to be_valid
-      expect(record.errors.full_messages).to eq(["Link does not have a valid host"])
+      expect(record.errors.messages[:link]).to eq(["Enter a valid URL"])
     end
 
     it "is invalid with a duplicate link" do
