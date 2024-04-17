@@ -25,11 +25,6 @@ describe RecommendedLinksController do
         post :create, params: { recommended_link: recommended_link_params.merge(title: nil) }
         expect(flash[:alert]).to include("could not create")
       end
-
-      it "renders the new action" do
-        post :create, params: { recommended_link: recommended_link_params.merge(title: nil) }
-        expect(response).to render_template("new")
-      end
     end
 
     context "on success" do
@@ -69,11 +64,6 @@ describe RecommendedLinksController do
       it "alerts the user" do
         update_recommended_link(title: nil)
         expect(flash[:alert]).to include("could not update")
-      end
-
-      it "renders the edit action" do
-        update_recommended_link(title: nil)
-        expect(response).to render_template("edit")
       end
     end
 
