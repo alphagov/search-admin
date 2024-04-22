@@ -1,4 +1,4 @@
-describe RecommendedLink do
+RSpec.describe RecommendedLink do
   describe "#format" do
     it "uses recommended-link format if it is external to gov.uk" do
       recommended_link = create(

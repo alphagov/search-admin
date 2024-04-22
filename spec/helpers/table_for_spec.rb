@@ -1,4 +1,4 @@
-describe TableHelper do
+RSpec.describe TableHelper do
   describe "#table_for" do
     it "generates a table for a hash" do
       hash = { a: "b", c: "d" }
