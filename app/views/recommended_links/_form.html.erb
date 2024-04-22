@@ -1,12 +1,11 @@
 <%= form_for(recommended_link) do |f| %>
-  <% errors = recommended_link.errors.messages %>
   <%= render "govuk_publishing_components/components/input", {
     label: {
       text: 'Link'
     },
     name: "recommended_link[link]",
     value: recommended_link.link,
-    error_message: ("Link #{errors[:link].join(' or ')}" if errors[:link].present?)
+    error_items: error_items(recommended_link, :link)
   } %>
 
   <%= render "govuk_publishing_components/components/input", {
@@ -15,7 +14,7 @@
     },
     name: "recommended_link[title]",
     value: recommended_link.title,
-    error_message: ("Title #{errors[:title][0]}" if errors[:title].present?)
+    error_items: error_items(recommended_link, :title)
   } %>
 
   <%= render "govuk_publishing_components/components/textarea", {
@@ -24,7 +23,7 @@
     },
     name: "recommended_link[description]",
     value: recommended_link.description,
-    error_message: ("Description #{errors[:description][0]}" if errors[:description].present?)
+    error_items: error_items(recommended_link, :description)
   } %>
 
   <%= render "govuk_publishing_components/components/textarea", {
