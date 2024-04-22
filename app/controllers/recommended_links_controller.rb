@@ -20,7 +20,6 @@ class RecommendedLinksController < ApplicationController
 
       redirect_to recommended_link_path(@recommended_link), notice: "Your external link was created successfully"
     else
-      flash[:alert] = "We could not create your external link"
       render :new
     end
   end
@@ -42,7 +41,6 @@ class RecommendedLinksController < ApplicationController
 
       redirect_to recommended_link_path(@recommended_link), notice: "Your external link was updated successfully"
     else
-      flash[:alert] = "We could not update your external link"
       render :edit
     end
   end
