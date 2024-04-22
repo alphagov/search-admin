@@ -1,8 +1,18 @@
 <%= form_for(recommended_link) do |f| %>
+  <% if recommended_link.errors.any? %>
+    <%= render "govuk_publishing_components/components/error_summary", {
+      id: "error-summary",
+      title: "There is a problem",
+      description: "The external link could not be updated because some fields are missing or incorrect.",
+      items: error_summary_items(recommended_link)
+    } %>
+  <% end %>
+
   <%= render "govuk_publishing_components/components/input", {
     label: {
       text: 'Link'
     },
+    id: "recommended_link_link",
     name: "recommended_link[link]",
     value: recommended_link.link,
     error_items: error_items(recommended_link, :link)
@@ -12,6 +22,7 @@
     label: {
       text: 'Title'
     },
+    id: "recommended_link_title",
     name: "recommended_link[title]",
     value: recommended_link.title,
     error_items: error_items(recommended_link, :title)
@@ -21,6 +32,7 @@
     label: {
       text: 'Description'
     },
+    id: "recommended_link_description",
     name: "recommended_link[description]",
     value: recommended_link.description,
     error_items: error_items(recommended_link, :description)
