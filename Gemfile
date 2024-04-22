@@ -4,7 +4,6 @@ gem "rails", "7.1.3.2"
 
 gem "bootsnap", require: false
 gem "dartsass-rails"
-gem "generic_form_builder"
 gem "mysql2"
 gem "sentry-sidekiq"
 gem "sprockets-rails"

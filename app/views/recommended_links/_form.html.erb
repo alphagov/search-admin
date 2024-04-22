@@ -1,30 +1,41 @@
 <%= form_for(recommended_link) do |f| %>
-  <% errors = recommended_link.errors.messages %>
+  <% if recommended_link.errors.any? %>
+    <%= render "govuk_publishing_components/components/error_summary", {
+      id: "error-summary",
+      title: "There is a problem",
+      description: "The external link could not be updated because some fields are missing or incorrect.",
+      items: error_summary_items(recommended_link)
+    } %>
+  <% end %>
+
   <%= render "govuk_publishing_components/components/input", {
     label: {
       text: 'Link'
     },
+    id: "recommended_link_link",
     name: "recommended_link[link]",
     value: recommended_link.link,
-    error_message: ("Link #{errors[:link].join(' or ')}" if errors[:link].present?)
+    error_items: error_items(recommended_link, :link)
   } %>
 
   <%= render "govuk_publishing_components/components/input", {
     label: {
       text: 'Title'
     },
+    id: "recommended_link_title",
     name: "recommended_link[title]",
     value: recommended_link.title,
-    error_message: ("Title #{errors[:title][0]}" if errors[:title].present?)
+    error_items: error_items(recommended_link, :title)
   } %>
 
   <%= render "govuk_publishing_components/components/textarea", {
     label: {
       text: 'Description'
     },
+    id: "recommended_link_description",
     name: "recommended_link[description]",
     value: recommended_link.description,
-    error_message: ("Description #{errors[:description][0]}" if errors[:description].present?)
+    error_items: error_items(recommended_link, :description)
   } %>
 
   <%= render "govuk_publishing_components/components/textarea", {

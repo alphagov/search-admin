@@ -38,8 +38,6 @@ module SearchAdmin
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
-    config.action_view.default_form_builder = GenericFormBuilder
-    config.action_view.field_error_proc = proc { |html_tag, _| html_tag }
 
     # Using a sass css compressor causes a scss file to be processed twice
     # (once to build, once to compress) which breaks the usage of "unquote"
