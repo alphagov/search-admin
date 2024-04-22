@@ -1,5 +1,3 @@
-require "spec_helper"
-
 RSpec.describe ExternalContentPublisher do
   let(:link) do
     RecommendedLink.new(

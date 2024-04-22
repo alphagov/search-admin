@@ -1,5 +1,3 @@
-require "spec_helper"
-
 describe TableHelper do
   describe "#table_for" do
     it "generates a table for a hash" do
