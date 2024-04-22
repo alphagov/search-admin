@@ -22,6 +22,7 @@ WebMock.disable_net_connect!
 
 RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
+  config.disable_monkey_patching!
 
   config.fixture_paths = [Rails.root.join("spec/fixtures")]
   config.use_transactional_fixtures = true
@@ -29,14 +30,6 @@ RSpec.configure do |config|
   config.order = "random"
 
   config.include FactoryBot::Syntax::Methods
-
-  config.before(:each) do
-    # search URLs are of the form: http://search-api.dev.gov.uk/mainstream/document/http://test.dev.gov.uk
-    # The part after /document/ is optional depending on the request type
-    search_url_regex = %r{#{Plek.find('search-api')}/.+/.+(/.*)?}
-    stub_request(:post, search_url_regex)
-    stub_request(:delete, search_url_regex)
-  end
 
   config.before(:each, type: "controller") do
     login_as_stub_user

@@ -1,6 +1,4 @@
-require "spec_helper"
-
-describe RecommendedLinksController do
+RSpec.describe RecommendedLinksController do
   let(:recommended_link_params) do
     {
       title: "Tax",

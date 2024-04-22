@@ -1,5 +1,3 @@
-require "spec_helper"
-
 class FakeModel
   include ActiveModel::Model
   include ActiveModel::Validations
