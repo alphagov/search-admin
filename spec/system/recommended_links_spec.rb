@@ -40,6 +40,17 @@ RSpec.describe "Recommended links" do
     and_i_can_see_what_errors_i_need_to_fix
   end
 
+  scenario "Deleting an existing recommended link" do
+    given_a_recommended_link
+
+    when_i_go_to_view_the_recommended_link
+    and_i_choose_to_delete_it
+
+    then_the_link_has_been_deleted_locally
+    and_it_has_been_unpublished
+    and_i_am_notified_of_the_deletion
+  end
+
   scenario "Creating a new recommended link" do
     when_i_visit_the_recommended_links_page
     and_i_choose_to_add_a_new_link
@@ -123,6 +134,10 @@ RSpec.describe "Recommended links" do
     click_on "Save"
   end
 
+  def and_i_choose_to_delete_it
+    click_on "Delete"
+  end
+
   def and_i_choose_to_add_a_new_link
     click_on "New external link"
   end
@@ -179,6 +194,18 @@ RSpec.describe "Recommended links" do
     expect(page).to have_content("Title can't be blank")
     expect(page).to have_content("Link is an invalid URL")
     expect(page).to have_content("Description can't be blank")
+  end
+
+  def then_the_link_has_been_deleted_locally
+    expect(page).to have_content("Your external link was deleted successfully")
+  end
+
+  def and_it_has_been_unpublished
+    expect(ExternalContentPublisher).to have_received(:unpublish).with(@link)
+  end
+
+  def and_i_am_notified_of_the_deletion
+    expect(RecommendedLink.find_by(content_id: "00000000-0000-0000-0000-000000000001")).to be_nil
   end
 
   def then_the_new_link_has_been_created
