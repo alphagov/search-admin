@@ -16,9 +16,6 @@ test: &test
   password: search_admin
   url: <%= ENV["TEST_DATABASE_URL"]%>
 
-cucumber:
-  <<: *test
-
 production:
   <<: *default
   url: <%= ENV['DATABASE_URL'] %>
