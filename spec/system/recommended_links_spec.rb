@@ -40,6 +40,26 @@ RSpec.describe "Recommended links" do
     and_i_can_see_what_errors_i_need_to_fix
   end
 
+  scenario "Creating a new recommended link" do
+    when_i_visit_the_recommended_links_page
+    and_i_choose_to_add_a_new_link
+    and_i_submit_the_form_with_valid_details
+
+    then_the_new_link_has_been_created
+    and_it_has_been_published
+    and_i_can_see_its_details
+  end
+
+  scenario "Attempting to create a recommended link with invalid data" do
+    when_i_visit_the_recommended_links_page
+    and_i_choose_to_add_a_new_link
+    and_i_submit_the_form_with_invalid_details
+
+    then_the_link_has_not_been_created
+    and_it_has_not_been_published
+    and_i_can_see_what_errors_i_need_to_fix
+  end
+
   def stub_external_content_publisher
     allow(ExternalContentPublisher).to receive(:publish)
     allow(ExternalContentPublisher).to receive(:unpublish)
@@ -103,6 +123,19 @@ RSpec.describe "Recommended links" do
     click_on "Save"
   end
 
+  def and_i_choose_to_add_a_new_link
+    click_on "New external link"
+  end
+
+  def and_i_submit_the_form_with_valid_details
+    fill_in "Title", with: "A title"
+    fill_in "Link", with: "https://example.net"
+    fill_in "Description", with: "A description"
+    fill_in "Keywords", with: "A keyword"
+    fill_in "Comment", with: "A comment"
+    click_on "Save"
+  end
+
   def then_all_recommended_links_are_displayed
     expect(page).to have_link("Example link 1")
     expect(page).to have_link("Example link 2")
@@ -146,5 +179,28 @@ RSpec.describe "Recommended links" do
     expect(page).to have_content("Title can't be blank")
     expect(page).to have_content("Link is an invalid URL")
     expect(page).to have_content("Description can't be blank")
+  end
+
+  def then_the_new_link_has_been_created
+    expect(RecommendedLink.last).to have_attributes(
+      title: "A title",
+      link: "https://example.net",
+      description: "A description",
+      keywords: "A keyword",
+      comment: "A comment",
+      content_id: a_string_matching(/\A[0-9a-f]{8}-([0-9a-f]{4}-){3}[0-9a-f]{12}\z/),
+    )
+  end
+
+  def and_it_has_been_published
+    expect(ExternalContentPublisher).to have_received(:publish).with(RecommendedLink.last)
+  end
+
+  def and_i_can_see_its_details
+    expect(page).to have_selector("h1", text: "A title")
+  end
+
+  def then_the_link_has_not_been_created
+    expect(RecommendedLink.last).to be_nil
   end
 end
