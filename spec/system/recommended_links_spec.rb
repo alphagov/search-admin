@@ -71,6 +71,16 @@ RSpec.describe "Recommended links" do
     and_i_can_see_what_errors_i_need_to_fix
   end
 
+  scenario "Downloading a list of recommended links in CSV format" do
+    given_several_recommended_links
+
+    when_i_visit_the_recommended_links_page
+    and_i_choose_to_download_a_csv_of_links
+
+    then_a_csv_file_is_downloaded
+    and_it_contains_all_links
+  end
+
   def stub_external_content_publisher
     allow(ExternalContentPublisher).to receive(:publish)
     allow(ExternalContentPublisher).to receive(:unpublish)
@@ -208,6 +218,10 @@ RSpec.describe "Recommended links" do
     expect(RecommendedLink.find_by(content_id: "00000000-0000-0000-0000-000000000001")).to be_nil
   end
 
+  def and_i_choose_to_download_a_csv_of_links
+    click_on "Download CSV"
+  end
+
   def then_the_new_link_has_been_created
     expect(RecommendedLink.last).to have_attributes(
       title: "A title",
@@ -229,5 +243,15 @@ RSpec.describe "Recommended links" do
 
   def then_the_link_has_not_been_created
     expect(RecommendedLink.last).to be_nil
+  end
+
+  def then_a_csv_file_is_downloaded
+    expect(page.response_headers["Content-Type"]).to eq("application/octet-stream")
+    expect(page.response_headers["Content-Disposition"]).to eq("attachment")
+  end
+
+  def and_it_contains_all_links
+    expect(page).to have_content("Example link 1,https://example.com,Example description 1")
+    expect(page).to have_content("Example link 2,https://example.org,Example description 2")
   end
 end
