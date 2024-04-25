@@ -23,11 +23,9 @@ group :development do
 end
 
 group :test do
-  gem "brakeman"
-  gem "cucumber-rails", require: false
-  gem "database_cleaner"
   gem "factory_bot_rails"
   gem "govuk_schemas"
+  gem "govuk_test"
   gem "simplecov"
   gem "webmock"
 end
