@@ -16,6 +16,15 @@ RSpec.describe "Recommended links" do
     and_i_can_click_through_to_see_more_details
   end
 
+  scenario "Viewing a single recommended link" do
+    given_a_recommended_link
+
+    when_i_go_to_view_the_recommended_link
+
+    then_i_can_see_a_preview_of_the_link
+    and_i_can_choose_to_view_it_on_govuk_search
+  end
+
   scenario "Editing an existing recommended link" do
     given_a_recommended_link
 
@@ -169,6 +178,20 @@ RSpec.describe "Recommended links" do
   def and_i_can_click_through_to_see_more_details
     click_on "Example link 1"
     expect(page).to have_selector("h1", text: "Example link 1")
+  end
+
+  def then_i_can_see_a_preview_of_the_link
+    within("#recommended_link_preview") do
+      expect(page).to have_link("Example link", href: "https://example.com")
+      expect(page).to have_content("Example description")
+    end
+  end
+
+  def and_i_can_choose_to_view_it_on_govuk_search
+    expect(page).to have_link(
+      "View on GOV.UK Search",
+      href: %r{^https://www\.test\.gov\.uk/search/all\?keywords=Example\+link},
+    )
   end
 
   def then_the_link_has_been_updated_locally
