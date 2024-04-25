@@ -28,6 +28,25 @@
   padding: true
 } %>
 
+<div id="recommended_link_preview">
+  <%= render "govuk_publishing_components/components/document_list", {
+    remove_underline: true,
+    items: [
+      {
+        link: {
+          text: @recommended_link.title,
+          path: @recommended_link.link,
+          description: @recommended_link.description,
+        },
+        metadata: {
+          public_updated_at: Time.now,
+        },
+        highlight: true
+      }
+    ]
+  } %>
+</div>
+
 <%= render "govuk_publishing_components/components/button", {
   text: "View on GOV.UK Search",
   href: @search_url,
