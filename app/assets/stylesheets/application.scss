@@ -32,37 +32,12 @@
   margin-bottom: govuk-spacing(6);
 }
 
-.comment {
-  color: govuk-colour("mid-grey");
-  display: block;
-}
-
-small,
-.small {
-  font-size: 85%;
-}
-
-// worst best minus symbol
-.app-symbol {
-  margin-right: govuk-spacing(2);
-  font-weight: bold;
-}
-
-.app-symbol--minus {
-  color: govuk-colour("red");
-}
-
 // delete button is wrapped in a form and we wan't it to be
 // inline with the other button
 .app-display-inline {
   display: inline-block;
   width: auto;
   vertical-align: top;
-}
-
-// inset variant with a red border
-.app-inset-text--warning {
-  border-color: $govuk-error-colour;
 }
 
 // smaller font-size for tables
@@ -76,38 +51,4 @@ small,
 // applied to table rows when filtered with javascript
 .js-hidden {
   display: none;
-}
-
-// navigation is too long to be alongside the crown
-// so we just stack it below it
-@include govuk-media-query($from: desktop) {
-  .gem-c-header__content {
-    float: left;
-    width: 100%;
-    padding-left: 0;
-  }
-
-  .govuk-header__navigation--end {
-    text-align: left;
-  }
-}
-
-// custom styles for the content item data returned from api
-// uses the ruby table_for component so can't amend markup
-// TODO: maybe we can flatten the nested data and use the summary-list component
-.key-value-table {
-  @extend .govuk-table; // stylelint-disable-line scss/at-extend-no-missing-placeholder
-
-  td:first-child {
-    font-weight: bold;
-    width: 10%;
-  }
-
-  ul {
-    padding: 0;
-
-    li {
-      list-style: none;
-    }
-  }
 }
