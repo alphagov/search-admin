@@ -3,6 +3,7 @@ source "https://rubygems.org"
 gem "rails", "7.1.3.2"
 
 gem "bootsnap", require: false
+gem "csv"
 gem "dartsass-rails"
 gem "mysql2"
 gem "sentry-sidekiq"
