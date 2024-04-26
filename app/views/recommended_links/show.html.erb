@@ -21,17 +21,38 @@
   <%= delete_button "Delete external link", recommended_link_path(@recommended_link), is_inline: true %>
 </div>
 
-<h3 class="govuk-heading-m">Search results</h3>
-<%= link_to 'Visit URL', @search_url, target: '_blank', class: 'govuk-link' %>
+<%= render "govuk_publishing_components/components/heading", {
+  text: "Preview",
+  heading_level: 3,
+  font_size: "m",
+  padding: true
+} %>
 
-<%= render "govuk_publishing_components/components/inset_text", {
-} do %>
-  <div>
-    There is a slight delay between the updating of an external link and the
-    indexing by the search engine. If you're seeing unexpected results,
-    <a href="" id="search-results-refresh" class="govuk-link">try refreshing these results</a>.
-  </div>
-<% end %>
-<div class="search-results">
-  <iframe src="<%= @search_url %>" class="search-results__iframe"></iframe>
+<div id="recommended_link_preview">
+  <%= render "govuk_publishing_components/components/document_list", {
+    remove_underline: true,
+    items: [
+      {
+        link: {
+          text: @recommended_link.title,
+          path: @recommended_link.link,
+          description: @recommended_link.description,
+        },
+        highlight: true
+      }
+    ]
+  } %>
 </div>
+
+<%= render "govuk_publishing_components/components/button", {
+  text: "View on GOV.UK Search",
+  href: @search_url,
+  target: "_blank",
+  secondary_quiet: true
+} %>
+
+<p class="govuk-body-s govuk-!-margin-top-2">
+  Changes to recommended links may take several minutes to be visible in live search results on
+  GOV.UK. This recommended link may not be the top search result even when searching for its exact
+  title because of the way content is ranked by the search engine.
+</p>
