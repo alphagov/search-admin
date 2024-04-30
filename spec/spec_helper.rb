@@ -31,6 +31,10 @@ RSpec.configure do |config|
 
   config.include FactoryBot::Syntax::Methods
 
+  config.before(:all, type: :system) do
+    GDS::SSO.test_user = create(:user)
+  end
+
   config.before(:each, type: :system) do
     driven_by :rack_test
   end
