@@ -1,6 +1,7 @@
 <% content_for :head do %>
   <%= stylesheet_link_tag "application", :media => "all" %>
   <%= csp_meta_tag %>
+  <%= render "layouts/google_tag_manager" %>
 <% end %>
 
 <%= render "govuk_publishing_components/components/layout_for_admin", {
