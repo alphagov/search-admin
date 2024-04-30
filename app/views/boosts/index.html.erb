@@ -1,0 +1,29 @@
+<%= render "common/page_title", title: "Promoted content" %>
+
+<div class="govuk-!-margin-top-6 app-table__container" data-module="filterable-table">
+  <%= render "govuk_publishing_components/components/input", {
+    label: {
+      text: "Filter promotions"
+    },
+    name: "table-filter",
+    type: "search",
+    search_icon: true,
+    tabindex: 0
+  } %>
+  <div class="boosts">
+    <%= GovukPublishingComponents::AppHelpers::TableHelper.helper(self) do |t| %>
+      <%= t.head do %>
+        <%= t.header "Filter" %>
+        <%= t.header "Boost amount" %>
+      <% end %>
+      <%= t.body do %>
+        <% @boosts.each do |boost| %>
+          <%= t.row do %>
+            <%= t.cell boost.filter %>
+            <%= t.cell boost.boost_amount, format: :numeric %>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+</div>
