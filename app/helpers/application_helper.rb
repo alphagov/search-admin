@@ -24,4 +24,15 @@ module ApplicationHelper
     recognized[:controller] == params[:controller] &&
       recognized[:action] == params[:action]
   end
+
+  def footer_items
+    return [] unless ENV.key?("SENTRY_RELEASE")
+
+    [
+      {
+        href: "https://github.com/alphagov/search-admin/releases/tag/v#{ENV['SENTRY_RELEASE']}",
+        text: "Release v#{ENV['SENTRY_RELEASE']}",
+      },
+    ]
+  end
 end
