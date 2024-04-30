@@ -9,6 +9,11 @@ module ApplicationHelper
         active: is_current?(recommended_links_path),
       },
       {
+        text: "Promoted content",
+        href: boosts_path,
+        active: is_current?(boosts_path),
+      },
+      {
         text: current_user.name,
         href: Plek.new.external_url_for("signon"),
       },
