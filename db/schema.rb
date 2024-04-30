@@ -10,7 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_11_142717) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_30_104011) do
+  create_table "boosts", charset: "utf8mb3", force: :cascade do |t|
+    t.string "filter", null: false
+    t.float "boost_amount", null: false
+    t.text "comment"
+    t.bigint "created_by_id"
+    t.bigint "updated_by_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["created_by_id"], name: "index_boosts_on_created_by_id"
+    t.index ["updated_by_id"], name: "index_boosts_on_updated_by_id"
+  end
+
   create_table "recommended_links", charset: "utf8mb3", force: :cascade do |t|
     t.string "title"
     t.string "link"
@@ -34,4 +46,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_11_142717) do
     t.string "organisation_content_id"
   end
 
+  add_foreign_key "boosts", "users", column: "created_by_id"
+  add_foreign_key "boosts", "users", column: "updated_by_id"
 end
