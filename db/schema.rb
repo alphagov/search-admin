@@ -10,7 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_11_142717) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_01_123535) do
+  create_table "document_controls", charset: "utf8mb3", force: :cascade do |t|
+    t.string "link", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["link"], name: "index_document_controls_on_link", unique: true
+  end
+
   create_table "recommended_links", charset: "utf8mb3", force: :cascade do |t|
     t.string "title"
     t.string "link"
