@@ -129,7 +129,7 @@ GEM
       net-http
     ffi (1.16.3)
     foreman (0.88.1)
-    gds-api-adapters (96.0.0)
+    gds-api-adapters (96.0.1)
       addressable
       link_header
       null_logger
