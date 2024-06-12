@@ -185,7 +185,7 @@ GEM
       govuk_app_config (>= 1.1)
       redis-namespace (~> 1.6)
       sidekiq (~> 6.5, >= 6.5.12)
-    govuk_test (4.0.2)
+    govuk_test (4.1.0)
       brakeman (>= 5.0.2)
       capybara (>= 3.36)
       puma
@@ -565,8 +565,8 @@ GEM
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 4.0)
       netrc (~> 0.8)
-    rexml (3.2.8)
-      strscan (>= 3.0.9)
+    rexml (3.3.0)
+      strscan
     rouge (4.2.1)
     rspec-core (3.13.0)
       rspec-support (~> 3.13.0)
@@ -629,7 +629,7 @@ GEM
       rake (>= 13.0.0)
     sassc (2.4.0)
       ffi (~> 1.9)
-    selenium-webdriver (4.19.0)
+    selenium-webdriver (4.21.1)
       base64 (~> 0.2)
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
