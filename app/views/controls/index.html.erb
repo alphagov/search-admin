@@ -1,0 +1,29 @@
+<%= render "common/page_title", title: "Controls" %>
+
+<div class="govuk-!-margin-top-6 app-table__container" data-module="filterable-table">
+  <%= render "govuk_publishing_components/components/input", {
+    label: {
+      text: "Filter controls"
+    },
+    name: "table-filter",
+    type: "search",
+    search_icon: true,
+    tabindex: 0
+  } %>
+  <div class="external-links">
+    <%= GovukPublishingComponents::AppHelpers::TableHelper.helper(self) do |t| %>
+      <%= t.head do %>
+        <%= t.header "Name" %>
+        <%= t.header "Active" %>
+      <% end %>
+      <%= t.body do %>
+        <% @controls.each do |control| %>
+          <%= t.row do %>
+            <%= t.cell link_to(control.name, control_path(control), class:'govuk-link') %>
+            <%= t.cell control.active? ? "Yes" : "No" %>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+</div>
