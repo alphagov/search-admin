@@ -20,6 +20,19 @@ class BoostsController < ApplicationController
     end
   end
 
+  def edit
+    @boost = Boost.find(params[:id])
+  end
+
+  def update
+    @boost = Boost.find(params[:id])
+    if @boost.update(boost_params)
+      redirect_to @boost, notice: "Boost updated successfully"
+    else
+      render "edit", status: :unprocessable_entity
+    end
+  end
+
 private
 
   def boost_params

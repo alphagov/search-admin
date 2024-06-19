@@ -33,6 +33,28 @@ RSpec.describe "Boosts" do
     and_i_can_see_what_errors_i_need_to_fix
   end
 
+  scenario "Editing an existing boost" do
+    given_a_boost
+
+    when_i_go_to_view_the_boost
+    and_i_choose_to_edit_it
+    and_i_submit_the_form_with_updated_details
+
+    then_the_boost_has_been_updated
+    and_i_can_see_the_new_details
+  end
+
+  scenario "Attempting to edit a boost with invalid data" do
+    given_a_boost
+
+    when_i_go_to_view_the_boost
+    and_i_choose_to_edit_it
+    and_i_submit_the_form_with_invalid_details
+
+    then_the_boost_has_not_been_updated
+    and_i_can_see_what_errors_i_need_to_fix
+  end
+
   def given_several_boosts
     @boost1 = create(:boost, name: "Boost 1")
     @boost2 = create(:boost, name: "Boost 2")
@@ -78,6 +100,18 @@ RSpec.describe "Boosts" do
     click_on "Save"
   end
 
+  def and_i_choose_to_edit_it
+    click_on "Edit"
+  end
+
+  def and_i_submit_the_form_with_updated_details
+    fill_in "Name", with: "Updated boost"
+    fill_in "Boost amount", with: 0.84
+    fill_in "Filter", with: 'foo: ANY("bubble")'
+    uncheck "Activate boost"
+    click_on "Save"
+  end
+
   def then_the_boost_has_not_been_created
     expect(Boost.count).to eq(0)
   end
@@ -115,5 +149,30 @@ RSpec.describe "Boosts" do
     expect(page).to have_content("Status Active")
     expect(page).to have_content("Boost amount 0.42")
     expect(page).to have_content('Filter expression foo: ANY("bar")')
+  end
+
+  def then_the_boost_has_been_updated
+    @boost.reload
+
+    expect(@boost.name).to eq("Updated boost")
+    expect(@boost).not_to be_active
+    expect(@boost.boost_amount).to eq(0.84)
+    expect(@boost.filter).to eq('foo: ANY("bubble")')
+  end
+
+  def and_i_can_see_the_new_details
+    expect(page).to have_selector("h1", text: "Updated boost")
+    expect(page).to have_content("Status Not active")
+    expect(page).to have_content("Boost amount 0.84")
+    expect(page).to have_content('Filter expression foo: ANY("bubble")')
+  end
+
+  def then_the_boost_has_not_been_updated
+    @boost.reload
+
+    expect(@boost.name).to eq("Boost")
+    expect(@boost).to be_active
+    expect(@boost.boost_amount).to eq(0.42)
+    expect(@boost.filter).to eq('foo: ANY("bar")')
   end
 end
