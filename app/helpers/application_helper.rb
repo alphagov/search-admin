@@ -23,4 +23,8 @@ module ApplicationHelper
       },
     ]
   end
+
+  def value_or_not_set(value)
+    value.presence || tag.span("Not set", class: "govuk-hint")
+  end
 end

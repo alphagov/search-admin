@@ -37,3 +37,5 @@ en:
         boost_amount: Boost amount
         filter: Filter expression
         active: Activate control
+        created_at: Created
+        updated_at: Updated
