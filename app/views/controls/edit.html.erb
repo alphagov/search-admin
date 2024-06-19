@@ -6,16 +6,14 @@
     },
     {
       title: @control.display_name,
+      url: control_path(@control)
+    },
+    {
+      title: "Edit"
     }
   ]
 } %>
 
 <%= render "common/page_title", title: @control.display_name %>
 
-<div class="actions">
-  <%= render "govuk_publishing_components/components/button", {
-    text: "Edit control",
-    href: edit_control_path(@control),
-    inline_layout: true
-  } %>
-</div>
+<%= render "form", control: @control %>
