@@ -33,6 +33,28 @@ RSpec.describe "Controls" do
     and_i_can_see_what_errors_i_need_to_fix
   end
 
+  scenario "Editing an existing control" do
+    given_a_control
+
+    when_i_go_to_view_the_control
+    and_i_choose_to_edit_it
+    and_i_submit_the_form_with_updated_details
+
+    then_the_control_has_been_updated
+    and_i_can_see_the_new_details
+  end
+
+  scenario "Attempting to edit a control with invalid data" do
+    given_a_control
+
+    when_i_go_to_view_the_control
+    and_i_choose_to_edit_it
+    and_i_submit_the_form_with_invalid_details
+
+    then_the_control_has_not_been_updated
+    and_i_can_see_what_errors_i_need_to_fix
+  end
+
   def given_several_controls
     @control1 = create(:control, display_name: "Control 1")
     @control2 = create(:control, display_name: "Control 2")
@@ -66,6 +88,15 @@ RSpec.describe "Controls" do
     click_on "Save"
   end
 
+  def and_i_choose_to_edit_it
+    click_on "Edit"
+  end
+
+  def and_i_submit_the_form_with_updated_details
+    fill_in "Name", with: "Updated control"
+    click_on "Save"
+  end
+
   def then_the_control_has_not_been_created
     expect(Control.count).to eq(0)
   end
@@ -89,5 +120,17 @@ RSpec.describe "Controls" do
 
   def and_i_can_see_its_details
     expect(page).to have_selector("h1", text: "New control")
+  end
+
+  def then_the_control_has_been_updated
+    expect(@control.reload.display_name).to eq("Updated control")
+  end
+
+  def and_i_can_see_the_new_details
+    expect(page).to have_selector("h1", text: "Updated control")
+  end
+
+  def then_the_control_has_not_been_updated
+    expect(@control.reload.display_name).to eq("Control")
   end
 end
