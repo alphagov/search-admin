@@ -1,0 +1,38 @@
+<%= render "govuk_publishing_components/components/breadcrumbs", {
+  breadcrumbs: [
+    {
+      title: "Boosts",
+      url: boosts_path
+    },
+    {
+      title: @boost.name,
+    }
+  ]
+} %>
+
+<%= render "common/page_title", title: @boost.name %>
+
+<%= render "govuk_publishing_components/components/summary_list", {
+  items: [
+    {
+      field: "Status",
+      value: boost_status_tag(@boost)
+    },
+    {
+      field: Boost.human_attribute_name(:boost_amount),
+      value: @boost.boost_amount
+    },
+    {
+      field: Boost.human_attribute_name(:filter),
+      value: filter_expression_code(@boost)
+    },
+    {
+      field: Boost.human_attribute_name(:created_at),
+      value: @boost.created_at.to_formatted_s(:govuk_date)
+    },
+    {
+      field: Boost.human_attribute_name(:updated_at),
+      value: @boost.updated_at.to_formatted_s(:govuk_date)
+    }
+  ]
+} %>

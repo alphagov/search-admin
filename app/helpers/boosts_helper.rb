@@ -6,4 +6,8 @@ module BoostsHelper
       content_tag(:span, "Not active", class: "govuk-tag govuk-tag--grey")
     end
   end
+
+  def filter_expression_code(boost)
+    content_tag(:code, boost.filter, class: "app-filter-expression")
+  end
 end
