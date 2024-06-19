@@ -1,0 +1,13 @@
+<%= render "govuk_publishing_components/components/breadcrumbs", {
+  breadcrumbs: [
+    {
+      title: "Controls",
+      url: controls_path
+    },
+    {
+      title: @control.display_name,
+    }
+  ]
+} %>
+
+<%= render "common/page_title", title: @control.display_name %>
