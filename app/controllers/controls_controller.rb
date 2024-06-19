@@ -20,6 +20,19 @@ class ControlsController < ApplicationController
     end
   end
 
+  def edit
+    @control = Control.find(params[:id])
+  end
+
+  def update
+    @control = Control.find(params[:id])
+    if @control.update(control_params)
+      redirect_to @control, notice: "Control updated successfully"
+    else
+      render "edit"
+    end
+  end
+
 private
 
   def control_params

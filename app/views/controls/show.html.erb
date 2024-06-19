@@ -12,6 +12,14 @@
 
 <%= render "common/page_title", title: @control.name %>
 
+<div class="actions">
+  <%= render "govuk_publishing_components/components/button", {
+    text: "Edit control",
+    href: edit_control_path(@control),
+    inline_layout: true
+  } %>
+</div>
+
 <%= render "govuk_publishing_components/components/summary_list", {
   items: [
     {
