@@ -30,4 +30,10 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  activerecord:
+    attributes:
+      control:
+        name: Name
+        boost_amount: Boost amount
+        filter: Filter expression
+        active: Activate control

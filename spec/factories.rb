@@ -1,4 +1,11 @@
 FactoryBot.define do
+  factory :control do
+    name { "Control" }
+    boost_amount { 0.5 }
+    filter { 'document_type: ANY("press_release")' }
+    active { true }
+  end
+
   factory :recommended_link do
     title { "Tax online" }
     link { "https://www.tax.service.gov.uk/" }
