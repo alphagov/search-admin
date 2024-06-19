@@ -55,6 +55,16 @@ RSpec.describe "Controls" do
     and_i_can_see_what_errors_i_need_to_fix
   end
 
+  scenario "Deleting an existing control" do
+    given_a_control
+
+    when_i_go_to_view_the_control
+    and_i_choose_to_delete_it
+
+    then_the_control_has_been_deleted_locally
+    and_i_am_notified_of_the_deletion
+  end
+
   def given_several_controls
     @control1 = create(:control, name: "Control 1")
     @control2 = create(:control, name: "Control 2")
@@ -109,6 +119,10 @@ RSpec.describe "Controls" do
     click_on "Save"
   end
 
+  def and_i_choose_to_delete_it
+    click_on "Delete"
+  end
+
   def then_the_control_has_not_been_created
     expect(Control.count).to eq(0)
   end
@@ -145,5 +159,13 @@ RSpec.describe "Controls" do
 
   def then_the_control_has_not_been_updated
     expect(@control.reload.display_name).to eq("Control")
+  end
+
+  def then_the_control_has_been_deleted_locally
+    expect(Control.count).to eq(0)
+  end
+
+  def and_i_am_notified_of_the_deletion
+    expect(page).to have_content("Control deleted successfully")
   end
 end
