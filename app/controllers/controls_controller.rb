@@ -33,6 +33,16 @@ class ControlsController < ApplicationController
     end
   end
 
+  def destroy
+    @control = Control.find(params[:id])
+
+    if @control.destroy
+      redirect_to controls_path, notice: "Control deleted successfully"
+    else
+      redirect_to @control, alert: "Control could not be deleted. Try again later."
+    end
+  end
+
 private
 
   def control_params
