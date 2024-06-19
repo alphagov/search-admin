@@ -1,0 +1,59 @@
+<%= form_for(control) do |f| %>
+  <% if control.errors.any? %>
+    <%= render "govuk_publishing_components/components/error_summary", {
+      id: "error-summary",
+      title: "There is a problem",
+      description: "The control could not be updated because some fields are missing or incorrect.",
+      items: error_summary_items(control)
+    } %>
+  <% end %>
+
+  <%= render "govuk_publishing_components/components/input", {
+    label: {
+      text: Control.human_attribute_name(:name)
+    },
+    id: "control_name",
+    name: "control[name]",
+    value: control.name,
+    error_items: error_items(control, :name)
+  } %>
+
+  <%= render "govuk_publishing_components/components/input", {
+    label: {
+      text: Control.human_attribute_name(:boost_amount)
+    },
+    hint: "A value between -1.0 and 1.0 used to influence the order of search results.",
+    id: "control_boost_amount",
+    name: "control[boost_amount]",
+    value: control.boost_amount,
+    error_items: error_items(control, :boost_amount)
+  } %>
+
+  <%= render "govuk_publishing_components/components/textarea", {
+    label: {
+      text: Control.human_attribute_name(:filter)
+    },
+    hint: "Determines which documents are affected by this control. See #{link_to 'Vertex AI Search filter syntax', 'https://cloud.google.com/retail/docs/filter-and-order#filter', class: 'govuk-link'} for details.".html_safe,
+    id: "control_filter",
+    name: "control[filter]",
+    value: control.filter,
+    error_items: error_items(control, :filter)
+  } %>
+
+  <%= hidden_field_tag "control[active]", "0" %>
+  <%= render "govuk_publishing_components/components/checkboxes", {
+    name: "control[active]",
+    items: [
+      {
+        label: Control.human_attribute_name(:active),
+        hint: "Controls that are not active will not affect search results.",
+        value: "1",
+        checked: control.active?
+      }
+    ]
+  } %>
+
+  <%= render "govuk_publishing_components/components/button", {
+    text: "Save"
+  } %>
+<% end %>
