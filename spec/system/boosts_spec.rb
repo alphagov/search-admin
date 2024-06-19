@@ -55,6 +55,16 @@ RSpec.describe "Boosts" do
     and_i_can_see_what_errors_i_need_to_fix
   end
 
+  scenario "Deleting an existing boost" do
+    given_a_boost
+
+    when_i_go_to_view_the_boost
+    and_i_choose_to_delete_it
+
+    then_the_boost_has_been_deleted_locally
+    and_i_am_notified_of_the_deletion
+  end
+
   def given_several_boosts
     @boost1 = create(:boost, name: "Boost 1")
     @boost2 = create(:boost, name: "Boost 2")
@@ -110,6 +120,10 @@ RSpec.describe "Boosts" do
     fill_in "Filter", with: 'foo: ANY("bubble")'
     uncheck "Activate boost"
     click_on "Save"
+  end
+
+  def and_i_choose_to_delete_it
+    click_on "Delete"
   end
 
   def then_the_boost_has_not_been_created
@@ -174,5 +188,13 @@ RSpec.describe "Boosts" do
     expect(@boost).to be_active
     expect(@boost.boost_amount).to eq(0.42)
     expect(@boost.filter).to eq('foo: ANY("bar")')
+  end
+
+  def then_the_boost_has_been_deleted_locally
+    expect(Boost.count).to eq(0)
+  end
+
+  def and_i_am_notified_of_the_deletion
+    expect(page).to have_content("Boost deleted successfully")
   end
 end

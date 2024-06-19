@@ -18,6 +18,7 @@
     href: edit_boost_path(@boost),
     inline_layout: true
   } %>
+  <%= delete_button "Delete boost", boost_path(@boost), is_inline: true %>
 </div>
 
 <%= render "govuk_publishing_components/components/summary_list", {

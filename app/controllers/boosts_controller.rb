@@ -33,6 +33,16 @@ class BoostsController < ApplicationController
     end
   end
 
+  def destroy
+    @boost = Boost.find(params[:id])
+
+    if @boost.destroy
+      redirect_to boosts_path, notice: "Boost deleted successfully"
+    else
+      redirect_to @boost, alert: "Boost could not be deleted. Try again later."
+    end
+  end
+
 private
 
   def boost_params
