@@ -1,0 +1,15 @@
+<%= render "govuk_publishing_components/components/breadcrumbs", {
+  breadcrumbs: [
+    {
+      title: "Boosts",
+      url: boosts_path
+    },
+    {
+      title: "New boost"
+    }
+  ]
+} %>
+
+<%= render "common/page_title", title: "New boost" %>
+
+<%= render "form", boost: @boost %>
