@@ -6,7 +6,7 @@ module ApplicationHelper
       {
         text: "External links",
         href: recommended_links_path,
-        active: is_current?(recommended_links_path),
+        active: controller.controller_name == "recommended_links",
       },
       {
         text: current_user.name,
@@ -17,11 +17,5 @@ module ApplicationHelper
         href: "/auth/gds/sign_out",
       },
     ]
-  end
-
-  def is_current?(link)
-    recognized = Rails.application.routes.recognize_path(link)
-    recognized[:controller] == params[:controller] &&
-      recognized[:action] == params[:action]
   end
 end
