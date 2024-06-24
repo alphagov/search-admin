@@ -1,0 +1,24 @@
+<%= form_for(control) do |f| %>
+  <% if control.errors.any? %>
+    <%= render "govuk_publishing_components/components/error_summary", {
+      id: "error-summary",
+      title: "There is a problem",
+      description: "The control could not be updated because some fields are missing or incorrect.",
+      items: error_summary_items(control)
+    } %>
+  <% end %>
+
+  <%= render "govuk_publishing_components/components/input", {
+    label: {
+      text: Control.human_attribute_name(:display_name)
+    },
+    id: "control_display_name",
+    name: "control[display_name]",
+    value: control.display_name,
+    error_items: error_items(control, :display_name)
+  } %>
+
+  <%= render "govuk_publishing_components/components/button", {
+    text: "Save"
+  } %>
+<% end %>

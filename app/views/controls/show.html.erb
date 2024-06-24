@@ -1,0 +1,22 @@
+<%= render "govuk_publishing_components/components/breadcrumbs", {
+  breadcrumbs: [
+    {
+      title: "Controls",
+      url: controls_path
+    },
+    {
+      title: @control.display_name,
+    }
+  ]
+} %>
+
+<%= render "common/page_title", title: @control.display_name %>
+
+<div class="actions">
+  <%= render "govuk_publishing_components/components/button", {
+    text: "Edit control",
+    href: edit_control_path(@control),
+    inline_layout: true
+  } %>
+  <%= delete_button "Delete control", control_path(@control), is_inline: true %>
+</div>

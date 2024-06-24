@@ -1,4 +1,8 @@
 FactoryBot.define do
+  factory :control do
+    display_name { "Control" }
+  end
+
   factory :recommended_link do
     title { "Tax online" }
     link { "https://www.tax.service.gov.uk/" }

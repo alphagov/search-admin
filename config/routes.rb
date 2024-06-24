@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   )
 
   resources :recommended_links, path: "/recommended-links"
+  resources :controls
 
   root "recommended_links#index"
 
