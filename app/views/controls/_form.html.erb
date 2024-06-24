@@ -18,6 +18,18 @@
     error_items: error_items(control, :display_name)
   } %>
 
+  <%= render "govuk_publishing_components/components/input", {
+    label: {
+      text: Control.human_attribute_name(:boost_amount)
+    },
+    id: "control_boost_amount",
+    type: "number",
+    name: "control[boost_amount]",
+    value: control.boost_amount,
+    hint: "A boost factor between -1 and 1 applied to matching documents",
+    error_items: error_items(control, :boost_amount)
+  } %>
+
   <%= render "govuk_publishing_components/components/button", {
     text: "Save"
   } %>

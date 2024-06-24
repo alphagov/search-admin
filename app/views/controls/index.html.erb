@@ -22,11 +22,13 @@
     <%= GovukPublishingComponents::AppHelpers::TableHelper.helper(self) do |t| %>
       <%= t.head do %>
         <%= t.header "Name" %>
+        <%= t.header "Boost amount" %>
       <% end %>
       <%= t.body do %>
         <% @controls.each do |control| %>
           <%= t.row do %>
             <%= t.cell link_to(control.display_name, control_path(control), class:'govuk-link') %>
+            <%= t.cell control.boost_amount %>
           <% end %>
         <% end %>
       <% end %>

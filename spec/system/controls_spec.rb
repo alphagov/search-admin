@@ -90,11 +90,13 @@ RSpec.describe "Controls" do
 
   def and_i_submit_the_form_with_valid_details
     fill_in "Name", with: "New control"
+    fill_in "Boost amount", with: "0.5"
     click_on "Save"
   end
 
   def and_i_submit_the_form_with_invalid_details
     fill_in "Name", with: ""
+    fill_in "Boost amount", with: "42"
     click_on "Save"
   end
 
@@ -117,6 +119,7 @@ RSpec.describe "Controls" do
 
   def and_i_can_see_what_errors_i_need_to_fix
     expect(page).to have_content("Name can't be blank")
+    expect(page).to have_content("Boost amount must be less than or equal to 1")
   end
 
   def then_all_controls_are_displayed
@@ -126,6 +129,7 @@ RSpec.describe "Controls" do
 
   def then_i_can_see_the_details_of_the_control
     expect(page).to have_selector("h1", text: "Control")
+    expect(page).to have_content("Boost amount 0.42")
   end
 
   def then_the_control_has_been_created

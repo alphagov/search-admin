@@ -34,3 +34,4 @@ en:
     attributes:
       control:
         display_name: Name
+        boost_amount: Boost amount

@@ -46,6 +46,6 @@ class ControlsController < ApplicationController
 private
 
   def control_params
-    params.require(:control).permit(:display_name)
+    params.require(:control).permit(:display_name, :boost_amount)
   end
 end
