@@ -1,4 +1,13 @@
 RSpec.describe "Controls" do
+  let(:discovery_engine_control_client) { double("control client", create_control: true) }
+
+  before do
+    allow(Rails.application.config).to receive(:discovery_engine_engine).and_return("engine")
+
+    allow(Services).to receive(:discovery_engine_control)
+      .and_return(discovery_engine_control_client)
+  end
+
   scenario "Viewing controls" do
     given_several_controls
 
@@ -21,6 +30,7 @@ RSpec.describe "Controls" do
     and_i_submit_the_form_with_valid_details
 
     then_the_control_has_been_created
+    and_it_has_been_created_on_discovery_engine
     and_i_can_see_its_details
   end
 
@@ -30,7 +40,19 @@ RSpec.describe "Controls" do
     and_i_submit_the_form_with_invalid_details
 
     then_the_control_has_not_been_created
+    and_it_has_not_been_created_on_discovery_engine
     and_i_can_see_what_errors_i_need_to_fix
+  end
+
+  scenario "Creating a new control when Discovery Engine control creation fails" do
+    given_a_problem_with_creating_controls_on_discovery_engine
+
+    when_i_visit_the_controls_page
+    and_i_choose_to_create_a_new_control
+    and_i_submit_the_form_with_valid_details
+
+    then_the_control_has_not_been_created
+    and_i_am_told_there_was_an_error_with_discovery_engine
   end
 
   scenario "Editing an existing control" do
@@ -74,6 +96,10 @@ RSpec.describe "Controls" do
     @control = create(:control, display_name: "Control")
   end
 
+  def given_a_problem_with_creating_controls_on_discovery_engine
+    allow(discovery_engine_control_client).to receive(:create_control).and_raise("Uh oh!")
+  end
+
   def when_i_visit_the_controls_page
     visit "/"
     click_on "Controls"
@@ -115,6 +141,10 @@ RSpec.describe "Controls" do
     expect(Control.count).to eq(0)
   end
 
+  def and_it_has_not_been_created_on_discovery_engine
+    expect(discovery_engine_control_client).not_to have_received(:create_control)
+  end
+
   def and_i_can_see_what_errors_i_need_to_fix
     expect(page).to have_content("Name can't be blank")
   end
@@ -130,6 +160,16 @@ RSpec.describe "Controls" do
 
   def then_the_control_has_been_created
     expect(Control.count).to eq(1)
+  end
+
+  def and_it_has_been_created_on_discovery_engine
+    control = Control.last
+
+    expect(discovery_engine_control_client).to have_received(:create_control).with(
+      parent: "engine",
+      control_id: "search-admin-#{control.id}",
+      control: { display_name: "New control" },
+    )
   end
 
   def and_i_can_see_its_details
@@ -154,5 +194,9 @@ RSpec.describe "Controls" do
 
   def and_i_am_notified_of_the_deletion
     expect(page).to have_content("Control deleted successfully")
+  end
+
+  def and_i_am_told_there_was_an_error_with_discovery_engine
+    expect(page).to have_content("There was a technical problem updating")
   end
 end

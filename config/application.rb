@@ -51,5 +51,8 @@ module SearchAdmin
 
     # Use YAML to serialize data into DB columns (implicit pre Rails 7.1 behaviour)
     config.active_record.default_column_serializer = YAML
+
+    # Discovery Engine configuration
+    config.discovery_engine_engine = ENV.fetch("DISCOVERY_ENGINE_ENGINE")
   end
 end

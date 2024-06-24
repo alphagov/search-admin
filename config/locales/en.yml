@@ -34,3 +34,7 @@ en:
     attributes:
       control:
         display_name: Name
+    errors:
+      models:
+        control:
+          discovery_engine_error: There was a technical problem updating the Vertex AI Search configuration and your changes have not been saved. Please try again later.
