@@ -1,6 +1,7 @@
 FactoryBot.define do
   factory :control do
     display_name { "Control" }
+    boost_amount { 0.42 }
   end
 
   factory :recommended_link do
