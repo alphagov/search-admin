@@ -123,6 +123,8 @@ GEM
     factory_bot_rails (6.4.3)
       factory_bot (~> 6.4)
       railties (>= 5.0.0)
+    faker (3.4.1)
+      i18n (>= 1.8.11, < 2)
     faraday (2.9.2)
       faraday-net_http (>= 2.0, < 3.2)
     faraday-net_http (3.1.0)
@@ -180,7 +182,8 @@ GEM
       rouge
       sprockets (>= 3)
       sprockets-rails
-    govuk_schemas (5.0.2)
+    govuk_schemas (5.0.4)
+      faker (~> 3.4.1)
       json-schema (>= 2.8, < 4.4)
     govuk_sidekiq (8.0.1)
       gds-api-adapters (>= 19.1.0)
