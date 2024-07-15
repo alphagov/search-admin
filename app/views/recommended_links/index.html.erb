@@ -15,33 +15,24 @@
 </div>
 
 <div class="govuk-!-margin-top-6 app-table__container" data-module="filterable-table">
-  <%= render "govuk_publishing_components/components/input", {
-    label: {
-      text: "Filter external links"
-    },
-    name: "table-filter",
-    type: "search",
-    search_icon: true,
-    tabindex: 0
-  } %>
   <div class="external-links">
-    <%= GovukPublishingComponents::AppHelpers::TableHelper.helper(self) do |t| %>
-      <%= t.head do %>
-        <%= t.header "Title" %>
-        <%= t.header "Link" %>
-        <%= t.header "Description" %>
-        <%= t.header "Keywords" %>
-      <% end %>
-      <%= t.body do %>
-        <% @recommended_links.each do |recommended_link| %>
-          <%= t.row do %>
-            <%= t.cell link_to(recommended_link.title, recommended_link_path(recommended_link), class:'govuk-link') %>
-            <%= t.cell link_to(recommended_link.link, recommended_link.link, class:'govuk-link') %>
-            <%= t.cell recommended_link.description %>
-            <%= t.cell recommended_link.keywords %>
-          <% end %>
-        <% end %>
-      <% end %>
-    <% end %>
+    <%= render "govuk_publishing_components/components/table", {
+      filterable: true,
+      label: "Filter external links",
+      head: [
+        { text: "Title" },
+        { text: "Link" },
+        { text: "Description" },
+        { text: "Keywords" },
+      ],
+      rows: @recommended_links.map do |recommended_link|
+        [
+          { text: link_to(recommended_link.title, recommended_link_path(recommended_link), class:'govuk-link') },
+          { text: link_to(recommended_link.link, recommended_link.link, class:'govuk-link') },
+          { text: recommended_link.description },
+          { text: recommended_link.keywords },
+        ]
+      end
+    } %>
   </div>
 </div>
