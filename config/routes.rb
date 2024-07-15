@@ -9,6 +9,4 @@ Rails.application.routes.draw do
   resources :recommended_links, path: "/recommended-links"
 
   root "recommended_links#index"
-
-  mount GovukAdminTemplate::Engine, at: "/style-guide"
 end

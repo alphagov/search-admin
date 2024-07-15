@@ -1,15 +1,19 @@
 class ApplicationMailer < Mail::Notify::Mailer
-  default from: proc { no_reply_email_address }
+  DEFAULT_FROM_EMAIL = "inside-government@digital.cabinet-office.gov.uk".freeze
 
-  def no_reply_email_address
-    name = "GOV.UK publishing"
-    if GovukAdminTemplate.environment_label !~ /production/i
-      name.prepend("[GOV.UK #{GovukAdminTemplate.environment_label}] ")
-    end
-    address = Mail::Address.new("inside-government@digital.cabinet-office.gov.uk")
-    address.display_name = name
-    address.format
+  def self.default_from_address
+    env = GovukPublishingComponents::AppHelpers::Environment.current_acceptance_environment
+
+    Mail::Address.new(DEFAULT_FROM_EMAIL).tap { |addr|
+      addr.display_name = if env == "production"
+                            "GOV.UK publishing"
+                          else
+                            "[GOV.UK #{env}] GOV.UK publishing"
+                          end
+    }.format
   end
+
+  default from: default_from_address
 
   def template_id
     @template_id ||= ENV.fetch("GOVUK_NOTIFY_TEMPLATE_ID", "fake-test-template-id")
