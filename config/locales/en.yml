@@ -30,4 +30,12 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  activerecord:
+    attributes:
+      boost:
+        name: Name
+        active: Activate boost
+        boost_amount: Boost amount
+        filter: Filter expression
+        created_at: Created
+        updated_at: Updated

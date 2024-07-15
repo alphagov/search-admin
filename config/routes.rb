@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     GovukHealthcheck::ActiveRecord,
   )
 
+  resources :boosts
   resources :recommended_links, path: "/recommended-links"
 
   root "recommended_links#index"
