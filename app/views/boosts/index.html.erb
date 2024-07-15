@@ -10,32 +10,20 @@
 
 <div class="govuk-!-margin-top-6 app-table__container" data-module="filterable-table">
   <% if @boosts.any? %>
-    <%= render "govuk_publishing_components/components/input", {
-      label: {
-        text: "Filter boosts"
-      },
-      name: "table-filter",
-      type: "search",
-      search_icon: true,
-      tabindex: 0
+    <%= render "govuk_publishing_components/components/table", {
+      filterable: true,
+      label: "Filter boosts",
+      head: [
+        { text: Boost.human_attribute_name(:name) },
+        { text: "Status" },
+      ],
+      rows: @boosts.map do |boost|
+        [
+          { text: link_to(boost.name, boost_path(boost), class:'govuk-link') },
+          { text: boost_status_tag(boost) },
+        ]
+      end
     } %>
-
-    <div>
-      <%= GovukPublishingComponents::AppHelpers::TableHelper.helper(self) do |t| %>
-        <%= t.head do %>
-          <%= t.header Boost.human_attribute_name(:name) %>
-          <%= t.header "Status" %>
-        <% end %>
-        <%= t.body do %>
-          <% @boosts.each do |boost| %>
-            <%= t.row do %>
-              <%= t.cell link_to(boost.name, boost_path(boost), class:'govuk-link') %>
-              <%= t.cell boost_status_tag(boost) %>
-            <% end %>
-          <% end %>
-        <% end %>
-      <% end %>
-    </div>
   <% else %>
     <p class="govuk-body">No boosts have been set up yet.</p>
   <% end %>

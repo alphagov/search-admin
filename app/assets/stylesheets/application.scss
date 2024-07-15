@@ -1,33 +1,5 @@
 @import "govuk_publishing_components/all_components";
 
-// by default cells have a bottom border applied
-// remove borders in the group
-.govuk-table__row--group-fst td {
-  border: 0;
-}
-
-// hide the query in grouped rows other than the first row
-.govuk-table__row--group-snd {
-  td:first-child {
-    visibility: hidden;
-  }
-}
-
-// filtering
-
-.govuk-table__row--matching {
-  display: table-row;
-  // apply borders when matched
-  td {
-    border-bottom: 1px solid #b1b4b6;
-    // use  $govuk-border-colour instead of hex
-  }
-  // show the query when filtering
-  &.govuk-table__row--group-snd td:first-child {
-    visibility: visible;
-  }
-}
-
 .actions {
   margin-bottom: govuk-spacing(6);
 }
@@ -38,19 +10,6 @@
   display: inline-block;
   width: auto;
   vertical-align: top;
-}
-
-// smaller font-size for tables
-// 19px is the default from the gem
-.app-table__container {
-  .gem-c-table {
-    font-size: 16px;
-  }
-}
-
-// applied to table rows when filtered with javascript
-.js-hidden {
-  display: none;
 }
 
 // Display filter expressions with less large font size
