@@ -73,4 +73,9 @@ Rails.application.configure do
 
   # Ensure latest assets are always available when using Dart SASS in watch mode
   config.assets.digest = false
+
+  # Force all the stylesheets from the `govuk_publishing_components` gem to be included in Dart Sass
+  # builds so we can use the component guide (without this, Sprockets will try and use the legacy
+  # SassC compiler to build them which we no longer include in this app)
+  config.dartsass.builds.merge!(GovukPublishingComponents::Config.all_stylesheets)
 end
