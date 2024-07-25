@@ -74,6 +74,10 @@ Rails.application.configure do
   # Ensure latest assets are always available when using Dart SASS in watch mode
   config.assets.digest = false
 
+  # Enable source maps for Javascript and force all non-digested Javascript assets to be served with
+  # non-cache headers
+  config.assets.debug = true
+
   # Force all the stylesheets from the `govuk_publishing_components` gem to be included in Dart Sass
   # builds so we can use the component guide (without this, Sprockets will try and use the legacy
   # SassC compiler to build them which we no longer include in this app)
