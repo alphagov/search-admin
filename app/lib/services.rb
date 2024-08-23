@@ -1,4 +1,3 @@
-require "gds_api/search"
 require "gds_api/publishing_api"
 
 module Services
