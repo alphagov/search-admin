@@ -10,7 +10,7 @@ COPY Gemfile* .ruby-version ./
 RUN bundle install
 COPY . .
 RUN bootsnap precompile --gemfile .
-RUN rails assets:precompile && rm -fr log
+RUN SECRET_KEY_BASE=none GOVUK_NOTIFY_API_KEY=none rails assets:precompile && rm -fr log
 
 
 FROM --platform=$TARGETPLATFORM $base_image
