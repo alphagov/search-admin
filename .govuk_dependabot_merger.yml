@@ -1,0 +1,11 @@
+api_version: 2
+defaults:
+  update_external_dependencies: true
+  auto_merge: true
+  allowed_semver_bumps:
+    - patch
+    - minor
+overrides:
+  - dependency: rails
+    allowed_semver_bumps:
+      - patch
