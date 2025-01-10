@@ -10,16 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_19_100722) do
-  create_table "boosts", charset: "utf8mb3", force: :cascade do |t|
-    t.string "name", null: false
-    t.boolean "active", null: false
-    t.float "boost_amount", null: false
-    t.text "filter", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
+ActiveRecord::Schema[8.0].define(version: 2025_01_10_114733) do
   create_table "recommended_links", charset: "utf8mb3", force: :cascade do |t|
     t.string "title"
     t.string "link"
@@ -42,5 +33,4 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_19_100722) do
     t.boolean "disabled", default: false
     t.string "organisation_content_id"
   end
-
 end
