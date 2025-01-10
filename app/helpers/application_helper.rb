@@ -9,6 +9,11 @@ module ApplicationHelper
         active: controller.controller_name == "recommended_links",
       },
       {
+        text: DiscoveryEngineControl.model_name.human.pluralize,
+        href: discovery_engine_controls_path,
+        active: controller.controller_name == "discovery_engine_controls",
+      },
+      {
         text: current_user.name,
         href: Plek.new.external_url_for("signon"),
       },

@@ -1,0 +1,30 @@
+<%= render "common/page_title", title: @discovery_engine_controls.model_name.human.pluralize %>
+
+<div class="actions">
+  <%= render "govuk_publishing_components/components/button", {
+    text: "New #{@discovery_engine_controls.model_name.human}",
+    href: new_discovery_engine_control_path,
+    inline_layout: true
+  } %>
+</div>
+
+<div class="govuk-!-margin-top-6 app-table__container" data-module="filterable-table">
+  <div class="external-links">
+    <%= render "govuk_publishing_components/components/table", {
+      filterable: true,
+      label: "Filter #{@discovery_engine_controls.model_name.human.pluralize}",
+      head: [
+        { text: @discovery_engine_controls.human_attribute_name(:name) },
+        { text: @discovery_engine_controls.human_attribute_name(:action) },
+        { text: @discovery_engine_controls.human_attribute_name(:active) },
+      ],
+      rows: @discovery_engine_controls.map do |discovery_engine_control|
+        [
+          { text: link_to(discovery_engine_control.name, discovery_engine_control_path(discovery_engine_control), class:'govuk-link') },
+          { text: discovery_engine_control.action },
+          { text: discovery_engine_control.active },
+        ]
+      end
+    } %>
+  </div>
+</div>
