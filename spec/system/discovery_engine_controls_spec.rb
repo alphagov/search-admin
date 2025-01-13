@@ -16,6 +16,22 @@ RSpec.describe "Discovery Engine controls" do
     then_i_can_see_the_details_of_the_discovery_engine_control
   end
 
+  scenario "Creating a new Discovery Engine boost control" do
+    when_i_visit_the_discovery_engine_controls_page
+    and_i_click_on_the_new_discovery_engine_control_button
+    and_i_fill_in_the_discovery_engine_control_form_with_boost_control_details
+
+    then_i_can_see_the_new_discovery_engine_boost_control
+  end
+
+  scenario "Creating a new Discovery Engine filter control" do
+    when_i_visit_the_discovery_engine_controls_page
+    and_i_click_on_the_new_discovery_engine_control_button
+    and_i_fill_in_the_discovery_engine_control_form_with_filter_control_details
+
+    then_i_can_see_the_new_discovery_engine_filter_control
+  end
+
   def given_several_discovery_engine_controls
     create(:discovery_engine_filter_control, name: "Control 1")
     create(:discovery_engine_boost_control, name: "Control 2")
@@ -34,6 +50,29 @@ RSpec.describe "Discovery Engine controls" do
     click_on "Boost control"
   end
 
+  def and_i_click_on_the_new_discovery_engine_control_button
+    click_on "New #{DiscoveryEngineControl.model_name.human}"
+  end
+
+  def and_i_fill_in_the_discovery_engine_control_form_with_boost_control_details
+    fill_in "Name", with: "Boost control"
+    check "Active"
+    choose "Boost"
+    fill_in "Filter", with: 'link: ANY("/example")'
+    fill_in "Boost amount", with: 0.13
+
+    click_on "Save"
+  end
+
+  def and_i_fill_in_the_discovery_engine_control_form_with_filter_control_details
+    fill_in "Name", with: "Filter control"
+    check "Active"
+    choose "Filter"
+    fill_in "Filter", with: 'link: ANY("/example")'
+
+    click_on "Save"
+  end
+
   def then_all_discovery_engine_controls_are_displayed
     expect(page).to have_content("Control 1")
     expect(page).to have_content("Control 2")
@@ -43,5 +82,20 @@ RSpec.describe "Discovery Engine controls" do
     expect(page).to have_content("Name Boost control")
     expect(page).to have_content("Active true")
     expect(page).to have_content("Action boost")
+  end
+
+  def then_i_can_see_the_new_discovery_engine_boost_control
+    expect(page).to have_content("Name Boost control")
+    expect(page).to have_content("Active true")
+    expect(page).to have_content("Action boost")
+    expect(page).to have_content("Filter link: ANY(\"/example\")")
+    expect(page).to have_content("Boost amount 0.13")
+  end
+
+  def then_i_can_see_the_new_discovery_engine_filter_control
+    expect(page).to have_content("Name Filter control")
+    expect(page).to have_content("Active true")
+    expect(page).to have_content("Action filter")
+    expect(page).to have_content("Filter link: ANY(\"/example\")")
   end
 end

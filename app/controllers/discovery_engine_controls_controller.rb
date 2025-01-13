@@ -7,9 +7,27 @@ class DiscoveryEngineControlsController < ApplicationController
 
   def show; end
 
+  def new
+    @discovery_engine_control = DiscoveryEngineControl.new
+  end
+
+  def create
+    @discovery_engine_control = DiscoveryEngineControl.new(discovery_engine_control_params)
+
+    if @discovery_engine_control.save
+      redirect_to @discovery_engine_control, notice: "#{DiscoveryEngineControl.model_name.human} was successfully created."
+    else
+      render :new, status: :unprocessable_entity
+    end
+  end
+
 private
 
   def set_discovery_engine_control
     @discovery_engine_control = DiscoveryEngineControl.find(params.expect(:id))
+  end
+
+  def discovery_engine_control_params
+    params.expect(discovery_engine_control: %i[name active action filter boost_amount])
   end
 end

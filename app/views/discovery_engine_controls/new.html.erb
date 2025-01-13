@@ -1,0 +1,15 @@
+<%= render "govuk_publishing_components/components/breadcrumbs", {
+  breadcrumbs: [
+    {
+      title: @discovery_engine_control.model_name.human.pluralize,
+      url: discovery_engine_controls_path
+    },
+    {
+      title: "New #{@discovery_engine_control.model_name.human}"
+    }
+  ]
+} %>
+
+<%= render "common/page_title", title: "New #{@discovery_engine_control.model_name.human}" %>
+
+<%= render 'form', discovery_engine_control: @discovery_engine_control %>
