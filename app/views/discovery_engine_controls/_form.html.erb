@@ -3,14 +3,14 @@
     <%= render "govuk_publishing_components/components/error_summary", {
       id: "error-summary",
       title: "There is a problem",
-      description: "The #{discovery_engine_control.model_name.human} could not be updated because some fields are missing or incorrect.",
+      description: "The #{human_record_name} could not be updated because some fields are missing or incorrect.",
       items: error_summary_items(discovery_engine_control)
     } %>
   <% end %>
 
   <%= render "govuk_publishing_components/components/input", {
     label: {
-      text: discovery_engine_control.class.human_attribute_name(:name)
+      text: human_attribute_name(:name)
     },
     id: "discovery_engine_control_name",
     name: "discovery_engine_control[name]",
@@ -21,7 +21,7 @@
   <%= render "govuk_publishing_components/components/radio", {
     id: "discovery_engine_control_action",
     name: "discovery_engine_control[action]",
-    heading: discovery_engine_control.class.human_attribute_name(:action),
+    heading: human_attribute_name(:action),
     heading_size: "s",
     small: true,
     items: discovery_engine_control.class.actions.map do |action, _|
@@ -35,7 +35,7 @@
 
   <%= render "govuk_publishing_components/components/input", {
     label: {
-      text: discovery_engine_control.class.human_attribute_name(:filter)
+      text: human_attribute_name(:filter)
     },
     id: "discovery_engine_control_filter",
     name: "discovery_engine_control[filter]",
@@ -45,7 +45,7 @@
 
   <%= render "govuk_publishing_components/components/input", {
     label: {
-      text: discovery_engine_control.class.human_attribute_name(:boost_amount)
+      text: human_attribute_name(:boost_amount)
     },
     id: "discovery_engine_control_boost_amount",
     name: "discovery_engine_control[boost_amount]",
@@ -57,13 +57,13 @@
   <%= render "govuk_publishing_components/components/checkboxes", {
     id: "discovery_engine_control_active",
     name: "discovery_engine_control[active]",
-    heading: discovery_engine_control.class.human_attribute_name(:active),
+    heading: human_attribute_name(:active),
     small: true,
     no_hint_text: true,
     visually_hide_heading: true,
     items: [
       {
-        label: discovery_engine_control.class.human_attribute_name(:active),
+        label: human_attribute_name(:active),
         value: "1",
         checked: discovery_engine_control.active?
       }

@@ -1,8 +1,8 @@
-<%= render "common/page_title", title: @discovery_engine_controls.model_name.human.pluralize %>
+<%= render "common/page_title", title: human_records_name %>
 
 <div class="actions">
   <%= render "govuk_publishing_components/components/button", {
-    text: "New #{@discovery_engine_controls.model_name.human}",
+    text: "New #{human_record_name}",
     href: new_discovery_engine_control_path,
     inline_layout: true
   } %>
@@ -12,11 +12,11 @@
   <div class="external-links">
     <%= render "govuk_publishing_components/components/table", {
       filterable: true,
-      label: "Filter #{@discovery_engine_controls.model_name.human.pluralize}",
+      label: "Filter #{human_records_name}",
       head: [
-        { text: @discovery_engine_controls.human_attribute_name(:name) },
-        { text: @discovery_engine_controls.human_attribute_name(:action) },
-        { text: @discovery_engine_controls.human_attribute_name(:active) },
+        { text: human_attribute_name(:name) },
+        { text: human_attribute_name(:action) },
+        { text: human_attribute_name(:active) },
       ],
       rows: @discovery_engine_controls.map do |discovery_engine_control|
         [

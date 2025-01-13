@@ -1,7 +1,7 @@
 <%= render "govuk_publishing_components/components/breadcrumbs", {
   breadcrumbs: [
     {
-      title: @discovery_engine_control.model_name.human.pluralize,
+      title: human_records_name,
       url: discovery_engine_controls_path
     },
     {
@@ -14,11 +14,11 @@
 
 <div class="actions">
   <%= render "govuk_publishing_components/components/button", {
-    text: "Edit #{@discovery_engine_control.model_name.human}",
+    text: "Edit #{human_record_name}",
     href: edit_discovery_engine_control_path(@discovery_engine_control),
     inline_layout: true
   } %>
-  <%= delete_button "Delete #{@discovery_engine_control.model_name.human}", discovery_engine_control_path(@discovery_engine_control), is_inline: true %>
+  <%= delete_button "Delete #{human_record_name}", discovery_engine_control_path(@discovery_engine_control), is_inline: true %>
 </div>
 
 <%= render @discovery_engine_control %>

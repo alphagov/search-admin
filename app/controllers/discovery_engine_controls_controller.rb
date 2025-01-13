@@ -1,4 +1,6 @@
 class DiscoveryEngineControlsController < ApplicationController
+  include HumanModelTranslations
+
   before_action :set_discovery_engine_control, only: %i[destroy edit show update]
 
   def index
@@ -17,7 +19,7 @@ class DiscoveryEngineControlsController < ApplicationController
     @discovery_engine_control = DiscoveryEngineControl.new(discovery_engine_control_params)
 
     if @discovery_engine_control.save
-      redirect_to @discovery_engine_control, notice: "#{DiscoveryEngineControl.model_name.human} was successfully created."
+      redirect_to @discovery_engine_control, notice: "#{human_record_name} was successfully created."
     else
       render :new, status: :unprocessable_entity
     end
@@ -25,7 +27,7 @@ class DiscoveryEngineControlsController < ApplicationController
 
   def update
     if @discovery_engine_control.update(discovery_engine_control_params)
-      redirect_to @discovery_engine_control, notice: "#{DiscoveryEngineControl.model_name.human} was successfully updated.", status: :see_other
+      redirect_to @discovery_engine_control, notice: "#{human_record_name} was successfully updated.", status: :see_other
     else
       render :edit, status: :unprocessable_entity
     end
@@ -33,7 +35,7 @@ class DiscoveryEngineControlsController < ApplicationController
 
   def destroy
     @discovery_engine_control.destroy!
-    redirect_to discovery_engine_controls_path, notice: "#{DiscoveryEngineControl.model_name.human} was successfully destroyed.", status: :see_other
+    redirect_to discovery_engine_controls_path, notice: "#{human_record_name} was successfully destroyed.", status: :see_other
   end
 
 private
