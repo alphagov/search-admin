@@ -1,5 +1,5 @@
 class DiscoveryEngineControlsController < ApplicationController
-  before_action :set_discovery_engine_control, only: %i[edit show update]
+  before_action :set_discovery_engine_control, only: %i[destroy edit show update]
 
   def index
     @discovery_engine_controls = DiscoveryEngineControl.all
@@ -29,6 +29,11 @@ class DiscoveryEngineControlsController < ApplicationController
     else
       render :edit, status: :unprocessable_entity
     end
+  end
+
+  def destroy
+    @discovery_engine_control.destroy!
+    redirect_to discovery_engine_controls_path, notice: "#{DiscoveryEngineControl.model_name.human} was successfully destroyed.", status: :see_other
   end
 
 private

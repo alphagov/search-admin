@@ -43,6 +43,16 @@ RSpec.describe "Discovery Engine controls" do
     then_i_can_see_the_updated_discovery_engine_control
   end
 
+  scenario "Deleting a Discovery Engine control" do
+    given_a_discovery_engine_boost_control
+
+    when_i_visit_the_discovery_engine_controls_page
+    and_i_click_on_the_discovery_engine_boost_control
+    and_i_click_the_delete_button
+
+    then_i_can_see_that_the_discovery_engine_control_was_deleted
+  end
+
   def given_several_discovery_engine_controls
     create(:discovery_engine_filter_control, name: "Control 1")
     create(:discovery_engine_boost_control, name: "Control 2")
@@ -98,6 +108,10 @@ RSpec.describe "Discovery Engine controls" do
     click_on "Save"
   end
 
+  def and_i_click_the_delete_button
+    click_on "Delete #{DiscoveryEngineControl.model_name.human}"
+  end
+
   def then_i_can_see_the_updated_discovery_engine_control
     expect(page).to have_content("Name Changed control")
     expect(page).to have_content("Active false")
@@ -130,5 +144,10 @@ RSpec.describe "Discovery Engine controls" do
     expect(page).to have_content("Active true")
     expect(page).to have_content("Action filter")
     expect(page).to have_content("Filter link: ANY(\"/example\")")
+  end
+
+  def then_i_can_see_that_the_discovery_engine_control_was_deleted
+    expect(page).to have_content("was successfully destroyed")
+    expect(page).not_to have_content("Boost control")
   end
 end
