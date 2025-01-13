@@ -53,6 +53,7 @@
     error_items: error_items(discovery_engine_control, :boost_amount)
   } %>
 
+  <%= hidden_field_tag "discovery_engine_control[active]", "0" %>
   <%= render "govuk_publishing_components/components/checkboxes", {
     id: "discovery_engine_control_active",
     name: "discovery_engine_control[active]",

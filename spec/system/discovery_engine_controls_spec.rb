@@ -32,6 +32,17 @@ RSpec.describe "Discovery Engine controls" do
     then_i_can_see_the_new_discovery_engine_filter_control
   end
 
+  scenario "Editing a Discovery Engine control" do
+    given_a_discovery_engine_boost_control
+
+    when_i_visit_the_discovery_engine_controls_page
+    and_i_click_on_the_discovery_engine_boost_control
+    and_i_click_on_the_edit_button
+    and_i_fill_in_the_discovery_engine_control_form_with_new_details
+
+    then_i_can_see_the_updated_discovery_engine_control
+  end
+
   def given_several_discovery_engine_controls
     create(:discovery_engine_filter_control, name: "Control 1")
     create(:discovery_engine_boost_control, name: "Control 2")
@@ -71,6 +82,28 @@ RSpec.describe "Discovery Engine controls" do
     fill_in "Filter", with: 'link: ANY("/example")'
 
     click_on "Save"
+  end
+
+  def and_i_click_on_the_edit_button
+    click_on "Edit #{DiscoveryEngineControl.model_name.human}"
+  end
+
+  def and_i_fill_in_the_discovery_engine_control_form_with_new_details
+    fill_in "Name", with: "Changed control"
+    uncheck "Active"
+    choose "Filter"
+    fill_in "Filter", with: 'link: ANY("/different")'
+    fill_in "Boost amount", with: ""
+
+    click_on "Save"
+  end
+
+  def then_i_can_see_the_updated_discovery_engine_control
+    expect(page).to have_content("Name Changed control")
+    expect(page).to have_content("Active false")
+    expect(page).to have_content("Action filter")
+    expect(page).to have_content("Filter link: ANY(\"/different\")")
+    expect(page).to have_content("Boost amount")
   end
 
   def then_all_discovery_engine_controls_are_displayed

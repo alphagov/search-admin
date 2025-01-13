@@ -1,0 +1,19 @@
+<%= render "govuk_publishing_components/components/breadcrumbs", {
+  breadcrumbs: [
+    {
+      title: @discovery_engine_control.model_name.human.pluralize,
+      url: discovery_engine_controls_path
+    },
+    {
+      title: @discovery_engine_control.name,
+      url: discovery_engine_control_path(@discovery_engine_control)
+    },
+    {
+      title: "Edit"
+    }
+  ]
+} %>
+
+<%= render "common/page_title", title: "Edit #{@discovery_engine_control.name}" %>
+
+<%= render "form", discovery_engine_control: @discovery_engine_control %>
