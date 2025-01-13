@@ -5,6 +5,7 @@ gem "rails", "8.0.1"
 gem "bootsnap", require: false
 gem "csv"
 gem "dartsass-rails"
+gem "google-cloud-discovery_engine"
 gem "mysql2"
 gem "sprockets-rails"
 
