@@ -7,28 +7,6 @@ RSpec.describe RecommendedLink do
     end
   end
 
-  describe "#format" do
-    subject(:format) { create(:recommended_link, link:).format }
-
-    context "when the link is external to GOV.UK" do
-      let(:link) { "https://www.google.com" }
-
-      it { is_expected.to eq("recommended-link") }
-    end
-
-    context "when the link is internal to GOV.UK" do
-      let(:link) { "https://www.gov.uk/bank-holidays" }
-
-      it { is_expected.to eq("inside-government-link") }
-    end
-
-    context "when the link is external to GOV.UK but has a GOV.UK domain" do
-      let(:link) { "https://www.free-ice-cream.gov.uk" }
-
-      it { is_expected.to eq("recommended-link") }
-    end
-  end
-
   describe "validations" do
     subject(:recommended_link) { build(:recommended_link, link:) }
 
