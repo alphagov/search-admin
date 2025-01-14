@@ -15,7 +15,7 @@ class RecommendedLinksController < ApplicationController
   end
 
   def create
-    @recommended_link = RecommendedLink.new(create_recommended_link_params)
+    @recommended_link = RecommendedLink.new(recommended_link_params)
 
     if @recommended_link.save
       ExternalContentPublisher.publish(@recommended_link)
@@ -33,7 +33,7 @@ class RecommendedLinksController < ApplicationController
   def edit; end
 
   def update
-    if @recommended_link.update(update_recommended_link_params)
+    if @recommended_link.update(recommended_link_params)
       ExternalContentPublisher.publish(@recommended_link)
 
       redirect_to recommended_link_path(@recommended_link), notice: "Your external link was updated successfully"
@@ -58,15 +58,9 @@ private
     @recommended_link = RecommendedLink.find(params.expect(:id))
   end
 
-  def create_recommended_link_params
-    params.require(:recommended_link)
-      .permit(:link, :title, :description, :keywords, :comment)
-      .merge(user_id: current_user.id)
-  end
-
-  def update_recommended_link_params
-    params.require(:recommended_link)
-      .permit(:link, :title, :description, :keywords, :comment)
+  def recommended_link_params
+    params
+      .expect(recommended_link: %i[link title description keywords comment])
       .merge(user_id: current_user.id)
   end
 
