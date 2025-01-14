@@ -1,4 +1,6 @@
 class RecommendedLinksController < ApplicationController
+  before_action :set_recommended_link, only: %i[show edit update destroy]
+
   def index
     @recommended_links = RecommendedLink.order([:link])
 
@@ -25,17 +27,12 @@ class RecommendedLinksController < ApplicationController
   end
 
   def show
-    @recommended_link = find_recommended_link
     @search_url = SearchUrl.for(@recommended_link.title)
   end
 
-  def edit
-    @recommended_link = find_recommended_link
-  end
+  def edit; end
 
   def update
-    @recommended_link = find_recommended_link
-
     if @recommended_link.update(update_recommended_link_params)
       ExternalContentPublisher.publish(@recommended_link)
 
@@ -46,21 +43,19 @@ class RecommendedLinksController < ApplicationController
   end
 
   def destroy
-    recommended_link = find_recommended_link
-
-    if recommended_link.destroy
-      ExternalContentPublisher.unpublish(recommended_link)
+    if @recommended_link.destroy
+      ExternalContentPublisher.unpublish(@recommended_link)
 
       redirect_to recommended_links_path, notice: "Your external link was deleted successfully"
     else
-      redirect_to recommended_link_path(recommended_link), alert: "We could not delete your external link"
+      redirect_to recommended_link_path(@recommended_link), alert: "We could not delete your external link"
     end
   end
 
 private
 
-  def find_recommended_link
-    @find_recommended_link ||= RecommendedLink.find(params[:id])
+  def set_recommended_link
+    @recommended_link = RecommendedLink.find(params.expect(:id))
   end
 
   def create_recommended_link_params
