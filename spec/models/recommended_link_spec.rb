@@ -1,63 +1,58 @@
 RSpec.describe RecommendedLink do
   describe "#format" do
-    it "uses recommended-link format if it is external to gov.uk" do
-      recommended_link = create(
-        :recommended_link,
-        link: "https://www.google.com",
-      )
-      expect(recommended_link.format).to eq "recommended-link"
+    subject(:format) { create(:recommended_link, link:).format }
+
+    context "when the link is external to GOV.UK" do
+      let(:link) { "https://www.google.com" }
+
+      it { is_expected.to eq("recommended-link") }
     end
 
-    it "uses inside-government-link format if it is internal to gov.uk" do
-      recommended_link = create(
-        :recommended_link,
-        link: "https://www.gov.uk/bank-holidays",
-      )
-      expect(recommended_link.format).to eq "inside-government-link"
+    context "when the link is internal to GOV.UK" do
+      let(:link) { "https://www.gov.uk/bank-holidays" }
+
+      it { is_expected.to eq("inside-government-link") }
     end
 
-    it "uses recommended-link format if it is external to gov.uk but has a gov.uk domain" do
-      recommended_link = create(
-        :recommended_link,
-        link: "https://www.free-ice-cream.gov.uk",
-      )
-      expect(recommended_link.format).to eq "recommended-link"
+    context "when the link is external to GOV.UK but has a GOV.UK domain" do
+      let(:link) { "https://www.free-ice-cream.gov.uk" }
+
+      it { is_expected.to eq("recommended-link") }
     end
   end
 
   describe "validations" do
-    it "is invalid without a title attribute" do
-      attributes = attributes_for(:recommended_link, title: nil)
+    subject(:recommended_link) { build(:recommended_link, link:) }
 
-      expect(new_recommended_link_with(attributes)).not_to be_valid
+    context "with an incomplete link" do
+      let(:link) { "www.hello-world.com" }
+
+      it "is invalid" do
+        expect(recommended_link).not_to be_valid
+        expect(recommended_link.errors.full_messages).to eq(["Link is an invalid URL"])
+      end
     end
 
-    it "is invalid with an incomplete link" do
-      attributes = attributes_for(:recommended_link, link: "www.hello-world.com")
+    context "with a link without a host" do
+      let(:link) { "http:/path-not-host" }
 
-      record = new_recommended_link_with(attributes)
-      expect(record).not_to be_valid
-      expect(record.errors.full_messages).to eq(["Link is an invalid URL"])
+      it "is invalid" do
+        expect(recommended_link).not_to be_valid
+        expect(recommended_link.errors.full_messages).to eq(["Link does not have a valid host"])
+      end
     end
 
-    it "is invalid with a link without a host" do
-      attributes = attributes_for(:recommended_link, link: "http:/path-not-host")
+    context "with a duplicate link" do
+      let(:link) { "https://www.tax.service.gov.uk/" }
 
-      record = new_recommended_link_with(attributes)
-      expect(record).not_to be_valid
-      expect(record.errors.full_messages).to eq(["Link does not have a valid host"])
-    end
+      before do
+        create(:recommended_link, link: link)
+      end
 
-    it "is invalid with a duplicate link" do
-      create(:recommended_link, title: "Tax", link: "https://www.tax.service.gov.uk/", description: "Self assessment", keywords: "self, assessment, tax")
-
-      recommended_link = new_recommended_link_with(title: "Tax", link: "https://www.tax.service.gov.uk/", description: "Self assessment", keywords: "self, assessment, tax")
-
-      expect(recommended_link).to_not be_valid
+      it "is invalid" do
+        expect(recommended_link).not_to be_valid
+        expect(recommended_link.errors.full_messages).to eq(["Link has already been taken"])
+      end
     end
   end
-end
-
-def new_recommended_link_with(attributes)
-  RecommendedLink.new(attributes)
 end
