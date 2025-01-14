@@ -31,6 +31,7 @@
 
 en:
   common:
+    product_name: Search Admin
     buttons:
       save: Save %{model_name}
       new: New %{model_name}
