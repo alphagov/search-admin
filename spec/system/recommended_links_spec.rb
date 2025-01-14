@@ -226,7 +226,7 @@ RSpec.describe "Recommended links" do
   end
 
   def then_the_link_has_been_deleted_locally
-    expect(page).to have_content("Your external link was deleted successfully")
+    expect(page).to have_content("The external link was successfully deleted")
   end
 
   def and_it_has_been_unpublished

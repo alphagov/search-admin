@@ -1,13 +1,13 @@
-<%= render "common/page_title", title: "External links" %>
+<%= render "common/page_title", title: t(".page_title") %>
 
 <div class="actions">
   <%= render "govuk_publishing_components/components/button", {
-    text: "New external link",
+    text: t("common.buttons.new", model_name: t_model_name),
     href: new_recommended_link_path,
     inline_layout: true
   } %>
   <%= render "govuk_publishing_components/components/button", {
-    text: "Download CSV",
+    text: t("common.buttons.download_csv"),
     href: recommended_links_path(format: 'csv'),
     secondary_quiet: true,
     inline_layout: true
@@ -18,12 +18,12 @@
   <div class="external-links">
     <%= render "govuk_publishing_components/components/table", {
       filterable: true,
-      label: "Filter external links",
+      label: t(".filter_table_label"),
       head: [
-        { text: "Title" },
-        { text: "Link" },
-        { text: "Description" },
-        { text: "Keywords" },
+        { text: t_model_attr(:title) },
+        { text: t_model_attr(:link) },
+        { text: t_model_attr(:description) },
+        { text: t_model_attr(:keywords) },
       ],
       rows: @recommended_links.map do |recommended_link|
         [

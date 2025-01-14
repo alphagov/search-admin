@@ -4,7 +4,7 @@ module ApplicationHelper
 
     [
       {
-        text: "External links",
+        text: t("recommended_links.index.page_title"),
         href: recommended_links_path,
         active: controller.controller_name == "recommended_links",
       },

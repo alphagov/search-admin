@@ -1,15 +1,15 @@
 <%= render "govuk_publishing_components/components/breadcrumbs", {
   breadcrumbs: [
     {
-      title: "External links",
+      title: t("recommended_links.index.page_title"),
       url: recommended_links_path
     },
     {
-      title: "New external link"
+      title: t(".page_title")
     }
   ]
 } %>
 
-<%= render "common/page_title", title:"New external link" %>
+<%= render "common/page_title", title: t(".page_title") %>
 
 <%= render 'form', recommended_link: @recommended_link %>

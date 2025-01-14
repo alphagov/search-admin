@@ -20,7 +20,7 @@ class RecommendedLinksController < ApplicationController
     if @recommended_link.save
       ExternalContentPublisher.publish(@recommended_link)
 
-      redirect_to recommended_link_path(@recommended_link), notice: "Your external link was created successfully"
+      redirect_to recommended_link_path(@recommended_link), notice: t(".success")
     else
       render :new
     end
@@ -36,7 +36,7 @@ class RecommendedLinksController < ApplicationController
     if @recommended_link.update(recommended_link_params)
       ExternalContentPublisher.publish(@recommended_link)
 
-      redirect_to recommended_link_path(@recommended_link), notice: "Your external link was updated successfully"
+      redirect_to recommended_link_path(@recommended_link), notice: t(".success")
     else
       render :edit
     end
@@ -46,9 +46,9 @@ class RecommendedLinksController < ApplicationController
     if @recommended_link.destroy
       ExternalContentPublisher.unpublish(@recommended_link)
 
-      redirect_to recommended_links_path, notice: "Your external link was deleted successfully"
+      redirect_to recommended_links_path, notice: t(".success")
     else
-      redirect_to recommended_link_path(@recommended_link), alert: "We could not delete your external link"
+      redirect_to recommended_link_path(@recommended_link), alert: t(".failure")
     end
   end
 
