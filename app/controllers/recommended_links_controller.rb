@@ -63,10 +63,4 @@ private
       .expect(recommended_link: %i[link title description keywords comment])
       .merge(user_id: current_user.id)
   end
-
-  def check_for_duplicate_recommended_link(recommended_link)
-    if recommended_link.errors.include?(:recommended_link)
-      RecommendedLink.where(link: recommended_link.link).first
-    end
-  end
 end
