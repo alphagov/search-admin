@@ -13,7 +13,7 @@ module ApplicationHelper
         href: Plek.new.external_url_for("signon"),
       },
       {
-        text: "Sign out",
+        text: t("common.menu.sign_out"),
         href: "/auth/gds/sign_out",
       },
     ]
