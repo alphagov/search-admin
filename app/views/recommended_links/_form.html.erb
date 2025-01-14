@@ -1,4 +1,4 @@
-<%= form_for(recommended_link) do |f| %>
+<%= form_with(model: recommended_link) do |f| %>
   <% if recommended_link.errors.any? %>
     <%= render "govuk_publishing_components/components/error_summary", {
       id: "error-summary",
