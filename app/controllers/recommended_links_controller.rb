@@ -26,9 +26,7 @@ class RecommendedLinksController < ApplicationController
     end
   end
 
-  def show
-    @search_url = SearchUrl.for(@recommended_link.title)
-  end
+  def show; end
 
   def edit; end
 

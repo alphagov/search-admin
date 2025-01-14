@@ -50,7 +50,7 @@
 
 <%= render "govuk_publishing_components/components/button", {
   text: t(".view_on_search_button"),
-  href: @search_url,
+  href: search_url_for_keyword(@recommended_link.title),
   target: "_blank",
   secondary_quiet: true
 } %>
