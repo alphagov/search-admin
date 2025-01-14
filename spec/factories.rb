@@ -4,7 +4,6 @@ FactoryBot.define do
     link { "https://www.tax.service.gov.uk/" }
     description { "File your self assessment online." }
     keywords { "tax, self assessment, hmrc" }
-    content_id { SecureRandom.uuid }
   end
 
   factory :user do

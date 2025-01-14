@@ -1,4 +1,12 @@
 RSpec.describe RecommendedLink do
+  describe "#content_id" do
+    subject(:recommended_link) { build(:recommended_link) }
+
+    it "is generated on initial create" do
+      expect { recommended_link.save }.to change { recommended_link.content_id }.from(nil)
+    end
+  end
+
   describe "#format" do
     subject(:format) { create(:recommended_link, link:).format }
 
