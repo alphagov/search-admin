@@ -2247,7 +2247,7 @@ __metadata:
   resolution: "search-admin@workspace:."
   dependencies:
     standardx: "npm:^7.0.0"
-    stylelint: "npm:^16.13.1"
+    stylelint: "npm:^16.13.2"
     stylelint-config-gds: "npm:^2.0.0"
   languageName: unknown
   linkType: soft
@@ -2600,9 +2600,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"stylelint@npm:^16.13.1":
-  version: 16.13.1
-  resolution: "stylelint@npm:16.13.1"
+"stylelint@npm:^16.13.2":
+  version: 16.13.2
+  resolution: "stylelint@npm:16.13.2"
   dependencies:
     "@csstools/css-parser-algorithms": "npm:^3.0.4"
     "@csstools/css-tokenizer": "npm:^3.0.3"
@@ -2644,7 +2644,7 @@ __metadata:
     write-file-atomic: "npm:^5.0.1"
   bin:
     stylelint: bin/stylelint.mjs
-  checksum: 10/66892a4ced40a7d3121887490c6c3a087cc647bccabda85727a28c2d55eb0da8ba696d937f7fceeb84bb3f48e90fdcf680259ffb6bf4a9fac529567fb3f55552
+  checksum: 10/98385b53d3c822b3b764fe8ff2f7212717127ab40ca9fd34a83bc6e27b5240d4ea02f959e01d4eaf91c87480a0c787b07b837883d4b3ec44133cc7ca03c79b47
   languageName: node
   linkType: hard
 
