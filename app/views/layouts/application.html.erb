@@ -6,12 +6,12 @@
 
 <%= render "govuk_publishing_components/components/layout_for_admin", {
   environment: GovukPublishingComponents::AppHelpers::Environment.current_acceptance_environment,
-  product_name: "Search Admin",
-  browser_title: yield(:page_title).presence || "Search Admin"
+  product_name: t("common.product_name"),
+  browser_title: yield(:page_title).presence
 } do %>
   <%= render "govuk_publishing_components/components/skip_link" %>
   <%= render "govuk_publishing_components/components/layout_header", {
-    product_name: "Search Admin",
+    product_name: t("common.product_name"),
     environment: GovukPublishingComponents::AppHelpers::Environment.current_acceptance_environment,
     navigation_items: navigation_items
   } %>

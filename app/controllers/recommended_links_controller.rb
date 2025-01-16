@@ -1,4 +1,6 @@
 class RecommendedLinksController < ApplicationController
+  before_action :set_recommended_link, only: %i[show edit update destroy]
+
   def index
     @recommended_links = RecommendedLink.order([:link])
 
@@ -9,75 +11,54 @@ class RecommendedLinksController < ApplicationController
   end
 
   def new
-    @recommended_link = RecommendedLink.new(content_id: SecureRandom.uuid)
+    @recommended_link = RecommendedLink.new
   end
 
   def create
-    @recommended_link = RecommendedLink.new(create_recommended_link_params)
+    @recommended_link = RecommendedLink.new(recommended_link_params)
 
     if @recommended_link.save
       ExternalContentPublisher.publish(@recommended_link)
 
-      redirect_to recommended_link_path(@recommended_link), notice: "Your external link was created successfully"
+      redirect_to recommended_link_path(@recommended_link), notice: t(".success")
     else
       render :new
     end
   end
 
-  def show
-    @recommended_link = find_recommended_link
-    @search_url = SearchUrl.for(@recommended_link.title)
-  end
+  def show; end
 
-  def edit
-    @recommended_link = find_recommended_link
-  end
+  def edit; end
 
   def update
-    @recommended_link = find_recommended_link
-
-    if @recommended_link.update(update_recommended_link_params)
+    if @recommended_link.update(recommended_link_params)
       ExternalContentPublisher.publish(@recommended_link)
 
-      redirect_to recommended_link_path(@recommended_link), notice: "Your external link was updated successfully"
+      redirect_to recommended_link_path(@recommended_link), notice: t(".success")
     else
       render :edit
     end
   end
 
   def destroy
-    recommended_link = find_recommended_link
+    if @recommended_link.destroy
+      ExternalContentPublisher.unpublish(@recommended_link)
 
-    if recommended_link.destroy
-      ExternalContentPublisher.unpublish(recommended_link)
-
-      redirect_to recommended_links_path, notice: "Your external link was deleted successfully"
+      redirect_to recommended_links_path, notice: t(".success")
     else
-      redirect_to recommended_link_path(recommended_link), alert: "We could not delete your external link"
+      redirect_to recommended_link_path(@recommended_link), alert: t(".failure")
     end
   end
 
 private
 
-  def find_recommended_link
-    @find_recommended_link ||= RecommendedLink.find(params[:id])
+  def set_recommended_link
+    @recommended_link = RecommendedLink.find(params.expect(:id))
   end
 
-  def create_recommended_link_params
-    params.require(:recommended_link)
-      .permit(:link, :title, :description, :keywords, :comment)
-      .merge(user_id: current_user.id, content_id: SecureRandom.uuid)
-  end
-
-  def update_recommended_link_params
-    params.require(:recommended_link)
-      .permit(:link, :title, :description, :keywords, :comment)
+  def recommended_link_params
+    params
+      .expect(recommended_link: %i[link title description keywords comment])
       .merge(user_id: current_user.id)
-  end
-
-  def check_for_duplicate_recommended_link(recommended_link)
-    if recommended_link.errors.include?(:recommended_link)
-      RecommendedLink.where(link: recommended_link.link).first
-    end
   end
 end

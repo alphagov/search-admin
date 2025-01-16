@@ -1,16 +1,16 @@
-<%= form_for(recommended_link) do |f| %>
+<%= form_with(model: recommended_link) do |f| %>
   <% if recommended_link.errors.any? %>
     <%= render "govuk_publishing_components/components/error_summary", {
       id: "error-summary",
-      title: "There is a problem",
-      description: "The external link could not be updated because some fields are missing or incorrect.",
+      title: t("common.error_summary.title"),
+      description: t("common.error_summary.description", model_name: t_model_name),
       items: error_summary_items(recommended_link)
     } %>
   <% end %>
 
   <%= render "govuk_publishing_components/components/input", {
     label: {
-      text: 'Link'
+      text: t_model_attr(:link)
     },
     id: "recommended_link_link",
     name: "recommended_link[link]",
@@ -20,7 +20,7 @@
 
   <%= render "govuk_publishing_components/components/input", {
     label: {
-      text: 'Title'
+      text: t_model_attr(:title)
     },
     id: "recommended_link_title",
     name: "recommended_link[title]",
@@ -30,7 +30,7 @@
 
   <%= render "govuk_publishing_components/components/textarea", {
     label: {
-      text: 'Description'
+      text: t_model_attr(:description)
     },
     id: "recommended_link_description",
     name: "recommended_link[description]",
@@ -40,7 +40,7 @@
 
   <%= render "govuk_publishing_components/components/textarea", {
     label: {
-      text: 'Keywords'
+      text: t_model_attr(:keywords)
     },
     name: "recommended_link[keywords]",
     value: recommended_link.keywords
@@ -48,13 +48,13 @@
 
   <%= render "govuk_publishing_components/components/textarea", {
     label: {
-      text: 'Comment'
+      text: t_model_attr(:comment)
     },
     name: "recommended_link[comment]",
     value: recommended_link.comment
   } %>
 
   <%= render "govuk_publishing_components/components/button", {
-    text: "Save"
+    text: t("common.buttons.save", model_name: t_model_name),
   } %>
 <% end %>

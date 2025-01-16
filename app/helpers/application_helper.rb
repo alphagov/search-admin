@@ -4,7 +4,7 @@ module ApplicationHelper
 
     [
       {
-        text: "External links",
+        text: t("recommended_links.index.page_title"),
         href: recommended_links_path,
         active: controller.controller_name == "recommended_links",
       },
@@ -13,7 +13,7 @@ module ApplicationHelper
         href: Plek.new.external_url_for("signon"),
       },
       {
-        text: "Sign out",
+        text: t("common.menu.sign_out"),
         href: "/auth/gds/sign_out",
       },
     ]

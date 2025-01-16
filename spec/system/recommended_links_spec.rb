@@ -186,7 +186,7 @@ RSpec.describe "Recommended links" do
   def and_i_can_choose_to_view_it_on_govuk_search
     expect(page).to have_link(
       "View on GOV.UK Search",
-      href: %r{^https://www\.test\.gov\.uk/search/all\?keywords=Example\+link},
+      href: %r{^https://www\.test\.gov\.uk/search/all\?.+keywords=Example\+link},
     )
   end
 
@@ -226,7 +226,7 @@ RSpec.describe "Recommended links" do
   end
 
   def then_the_link_has_been_deleted_locally
-    expect(page).to have_content("Your external link was deleted successfully")
+    expect(page).to have_content("The external link was successfully deleted")
   end
 
   def and_it_has_been_unpublished

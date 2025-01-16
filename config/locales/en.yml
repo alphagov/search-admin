@@ -30,5 +30,56 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
+  common:
+    product_name: Search Admin
+    menu:
+      sign_out: Sign out
+    buttons:
+      save: Save %{model_name}
+      new: New %{model_name}
+      edit: Edit %{model_name}
+      delete: Delete %{model_name}
+      download_csv: Download CSV
+    error_summary:
+      title: There is a problem
+      description: |
+        The %{model_name} could not be saved because some fields are missing or incorrect.
+
   activerecord:
+    models:
+      recommended_link:
+        one: external link
+        other: external links
     attributes:
+      recommended_link:
+        link: Link
+        title: Title
+        description: Description
+        keywords: Keywords
+        comment: Comments
+        created_at: Created at
+        updated_at: Updated at
+
+  recommended_links:
+    index:
+      page_title: External links
+      download_csv_button: Download CSV
+      filter_table_label: Filter external links
+    show:
+      preview_heading: Preview
+      view_on_search_button: View on GOV.UK Search
+      disclaimer: |
+        Changes to recommended links may take several minutes to be visible in live search results
+        on GOV.UK. This recommended link may not be the top search result even when searching for
+        its exact title because of the way content is ranked by the search engine.
+    new:
+      page_title: New external link
+    create:
+      success: The external link was successfully created.
+    edit:
+      page_title: Edit
+    update:
+      success: The external link was successfully updated.
+    destroy:
+      success: The external link was successfully deleted.
+      failure: The external link could not be deleted.

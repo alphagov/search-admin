@@ -1,7 +1,7 @@
 <%= render "govuk_publishing_components/components/breadcrumbs", {
   breadcrumbs: [
     {
-      title: "External links",
+      title: t("recommended_links.index.page_title"),
       url: recommended_links_path
     },
     {
@@ -14,15 +14,19 @@
 
 <div class="actions">
   <%= render "govuk_publishing_components/components/button", {
-    text: "Edit external link",
+    text: t("common.buttons.edit", model_name: t_model_name),
     href: edit_recommended_link_path(@recommended_link),
     inline_layout: true
   } %>
-  <%= delete_button "Delete external link", recommended_link_path(@recommended_link), is_inline: true %>
+  <%= delete_button(
+    t("common.buttons.delete", model_name: t_model_name),
+    recommended_link_path(@recommended_link),
+    is_inline: true
+  ) %>
 </div>
 
 <%= render "govuk_publishing_components/components/heading", {
-  text: "Preview",
+  text: t(".preview_heading"),
   heading_level: 3,
   font_size: "m",
   padding: true
@@ -45,14 +49,12 @@
 </div>
 
 <%= render "govuk_publishing_components/components/button", {
-  text: "View on GOV.UK Search",
-  href: @search_url,
+  text: t(".view_on_search_button"),
+  href: search_url_for_keyword(@recommended_link.title),
   target: "_blank",
   secondary_quiet: true
 } %>
 
 <p class="govuk-body-s govuk-!-margin-top-2">
-  Changes to recommended links may take several minutes to be visible in live search results on
-  GOV.UK. This recommended link may not be the top search result even when searching for its exact
-  title because of the way content is ranked by the search engine.
+  <%= t(".disclaimer") %>
 </p>
