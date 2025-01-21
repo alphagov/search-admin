@@ -1,0 +1,15 @@
+<%= render "govuk_publishing_components/components/breadcrumbs", {
+  breadcrumbs: [
+    {
+      title: t("adjustments.index.page_title"),
+      url: adjustments_path
+    },
+    {
+      title: t(".page_title", kind: t_model_enum_value(:kind, @adjustment.kind))
+    }
+  ]
+} %>
+
+<%= render "common/page_title", title: t(".page_title", kind: t_model_enum_value(:kind, @adjustment.kind)) %>
+
+<%= render "form", adjustment: @adjustment %>

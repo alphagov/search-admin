@@ -1,0 +1,51 @@
+<%= form_with(model: adjustment) do |f| %>
+  <% if adjustment.errors.any? %>
+    <%= render "govuk_publishing_components/components/error_summary", {
+      id: "error-summary",
+      title: t("common.error_summary.title"),
+      description: t("common.error_summary.description", model_name: t_model_name),
+      items: error_summary_items(adjustment)
+    } %>
+  <% end %>
+
+  <%= f.hidden_field :kind %>
+
+  <%= render "govuk_publishing_components/components/input", {
+    label: {
+      text: t_model_attr(:name)
+    },
+    id: "adjustment_name",
+    name: "adjustment[name]",
+    hint: t("helpers.hint.adjustment.name"),
+    value: adjustment.name,
+    error_items: error_items(adjustment, :name)
+  } %>
+
+  <%= render "govuk_publishing_components/components/input", {
+    label: {
+      text: t_model_attr(:filter_expression)
+    },
+    id: "adjustment_filter_expression",
+    name: "adjustment[filter_expression]",
+    hint: t("helpers.hint.adjustment.filter_expression_html"),
+    value: adjustment.filter_expression,
+    error_items: error_items(adjustment, :filter_expression)
+  } %>
+
+  <% if adjustment.boost_kind? %>
+    <%= render "govuk_publishing_components/components/input", {
+      label: {
+        text: t_model_attr(:boost_factor)
+      },
+      id: "adjustment_boost_factor",
+      name: "adjustment[boost_factor]",
+      hint: t("helpers.hint.adjustment.boost_factor_html"),
+      value: adjustment.boost_factor,
+      error_items: error_items(adjustment, :boost_factor)
+    } %>
+  <% end %>
+
+  <%= render "govuk_publishing_components/components/button", {
+    text: t("common.buttons.save", model_name: t_model_name),
+  } %>
+<% end %>
