@@ -47,10 +47,23 @@ en:
 
   activerecord:
     models:
+      adjustment:
+        one: adjustment
+        other: adjustments
       recommended_link:
         one: external link
         other: external links
     attributes:
+      adjustment:
+        kind: Kind
+        kind_values:
+          boost: boost
+          filter: filter
+        name: Name
+        filter_expression: Filter expression
+        boost_factor: Boost factor
+        created_at: Created at
+        updated_at: Updated at
       recommended_link:
         link: Link
         title: Title

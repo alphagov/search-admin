@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_01_10_114733) do
+ActiveRecord::Schema[8.0].define(version: 2025_01_21_123111) do
+  create_table "adjustments", charset: "utf8mb3", force: :cascade do |t|
+    t.integer "kind", null: false
+    t.string "name", null: false
+    t.string "filter_expression", null: false
+    t.float "boost_factor"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "recommended_links", charset: "utf8mb3", force: :cascade do |t|
     t.string "title"
     t.string "link"
