@@ -11,6 +11,14 @@ module ModelTranslationHelper
     inferred_model_class.human_attribute_name(attr)
   end
 
+  # Returns a translated enum value for the given attribute on the current controller's model.
+  def t_model_enum_value(attr, value)
+    t(
+      value,
+      scope: "activerecord.attributes.#{inferred_model_class.model_name.i18n_key}.#{attr}_values",
+    )
+  end
+
 private
 
   def inferred_model_class

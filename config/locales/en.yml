@@ -73,6 +73,10 @@ en:
         created_at: Created at
         updated_at: Updated at
 
+  adjustments:
+    index:
+      page_title: Adjustments
+      filter_table_label: Filter adjustments
   recommended_links:
     index:
       page_title: External links

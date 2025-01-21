@@ -1,0 +1,18 @@
+<%= render "common/page_title", title: t(".page_title") %>
+
+<div class="govuk-!-margin-top-6 app-table__container" data-module="filterable-table">
+  <%= render "govuk_publishing_components/components/table", {
+    filterable: true,
+    label: t(".filter_table_label"),
+    head: [
+      { text: t_model_attr(:name) },
+      { text: t_model_attr(:kind) },
+    ],
+    rows: @adjustments.map do |adjustment|
+      [
+        { text: link_to(adjustment.name, adjustment, class:'govuk-link') },
+        { text: t_model_enum_value(:kind, adjustment.kind) },
+      ]
+    end
+  } %>
+</div>

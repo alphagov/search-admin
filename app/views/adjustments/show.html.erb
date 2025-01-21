@@ -1,0 +1,34 @@
+<%= render "govuk_publishing_components/components/breadcrumbs", {
+  breadcrumbs: [
+    {
+      title: t("adjustments.index.page_title"),
+      url: adjustments_path
+    },
+    {
+      title: @adjustment.name
+    }
+  ]
+} %>
+
+<%= render "common/page_title", title: @adjustment.name %>
+
+<%= render "govuk_publishing_components/components/summary_list", {
+  items: [
+    {
+      field: t_model_attr(:name),
+      value: @adjustment.name,
+    },
+    {
+      field: t_model_attr(:kind),
+      value: t_model_enum_value(:kind, @adjustment.kind),
+    },
+    {
+      field: t_model_attr(:filter_expression),
+      value: @adjustment.filter_expression,
+    },
+    {
+      field: t_model_attr(:boost_factor),
+      value: @adjustment.boost_factor
+    },
+  ].reject { it[:value].blank? }
+} %>

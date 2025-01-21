@@ -9,6 +9,11 @@ module ApplicationHelper
         active: controller.controller_name == "recommended_links",
       },
       {
+        text: t("adjustments.index.page_title"),
+        href: adjustments_path,
+        active: controller.controller_name == "adjustments",
+      },
+      {
         text: current_user.name,
         href: Plek.new.external_url_for("signon"),
       },
