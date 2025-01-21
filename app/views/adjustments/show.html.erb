@@ -12,6 +12,14 @@
 
 <%= render "common/page_title", title: @adjustment.name %>
 
+<div class="actions">
+  <%= render "govuk_publishing_components/components/button", {
+    text: t("common.buttons.edit", model_name: t_model_name),
+    href: edit_adjustment_path(@adjustment),
+    inline_layout: true
+  } %>
+</div>
+
 <%= render "govuk_publishing_components/components/summary_list", {
   items: [
     {

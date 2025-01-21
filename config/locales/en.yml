@@ -96,6 +96,10 @@ en:
       page_title: New %{kind} adjustment
     create:
       success: The adjustment was successfully created.
+    edit:
+      page_title: Edit
+    update:
+      success: The adjustment was successfully updated.
   recommended_links:
     index:
       page_title: External links

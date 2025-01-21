@@ -1,5 +1,5 @@
 class AdjustmentsController < ApplicationController
-  before_action :set_adjustment, only: %i[show]
+  before_action :set_adjustment, only: %i[show edit update]
 
   def index
     @adjustments = Adjustment.all
@@ -22,6 +22,16 @@ class AdjustmentsController < ApplicationController
   end
 
   def show; end
+
+  def edit; end
+
+  def update
+    if @adjustment.update(adjustment_params)
+      redirect_to @adjustment, notice: t(".success")
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
 
 private
 
