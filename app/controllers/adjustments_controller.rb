@@ -1,5 +1,5 @@
 class AdjustmentsController < ApplicationController
-  before_action :set_adjustment, only: %i[show edit update]
+  before_action :set_adjustment, only: %i[show edit update destroy]
 
   def index
     @adjustments = Adjustment.all
@@ -30,6 +30,14 @@ class AdjustmentsController < ApplicationController
       redirect_to @adjustment, notice: t(".success")
     else
       render :edit, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    if @adjustment.destroy
+      redirect_to adjustments_path, notice: t(".success")
+    else
+      redirect_to @adjustment, alert: t(".failure")
     end
   end
 

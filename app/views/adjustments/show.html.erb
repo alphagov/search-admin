@@ -18,6 +18,11 @@
     href: edit_adjustment_path(@adjustment),
     inline_layout: true
   } %>
+  <%= delete_button(
+    t("common.buttons.delete", model_name: t_model_name),
+    @adjustment,
+    is_inline: true
+  ) %>
 </div>
 
 <%= render "govuk_publishing_components/components/summary_list", {

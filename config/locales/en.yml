@@ -100,6 +100,9 @@ en:
       page_title: Edit
     update:
       success: The adjustment was successfully updated.
+    destroy:
+      success: The adjustment was successfully deleted.
+      failure: The adjustment could not be deleted.
   recommended_links:
     index:
       page_title: External links

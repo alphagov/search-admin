@@ -42,6 +42,14 @@ RSpec.describe "Adjustments", type: :system do
     and_i_can_see_the_updated_details
   end
 
+  scenario "Deleting an adjustment" do
+    given_a_boost_adjustment_exists
+    when_i_view_the_boost_adjustment
+    and_i_click_the_delete_button
+
+    then_the_boost_adjustment_should_be_deleted
+  end
+
   def given_several_adjustments_exist
     given_a_boost_adjustment_exists
     given_a_filter_adjustment_exists
@@ -100,6 +108,10 @@ RSpec.describe "Adjustments", type: :system do
     click_button "Save adjustment"
   end
 
+  def and_i_click_the_delete_button
+    click_button "Delete"
+  end
+
   def then_i_should_see_all_the_adjustments
     expect(page).to have_link(@boost_adjustment.name)
     expect(page).to have_link(@filter_adjustment.name)
@@ -145,5 +157,10 @@ RSpec.describe "Adjustments", type: :system do
 
   def and_i_can_see_the_updated_details
     expect(page).to have_selector("h1", text: "Updated adjustment")
+  end
+
+  def then_the_boost_adjustment_should_be_deleted
+    expect(page).to have_content("The adjustment was successfully deleted.")
+    expect(Adjustment.count).to be_zero
   end
 end
