@@ -45,5 +45,10 @@ module SearchAdmin
 
     # Use YAML to serialize data into DB columns (implicit pre Rails 7.1 behaviour)
     config.active_record.default_column_serializer = YAML
+
+    # Google Discovery Engine configuration
+    config.discovery_engine_datastore = ENV.fetch("DISCOVERY_ENGINE_DATASTORE")
+    config.discovery_engine_engine = ENV.fetch("DISCOVERY_ENGINE_ENGINE")
+    config.discovery_engine_serving_config = ENV.fetch("DISCOVERY_ENGINE_SERVING_CONFIG")
   end
 end

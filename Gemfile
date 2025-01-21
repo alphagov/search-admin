@@ -5,6 +5,7 @@ gem "rails", "8.0.1"
 gem "bootsnap", require: false
 gem "csv"
 gem "dartsass-rails"
+gem "google-cloud-discovery_engine"
 gem "mysql2"
 gem "sprockets-rails"
 
@@ -24,6 +25,7 @@ group :test do
   gem "factory_bot_rails"
   gem "govuk_schemas"
   gem "govuk_test"
+  gem "grpc_mock"
   gem "simplecov"
   gem "webmock"
 end

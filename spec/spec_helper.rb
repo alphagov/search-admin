@@ -17,8 +17,15 @@ Dir[Rails.root.join("spec/support/**/*.rb")].sort.each { |f| require f }
 # If you are not using ActiveRecord, you can remove this line.
 ActiveRecord::Migration.maintain_test_schema!
 
+require "grpc_mock/rspec"
+GrpcMock.disable_net_connect!
+
 require "webmock/rspec"
 WebMock.disable_net_connect!
+
+# Required to be able to stub Google classes in tests (as classes from the `v1` namespace are not
+# used directly in non-test code, they are not loaded by the gem's lazy loading)
+require "google/cloud/discovery_engine/v1"
 
 RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
