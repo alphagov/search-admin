@@ -14,7 +14,7 @@ class AdjustmentsController < ApplicationController
   def create
     @adjustment = Adjustment.new(adjustment_params)
 
-    if @adjustment.save
+    if @adjustment.save_and_sync
       redirect_to @adjustment, notice: t(".success")
     else
       render :new, status: :unprocessable_entity
@@ -26,7 +26,9 @@ class AdjustmentsController < ApplicationController
   def edit; end
 
   def update
-    if @adjustment.update(adjustment_params)
+    @adjustment.assign_attributes(adjustment_params)
+
+    if @adjustment.save_and_sync
       redirect_to @adjustment, notice: t(".success")
     else
       render :edit, status: :unprocessable_entity
@@ -34,7 +36,7 @@ class AdjustmentsController < ApplicationController
   end
 
   def destroy
-    if @adjustment.destroy
+    if @adjustment.destroy_and_sync
       redirect_to adjustments_path, notice: t(".success")
     else
       redirect_to @adjustment, alert: t(".failure")

@@ -1,4 +1,12 @@
 RSpec.describe "Adjustments", type: :system do
+  let(:control) do
+    instance_double(DiscoveryEngine::Control, create!: true, update!: true, delete!: true)
+  end
+
+  before do
+    allow(DiscoveryEngine::Control).to receive(:new).and_return(control)
+  end
+
   scenario "Viewing adjustments" do
     given_several_adjustments_exist
     when_i_visit_the_adjustments_page
@@ -127,11 +135,13 @@ RSpec.describe "Adjustments", type: :system do
   def then_the_boost_adjustment_should_be_created
     expect(page).to have_content("The adjustment was successfully created.")
     expect(Adjustment.first).to be_boost_kind
+    expect(control).to have_received(:create!)
   end
 
   def then_the_filter_adjustment_should_be_created
     expect(page).to have_content("The adjustment was successfully created.")
     expect(Adjustment.first).to be_filter_kind
+    expect(control).to have_received(:create!)
   end
 
   def and_i_can_see_the_boost_adjustment_details
@@ -148,11 +158,13 @@ RSpec.describe "Adjustments", type: :system do
   def then_the_boost_adjustment_should_be_updated
     expect(page).to have_content("The adjustment was successfully updated.")
     expect(@boost_adjustment.reload.name).to eq("Updated adjustment")
+    expect(control).to have_received(:update!)
   end
 
   def then_the_filter_adjustment_should_be_updated
     expect(page).to have_content("The adjustment was successfully updated.")
     expect(@filter_adjustment.reload.name).to eq("Updated adjustment")
+    expect(control).to have_received(:update!)
   end
 
   def and_i_can_see_the_updated_details
@@ -162,5 +174,6 @@ RSpec.describe "Adjustments", type: :system do
   def then_the_boost_adjustment_should_be_deleted
     expect(page).to have_content("The adjustment was successfully deleted.")
     expect(Adjustment.count).to be_zero
+    expect(control).to have_received(:delete!)
   end
 end
