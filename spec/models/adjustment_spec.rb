@@ -74,4 +74,35 @@ RSpec.describe Adjustment, type: :model do
       end
     end
   end
+
+  describe "#control_action" do
+    subject(:control_action) { adjustment.control_action }
+
+    context "for a boost adjustment" do
+      let(:adjustment) { build_stubbed(:boost_adjustment) }
+
+      it "returns a hash with the boost action" do
+        expect(control_action).to eq(
+          boost_action: {
+            boost: adjustment.boost_factor,
+            filter: adjustment.filter_expression,
+            data_store: Rails.configuration.discovery_engine_datastore,
+          },
+        )
+      end
+    end
+
+    context "for a filter adjustment" do
+      let(:adjustment) { build_stubbed(:filter_adjustment) }
+
+      it "returns a hash with the filter action" do
+        expect(control_action).to eq(
+          filter_action: {
+            filter: adjustment.filter_expression,
+            data_store: Rails.configuration.discovery_engine_datastore,
+          },
+        )
+      end
+    end
+  end
 end
