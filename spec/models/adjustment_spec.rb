@@ -1,4 +1,8 @@
 RSpec.describe Adjustment, type: :model do
+  it_behaves_like "Discovery Engine syncable", DiscoveryEngine::Control do
+    let(:attributes) { attributes_for(:boost_adjustment) }
+  end
+
   describe "validations" do
     subject(:adjustment) { Adjustment.new(attributes) }
 

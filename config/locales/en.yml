@@ -72,6 +72,13 @@ en:
         comment: Comments
         created_at: Created at
         updated_at: Updated at
+    errors:
+      messages:
+        discovery_engine_invalid_request: |
+          Vertex AI Search did not accept the change: %{message}.
+        discovery_engine_unrecoverable: |
+          Vertex AI Search returned an error trying to make this change. The error has been logged.
+          Please try again later.
 
   helpers:
     hint:

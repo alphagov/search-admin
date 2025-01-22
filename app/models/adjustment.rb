@@ -10,6 +10,9 @@ class Adjustment < ApplicationRecord
   # The range of permissible boost factor values
   BOOST_FACTOR_RANGE = -1.0..1.0
 
+  include DiscoveryEngineSyncable
+  discovery_engine_syncable as: DiscoveryEngine::Control
+
   enum :kind, { filter: 0, boost: 1 }, suffix: true, validate: true
 
   validates :name, presence: true
