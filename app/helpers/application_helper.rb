@@ -1,6 +1,6 @@
 module ApplicationHelper
   def navigation_items
-    return [] unless current_user
+    return [] unless Current.user
 
     [
       {
@@ -9,7 +9,7 @@ module ApplicationHelper
         active: controller.controller_name == "recommended_links",
       },
       {
-        text: current_user.name,
+        text: Current.user.name,
         href: Plek.new.external_url_for("signon"),
       },
       {
