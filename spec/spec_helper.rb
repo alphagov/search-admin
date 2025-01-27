@@ -38,14 +38,7 @@ RSpec.configure do |config|
 
   config.include FactoryBot::Syntax::Methods
 
-  config.before(:all, type: :system) do
-    @user = create(:user)
-    GDS::SSO.test_user = @user
-  end
-
-  config.after(:all, type: :system) do
-    @user.destroy!
-  end
+  config.include_context "with an SSO authenticated user", type: :system
 
   config.before(:each, type: :system) do
     driven_by :rack_test
