@@ -1,0 +1,9 @@
+<%= render "govuk_publishing_components/components/summary_list", {
+  title: t(".action_heading"),
+  items: [
+    {
+      field: t_model_attr(:filter_expression, on: filter_action),
+      value: filter_action.filter_expression,
+    },
+  ]
+} %>

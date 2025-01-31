@@ -79,6 +79,19 @@ en:
         keywords: Keywords
         comment: Comments
 
+  controls:
+    index:
+      page_title: Controls
+      filter_table_label: Filter all controls
+    show:
+      page_title_context: "%{action_name} control"
+      control_heading: Control details
+      action_heading: Action details
+    filter_action:
+      action_heading: Filter action details
+    boost_action:
+      action_heading: Boost action details
+
   recommended_links:
     index:
       page_title: External links

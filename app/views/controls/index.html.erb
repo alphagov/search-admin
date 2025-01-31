@@ -1,0 +1,18 @@
+<%= render "common/page_title", title: t(".page_title") %>
+
+<div class="govuk-!-margin-top-6 app-table__container" data-module="filterable-table">
+  <%= render "govuk_publishing_components/components/table", {
+    filterable: true,
+    label: t(".filter_table_label"),
+    head: [
+      { text: t_model_attr(:name) },
+      { text: t_model_attr(:action) },
+    ],
+    rows: @controls.map do |control|
+      [
+        { text: link_to(control.display_name, control, class: "govuk-link") },
+        { text: t_model_name(control.action).capitalize },
+      ]
+    end
+  } %>
+</div>

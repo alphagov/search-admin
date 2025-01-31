@@ -1,0 +1,30 @@
+<%= render "govuk_publishing_components/components/breadcrumbs", {
+  breadcrumbs: [
+    {
+      title: t("controls.index.page_title"),
+      url: controls_path
+    },
+    {
+      title: @control.display_name
+    }
+  ]
+} %>
+
+<%= render "common/page_title", {
+  title: @control.display_name,
+  context: t(".page_title_context", action_name: t_model_name(@control.action).capitalize),
+  context_inside: true
+} %>
+
+
+<%= render "govuk_publishing_components/components/summary_list", {
+  title: t(".control_heading"),
+  items: [
+    {
+      field: t_model_attr(:display_name),
+      value: @control.display_name,
+    },
+  ]
+} %>
+
+<%= render @control.action %>
