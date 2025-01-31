@@ -10,6 +10,9 @@
 # see
 # https://cloud.google.com/ruby/docs/reference/google-cloud-discovery_engine-v1/latest/Google-Cloud-DiscoveryEngine-V1-Control
 class Control < ApplicationRecord
+  include RemoteSynchronizable
+  remote_synchronize with: DiscoveryEngine::ControlClient
+
   delegated_type :action, types: %w[Control::BoostAction Control::FilterAction], dependent: :destroy
   accepts_nested_attributes_for :action, update_only: true
 
