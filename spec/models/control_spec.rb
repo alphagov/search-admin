@@ -1,4 +1,6 @@
 RSpec.describe Control, type: :model do
+  it_behaves_like "RemoteSynchronizable", DiscoveryEngine::ControlClient
+
   describe "validations" do
     subject(:control) { build(:control) }
 

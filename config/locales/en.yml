@@ -90,6 +90,15 @@ en:
         keywords: Keywords
         comment: Comments
 
+    errors:
+      messages:
+        remote_invalid: |
+          Vertex AI Search rejected your changes. Please double check your changes for any errors.
+          (%{details})
+        remote_error: |
+          Vertex AI Search encountered an unexpected error. This error has been logged. Please try
+          again later.
+
   controls:
     index:
       page_title: Controls
