@@ -1,0 +1,9 @@
+<%= render "govuk_publishing_components/components/summary_list", {
+  title: t(".action_heading"),
+  items: [
+    {
+      field: filter_action.class.human_attribute_name(:filter_expression),
+      value: filter_action.filter_expression,
+    },
+  ]
+} %>
