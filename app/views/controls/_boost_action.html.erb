@@ -1,0 +1,13 @@
+<%= render "govuk_publishing_components/components/summary_list", {
+  title: t(".action_heading"),
+  items: [
+    {
+      field: boost_action.class.human_attribute_name(:filter_expression),
+      value: boost_action.filter_expression,
+    },
+    {
+      field: boost_action.class.human_attribute_name(:boost_factor),
+      value: boost_action.boost_factor
+    },
+  ]
+} %>
