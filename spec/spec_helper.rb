@@ -20,6 +20,13 @@ ActiveRecord::Migration.maintain_test_schema!
 require "webmock/rspec"
 WebMock.disable_net_connect!
 
+require "grpc_mock/rspec"
+GrpcMock.disable_net_connect!
+
+# Required to be able to mock Google classes in tests (as classes from the `v1` namespace are not
+# used directly in non-test code, they are not loaded by the gem's lazy loading)
+require "google/cloud/discovery_engine/v1"
+
 RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
   config.disable_monkey_patching!

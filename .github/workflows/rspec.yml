@@ -13,6 +13,10 @@ on:
         default: main
         type: string
 
+env:
+  DISCOVERY_ENGINE_DATASTORE: not-used
+  DISCOVERY_ENGINE_DEFAULT_COLLECTION_NAME: not-used
+
 jobs:
   run-rspec:
     name: Run RSpec
