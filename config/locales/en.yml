@@ -45,20 +45,39 @@ en:
       description: |
         The %{model_name} could not be saved because some fields are missing or incorrect.
 
+  attributes:
+    created_at: Created at
+    updated_at: Updated at
+
   activerecord:
     models:
+      control:
+        one: control
+        other: controls
+      control/boost_action:
+        one: boost
+        other: boost
+      control/filter_action:
+        one: filter
+        other: filter
       recommended_link:
         one: external link
         other: external links
     attributes:
+      control:
+        display_name: Name
+        action: Action
+      control/boost_action:
+        boost_factor: Boost factor
+        filter_expression: Filter expression
+      control/filter_action:
+        filter_expression: Filter expression
       recommended_link:
         link: Link
         title: Title
         description: Description
         keywords: Keywords
         comment: Comments
-        created_at: Created at
-        updated_at: Updated at
 
   recommended_links:
     index:
