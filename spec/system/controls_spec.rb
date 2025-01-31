@@ -1,4 +1,12 @@
 RSpec.describe "Controls", type: :system do
+  let(:control) do
+    instance_double(DiscoveryEngine::ControlClient, create: true, update: true, delete: true)
+  end
+
+  before do
+    allow(DiscoveryEngine::ControlClient).to receive(:new).and_return(control)
+  end
+
   scenario "Viewing controls" do
     given_several_controls_exist
 
