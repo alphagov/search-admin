@@ -57,4 +57,9 @@ Rails.application.configure do
 
   # Raise error when a before_action's only/except options reference missing actions
   config.action_controller.raise_on_missing_callback_actions = true
+
+  # Google Discovery Engine configuration
+  config.discovery_engine_datastore = "[datastore]"
+  config.discovery_engine_engine = "[engine]"
+  config.discovery_engine_serving_config = "[serving_config]"
 end

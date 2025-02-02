@@ -11,6 +11,7 @@ gem "sprockets-rails"
 # GDS managed gems
 gem "gds-api-adapters"
 gem "gds-sso"
+gem "google-cloud-discovery_engine"
 gem "govuk_app_config"
 gem "govuk_publishing_components"
 gem "mail-notify"
@@ -24,6 +25,7 @@ group :test do
   gem "factory_bot_rails"
   gem "govuk_schemas"
   gem "govuk_test"
+  gem "grpc_mock"
   gem "simplecov"
   gem "webmock"
 end
