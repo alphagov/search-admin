@@ -10,4 +10,14 @@ class Control::FilterAction < ApplicationRecord
   include Control::Actionable
 
   validates :filter_expression, presence: true
+
+  # Returns a representation of this filter as part of a Discovery Engine control resource
+  def to_discovery_engine_control_action
+    {
+      filter_action: {
+        filter: filter_expression,
+        data_store: Rails.configuration.discovery_engine_datastore,
+      },
+    }
+  end
 end

@@ -15,4 +15,17 @@ RSpec.describe Control::FilterAction, type: :model do
       end
     end
   end
+
+  describe "#to_discovery_engine_control_action" do
+    subject(:filter) { build_stubbed(:control_filter_action, filter_expression: "foo = 1") }
+
+    it "returns a representation of the action for Discovery Engine" do
+      expect(filter.to_discovery_engine_control_action).to eq({
+        filter_action: {
+          filter: "foo = 1",
+          data_store: "[datastore]",
+        },
+      })
+    end
+  end
 end

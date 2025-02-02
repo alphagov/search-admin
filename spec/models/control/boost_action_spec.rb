@@ -48,4 +48,20 @@ RSpec.describe Control::BoostAction, type: :model do
       end
     end
   end
+
+  describe "#to_discovery_engine_control_action" do
+    subject(:boost) do
+      build_stubbed(:control_boost_action, filter_expression: "foo = 1", boost_factor: 0.13)
+    end
+
+    it "returns a representation of the action for Discovery Engine" do
+      expect(boost.to_discovery_engine_control_action).to eq({
+        boost_action: {
+          filter: "foo = 1",
+          boost: 0.13,
+          data_store: "[datastore]",
+        },
+      })
+    end
+  end
 end

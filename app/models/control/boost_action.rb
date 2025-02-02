@@ -16,4 +16,15 @@ class Control::BoostAction < ApplicationRecord
 
   validates :filter_expression, presence: true
   validates :boost_factor, numericality: { in: BOOST_FACTOR_RANGE, other_than: 0 }
+
+  # Returns a representation of this boost as part of a Discovery Engine control resource
+  def to_discovery_engine_control_action
+    {
+      boost_action: {
+        filter: filter_expression,
+        boost: boost_factor,
+        data_store: Rails.configuration.discovery_engine_datastore,
+      },
+    }
+  end
 end
