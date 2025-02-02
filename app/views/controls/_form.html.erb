@@ -1,0 +1,29 @@
+<%= form_with(model: control) do |f| %>
+  <% if control.errors.any? %>
+    <%= render "govuk_publishing_components/components/error_summary", {
+      id: "error-summary",
+      title: t("common.error_summary.title"),
+      description: t("common.error_summary.description", model_name: t_model_name(control.action)),
+      items: error_summary_items(control)
+    } %>
+  <% end %>
+
+  <%= f.hidden_field :action_type %>
+
+  <%= render "govuk_publishing_components/components/input", {
+    label: {
+      text: t_model_attr(:display_name)
+    },
+    id: "control_display_name",
+    name: "control[display_name]",
+    autocomplete: "off", # Stop browsers mistaking this for a "person name" field
+    value: control.display_name,
+    error_items: error_items(control, :display_name)
+  } %>
+
+  <%= render "#{control.action.to_partial_path}_fields", action: control.action %>
+
+  <%= render "govuk_publishing_components/components/button", {
+    text: t("common.buttons.save", model_name: t_model_name),
+  } %>
+<% end %>

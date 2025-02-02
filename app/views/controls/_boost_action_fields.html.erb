@@ -1,0 +1,21 @@
+<%= render "govuk_publishing_components/components/input", {
+  label: {
+    text: t_model_attr(:filter_expression, on: action)
+  },
+  id: "control_action.filter_expression",
+  name: "control[action_attributes][filter_expression]",
+  hint: t("hints.filter_expression_html"),
+  value: action.filter_expression,
+  error_items: error_items(action, :filter_expression)
+} %>
+
+<%= render "govuk_publishing_components/components/input", {
+  label: {
+    text: t_model_attr(:boost_factor, on: action)
+  },
+  id: "control_action.boost_factor",
+  name: "control[action_attributes][boost_factor]",
+  hint: t("hints.boost_factor_html"),
+  value: action.boost_factor,
+  error_items: error_items(action, :boost_factor)
+} %>
