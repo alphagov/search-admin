@@ -114,6 +114,9 @@ en:
       success: The control was successfully created.
     update:
       success: The control was successfully updated.
+    destroy:
+      success: The control was successfully deleted.
+      failure: The control could not be deleted.
 
   recommended_links:
     index:
