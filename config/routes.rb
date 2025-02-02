@@ -6,7 +6,12 @@ Rails.application.routes.draw do
   )
   mount GovukPublishingComponents::Engine, at: "/component-guide" if Rails.env.development?
 
-  resources :controls
+  resources :controls, except: %i[new]
+  scope :controls, only: %i[new] do
+    resources :boost, controller: :controls, action_type: Control::BoostAction
+    resources :filter, controller: :controls, action_type: Control::FilterAction
+  end
+
   resources :recommended_links, path: "/recommended-links"
 
   root "recommended_links#index"
