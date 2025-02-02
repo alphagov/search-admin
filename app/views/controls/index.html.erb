@@ -1,5 +1,20 @@
 <%= render "common/page_title", title: t(".page_title") %>
 
+<div class="actions">
+  <%= render "govuk_publishing_components/components/button", {
+    text: t(".buttons.new_boost_control"),
+    href: new_control_with_boost_action_path,
+    secondary: true,
+    inline_layout: true
+  } %>
+  <%= render "govuk_publishing_components/components/button", {
+    text: t(".buttons.new_filter_control"),
+    href: new_control_with_filter_action_path,
+    secondary: true,
+    inline_layout: true
+  } %>
+</div>
+
 <div class="govuk-!-margin-top-6 app-table__container" data-module="filterable-table">
   <%= render "govuk_publishing_components/components/table", {
     filterable: true,

@@ -49,6 +49,17 @@ en:
     created_at: Created at
     updated_at: Updated at
 
+  hints:
+    boost_factor_html: |
+      A decimal number between -1 and 1 that determines how much to boost (positive) or bury
+      (negative) search results by, for example <code>0.13</code>.
+    filter_expression_html: |
+      A filter query that describes which documents this adjustment applies to, for example
+      <code>link: ANY("example")</code>. Note that all fields you use in the expression must be
+      "indexable" in Discovery Engine. See <a
+      href="https://cloud.google.com/generative-ai-app-builder/docs/filter-search-metadata"
+      target="_blank" class="govuk-link">Google documentation</a> for syntax and more information.
+
   activerecord:
     models:
       control:
@@ -83,6 +94,9 @@ en:
     index:
       page_title: Controls
       filter_table_label: Filter all controls
+      buttons:
+        new_boost_control: New boost control
+        new_filter_control: New filter control
     show:
       page_title_context: "%{action_name} control"
       control_heading: Control details
@@ -91,6 +105,10 @@ en:
       action_heading: Filter action details
     boost_action:
       action_heading: Boost action details
+    new:
+      page_title: New %{action_name} control
+    create:
+      success: The control was successfully created.
 
   recommended_links:
     index:
