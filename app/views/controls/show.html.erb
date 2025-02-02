@@ -17,6 +17,14 @@
 } %>
 
 
+<div class="actions">
+  <%= render "govuk_publishing_components/components/button", {
+    text: t("common.buttons.edit", model_name: t_model_name),
+    href: edit_control_path(@control),
+    inline_layout: true
+  } %>
+</div>
+
 <%= render "govuk_publishing_components/components/summary_list", {
   title: t(".control_heading"),
   items: [

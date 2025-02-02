@@ -14,6 +14,12 @@ RSpec.describe "Controls", type: :system do
 
     then_my_control_has_been_created
     and_i_can_see_the_boost_control_details
+
+    when_i_choose_to_edit_the_control
+    and_i_submit_the_form_with_updated_boost_control_details
+
+    then_the_control_has_been_updated
+    and_i_can_see_the_updated_boost_control_details
   end
 
   scenario "Managing filter controls" do
@@ -23,6 +29,12 @@ RSpec.describe "Controls", type: :system do
 
     then_my_control_has_been_created
     and_i_can_see_the_filter_control_details
+
+    when_i_choose_to_edit_the_control
+    and_i_submit_the_form_with_updated_filter_control_details
+
+    then_the_control_has_been_updated
+    and_i_can_see_the_updated_filter_control_details
   end
 
   def given_several_controls_exist
@@ -82,5 +94,41 @@ RSpec.describe "Controls", type: :system do
     expect(page).to have_selector("h1", text: "Filter control My filter control")
     expect(page).to have_content("Name My filter control")
     expect(page).to have_content("Filter expression is_cool = 1")
+  end
+
+  def when_i_choose_to_edit_the_control
+    click_link "Edit control"
+  end
+
+  def and_i_submit_the_form_with_updated_boost_control_details
+    fill_in "Name", with: "My updated boost control"
+    fill_in "Filter expression", with: "is_really_cool = 999"
+    fill_in "Boost factor", with: "0.999"
+
+    click_button "Save control"
+  end
+
+  def and_i_submit_the_form_with_updated_filter_control_details
+    fill_in "Name", with: "My updated filter control"
+    fill_in "Filter expression", with: "is_really_cool = 999"
+
+    click_button "Save control"
+  end
+
+  def then_the_control_has_been_updated
+    expect(page).to have_content("control was successfully updated")
+  end
+
+  def and_i_can_see_the_updated_boost_control_details
+    expect(page).to have_selector("h1", text: "Boost control My updated boost control")
+    expect(page).to have_content("Name My updated boost control")
+    expect(page).to have_content("Filter expression is_really_cool = 999")
+    expect(page).to have_content("Boost factor 0.999")
+  end
+
+  def and_i_can_see_the_updated_filter_control_details
+    expect(page).to have_selector("h1", text: "Filter control My updated filter control")
+    expect(page).to have_content("Name My updated filter control")
+    expect(page).to have_content("Filter expression is_really_cool = 999")
   end
 end

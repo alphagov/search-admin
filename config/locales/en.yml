@@ -107,8 +107,13 @@ en:
       action_heading: Boost action details
     new:
       page_title: New %{action_name} control
+    edit:
+      page_title: Edit
+      page_title_context: "%{action_name} control"
     create:
       success: The control was successfully created.
+    update:
+      success: The control was successfully updated.
 
   recommended_links:
     index:

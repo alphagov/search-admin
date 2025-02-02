@@ -1,5 +1,5 @@
 class ControlsController < ApplicationController
-  before_action :set_control, only: %i[show]
+  before_action :set_control, only: %i[show edit update]
 
   def index
     @controls = Control.includes(:action).order(:display_name)
@@ -20,6 +20,18 @@ class ControlsController < ApplicationController
   end
 
   def show; end
+
+  def edit; end
+
+  def update
+    @control.assign_attributes(control_params.except(:action_type))
+
+    if @control.save
+      redirect_to @control, notice: t(".success")
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
 
 private
 
