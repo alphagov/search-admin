@@ -1,5 +1,5 @@
 class ControlsController < ApplicationController
-  before_action :set_control, only: %i[show edit update]
+  before_action :set_control, only: %i[show edit update destroy]
 
   def index
     @controls = Control.includes(:action).order(:display_name)
@@ -30,6 +30,14 @@ class ControlsController < ApplicationController
       redirect_to @control, notice: t(".success")
     else
       render :edit, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    if @control.destroy
+      redirect_to controls_path, notice: t(".success")
+    else
+      redirect_to @control, alert: t(".failure")
     end
   end
 

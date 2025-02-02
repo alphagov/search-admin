@@ -23,6 +23,11 @@
     href: edit_control_path(@control),
     inline_layout: true
   } %>
+  <%= delete_button(
+    t("common.buttons.delete", model_name: t_model_name),
+    @control,
+    is_inline: true
+  ) %>
 </div>
 
 <%= render "govuk_publishing_components/components/summary_list", {
