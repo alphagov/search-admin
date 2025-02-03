@@ -1,9 +1,12 @@
 <% context ||= nil %>
 <% context_inside ||= nil %>
 
-<%= render "govuk_publishing_components/components/title", {
-  title: title,
+<%= render "govuk_publishing_components/components/heading", {
+  text: title,
   context:,
   context_inside:,
+  heading_level: 1,
+  font_size: "xl",
+  margin_bottom: 8,
 } %>
 <% content_for :page_title, title %>
