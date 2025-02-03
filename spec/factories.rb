@@ -46,6 +46,17 @@ FactoryBot.define do
     keywords { "tax, self assessment, hmrc" }
   end
 
+  factory :serving_config do
+    display_name { "Serving config" }
+    discovery_engine_id { "serving_config" }
+    can_have_attached_controls { true }
+    comment { "I am a serving config" }
+
+    trait :default do
+      discovery_engine_id { "govuk_default" }
+    end
+  end
+
   factory :user do
     factory :admin_user do
       permissions { %w[admin] }

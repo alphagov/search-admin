@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_01_28_074343) do
+ActiveRecord::Schema[8.0].define(version: 2025_02_03_133948) do
   create_table "control_boost_actions", charset: "utf8mb3", force: :cascade do |t|
     t.string "filter_expression", null: false
     t.float "boost_factor", null: false
@@ -44,6 +44,16 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_28_074343) do
     t.string "content_id", limit: 36
     t.index ["content_id"], name: "index_recommended_links_on_content_id", unique: true
     t.index ["link"], name: "index_recommended_links_on_link", unique: true
+  end
+
+  create_table "serving_configs", charset: "utf8mb3", force: :cascade do |t|
+    t.string "discovery_engine_id", null: false, comment: "The ID of the remote resource on Discovery Engine"
+    t.string "display_name", null: false, comment: "A human-readable name for this serving config"
+    t.boolean "can_have_attached_controls", null: false, comment: "Whether or not users can attach controls to this serving config"
+    t.text "comment", null: false, comment: "A descriptive comment explaining what this serving config is for"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["discovery_engine_id"], name: "index_serving_configs_on_discovery_engine_id", unique: true
   end
 
   create_table "users", charset: "utf8mb3", force: :cascade do |t|
