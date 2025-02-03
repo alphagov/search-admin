@@ -7,6 +7,11 @@
 # config that is used by Search API v2 for actual GOV.UK traffic, but we can also have additional
 # serving configs to try out different combinations of controls or other settings.
 #
+# NOTE: As of Feb 2025, the Discovery Engine Ruby client does not have the ability to create or
+# delete serving configs (only update existing ones). Therefore, the initial creation of a fixed set
+# of serving configs was managed manually by creating them through a Rake task and creating remote
+# resources through the API (see `lib/tasks/bootstrap/import_initial_serving_configs.rb`).
+#
 # see https://cloud.google.com/ruby/docs/reference/google-cloud-discovery_engine-v1beta/latest/Google-Cloud-DiscoveryEngine-V1beta-ServingConfig
 class ServingConfig < ApplicationRecord
   # The ID on Discovery Engine of the "default" serving config. This is the primary, "live" serving
