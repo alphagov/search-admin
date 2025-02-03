@@ -24,6 +24,21 @@
 
   <%= render "#{control.action.to_partial_path}_fields", action: control.action %>
 
+  <%= render "govuk_publishing_components/components/checkboxes", {
+    id: "control_serving_configs",
+    name: "control[serving_config_ids][]",
+    heading: t_model_attr(:serving_configs),
+    hint_text: t("hints.serving_configs"),
+    items: serving_config_options.map do |value, label, hint|
+      {
+        value:,
+        label:,
+        hint:,
+        checked: value.in?(control.serving_config_ids)
+      }
+    end
+  } %>
+
   <%= render "govuk_publishing_components/components/button", {
     text: t("common.buttons.save", model_name: t_model_name),
   } %>

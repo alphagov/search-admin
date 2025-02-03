@@ -59,6 +59,8 @@ en:
       "indexable" in Discovery Engine. See <a
       href="https://cloud.google.com/generative-ai-app-builder/docs/filter-search-metadata"
       target="_blank" class="govuk-link">Google documentation</a> for syntax and more information.
+    serving_configs: |
+      Select all serving configs that this control should be attached to.
 
   activerecord:
     models:
@@ -78,6 +80,7 @@ en:
       control:
         display_name: Name
         action: Action
+        serving_configs: Use in serving configs
       control/boost_action:
         boost_factor: Boost factor
         filter_expression: Filter expression

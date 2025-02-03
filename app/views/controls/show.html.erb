@@ -37,6 +37,10 @@
       field: Control.human_attribute_name(:display_name),
       value: @control.display_name,
     },
+    {
+      field: Control.human_attribute_name(:serving_configs),
+      value: @control.serving_configs.map(&:display_name).join(", ")
+    }
   ]
 } %>
 
