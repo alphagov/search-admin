@@ -16,6 +16,8 @@ class Control < ApplicationRecord
   delegated_type :action, types: %w[BoostAction FilterAction], dependent: :destroy
   accepts_nested_attributes_for :action
 
+  has_and_belongs_to_many :serving_configs
+
   validates :display_name, presence: true
 
   # Returns a representation of this Control as a Discovery Engine control resource

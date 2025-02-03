@@ -25,6 +25,8 @@ class ServingConfig < ApplicationRecord
   validates :display_name, presence: true
   validates :comment, presence: true
 
+  has_and_belongs_to_many :controls
+
   before_destroy :prevent_destruction_of_default
 
   # Returns the default serving config

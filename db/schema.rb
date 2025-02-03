@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_02_03_133948) do
+ActiveRecord::Schema[8.0].define(version: 2025_02_03_150540) do
   create_table "control_boost_actions", charset: "utf8mb3", force: :cascade do |t|
     t.string "filter_expression", null: false
     t.float "boost_factor", null: false
@@ -32,6 +32,12 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_03_133948) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["action_type", "action_id"], name: "index_controls_on_action_type_and_action_id", unique: true
+  end
+
+  create_table "controls_serving_configs", id: false, charset: "utf8mb3", force: :cascade do |t|
+    t.bigint "control_id", null: false
+    t.bigint "serving_config_id", null: false
+    t.index ["control_id", "serving_config_id"], name: "idx_on_control_id_serving_config_id_dcd71db82f"
   end
 
   create_table "recommended_links", charset: "utf8mb3", force: :cascade do |t|
