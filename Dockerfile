@@ -10,7 +10,14 @@ COPY Gemfile* .ruby-version ./
 RUN bundle install
 COPY . .
 RUN bootsnap precompile --gemfile .
-RUN SECRET_KEY_BASE=none GOVUK_NOTIFY_API_KEY=none rails assets:precompile && rm -fr log
+
+# Set mandatory env vars to allow Rails to boot for asset compilation. These are only set for the
+# current build stage.
+ENV SECRET_KEY_BASE=none
+ENV GOVUK_NOTIFY_API_KEY=none
+ENV DISCOVERY_ENGINE_DATASTORE=none
+ENV DISCOVERY_ENGINE_DEFAULT_COLLECTION_NAME=none
+RUN rails assets:precompile && rm -fr log
 
 
 FROM --platform=$TARGETPLATFORM $base_image
