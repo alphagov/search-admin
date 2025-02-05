@@ -1,4 +1,9 @@
+<% context ||= nil %>
+<% context_inside ||= nil %>
+
 <%= render "govuk_publishing_components/components/title", {
-  title: title
+  title: title,
+  context:,
+  context_inside:,
 } %>
 <% content_for :page_title, title %>

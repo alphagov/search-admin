@@ -45,20 +45,85 @@ en:
       description: |
         The %{model_name} could not be saved because some fields are missing or incorrect.
 
+  attributes:
+    created_at: Created at
+    updated_at: Updated at
+
+  hints:
+    boost_factor_html: |
+      A decimal number between -1 and 1 that determines how much to boost (positive) or bury
+      (negative) search results by, for example <code>0.13</code>.
+    filter_expression_html: |
+      A filter query that describes which documents this adjustment applies to, for example
+      <code>link: ANY("example")</code>. Note that all fields you use in the expression must be
+      "indexable" in Discovery Engine. See <a
+      href="https://cloud.google.com/generative-ai-app-builder/docs/filter-search-metadata"
+      target="_blank" class="govuk-link">Google documentation</a> for syntax and more information.
+
   activerecord:
     models:
+      control:
+        one: control
+        other: controls
+      control/boost_action:
+        one: boost
+        other: boost
+      control/filter_action:
+        one: filter
+        other: filter
       recommended_link:
         one: external link
         other: external links
     attributes:
+      control:
+        display_name: Name
+        action: Action
+      control/boost_action:
+        boost_factor: Boost factor
+        filter_expression: Filter expression
+      control/filter_action:
+        filter_expression: Filter expression
       recommended_link:
         link: Link
         title: Title
         description: Description
         keywords: Keywords
         comment: Comments
-        created_at: Created at
-        updated_at: Updated at
+
+    errors:
+      models:
+        control:
+          remote_error: |
+            We couldn't save this control on Vertex AI Search because of an unexpected error.
+            This error has been logged. Please try again later.
+
+  controls:
+    index:
+      page_title: Controls
+      filter_table_label: Filter all controls
+      buttons:
+        new_boost_control: New boost control
+        new_filter_control: New filter control
+    show:
+      page_title_context: "%{action_name} control"
+      control_heading: Control details
+      action_heading: Action details
+    filter_action:
+      action_heading: Filter action details
+    boost_action:
+      action_heading: Boost action details
+    new:
+      page_title: New %{action_name} control
+    edit:
+      page_title: Edit
+      page_title_context: "%{action_name} control"
+    create:
+      success: The control was successfully created.
+    update:
+      success: The control was successfully updated.
+    destroy:
+      success: The control was successfully deleted.
+      failure: The control could not be deleted.
 
   recommended_links:
     index:
