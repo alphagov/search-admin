@@ -15,7 +15,6 @@ RUN bootsnap precompile --gemfile .
 # current build stage.
 ENV SECRET_KEY_BASE=none
 ENV GOVUK_NOTIFY_API_KEY=none
-ENV DISCOVERY_ENGINE_DATASTORE=none
 ENV DISCOVERY_ENGINE_DEFAULT_COLLECTION_NAME=none
 RUN rails assets:precompile && rm -fr log
 

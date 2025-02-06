@@ -47,7 +47,6 @@ module SearchAdmin
     config.active_record.default_column_serializer = YAML
 
     # Google Discovery Engine configuration
-    config.discovery_engine_datastore = ENV.fetch("DISCOVERY_ENGINE_DATASTORE")
     config.discovery_engine_default_collection_name = ENV.fetch("DISCOVERY_ENGINE_DEFAULT_COLLECTION_NAME")
   end
 end
