@@ -9,6 +9,8 @@
 #
 # see https://cloud.google.com/ruby/docs/reference/google-cloud-discovery_engine-v1/latest/Google-Cloud-DiscoveryEngine-V1-Engine
 class Engine
+  include DiscoveryEngineNameable
+
   # The ID of the default engine created through Terraform in `govuk-infrastructure`
   DEFAULT_ENGINE_ID = "govuk".freeze
 
@@ -20,15 +22,6 @@ class Engine
 
   def initialize(discovery_engine_id)
     @discovery_engine_id = discovery_engine_id
-  end
-
-  # The fully qualified name of the engine on Discovery Engine (like a path)
-  def name
-    [
-      Rails.configuration.discovery_engine_default_collection_name,
-      "engines",
-      discovery_engine_id
-    ].join("/")
   end
 
   def ==(other)

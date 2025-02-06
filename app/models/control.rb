@@ -10,6 +10,7 @@
 # see
 # https://cloud.google.com/ruby/docs/reference/google-cloud-discovery_engine-v1/latest/Google-Cloud-DiscoveryEngine-V1-Control
 class Control < ApplicationRecord
+  include DiscoveryEngineNameable
   include RemoteSynchronizable
   remote_synchronize with: DiscoveryEngine::ControlClient
 
@@ -28,11 +29,6 @@ class Control < ApplicationRecord
       # Trip hazard: despite the plural name, this expects _one_ use case in an array
       use_cases: [Google::Cloud::DiscoveryEngine::V1::SearchUseCase::SEARCH_USE_CASE_SEARCH],
     }
-  end
-
-  # The fully qualified name of the control on Discovery Engine (like a path)
-  def name
-    [parent.name, "controls", discovery_engine_id].join("/")
   end
 
   # The parent of the control on Discovery Engine (always the default engine)

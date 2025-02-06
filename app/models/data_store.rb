@@ -7,6 +7,8 @@
 #
 # see https://cloud.google.com/ruby/docs/reference/google-cloud-discovery_engine-v1/latest/Google-Cloud-DiscoveryEngine-V1-DataStore
 class DataStore
+  include DiscoveryEngineNameable
+
   # The ID of the default datastore created through Terraform in `govuk_infrastructure`
   DEFAULT_DATA_STORE_ID = "govuk_content".freeze
 
@@ -18,15 +20,6 @@ class DataStore
 
   def initialize(discovery_engine_id)
     @discovery_engine_id = discovery_engine_id
-  end
-
-  # The fully qualified name of the data store on Discovery Engine (like a path)
-  def name
-    [
-      Rails.configuration.discovery_engine_default_collection_name,
-      "dataStores",
-      discovery_engine_id
-    ].join("/")
   end
 
   def ==(other)
