@@ -1,4 +1,4 @@
-<% @breadcrumbs = capture do %>
+<% content_for(:breadcrumbs) do %>
   <%= render "govuk_publishing_components/components/breadcrumbs", {
     breadcrumbs: [
       {
@@ -12,7 +12,7 @@
   } %>
 <% end %>
 
-<%= render "common/page_title", title: @recommended_link.title %>
+<%= render "page_title", title: @recommended_link.title %>
 
 <div class="actions">
   <%= render "govuk_publishing_components/components/button", {

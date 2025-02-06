@@ -1,4 +1,4 @@
-<% @breadcrumbs = capture do %>
+<% content_for(:breadcrumbs) do %>
   <%= render "govuk_publishing_components/components/breadcrumbs", {
     breadcrumbs: [
       {
@@ -16,6 +16,6 @@
   } %>
 <% end %>
 
-<%= render "common/page_title", title: @recommended_link.title_was %>
+<%= render "page_title", title: @recommended_link.title_was %>
 
 <%= render 'form', recommended_link: @recommended_link %>

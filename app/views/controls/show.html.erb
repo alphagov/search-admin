@@ -1,16 +1,18 @@
-<%= render "govuk_publishing_components/components/breadcrumbs", {
-  breadcrumbs: [
-    {
-      title: t("controls.index.page_title"),
-      url: controls_path
-    },
-    {
-      title: @control.display_name
-    }
-  ]
-} %>
+<% content_for(:breadcrumbs) do %>
+  <%= render "govuk_publishing_components/components/breadcrumbs", {
+    breadcrumbs: [
+      {
+        title: t("controls.index.page_title"),
+        url: controls_path
+      },
+      {
+        title: @control.display_name
+      }
+    ]
+  } %>
+<% end %>
 
-<%= render "common/page_title", {
+<%= render "page_title", {
   title: @control.display_name,
   context: t(".page_title_context", action_name: t_model_name(@control.action).capitalize),
   context_inside: true
