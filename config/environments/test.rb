@@ -59,7 +59,5 @@ Rails.application.configure do
   config.action_controller.raise_on_missing_callback_actions = true
 
   # Google Discovery Engine configuration
-  config.discovery_engine_datastore = "[datastore]"
-  config.discovery_engine_engine = "[engine]"
-  config.discovery_engine_serving_config = "[serving_config]"
+  config.discovery_engine_default_collection_name = "[collection]"
 end

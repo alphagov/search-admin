@@ -20,7 +20,7 @@ RSpec.describe DiscoveryEngine::ControlClient, type: :client do
       expect(discovery_engine_client).to receive(:create_control).with(
         control: control.to_discovery_engine_control,
         control_id: "search-admin-42",
-        parent: "[engine]",
+        parent: Engine.default.name,
       )
 
       subject.create(control) # rubocop:disable Rails/SaveBang (not an ActiveRecord model)
@@ -80,7 +80,7 @@ RSpec.describe DiscoveryEngine::ControlClient, type: :client do
   describe "#delete" do
     it "deletes the control on Discovery Engine" do
       expect(discovery_engine_client).to receive(:delete_control).with(
-        name: "[engine]/controls/search-admin-42",
+        name: control.name,
       )
 
       subject.delete(control)

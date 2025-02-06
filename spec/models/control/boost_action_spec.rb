@@ -59,7 +59,7 @@ RSpec.describe Control::BoostAction, type: :model do
         boost_action: {
           filter: "foo = 1",
           boost: 0.13,
-          data_store: "[datastore]",
+          data_store: DataStore.default.name,
         },
       })
     end

@@ -78,6 +78,7 @@ en:
       control:
         display_name: Name
         action: Action
+        name: Google Cloud identifier
       control/boost_action:
         boost_factor: Boost factor
         filter_expression: Filter expression

@@ -34,28 +34,28 @@ RSpec.describe Control, type: :model do
 
     let(:action) { build(:control_boost_action) }
 
-    describe "#discovery_engine_id" do
+    describe "#remote_resource_id" do
       it "builds an ID from the control's database ID" do
-        expect(control.discovery_engine_id).to eq("search-admin-42")
+        expect(control.remote_resource_id).to eq("search-admin-42")
       end
     end
 
     describe "#parent" do
       it "is the configured engine" do
-        expect(control.parent).to eq("[engine]")
+        expect(control.parent).to eq(Engine.default)
       end
     end
 
     describe "#name" do
       it "returns the fully qualified name of the control" do
-        expect(control.name).to eq("[engine]/controls/search-admin-42")
+        expect(control.name).to eq("#{Engine.default.name}/controls/search-admin-42")
       end
     end
 
     describe "#to_discovery_engine_control" do
       it "returns a representation of the control for Discovery Engine" do
         expect(control.to_discovery_engine_control).to include(
-          name: "[engine]/controls/search-admin-42",
+          name: "#{Engine.default.name}/controls/search-admin-42",
           display_name: "My boost control",
           # We don't care what's in the action (that's tested elsewhere), but we do care that the
           # key is present
