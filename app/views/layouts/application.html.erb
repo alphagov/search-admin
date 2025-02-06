@@ -16,7 +16,8 @@
     navigation_items: navigation_items
   } %>
   <div class="govuk-width-container">
-    <%= @breadcrumbs %>
+    <%= yield :breadcrumbs %>
+
     <main class="govuk-main-wrapper" id="main-content" role="main">
       <% flash.each do |type, msg| %>
         <% if type == 'notice' %>

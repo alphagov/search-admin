@@ -1,4 +1,4 @@
-<% @breadcrumbs = capture do %>
+<% content_for(:breadcrumbs) do %>
   <%= render "govuk_publishing_components/components/breadcrumbs", {
     breadcrumbs: [
       {
