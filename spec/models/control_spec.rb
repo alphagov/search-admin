@@ -34,9 +34,9 @@ RSpec.describe Control, type: :model do
 
     let(:action) { build(:control_boost_action) }
 
-    describe "#discovery_engine_id" do
+    describe "#remote_resource_id" do
       it "builds an ID from the control's database ID" do
-        expect(control.discovery_engine_id).to eq("search-admin-42")
+        expect(control.remote_resource_id).to eq("search-admin-42")
       end
     end
 

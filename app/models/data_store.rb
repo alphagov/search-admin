@@ -12,17 +12,17 @@ class DataStore
   # The ID of the default datastore created through Terraform in `govuk_infrastructure`
   DEFAULT_DATA_STORE_ID = "govuk_content".freeze
 
-  attr_reader :discovery_engine_id
+  attr_reader :remote_resource_id
 
   def self.default
     new(DEFAULT_DATA_STORE_ID)
   end
 
-  def initialize(discovery_engine_id)
-    @discovery_engine_id = discovery_engine_id
+  def initialize(remote_resource_id)
+    @remote_resource_id = remote_resource_id
   end
 
   def ==(other)
-    discovery_engine_id == other.discovery_engine_id
+    remote_resource_id == other.remote_resource_id
   end
 end

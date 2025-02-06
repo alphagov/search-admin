@@ -37,7 +37,7 @@ class Control < ApplicationRecord
   end
 
   # The ID of the resource on Discovery Engine
-  def discovery_engine_id
+  def remote_resource_id
     "search-admin-#{id}"
   end
 end

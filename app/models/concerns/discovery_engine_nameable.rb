@@ -5,12 +5,12 @@
 #   projects/{project}/locations/{location}/collections/{collection_id}/engines/
 #   {engine_id}/controls/{control_id}
 #
-# Requires the including class to implement `#discovery_engine_id`, and optionally `#parent` if the
+# Requires the including class to implement `#remote_resource_id`, and optionally `#parent` if the
 # parent resource is not the default collection.
 module DiscoveryEngineNameable
   # The name (fully qualified path) of this Discovery Engine resource on GCP
   def name
-    [parent_name, resource_path_fragment, discovery_engine_id].join("/")
+    [parent_name, resource_path_fragment, remote_resource_id].join("/")
   end
 
 private
