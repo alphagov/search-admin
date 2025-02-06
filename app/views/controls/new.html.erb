@@ -10,6 +10,6 @@
   ]
 } %>
 
-<%= render "common/page_title", title: t(".page_title", action_name: t_model_name(@control.action)) %>
+<%= render "page_title", title: t(".page_title", action_name: t_model_name(@control.action)) %>
 
 <%= render "form", control: @control %>
