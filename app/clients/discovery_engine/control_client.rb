@@ -6,7 +6,7 @@ module DiscoveryEngine
       discovery_engine_client.create_control(
         control: control.to_discovery_engine_control,
         control_id: control.discovery_engine_id,
-        parent: control.parent,
+        parent: control.parent.name,
       )
     rescue Google::Cloud::Error => e
       set_record_errors(control, e)

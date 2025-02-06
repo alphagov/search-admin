@@ -32,12 +32,12 @@ class Control < ApplicationRecord
 
   # The fully qualified name of the control on Discovery Engine (like a path)
   def name
-    [parent, "controls", discovery_engine_id].join("/")
+    [parent.name, "controls", discovery_engine_id].join("/")
   end
 
-  # The parent of the control on Discovery Engine (always the engine)
+  # The parent of the control on Discovery Engine (always the default engine)
   def parent
-    Rails.configuration.discovery_engine_engine
+    Engine.default
   end
 
   # The ID of the resource on Discovery Engine

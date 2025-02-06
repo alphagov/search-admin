@@ -23,7 +23,7 @@ RSpec.describe Control::FilterAction, type: :model do
       expect(filter.to_discovery_engine_control_action).to eq({
         filter_action: {
           filter: "foo = 1",
-          data_store: "[datastore]",
+          data_store: DataStore.default.name,
         },
       })
     end

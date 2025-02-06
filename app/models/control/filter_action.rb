@@ -16,7 +16,7 @@ class Control::FilterAction < ApplicationRecord
     {
       filter_action: {
         filter: filter_expression,
-        data_store: Rails.configuration.discovery_engine_datastore,
+        data_store: DataStore.default.name,
       },
     }
   end
