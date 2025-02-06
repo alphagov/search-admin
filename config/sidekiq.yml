@@ -1,0 +1,2 @@
+# We don't currently need to override any Sidekiq defaults, but the GOV.UK Kubernetes Platform
+# expects this file to exist for any app that uses Sidekiq.
