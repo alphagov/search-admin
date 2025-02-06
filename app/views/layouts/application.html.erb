@@ -16,7 +16,8 @@
     navigation_items: navigation_items
   } %>
   <div class="govuk-width-container">
-    <main class="govuk-main-wrapper govuk-!-padding-top-2" id="main-content" role="main">
+    <%= @breadcrumbs %>
+    <main class="govuk-main-wrapper" id="main-content" role="main">
       <% flash.each do |type, msg| %>
         <% if type == 'notice' %>
           <%= render "govuk_publishing_components/components/success_alert", {

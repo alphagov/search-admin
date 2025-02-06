@@ -1,18 +1,20 @@
-<%= render "govuk_publishing_components/components/breadcrumbs", {
-  breadcrumbs: [
-    {
-      title: t("recommended_links.index.page_title"),
-      url: recommended_links_path
-    },
-    {
-      title: @recommended_link.title_was,
-      url: recommended_link_path(@recommended_link)
-    },
-    {
-      title: t(".page_title")
-    }
-  ]
-} %>
+<% @breadcrumbs = capture do %>
+  <%= render "govuk_publishing_components/components/breadcrumbs", {
+    breadcrumbs: [
+      {
+        title: t("recommended_links.index.page_title"),
+        url: recommended_links_path
+      },
+      {
+        title: @recommended_link.title_was,
+        url: recommended_link_path(@recommended_link)
+      },
+      {
+        title: t(".page_title")
+      }
+    ]
+  } %>
+<% end %>
 
 <%= render "common/page_title", title: @recommended_link.title_was %>
 
