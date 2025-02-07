@@ -6,23 +6,10 @@
 # data stores through Search Admin.
 #
 # see https://cloud.google.com/ruby/docs/reference/google-cloud-discovery_engine-v1/latest/Google-Cloud-DiscoveryEngine-V1-DataStore
-class DataStore
+DataStore = Data.define(:remote_resource_id) do
   include DiscoveryEngineNameable
 
-  # The ID of the default datastore created through Terraform in `govuk_infrastructure`
-  DEFAULT_DATA_STORE_ID = "govuk_content".freeze
-
-  attr_reader :remote_resource_id
-
   def self.default
-    new(DEFAULT_DATA_STORE_ID)
-  end
-
-  def initialize(remote_resource_id)
-    @remote_resource_id = remote_resource_id
-  end
-
-  def ==(other)
-    remote_resource_id == other.remote_resource_id
+    new("govuk_content")
   end
 end

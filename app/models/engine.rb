@@ -8,23 +8,11 @@
 # engines through Search Admin.
 #
 # see https://cloud.google.com/ruby/docs/reference/google-cloud-discovery_engine-v1/latest/Google-Cloud-DiscoveryEngine-V1-Engine
-class Engine
+Engine = Data.define(:remote_resource_id) do
   include DiscoveryEngineNameable
 
-  # The ID of the default engine created through Terraform in `govuk-infrastructure`
-  DEFAULT_ENGINE_ID = "govuk".freeze
-
-  attr_reader :remote_resource_id
-
+  # The default engine created through Terraform in `govuk-infrastructure`
   def self.default
-    new(DEFAULT_ENGINE_ID)
-  end
-
-  def initialize(remote_resource_id)
-    @remote_resource_id = remote_resource_id
-  end
-
-  def ==(other)
-    remote_resource_id == other.remote_resource_id
+    new("govuk")
   end
 end
