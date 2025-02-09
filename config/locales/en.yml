@@ -161,3 +161,10 @@ en:
     destroy:
       success: The external link was successfully deleted.
       failure: The external link could not be deleted.
+
+  serving_configs:
+    index:
+      page_title: Serving configs
+    show:
+      buttons:
+        preview: Preview on GOV.UK

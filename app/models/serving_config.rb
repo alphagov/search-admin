@@ -29,4 +29,12 @@ class ServingConfig < ApplicationRecord
   def default?
     remote_resource_id == DEFAULT_REMOTE_RESOURCE_ID
   end
+
+  # A URL to preview this serving config on Finder Frontend
+  def preview_url
+    FinderFrontendSearch.new(
+      keywords: "example search",
+      debug_serving_config: remote_resource_id,
+    ).url
+  end
 end
