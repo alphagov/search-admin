@@ -77,6 +77,9 @@ en:
       recommended_link:
         one: external link
         other: external links
+      serving_config:
+        one: serving config
+        other: serving configs
     attributes:
       control:
         display_name: Name
@@ -93,6 +96,12 @@ en:
         description: Description
         keywords: Keywords
         comment: Comments
+      serving_config:
+        display_name: Name
+        name: Google Cloud resource name
+        remote_resource_id: Google Cloud ID
+        description: Description
+        users_can_assign_controls: Users can assign controls?
 
     errors:
       models:
