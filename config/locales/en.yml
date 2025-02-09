@@ -77,6 +77,9 @@ en:
       recommended_link:
         one: external link
         other: external links
+      serving_config:
+        one: serving configuration
+        other: serving configurations
     attributes:
       control:
         comment: Comment
@@ -94,6 +97,16 @@ en:
         description: Description
         keywords: Keywords
         comment: Comments
+      serving_config:
+        display_name: Name
+        use_case: Kind
+        use_case_values:
+          live: Live
+          preview: Preview
+          system: System
+        name: Google Cloud resource name
+        remote_resource_id: Google Cloud ID
+        description: Description
 
     errors:
       models:

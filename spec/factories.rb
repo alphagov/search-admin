@@ -47,6 +47,13 @@ FactoryBot.define do
     keywords { "tax, self assessment, hmrc" }
   end
 
+  factory :serving_config do
+    use_case { :live }
+    display_name { "Serving config" }
+    description { "A serving configuration" }
+    remote_resource_id { "serving-config" }
+  end
+
   factory :user do
     factory :admin_user do
       permissions { %w[admin] }
