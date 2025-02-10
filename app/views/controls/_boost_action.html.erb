@@ -3,7 +3,7 @@
   items: [
     {
       field: t_model_attr(:filter_expression, on: boost_action),
-      value: boost_action.filter_expression,
+      value: tag.code(boost_action.filter_expression),
     },
     {
       field: t_model_attr(:boost_factor, on: boost_action),
