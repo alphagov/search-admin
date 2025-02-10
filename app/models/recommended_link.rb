@@ -8,6 +8,11 @@ class RecommendedLink < ApplicationRecord
   validates :link, uniqueness: { case_sensitive: true }, url: true
   validates :content_id, uniqueness: { case_sensitive: true }
 
+  # A URL to preview this recommended link by searching for its title on Finder Frontend
+  def preview_url
+    FinderFrontendSearch.for_keywords(title).url
+  end
+
 private
 
   def generate_content_id

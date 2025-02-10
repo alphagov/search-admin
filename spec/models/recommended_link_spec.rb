@@ -1,9 +1,25 @@
 RSpec.describe RecommendedLink do
-  describe "#content_id" do
-    subject(:recommended_link) { build(:recommended_link) }
+  subject(:recommended_link) { build(:recommended_link) }
 
+  describe "#content_id" do
     it "is generated on initial create" do
       expect { recommended_link.save }.to change { recommended_link.content_id }.from(nil)
+    end
+  end
+
+  describe "#preview_url" do
+    let(:finder_frontend_search) do
+      instance_double(FinderFrontendSearch, url: "https://example.org")
+    end
+
+    before do
+      allow(FinderFrontendSearch).to receive(:for_keywords)
+        .with(recommended_link.title)
+        .and_return(finder_frontend_search)
+    end
+
+    it "returns the preview URL" do
+      expect(recommended_link.preview_url).to eq("https://example.org")
     end
   end
 
