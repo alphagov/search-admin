@@ -33,6 +33,10 @@
       value: @serving_config.display_name,
     },
     {
+      field: t_model_attr(:default_status),
+      value: serving_config_default_tag(@serving_config),
+    },
+    {
       field: t_model_attr(:description),
       value: @serving_config.description,
     },

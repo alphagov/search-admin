@@ -4,12 +4,14 @@
   <%= render "govuk_publishing_components/components/table", {
     head: [
       { text: t_model_attr(:display_name) },
+      { text: t_model_attr(:default_status) },
       { text: t_model_attr(:remote_resource_id) },
       { text: t_model_attr(:description) },
     ],
     rows: @serving_configs.map do |serving_config|
       [
         { text: link_to(serving_config.display_name, serving_config, class: "govuk-link") },
+        { text: serving_config_default_tag(serving_config) },
         { text: tag.code(serving_config.remote_resource_id) },
         { text: serving_config.description },
       ]

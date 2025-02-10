@@ -97,6 +97,10 @@ en:
         keywords: Keywords
         comment: Comments
       serving_config:
+        default_status: Kind
+        default_status_values:
+          default: Live
+          non_default: Internal use
         display_name: Name
         name: Google Cloud resource name
         remote_resource_id: Google Cloud ID
