@@ -17,6 +17,17 @@ RSpec.describe Control, type: :model do
       end
     end
 
+    context "without a comment" do
+      before do
+        control.comment = nil
+      end
+
+      it "is invalid" do
+        expect(control).to be_invalid
+        expect(control.errors).to be_of_kind(:comment, :blank)
+      end
+    end
+
     context "without an action" do
       before do
         control.action = nil

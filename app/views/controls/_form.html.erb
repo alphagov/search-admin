@@ -23,6 +23,16 @@
 
   <%= render "#{control.action.to_partial_path}_fields", action: control.action %>
 
+  <%= render "govuk_publishing_components/components/textarea", {
+    label: {
+      text: t_model_attr(:comment)
+    },
+    id: "control_comment",
+    name: "control[comment]",
+    value: control.comment,
+    error_items: error_items(control, :comment)
+  } %>
+
   <%= render "govuk_publishing_components/components/button", {
     text: t("common.buttons.save", model_name: t_model_name),
   } %>

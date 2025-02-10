@@ -82,6 +82,7 @@ RSpec.describe "Controls", type: :system do
     fill_in "Name", with: "My boost control"
     fill_in "Filter expression", with: "is_cool = 1"
     fill_in "Boost factor", with: "0.42"
+    fill_in "Comment", with: "This is going to be great."
 
     click_button "Save control"
   end
@@ -89,6 +90,7 @@ RSpec.describe "Controls", type: :system do
   def and_i_submit_the_form_with_filter_control_details
     fill_in "Name", with: "My filter control"
     fill_in "Filter expression", with: "is_cool = 1"
+    fill_in "Comment", with: "This is going to be great."
 
     click_button "Save control"
   end
@@ -118,6 +120,7 @@ RSpec.describe "Controls", type: :system do
     fill_in "Name", with: "My updated boost control"
     fill_in "Filter expression", with: "is_really_cool = 999"
     fill_in "Boost factor", with: "0.999"
+    fill_in "Comment", with: "Now with 999 more BOOST!"
 
     click_button "Save control"
   end
@@ -125,6 +128,7 @@ RSpec.describe "Controls", type: :system do
   def and_i_submit_the_form_with_updated_filter_control_details
     fill_in "Name", with: "My updated filter control"
     fill_in "Filter expression", with: "is_really_cool = 999"
+    fill_in "Comment", with: "Now with 999 more FILTER!"
 
     click_button "Save control"
   end
