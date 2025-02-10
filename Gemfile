@@ -6,6 +6,7 @@ gem "bootsnap", require: false
 gem "csv"
 gem "dartsass-rails"
 gem "mysql2"
+gem "sentry-sidekiq"
 gem "sprockets-rails"
 
 # GDS managed gems
@@ -14,6 +15,7 @@ gem "gds-sso"
 gem "google-cloud-discovery_engine"
 gem "govuk_app_config"
 gem "govuk_publishing_components"
+gem "govuk_sidekiq"
 gem "mail-notify"
 gem "plek"
 
