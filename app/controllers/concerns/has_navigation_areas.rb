@@ -7,8 +7,8 @@ module HasNavigationAreas
   extend ActiveSupport::Concern
 
   included do
-    class_attribute :primary_navigation_area
+    class_attribute :primary_navigation_area, :secondary_navigation_area
 
-    helper_method :primary_navigation_area
+    helper_method :primary_navigation_area, :secondary_navigation_area
   end
 end

@@ -1,6 +1,10 @@
 class ControlsController < ApplicationController
   before_action :set_control, only: %i[show edit update destroy]
 
+  self.primary_navigation_area = :search
+  self.secondary_navigation_area = :controls
+  layout "search"
+
   def index
     @controls = Control.includes(:action).order(:display_name)
   end

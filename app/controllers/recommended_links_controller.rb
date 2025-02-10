@@ -1,7 +1,9 @@
 class RecommendedLinksController < ApplicationController
   before_action :set_recommended_link, only: %i[show edit update destroy]
 
-  self.primary_navigation_area = :recommended_links
+  self.primary_navigation_area = :search
+  self.secondary_navigation_area = :recommended_links
+  layout "search"
 
   def index
     @recommended_links = RecommendedLink.order([:link])

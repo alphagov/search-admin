@@ -1,0 +1,19 @@
+<% content_for :secondary_nav do %>
+  <%= render "govuk_publishing_components/components/secondary_navigation", {
+    aria_label: "Search secondary navigation",
+    items: [
+      {
+        label: t("recommended_links.index.page_title"),
+        href: recommended_links_path,
+        current: secondary_navigation_area == :recommended_links,
+      },
+      {
+        label: t("controls.index.page_title"),
+        href: controls_path,
+        current: secondary_navigation_area == :controls,
+      },
+    ]
+  } %>
+<% end %>
+
+<%= render template: "layouts/application" %>

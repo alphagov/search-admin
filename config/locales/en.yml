@@ -45,6 +45,9 @@ en:
       description: |
         The %{model_name} could not be saved because some fields are missing or incorrect.
 
+  primary_navigation_areas:
+    search: Search
+
   attributes:
     created_at: Created at
     updated_at: Updated at

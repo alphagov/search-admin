@@ -15,14 +15,9 @@
     environment: GovukPublishingComponents::AppHelpers::Environment.current_acceptance_environment,
     navigation_items: [
       {
-        text: t("recommended_links.index.page_title"),
+        text: t("primary_navigation_areas.search"),
         href: recommended_links_path,
-        active: primary_navigation_area == :recommended_links,
-      },
-      {
-        text: t("controls.index.page_title"),
-        href: controls_path,
-        active: primary_navigation_area == :controls,
+        active: primary_navigation_area == :search,
       },
       {
         text: Current.user.name,
@@ -35,6 +30,8 @@
     ]
   } %>
   <div class="govuk-width-container">
+    <%= yield :secondary_nav %>
+
     <%= yield :breadcrumbs %>
 
     <main class="govuk-main-wrapper" id="main-content" role="main">
