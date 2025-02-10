@@ -1,6 +1,8 @@
 class RecommendedLinksController < ApplicationController
   before_action :set_recommended_link, only: %i[show edit update destroy]
 
+  self.primary_navigation_area = :recommended_links
+
   def index
     @recommended_links = RecommendedLink.order([:link])
 
