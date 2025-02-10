@@ -79,6 +79,7 @@ en:
         other: external links
     attributes:
       control:
+        comment: Comment
         display_name: Name
         action: Action
         name: Google Cloud identifier
