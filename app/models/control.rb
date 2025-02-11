@@ -18,6 +18,7 @@ class Control < ApplicationRecord
   accepts_nested_attributes_for :action, update_only: true
 
   validates :display_name, presence: true
+  validates :comment, presence: true
 
   # Returns a representation of this Control as a Discovery Engine control resource
   def to_discovery_engine_control

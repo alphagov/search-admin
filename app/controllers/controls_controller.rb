@@ -55,6 +55,7 @@ private
     params.expect(
       control: [
         :display_name,
+        :comment,
         :action_type,
         { action_attributes: %i[boost_factor filter_expression] },
       ],

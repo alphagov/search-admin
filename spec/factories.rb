@@ -18,6 +18,7 @@ FactoryBot.define do
 
   factory :control, traits: %i[remote_synchronizable] do
     display_name { "Control" }
+    comment { "This is a nice control." }
 
     action factory: :control_boost_action
 
