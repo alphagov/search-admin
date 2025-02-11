@@ -16,6 +16,16 @@
   title: @serving_config.display_name,
 } %>
 
+<div class="actions">
+  <%= render "govuk_publishing_components/components/button", {
+    text: t(".buttons.preview"),
+    href: @serving_config.preview_url,
+    target: "_blank",
+    secondary_quiet: true,
+    inline_layout: true
+  } %>
+</div>
+
 <%= render "govuk_publishing_components/components/summary_list", {
   items: [
     {

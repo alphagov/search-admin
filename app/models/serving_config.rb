@@ -26,4 +26,12 @@ class ServingConfig < ApplicationRecord
 
   validates :display_name, presence: true
   validates :remote_resource_id, presence: true, uniqueness: true
+
+  # A URL to preview this serving config on Finder Frontend
+  def preview_url
+    FinderFrontendSearch.new(
+      keywords: "example search",
+      debug_serving_config: remote_resource_id,
+    ).url
+  end
 end

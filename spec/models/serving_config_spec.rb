@@ -48,4 +48,22 @@ RSpec.describe ServingConfig, type: :model do
       )
     end
   end
+
+  describe "#preview_url" do
+    subject(:serving_config) { create(:serving_config, remote_resource_id: "hello") }
+
+    let(:finder_frontend_search) do
+      instance_double(FinderFrontendSearch, url: "https://example.org")
+    end
+
+    before do
+      allow(FinderFrontendSearch).to receive(:new)
+        .with(keywords: "example search", debug_serving_config: "hello")
+        .and_return(finder_frontend_search)
+    end
+
+    it "returns the preview URL" do
+      expect(serving_config.preview_url).to eq("https://example.org")
+    end
+  end
 end

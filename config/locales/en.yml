@@ -170,3 +170,6 @@ en:
   serving_configs:
     index:
       page_title: Serving configs
+    show:
+      buttons:
+        preview: Preview on GOV.UK
