@@ -1,0 +1,42 @@
+<% content_for(:breadcrumbs) do %>
+  <%= render "govuk_publishing_components/components/breadcrumbs", {
+    breadcrumbs: [
+      {
+        title: t("serving_configs.index.page_title"),
+        url: serving_configs_path
+      },
+      {
+        title: @serving_config.display_name
+      }
+    ]
+  } %>
+<% end %>
+
+<%= render "page_title", {
+  title: @serving_config.display_name,
+} %>
+
+<%= render "govuk_publishing_components/components/summary_list", {
+  items: [
+    {
+      field: t_model_attr(:display_name),
+      value: @serving_config.display_name,
+    },
+    {
+      field: t_model_attr(:use_case),
+      value: serving_config_use_case_tag(@serving_config),
+    },
+    {
+      field: t_model_attr(:description),
+      value: @serving_config.description,
+    },
+    {
+      field: t_model_attr(:remote_resource_id),
+      value: tag.code(@serving_config.remote_resource_id),
+    },
+    {
+      field: t_model_attr(:name),
+      value: tag.code(@serving_config.name),
+    }
+  ]
+} %>
