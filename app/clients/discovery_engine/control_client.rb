@@ -1,9 +1,11 @@
 module DiscoveryEngine
   # Client to synchronise `Control`s to Discovery Engine
   class ControlClient
+    include DiscoveryEngine::Services
+
     # Creates a corresponding resource for this control on Discovery Engine.
     def create(control)
-      discovery_engine_client.create_control(
+      control_service.create_control(
         control: control.to_discovery_engine_control,
         control_id: control.remote_resource_id,
         parent: control.parent.name,
@@ -15,7 +17,7 @@ module DiscoveryEngine
 
     # Updates the corresponding resource for this control on Discovery Engine.
     def update(control)
-      discovery_engine_client.update_control(control: control.to_discovery_engine_control)
+      control_service.update_control(control: control.to_discovery_engine_control)
     rescue Google::Cloud::Error => e
       set_record_errors(control, e)
       raise ClientError, "Could not update control: #{e.message}"
@@ -23,7 +25,7 @@ module DiscoveryEngine
 
     # Deletes the corresponding resource for this control on Discovery Engine.
     def delete(control)
-      discovery_engine_client.delete_control(name: control.name)
+      control_service.delete_control(name: control.name)
     rescue Google::Cloud::Error => e
       set_record_errors(control, e)
       raise ClientError, "Could not delete control: #{e.message}"
@@ -49,10 +51,6 @@ module DiscoveryEngine
         GovukError.notify(error)
         Rails.logger.error(error.message)
       end
-    end
-
-    def discovery_engine_client
-      Google::Cloud::DiscoveryEngine.control_service(version: :v1)
     end
   end
 end
