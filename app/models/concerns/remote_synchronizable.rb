@@ -40,6 +40,12 @@ module RemoteSynchronizable
     def remote_synchronize(with:)
       self.client_class = with
     end
+
+    # Recreate remote resources for every record of this model. Useful after having purged all
+    # remote resources for a clean slate.
+    def recreate_all_remotes!
+      find_each { it.create_remote }
+    end
   end
 
 private
