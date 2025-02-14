@@ -27,6 +27,11 @@ class ServingConfig < ApplicationRecord
   validates :display_name, presence: true
   validates :remote_resource_id, presence: true, uniqueness: true
 
+  # Scope for serving configs that users can attach controls to in the UI
+  def self.user_attachable
+    where(use_case: %i[live preview])
+  end
+
   # A URL to preview this serving config on Finder Frontend
   def preview_url
     FinderFrontendSearch.new(
