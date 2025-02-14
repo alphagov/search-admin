@@ -17,7 +17,8 @@ FactoryBot.define do
   end
 
   factory :control, traits: %i[remote_synchronizable] do
-    display_name { "Control" }
+    sequence(:display_name) { |n| "Control #{n}" }
+
     comment { "This is a nice control." }
 
     action factory: :control_boost_action
@@ -49,9 +50,9 @@ FactoryBot.define do
 
   factory :serving_config do
     use_case { :live }
-    display_name { "Serving config" }
     description { "A serving configuration" }
-    remote_resource_id { "serving-config" }
+    sequence(:display_name) { |n| "Serving config #{n}" }
+    sequence(:remote_resource_id) { |n| "serving-config-#{n}" }
   end
 
   factory :user do
