@@ -17,6 +17,12 @@ RSpec.shared_examples "RemoteSynchronizable" do |client_class|
       expect(client).to have_received(:create).with(record)
     end
 
+    it "persists the record before passing it to the client" do
+      expect(client).to receive(:create).with(an_object_satisfying(&:persisted?))
+
+      record.save # rubocop:disable Rails/SaveBang (we're not interested in the return value)
+    end
+
     context "when the remote resource creation fails" do
       let(:error) { ClientError.new("Uh oh") }
 

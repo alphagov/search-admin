@@ -23,7 +23,11 @@ module RemoteSynchronizable
     # Normally we would avoid using ActiveRecord callbacks to make network calls, but as the core
     # purpose of Search Admin is to provide an interface to manage resources on various remote APIs,
     # this is part of its core domain.
-    before_create :create_remote, unless: :skip_remote_synchronization_on_create
+    #
+    # Note the remote creation needs to be _after_ the record is created, as the record needs to
+    # have an ID. This won't persist if the remote creation fails as the transaction would be rolled
+    # back.
+    after_create :create_remote, unless: :skip_remote_synchronization_on_create
     before_update :update_remote
     before_destroy :destroy_remote
 
