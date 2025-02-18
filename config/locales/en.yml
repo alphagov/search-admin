@@ -85,6 +85,9 @@ en:
         comment: Comment
         display_name: Name
         action: Action
+        action_names:
+          control_boost_action: Boost control
+          control_filter_action: Filter control
         name: Google Cloud identifier
         serving_configs: Attached to serving configurations
       control/boost_action:
@@ -178,5 +181,7 @@ en:
       page_title: Serving configs
     show:
       serving_config_heading: Serving config details
+      attached_controls_heading: Attached controls
       buttons:
         preview: Preview on GOV.UK
+        edit_control_attachments: Manage attached controls

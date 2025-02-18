@@ -51,3 +51,8 @@
     }
   ]
 } %>
+
+<%= render "govuk_publishing_components/components/summary_card", {
+  title: t(".attached_controls_heading"),
+  rows: serving_config_attached_controls_rows(@serving_config)
+} %>
