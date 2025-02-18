@@ -1,8 +1,8 @@
-<%= render "govuk_publishing_components/components/summary_list", {
+<%= render "govuk_publishing_components/components/summary_card", {
   title: t(".action_heading"),
-  items: [
+  rows: [
     {
-      field: t_model_attr(:filter_expression, on: filter_action),
+      key: t_model_attr(:filter_expression, on: filter_action),
       value: tag.code(filter_action.filter_expression),
     },
   ]
