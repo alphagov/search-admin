@@ -135,6 +135,10 @@ en:
       page_title_context: "%{action_name} control"
       control_heading: Control details
       action_heading: Action details
+      serving_configs_heading: Serving configuration details
+      control_not_deletable_warning: |
+        This control is attached to serving configurations and cannot be deleted. To delete this
+        control, first remove it from all serving configurations.
     filter_action:
       action_heading: Filter action details
     boost_action:
