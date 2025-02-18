@@ -11,14 +11,18 @@
 # https://cloud.google.com/ruby/docs/reference/google-cloud-discovery_engine-v1/latest/Google-Cloud-DiscoveryEngine-V1-Control
 class Control < ApplicationRecord
   include DiscoveryEngineNameable
-  include RemoteSynchronizable
-  remote_synchronize with: DiscoveryEngine::ControlClient
+
+  has_many :control_attachments, dependent: :restrict_with_error
+  has_many :serving_configs, through: :control_attachments
 
   delegated_type :action, types: %w[Control::BoostAction Control::FilterAction], dependent: :destroy
   accepts_nested_attributes_for :action, update_only: true
 
   validates :display_name, presence: true
   validates :comment, presence: true
+
+  include RemoteSynchronizable
+  remote_synchronize with: DiscoveryEngine::ControlClient
 
   # Returns a representation of this Control as a Discovery Engine control resource
   def to_discovery_engine_control

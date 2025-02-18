@@ -9,6 +9,12 @@
 # end
 # ```
 #
+# Note that this concern defines callbacks on the model, so if the including model has other
+# callbacks, you need to be intentional about defining them before or after including the concern
+# depending on whether you want synchronization to happen. For example, update/destroy callbacks
+# that should cause the synchronization _not_ to happen should be declared before including the
+# concern.
+#
 # If the remote operation fails, the record will not be created/updated/destroyed, and will be
 # marked invalid.
 module RemoteSynchronizable

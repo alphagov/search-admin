@@ -77,4 +77,33 @@ RSpec.describe Control, type: :model do
       end
     end
   end
+
+  describe "deletion" do
+    let(:control_client) { instance_double(DiscoveryEngine::ControlClient, delete: nil) }
+
+    let!(:control) { create(:control) }
+    let!(:serving_config) { create(:serving_config, controls: attached_controls) }
+
+    before do
+      allow(DiscoveryEngine::ControlClient).to receive(:new).and_return(control_client)
+    end
+
+    context "when the control is not attached to any serving configs" do
+      let(:attached_controls) { [] }
+
+      it "deletes the control" do
+        expect { control.destroy }.to change(Control, :count).by(-1)
+        expect(control_client).to have_received(:delete).with(control)
+      end
+    end
+
+    context "when the control is attached to a serving config" do
+      let(:attached_controls) { [control] }
+
+      it "does not delete the control" do
+        expect { control.destroy }.not_to change(Control, :count)
+        expect(control_client).not_to have_received(:delete)
+      end
+    end
+  end
 end
