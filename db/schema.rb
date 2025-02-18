@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_02_12_115000) do
+ActiveRecord::Schema[8.0].define(version: 2025_02_18_142926) do
+  create_table "control_attachments", charset: "utf8mb3", force: :cascade do |t|
+    t.bigint "control_id", null: false
+    t.bigint "serving_config_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["control_id", "serving_config_id"], name: "index_control_attachments_on_control_id_and_serving_config_id", unique: true
+    t.index ["control_id"], name: "index_control_attachments_on_control_id"
+    t.index ["serving_config_id"], name: "index_control_attachments_on_serving_config_id"
+  end
+
   create_table "control_boost_actions", charset: "utf8mb3", force: :cascade do |t|
     t.string "filter_expression", null: false
     t.float "boost_factor", null: false
@@ -67,4 +77,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_12_115000) do
     t.boolean "disabled", default: false
     t.string "organisation_content_id"
   end
+
+  add_foreign_key "control_attachments", "controls"
+  add_foreign_key "control_attachments", "serving_configs"
 end

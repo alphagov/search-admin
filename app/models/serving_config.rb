@@ -24,6 +24,9 @@ class ServingConfig < ApplicationRecord
   # Don't allow changing remote_resource_id after creation
   attr_readonly :remote_resource_id
 
+  has_many :control_attachments, dependent: :destroy
+  has_many :controls, through: :control_attachments
+
   validates :display_name, presence: true
   validates :remote_resource_id, presence: true, uniqueness: true
 

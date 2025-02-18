@@ -86,6 +86,7 @@ en:
         display_name: Name
         action: Action
         name: Google Cloud identifier
+        serving_configs: Attached to serving configurations
       control/boost_action:
         boost_factor: Boost factor
         filter_expression: Filter expression
@@ -107,6 +108,7 @@ en:
         name: Google Cloud resource name
         remote_resource_id: Google Cloud ID
         description: Description
+        controls: Attached controls
 
     errors:
       models:
