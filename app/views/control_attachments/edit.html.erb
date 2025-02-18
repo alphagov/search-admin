@@ -1,0 +1,55 @@
+<% content_for(:breadcrumbs) do %>
+  <%= render "govuk_publishing_components/components/breadcrumbs", {
+    breadcrumbs: [
+      {
+        title: t("serving_configs.index.page_title"),
+        url: serving_configs_path
+      },
+      {
+        title: @serving_config.display_name,
+        url: serving_config_path(@serving_config)
+      },
+      {
+        title: t("control_attachments.edit.page_title")
+      }
+    ]
+  } %>
+<% end %>
+
+<%= render "page_title", {
+  title: t("control_attachments.edit.page_title"),
+  context: @serving_config.display_name,
+  context_inside: true
+} %>
+
+<%= form_with(model: @serving_config, url: serving_config_control_attachments_path) do %>
+  <% if @serving_config.errors.any? %>
+    <%= render "govuk_publishing_components/components/error_summary", {
+      id: "error-summary",
+      title: t("common.error_summary.title"),
+      description: t("common.error_summary.description", model_name: t_model_name(@serving_config)),
+      items: error_summary_items(@serving_config)
+    } %>
+  <% end %>
+
+  <%= render "govuk_publishing_components/components/checkboxes", {
+    id: "service_config_control_ids",
+    name: "serving_config[control_ids][]",
+    heading: t_model_attr(:controls, on: @serving_config),
+    visually_hide_heading: true,
+    hint_text: t("hints.attached_controls"),
+    small: true,
+    items: @controls.map do |control|
+      {
+        value: control.id,
+        label: control.display_name,
+        checked: @serving_config.controls.include?(control)
+      }
+    end
+  } %>
+
+  <%= render "govuk_publishing_components/components/button", {
+    text: t("common.buttons.save", model_name: t_model_name.pluralize),
+    type: "submit"
+  } %>
+<% end %>

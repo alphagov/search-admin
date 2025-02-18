@@ -8,6 +8,17 @@ RSpec.describe "Serving configs", type: :system do
     and_i_can_see_its_attached_controls
   end
 
+  scenario "Managing attached controls for a serving config" do
+    given_several_serving_configs_exist
+    and_an_unattached_control_exists
+
+    when_i_visit_the_live_serving_config_page
+    and_i_choose_to_manage_attached_controls
+    and_i_change_the_attached_controls
+
+    then_i_should_see_the_updated_serving_config
+  end
+
   def given_several_serving_configs_exist
     @live = create(
       :serving_config,
@@ -27,8 +38,26 @@ RSpec.describe "Serving configs", type: :system do
     )
   end
 
+  def and_an_unattached_control_exists
+    @control = create(:control, :with_filter_action, display_name: "My new control")
+  end
+
   def when_i_visit_the_serving_configs_page
     visit serving_configs_path
+  end
+
+  def when_i_visit_the_live_serving_config_page
+    visit serving_config_path(@live)
+  end
+
+  def and_i_choose_to_manage_attached_controls
+    click_link "Manage attached controls"
+  end
+
+  def and_i_change_the_attached_controls
+    check "My new control"
+    uncheck "My live boost control"
+    click_button "Save attached controls"
   end
 
   def then_i_should_see_all_serving_configs
@@ -44,5 +73,12 @@ RSpec.describe "Serving configs", type: :system do
   def and_i_can_see_its_attached_controls
     expect(page).to have_link("My live boost control")
     expect(page).to have_link("My live filter control")
+  end
+
+  def then_i_should_see_the_updated_serving_config
+    expect(page).to have_link("My new control")
+    expect(page).to have_link("My live filter control")
+
+    expect(page).not_to have_link("My live boost control")
   end
 end

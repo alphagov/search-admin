@@ -62,6 +62,8 @@ en:
       "indexable" in Discovery Engine. See <a
       href="https://cloud.google.com/generative-ai-app-builder/docs/filter-search-metadata"
       target="_blank" class="govuk-link">Google documentation</a> for syntax and more information.
+    attached_controls: |
+      Select all controls that should be attached to this serving configuration.
 
   activerecord:
     models:
@@ -74,6 +76,9 @@ en:
       control/filter_action:
         one: filter
         other: filter
+      control_attachment:
+        one: attached control
+        other: attached controls
       recommended_link:
         one: external link
         other: external links
@@ -155,6 +160,12 @@ en:
     destroy:
       success: The control was successfully deleted.
       failure: The control could not be deleted.
+
+  control_attachments:
+    edit:
+      page_title: Manage attached controls
+    update:
+      success: The attached controls for this serving configuration were successfully updated.
 
   recommended_links:
     index:

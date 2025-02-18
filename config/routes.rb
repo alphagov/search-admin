@@ -13,7 +13,9 @@ Rails.application.routes.draw do
     resources :with_boost_actions, controller: :controls, action_type: Control::BoostAction
     resources :with_filter_actions, controller: :controls, action_type: Control::FilterAction
   end
-  resources :serving_configs
+  resources :serving_configs, only: %i[index show] do
+    resource :control_attachments, only: %i[edit update]
+  end
 
   resources :recommended_links, path: "/recommended-links"
 
