@@ -1,10 +1,10 @@
 RSpec.describe "Controls", type: :system do
-  let(:control) do
+  let(:control_client) do
     instance_double(DiscoveryEngine::ControlClient, create: true, update: true, delete: true)
   end
 
   before do
-    allow(DiscoveryEngine::ControlClient).to receive(:new).and_return(control)
+    allow(DiscoveryEngine::ControlClient).to receive(:new).and_return(control_client)
   end
 
   scenario "Viewing controls" do
@@ -97,6 +97,7 @@ RSpec.describe "Controls", type: :system do
 
   def then_my_control_has_been_created
     expect(Control.count).to eq(1)
+    expect(control_client).to have_received(:create)
   end
 
   def and_i_can_see_the_boost_control_details
@@ -135,6 +136,7 @@ RSpec.describe "Controls", type: :system do
 
   def then_the_control_has_been_updated
     expect(page).to have_content("control was successfully updated")
+    expect(control_client).to have_received(:update)
   end
 
   def and_i_can_see_the_updated_boost_control_details
@@ -157,5 +159,6 @@ RSpec.describe "Controls", type: :system do
   def then_the_control_has_been_deleted
     expect(page).to have_content("control was successfully deleted")
     expect(Control.count).to eq(0)
+    expect(control_client).to have_received(:delete)
   end
 end
