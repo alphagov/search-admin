@@ -16,6 +16,7 @@ on:
 env:
   DISCOVERY_ENGINE_DATASTORE: not-used
   DISCOVERY_ENGINE_DEFAULT_COLLECTION_NAME: not-used
+  PUBLISHING_API_BEARER_TOKEN: not-used
 
 jobs:
   run-rspec:

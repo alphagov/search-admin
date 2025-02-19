@@ -60,4 +60,7 @@ Rails.application.configure do
 
   # Google Discovery Engine configuration
   config.discovery_engine_default_collection_name = "[collection]"
+
+  # Publishing API configuration
+  config.publishing_api_bearer_token = "test-token"
 end

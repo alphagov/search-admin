@@ -1,6 +1,10 @@
 RSpec.describe "Recommended links" do
+  let(:content_item_client) do
+    instance_double(PublishingApi::ContentItemClient, create: true, update: true, delete: true)
+  end
+
   before do
-    stub_external_content_publisher
+    allow(PublishingApi::ContentItemClient).to receive(:new).and_return(content_item_client)
   end
 
   scenario "Viewing recommended links" do
@@ -84,11 +88,6 @@ RSpec.describe "Recommended links" do
 
     then_a_csv_file_is_downloaded
     and_it_contains_all_links
-  end
-
-  def stub_external_content_publisher
-    allow(ExternalContentPublisher).to receive(:publish)
-    allow(ExternalContentPublisher).to receive(:unpublish)
   end
 
   def given_a_recommended_link
@@ -200,7 +199,7 @@ RSpec.describe "Recommended links" do
   end
 
   def and_the_changes_have_been_published
-    expect(ExternalContentPublisher).to have_received(:publish).with(@link)
+    expect(content_item_client).to have_received(:update).with(@link)
   end
 
   def and_i_can_see_the_new_title
@@ -215,7 +214,7 @@ RSpec.describe "Recommended links" do
   end
 
   def and_it_has_not_been_published
-    expect(ExternalContentPublisher).not_to have_received(:publish)
+    expect(content_item_client).not_to have_received(:update)
   end
 
   def and_i_can_see_what_errors_i_need_to_fix
@@ -230,7 +229,7 @@ RSpec.describe "Recommended links" do
   end
 
   def and_it_has_been_unpublished
-    expect(ExternalContentPublisher).to have_received(:unpublish).with(@link)
+    expect(content_item_client).to have_received(:delete).with(@link)
   end
 
   def and_i_am_notified_of_the_deletion
@@ -253,7 +252,7 @@ RSpec.describe "Recommended links" do
   end
 
   def and_it_has_been_published
-    expect(ExternalContentPublisher).to have_received(:publish).with(RecommendedLink.last)
+    expect(content_item_client).to have_received(:create).with(RecommendedLink.last)
   end
 
   def and_i_can_see_its_details

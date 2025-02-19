@@ -21,9 +21,7 @@ class RecommendedLinksController < ApplicationController
   def create
     @recommended_link = RecommendedLink.new(recommended_link_params)
 
-    if @recommended_link.save
-      ExternalContentPublisher.publish(@recommended_link)
-
+    if @recommended_link.save_and_sync
       redirect_to recommended_link_path(@recommended_link), notice: t(".success")
     else
       render :new
@@ -35,9 +33,9 @@ class RecommendedLinksController < ApplicationController
   def edit; end
 
   def update
-    if @recommended_link.update(recommended_link_params)
-      ExternalContentPublisher.publish(@recommended_link)
+    @recommended_link.assign_attributes(recommended_link_params)
 
+    if @recommended_link.save_and_sync
       redirect_to recommended_link_path(@recommended_link), notice: t(".success")
     else
       render :edit
@@ -45,9 +43,7 @@ class RecommendedLinksController < ApplicationController
   end
 
   def destroy
-    if @recommended_link.destroy
-      ExternalContentPublisher.unpublish(@recommended_link)
-
+    if @recommended_link.destroy_and_sync
       redirect_to recommended_links_path, notice: t(".success")
     else
       redirect_to recommended_link_path(@recommended_link), alert: t(".failure")
