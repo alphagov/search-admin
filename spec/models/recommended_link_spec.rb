@@ -1,3 +1,5 @@
+require "govuk_schemas/validator"
+
 RSpec.describe RecommendedLink do
   subject(:recommended_link) { build(:recommended_link) }
 
@@ -20,6 +22,45 @@ RSpec.describe RecommendedLink do
 
     it "returns the preview URL" do
       expect(recommended_link.preview_url).to eq("https://example.org")
+    end
+  end
+
+  describe "#to_publishing_api_content_item" do
+    subject(:content_item) do
+      recommended_link.to_publishing_api_content_item
+    end
+
+    let(:recommended_link) do
+      build(
+        :recommended_link,
+        content_id: "some-content-id",
+        title: "Data.gov.uk",
+        link: "http://www.data.gov.uk/",
+        description: "Public data to help people understand how the government works",
+        keywords: "data, open data, api",
+      )
+    end
+    let(:validator) do
+      GovukSchemas::Validator.new("external_content", "publisher", content_item)
+    end
+
+    it "returns the content item for the publishing API" do
+      expect(recommended_link.to_publishing_api_content_item).to eq({
+        title: "Data.gov.uk",
+        description: "Public data to help people understand how the government works",
+        details: {
+          hidden_search_terms: ["data, open data, api"],
+          url: "http://www.data.gov.uk/",
+        },
+        document_type: "external_content",
+        publishing_app: "search-admin",
+        schema_name: "external_content",
+        update_type: "minor",
+      })
+    end
+
+    it "is valid against the external_content schema" do
+      expect(validator).to be_valid
     end
   end
 

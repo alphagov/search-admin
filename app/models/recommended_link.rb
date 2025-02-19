@@ -13,6 +13,22 @@ class RecommendedLink < ApplicationRecord
     FinderFrontendSearch.for_keywords(title).url
   end
 
+  # A hash representing a Publishing API content item for this recommended link
+  def to_publishing_api_content_item
+    {
+      title:,
+      description:,
+      details: {
+        hidden_search_terms: [keywords].compact,
+        url: link,
+      },
+      document_type: "external_content",
+      publishing_app: "search-admin",
+      schema_name: "external_content",
+      update_type: "minor",
+    }
+  end
+
 private
 
   def generate_content_id
