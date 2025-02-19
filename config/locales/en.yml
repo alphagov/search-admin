@@ -114,6 +114,10 @@ en:
           remote_error: |
             We couldn't save this control on Vertex AI Search because of an unexpected error.
             This error has been logged. Please try again later.
+        recommended_link:
+          remote_error: |
+            We couldn't publish this recommended link to Publishing API because of an unexpected
+            error. This error has been logged. Please try again later.
 
   controls:
     index:
