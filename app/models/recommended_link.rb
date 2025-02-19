@@ -2,6 +2,9 @@ class RecommendedLink < ApplicationRecord
   include CsvExportable
   csv_fields :title, :link, :description, :keywords, :comment
 
+  include RemoteSynchronizable
+  self.remote_synchronizable_client_class = PublishingApi::ContentItemClient
+
   before_validation :generate_content_id, on: :create
 
   validates :title, :link, :description, :content_id, presence: true
