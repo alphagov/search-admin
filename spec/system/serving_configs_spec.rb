@@ -1,4 +1,12 @@
 RSpec.describe "Serving configs", type: :system do
+  let(:serving_config_client) do
+    instance_double(DiscoveryEngine::ServingConfigClient, update: true)
+  end
+
+  before do
+    allow(DiscoveryEngine::ServingConfigClient).to receive(:new).and_return(serving_config_client)
+  end
+
   scenario "Viewing serving configs" do
     given_several_serving_configs_exist
 
@@ -16,19 +24,20 @@ RSpec.describe "Serving configs", type: :system do
     and_i_choose_to_manage_attached_controls
     and_i_change_the_attached_controls
 
-    then_i_should_see_the_updated_serving_config
+    then_the_serving_config_has_been_updated
+    and_i_should_see_the_updated_serving_config
   end
 
   def given_several_serving_configs_exist
+    @boost_control = create(:control, :with_boost_action, display_name: "My live boost control")
+    @filter_control = create(:control, :with_filter_action, display_name: "My live filter control")
+
     @live = create(
       :serving_config,
       use_case: :live,
       remote_resource_id: "live-serving-config",
       display_name: "Live serving config",
-      controls: [
-        create(:control, :with_boost_action, display_name: "My live boost control"),
-        create(:control, :with_filter_action, display_name: "My live filter control"),
-      ],
+      controls: [@boost_control, @filter_control],
     )
     @preview = create(
       :serving_config,
@@ -39,7 +48,7 @@ RSpec.describe "Serving configs", type: :system do
   end
 
   def and_an_unattached_control_exists
-    @control = create(:control, :with_filter_action, display_name: "My new control")
+    @new_control = create(:control, :with_filter_action, display_name: "My new control")
   end
 
   def when_i_visit_the_serving_configs_page
@@ -75,7 +84,12 @@ RSpec.describe "Serving configs", type: :system do
     expect(page).to have_link("My live filter control")
   end
 
-  def then_i_should_see_the_updated_serving_config
+  def then_the_serving_config_has_been_updated
+    expect(@live.reload.controls).to contain_exactly(@new_control, @filter_control)
+    expect(serving_config_client).to have_received(:update).with(@live)
+  end
+
+  def and_i_should_see_the_updated_serving_config
     expect(page).to have_link("My new control")
     expect(page).to have_link("My live filter control")
 

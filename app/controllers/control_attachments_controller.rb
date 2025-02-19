@@ -8,7 +8,9 @@ class ControlAttachmentsController < ApplicationController
   def edit; end
 
   def update
-    if @serving_config.update(control_ids: control_ids_param)
+    @serving_config.control_ids = control_ids_param
+
+    if @serving_config.save_and_sync
       redirect_to serving_config_path(@serving_config), notice: t(".success")
     else
       render :edit
