@@ -4,7 +4,7 @@ module Services
   def self.publishing_api
     @publishing_api ||= GdsApi::PublishingApi.new(
       Plek.find("publishing-api"),
-      bearer_token: ENV["PUBLISHING_API_BEARER_TOKEN"] || "example",
+      bearer_token: Rails.configuration.publishing_api_bearer_token,
     )
   end
 end

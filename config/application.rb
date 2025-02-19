@@ -48,5 +48,8 @@ module SearchAdmin
 
     # Google Discovery Engine configuration
     config.discovery_engine_default_collection_name = ENV.fetch("DISCOVERY_ENGINE_DEFAULT_COLLECTION_NAME")
+
+    # Publishing API configuration
+    config.publishing_api_bearer_token = ENV.fetch("PUBLISHING_API_BEARER_TOKEN")
   end
 end
