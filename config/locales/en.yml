@@ -171,5 +171,6 @@ en:
     index:
       page_title: Serving configs
     show:
+      serving_config_heading: Serving config details
       buttons:
         preview: Preview on GOV.UK

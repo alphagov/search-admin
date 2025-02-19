@@ -1,12 +1,12 @@
-<%= render "govuk_publishing_components/components/summary_list", {
+<%= render "govuk_publishing_components/components/summary_card", {
   title: t(".action_heading"),
-  items: [
+  rows: [
     {
-      field: t_model_attr(:filter_expression, on: boost_action),
+      key: t_model_attr(:filter_expression, on: boost_action),
       value: tag.code(boost_action.filter_expression),
     },
     {
-      field: t_model_attr(:boost_factor, on: boost_action),
+      key: t_model_attr(:boost_factor, on: boost_action),
       value: boost_action.boost_factor
     },
   ]

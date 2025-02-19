@@ -26,26 +26,27 @@
   } %>
 </div>
 
-<%= render "govuk_publishing_components/components/summary_list", {
-  items: [
+<%= render "govuk_publishing_components/components/summary_card", {
+  title: t(".serving_config_heading"),
+  rows: [
     {
-      field: t_model_attr(:display_name),
+      key: t_model_attr(:display_name),
       value: @serving_config.display_name,
     },
     {
-      field: t_model_attr(:use_case),
+      key: t_model_attr(:use_case),
       value: serving_config_use_case_tag(@serving_config),
     },
     {
-      field: t_model_attr(:description),
+      key: t_model_attr(:description),
       value: @serving_config.description,
     },
     {
-      field: t_model_attr(:remote_resource_id),
+      key: t_model_attr(:remote_resource_id),
       value: tag.code(@serving_config.remote_resource_id),
     },
     {
-      field: t_model_attr(:name),
+      key: t_model_attr(:name),
       value: tag.code(@serving_config.name),
     }
   ]

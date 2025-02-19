@@ -32,15 +32,15 @@
   ) %>
 </div>
 
-<%= render "govuk_publishing_components/components/summary_list", {
+<%= render "govuk_publishing_components/components/summary_card", {
   title: t(".control_heading"),
-  items: [
+  rows: [
     {
-      field: t_model_attr(:display_name),
+      key: t_model_attr(:display_name),
       value: @control.display_name,
     },
     {
-      field: t_model_attr(:name),
+      key: t_model_attr(:name),
       value: tag.code(@control.name),
     }
   ]
