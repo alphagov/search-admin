@@ -9,6 +9,9 @@
 class ServingConfig < ApplicationRecord
   include DiscoveryEngineNameable
 
+  include RemoteSynchronizable
+  self.remote_synchronizable_client_class = DiscoveryEngine::ServingConfigClient
+
   # Tracks what this serving config is used for
   enum :use_case, {
     # Used for actual public search on GOV.UK, for example the default serving config or any
@@ -36,5 +39,19 @@ class ServingConfig < ApplicationRecord
       keywords: "example search",
       debug_serving_config: remote_resource_id,
     ).url
+  end
+
+  # The parent of the serving config on Discovery Engine (always the default engine)
+  def parent
+    Engine.default
+  end
+
+  # Returns a representation of this ServingConfig as a Discovery Engine serving config resource
+  def to_discovery_engine_serving_config
+    {
+      name:,
+      boost_control_ids: controls.control_boost_actions.map(&:remote_resource_id),
+      filter_control_ids: controls.control_filter_actions.map(&:remote_resource_id),
+    }
   end
 end
