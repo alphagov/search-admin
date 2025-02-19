@@ -16,7 +16,7 @@ class ControlsController < ApplicationController
   def create
     @control = Control.new(control_params)
 
-    if @control.save
+    if @control.save_and_sync
       redirect_to @control, notice: t(".success")
     else
       render :new, status: :unprocessable_entity
@@ -30,7 +30,7 @@ class ControlsController < ApplicationController
   def update
     @control.assign_attributes(control_params.except(:action_type))
 
-    if @control.save
+    if @control.save_and_sync
       redirect_to @control, notice: t(".success")
     else
       render :edit, status: :unprocessable_entity
@@ -38,7 +38,7 @@ class ControlsController < ApplicationController
   end
 
   def destroy
-    if @control.destroy
+    if @control.destroy_and_sync
       redirect_to controls_path, notice: t(".success")
     else
       redirect_to @control, alert: t(".failure")

@@ -1,22 +1,5 @@
 FactoryBot.define do
-  # Unlike fixtures, record instances created through FactoryBot go through the full Rails callback
-  # lifecycle on creation. That is often desirable, but not in the case of our models using the
-  # `RemoteSynchronizable` concern to create counterparts on remote APIs automatically whenever you
-  # create a new record.
-  #
-  # This trait sets the `skip_remote_synchronization_on_create` flag to true on records created
-  # through factories that include it, so that this behaviour is skipped.
-  #
-  # If you _do_ want to specifically test remote synchronization on a record, you can override this
-  # manually when you build your model using `FactoryBot.build`:
-  # ```ruby
-  # build(:my_model, skip_remote_synchronization_on_create: false)
-  # ```
-  trait :remote_synchronizable do
-    skip_remote_synchronization_on_create { true }
-  end
-
-  factory :control, traits: %i[remote_synchronizable] do
+  factory :control do
     display_name { "Control" }
     comment { "This is a nice control." }
 

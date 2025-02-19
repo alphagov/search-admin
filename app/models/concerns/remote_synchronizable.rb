@@ -16,57 +16,46 @@ module RemoteSynchronizable
 
   included do
     # Client class to use for synchronisation
-    class_attribute :client_class
-
-    # Create and update the remote resource using the client during ActiveRecord lifecycle events.
-    #
-    # Normally we would avoid using ActiveRecord callbacks to make network calls, but as the core
-    # purpose of Search Admin is to provide an interface to manage resources on various remote APIs,
-    # this is part of its core domain.
-    #
-    # Note the remote creation needs to be _after_ the record is created, as the record needs to
-    # have an ID. This won't persist if the remote creation fails as the transaction would be rolled
-    # back.
-    after_create :create_remote, unless: :skip_remote_synchronization_on_create
-    before_update :update_remote
-    before_destroy :destroy_remote
-
-    # Skips the creation of the remote synchronisation on create.
-    #
-    # This allows to create new instances of a record without a remote counterpart, for example
-    # when importing existing remote resources, or as part of test setup (see `spec/factories.rb`).
-    attr_accessor :skip_remote_synchronization_on_create
+    class_attribute :remote_synchronizable_client_class
   end
 
-  class_methods do
-    # Set the class to be used for synchronisation for this model. It must allow initialisation with
-    # a record, and respond to `#create`, `#update` and `#delete`.
-    def remote_synchronize(with:)
-      self.client_class = with
+  # Saves the record and creates or updates its corresponding remote resource.
+  def save_and_sync
+    transaction do
+      return false unless save
+
+      sync
+    end
+  rescue ClientError
+    false
+  end
+
+  # Destroys the record and deletes its corresponding remote resource.
+  def destroy_and_sync
+    transaction do
+      return false unless destroy
+
+      sync
+    end
+  rescue ClientError
+    false
+  end
+
+  # Synchonises the record with its corresponding remote resource, creating, updating or deleting it
+  # depending on the record's state.
+  def sync
+    if previously_new_record?
+      client.create(self) # rubocop:disable Rails/SaveBang (not an ActiveRecord model)
+    elsif destroyed?
+      client.delete(self)
+    else
+      client.update(self) # rubocop:disable Rails/SaveBang (not an ActiveRecord model)
     end
   end
 
 private
 
-  def create_remote
-    client.create(self) # rubocop:disable Rails/SaveBang (not an ActiveRecord model)
-  rescue ClientError
-    raise ActiveRecord::RecordInvalid, self
-  end
-
-  def update_remote
-    client.update(self) # rubocop:disable Rails/SaveBang (not an ActiveRecord model)
-  rescue ClientError
-    raise ActiveRecord::RecordInvalid, self
-  end
-
-  def destroy_remote
-    client.delete(self)
-  rescue ClientError
-    throw :abort
-  end
-
   def client
-    @client ||= client_class.new
+    @client ||= remote_synchronizable_client_class.new
   end
 end
