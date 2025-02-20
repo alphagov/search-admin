@@ -28,7 +28,7 @@ class RecommendedLink < ApplicationRecord
       document_type: "external_content",
       publishing_app: "search-admin",
       schema_name: "external_content",
-      update_type: "minor",
+      update_type: "major",
     }
   end
 
