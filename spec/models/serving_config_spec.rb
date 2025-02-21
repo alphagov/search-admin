@@ -41,6 +41,38 @@ RSpec.describe ServingConfig, type: :model do
     end
   end
 
+  describe ".user_editable" do
+    let!(:live_serving_config) { create(:serving_config, use_case: :live) }
+    let!(:preview_serving_config) { create(:serving_config, use_case: :preview) }
+    let!(:system_serving_config) { create(:serving_config, use_case: :system) }
+
+    it "returns only live and preview serving configs" do
+      expect(described_class.user_editable).to contain_exactly(live_serving_config, preview_serving_config)
+    end
+  end
+
+  describe "#user_editable" do
+    subject(:serving_config) { build_stubbed(:serving_config, use_case:) }
+
+    context "when the use case is live" do
+      let(:use_case) { :live }
+
+      it { is_expected.to be_user_editable }
+    end
+
+    context "when the use case is preview" do
+      let(:use_case) { :preview }
+
+      it { is_expected.to be_user_editable }
+    end
+
+    context "when the use case is system" do
+      let(:use_case) { :system }
+
+      it { is_expected.not_to be_user_editable }
+    end
+  end
+
   describe "#remote_resource_id" do
     subject(:serving_config) { create(:serving_config, remote_resource_id: "hello") }
 
