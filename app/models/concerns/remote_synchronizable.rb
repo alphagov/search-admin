@@ -1,11 +1,11 @@
-# Enhances a model with lifecycle callbacks to synchronise it with a remote resource using a client
+# Enhances a model with methods to synchronise it with a remote resource using a client
 # class (conventionally located in `app/clients/`).
 #
 # Example:
 # ```ruby
 # class Foo < ApplicationRecord
 #   include RemoteSynchronizable
-#   remote_synchronize with: BarApi::FooClient
+#   self.remote_synchronizable_client_class = BarApi::FooClient
 # end
 # ```
 #
