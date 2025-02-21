@@ -14,6 +14,6 @@ class ServingConfigsController < ApplicationController
 private
 
   def set_serving_config
-    @serving_config = ServingConfig.find(params[:id])
+    @serving_config = ServingConfig.includes(:controls).find(params[:id])
   end
 end

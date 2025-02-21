@@ -48,7 +48,7 @@ class ControlsController < ApplicationController
 private
 
   def set_control
-    @control = Control.includes(:action).find(params[:id])
+    @control = Control.includes(:action, :serving_configs).find(params[:id])
   end
 
   def control_params

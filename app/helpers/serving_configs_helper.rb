@@ -14,4 +14,15 @@ module ServingConfigsHelper
       class: "govuk-tag govuk-tag--#{colour}",
     )
   end
+
+  # Returns the controls attached to the given serving config grouped by action in rows for a
+  # summary card component.
+  def serving_config_attached_controls_rows(serving_config)
+    serving_config.controls.group_by(&:action_name).map do |action_name, controls|
+      {
+        key: t(action_name, scope: "activerecord.attributes.control.action_names").pluralize,
+        value: resource_link_list(controls) { it.display_name },
+      }
+    end
+  end
 end

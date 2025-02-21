@@ -77,4 +77,30 @@ RSpec.describe Control, type: :model do
       end
     end
   end
+
+  describe "deletion" do
+    let!(:control) { create(:control) }
+    let!(:serving_config) { create(:serving_config, controls: attached_controls) }
+
+    context "when the control is not attached to any serving configs" do
+      let(:attached_controls) { [] }
+
+      it "deletes the control" do
+        expect { control.destroy }.to change(Control, :count).by(-1)
+      end
+    end
+
+    context "when the control is attached to a serving config" do
+      let(:attached_controls) { [control] }
+
+      it "does not delete the control" do
+        expect { control.destroy }.not_to change(Control, :count)
+      end
+
+      it "adds an error on the record" do
+        control.destroy # rubocop:disable Rails/SaveBang (checking errors)
+        expect(control.errors).to be_of_kind(:base, :"restrict_dependent_destroy.has_many")
+      end
+    end
+  end
 end

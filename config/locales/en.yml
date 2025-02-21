@@ -62,6 +62,8 @@ en:
       "indexable" in Discovery Engine. See <a
       href="https://cloud.google.com/generative-ai-app-builder/docs/filter-search-metadata"
       target="_blank" class="govuk-link">Google documentation</a> for syntax and more information.
+    attached_controls: |
+      Select all controls that should be attached to this serving configuration.
 
   activerecord:
     models:
@@ -74,6 +76,9 @@ en:
       control/filter_action:
         one: filter
         other: filter
+      control_attachment:
+        one: attached control
+        other: attached controls
       recommended_link:
         one: external link
         other: external links
@@ -85,7 +90,11 @@ en:
         comment: Comment
         display_name: Name
         action: Action
+        action_names:
+          control_boost_action: Boost control
+          control_filter_action: Filter control
         name: Google Cloud identifier
+        serving_configs: Attached to serving configurations
       control/boost_action:
         boost_factor: Boost factor
         filter_expression: Filter expression
@@ -107,6 +116,7 @@ en:
         name: Google Cloud resource name
         remote_resource_id: Google Cloud ID
         description: Description
+        controls: Attached controls
 
     errors:
       models:
@@ -130,6 +140,10 @@ en:
       page_title_context: "%{action_name} control"
       control_heading: Control details
       action_heading: Action details
+      serving_configs_heading: Serving configuration details
+      control_not_deletable_warning: |
+        This control is attached to serving configurations and cannot be deleted. To delete this
+        control, first remove it from all serving configurations.
     filter_action:
       action_heading: Filter action details
     boost_action:
@@ -146,6 +160,12 @@ en:
     destroy:
       success: The control was successfully deleted.
       failure: The control could not be deleted.
+
+  control_attachments:
+    edit:
+      page_title: Manage attached controls
+    update:
+      success: The attached controls for this serving configuration were successfully updated.
 
   recommended_links:
     index:
@@ -176,5 +196,7 @@ en:
       page_title: Serving configs
     show:
       serving_config_heading: Serving config details
+      attached_controls_heading: Attached controls
       buttons:
         preview: Preview on GOV.UK
+        edit_control_attachments: Manage attached controls

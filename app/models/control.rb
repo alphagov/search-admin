@@ -15,6 +15,9 @@ class Control < ApplicationRecord
   include RemoteSynchronizable
   self.remote_synchronizable_client_class = DiscoveryEngine::ControlClient
 
+  has_many :control_attachments, dependent: :restrict_with_error
+  has_many :serving_configs, through: :control_attachments
+
   delegated_type :action, types: %w[Control::BoostAction Control::FilterAction], dependent: :destroy
   accepts_nested_attributes_for :action, update_only: true
 
