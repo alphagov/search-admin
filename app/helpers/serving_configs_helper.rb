@@ -25,4 +25,14 @@ module ServingConfigsHelper
       }
     end
   end
+
+  # Returns the summary card component attachment actions for the given serving config
+  def serving_config_attached_controls_actions(serving_config)
+    return [] unless serving_config.user_editable?
+
+    [{
+      label: t("serving_configs.show.buttons.edit_control_attachments"),
+      href: edit_serving_config_control_attachments_path(serving_config),
+    }]
+  end
 end

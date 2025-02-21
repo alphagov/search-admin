@@ -24,7 +24,10 @@ private
   end
 
   def set_serving_config
-    @serving_config = ServingConfig.includes(:controls).find(params[:serving_config_id])
+    @serving_config = ServingConfig
+      .user_editable
+      .includes(:controls)
+      .find(params[:serving_config_id])
   end
 
   def control_ids_param

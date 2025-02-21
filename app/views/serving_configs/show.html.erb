@@ -54,11 +54,6 @@
 
 <%= render "govuk_publishing_components/components/summary_card", {
   title: t(".attached_controls_heading"),
-  summary_card_actions: [
-    {
-      label: t(".buttons.edit_control_attachments"),
-      href: edit_serving_config_control_attachments_path(@serving_config),
-    }
-  ],
+  summary_card_actions: serving_config_attached_controls_actions(@serving_config),
   rows: serving_config_attached_controls_rows(@serving_config)
 } %>
