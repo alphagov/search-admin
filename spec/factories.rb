@@ -1,6 +1,7 @@
 FactoryBot.define do
   factory :control do
-    display_name { "Control" }
+    sequence(:display_name) { "Control #{it}" }
+
     comment { "This is a nice control." }
 
     action factory: :control_boost_action
@@ -31,10 +32,11 @@ FactoryBot.define do
   end
 
   factory :serving_config do
+    sequence(:display_name) { "Serving config #{it}" }
+    sequence(:remote_resource_id) { "serving-config-#{it}" }
+
     use_case { :live }
-    display_name { "Serving config" }
     description { "A serving configuration" }
-    remote_resource_id { "serving-config" }
   end
 
   factory :user do

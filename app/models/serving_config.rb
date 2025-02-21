@@ -7,6 +7,9 @@
 #
 # see https://cloud.google.com/ruby/docs/reference/google-cloud-discovery_engine-v1beta/latest/Google-Cloud-DiscoveryEngine-V1beta-ServingConfig
 class ServingConfig < ApplicationRecord
+  # Defines which use cases of serving configs can be edited by users through the UI
+  USER_EDITABLE_USE_CASES = %w[live preview].freeze
+
   include DiscoveryEngineNameable
 
   include RemoteSynchronizable
@@ -32,6 +35,16 @@ class ServingConfig < ApplicationRecord
 
   validates :display_name, presence: true
   validates :remote_resource_id, presence: true, uniqueness: true
+
+  # Returns all serving configs that can be edited by users through the UI
+  def self.user_editable
+    where(use_case: USER_EDITABLE_USE_CASES)
+  end
+
+  # Returns whether this serving config can be edited by users through the UI
+  def user_editable?
+    use_case.in?(USER_EDITABLE_USE_CASES)
+  end
 
   # A URL to preview this serving config on Finder Frontend
   def preview_url
