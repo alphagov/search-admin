@@ -1,0 +1,26 @@
+<%= render "page_title", title: t(".page_title") %>
+
+<div class="actions">
+  <%= render "govuk_publishing_components/components/button", {
+    text: t("common.buttons.new", model_name: t_model_name),
+    href: new_document_exclusion_path,
+    inline_layout: true
+  } %>
+</div>
+
+<div class="govuk-!-margin-top-6 app-table__container" data-module="filterable-table">
+  <%= render "govuk_publishing_components/components/table", {
+    filterable: true,
+    label: t(".filter_table_label"),
+    head: [
+      { text: t_model_attr(:link) },
+      { text: t_model_attr(:comment) },
+    ],
+    rows: @document_exclusions.map do |document_exclusion|
+      [
+        { text: link_to(document_exclusion.link, document_exclusion_path(document_exclusion), class:'govuk-link') },
+        { text: document_exclusion.comment },
+      ]
+    end
+  } %>
+</div>

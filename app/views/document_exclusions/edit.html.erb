@@ -1,0 +1,21 @@
+<% content_for(:breadcrumbs) do %>
+  <%= render "govuk_publishing_components/components/breadcrumbs", {
+    breadcrumbs: [
+      {
+        title: t("document_exclusions.index.page_title"),
+        url: document_exclusions_path
+      },
+      {
+        title: @document_exclusion.link_was,
+        url: document_exclusion_path(@document_exclusion)
+      },
+      {
+        title: t(".page_title")
+      }
+    ]
+  } %>
+<% end %>
+
+<%= render "page_title", title: @document_exclusion.link_was %>
+
+<%= render 'form', document_exclusion: @document_exclusion %>

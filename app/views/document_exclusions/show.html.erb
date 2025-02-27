@@ -1,0 +1,53 @@
+<% content_for(:breadcrumbs) do %>
+  <%= render "govuk_publishing_components/components/breadcrumbs", {
+    breadcrumbs: [
+      {
+        title: t("document_exclusions.index.page_title"),
+        url: document_exclusions_path
+      },
+      {
+        title: @document_exclusion.link
+      }
+    ]
+  } %>
+<% end %>
+
+<%= render "page_title", title: @document_exclusion.link %>
+
+<div class="actions">
+  <%= render "govuk_publishing_components/components/button", {
+    text: t("common.buttons.edit", model_name: t_model_name),
+    href: edit_document_exclusion_path(@document_exclusion),
+    inline_layout: true
+  } %>
+  <%= delete_button(
+    t("common.buttons.delete", model_name: t_model_name),
+    document_exclusion_path(@document_exclusion),
+    is_inline: true
+  ) %>
+</div>
+
+<%= render "govuk_publishing_components/components/summary_list", {
+  items: [
+    {
+      field: t_model_attr(:link),
+      value: link_to(@document_exclusion.link, absolute_govuk_url(@document_exclusion.link), class: "govuk-link"),
+    },
+    {
+      field: t_model_attr(:comment),
+      value: @document_exclusion.comment,
+    },
+    {
+      field: t_model_attr(:user),
+      value: user_email_link(@document_exclusion.user),
+    },
+    {
+      field: t_model_attr(:created_at),
+      value: govuk_timestamp(@document_exclusion.created_at),
+    },
+    {
+      field: t_model_attr(:updated_at),
+      value: govuk_timestamp(@document_exclusion.updated_at),
+    },
+  ]
+} %>

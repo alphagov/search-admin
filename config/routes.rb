@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   )
   mount GovukPublishingComponents::Engine, at: "/component-guide" if Rails.env.development?
 
+  resources :document_exclusions
   resources :recommended_links, path: "/recommended-links"
 
   root "recommended_links#index"

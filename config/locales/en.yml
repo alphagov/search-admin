@@ -77,6 +77,24 @@ en:
         remote_error: |
           There was an error saving this record remotely: %{error_message}
 
+  document_exclusions:
+    index:
+      page_title: Document exclusions
+      filter_table_label: Filter document exclusions
+    show:
+      document_exclusion_heading: Document exclusion details
+    new:
+      page_title: New document exclusion
+    create:
+      success: The document exclusion was successfully created.
+    edit:
+      page_title: Edit
+    update:
+      success: The document exclusion was successfully updated.
+    destroy:
+      success: The document exclusion was successfully deleted.
+      failure: The document exclusion could not be deleted.
+
   recommended_links:
     index:
       page_title: External links

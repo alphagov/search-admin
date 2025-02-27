@@ -1,0 +1,32 @@
+<%= form_with(model: document_exclusion) do |f| %>
+  <% if document_exclusion.errors.any? %>
+    <%= render "govuk_publishing_components/components/error_summary", {
+      id: "error-summary",
+      title: t("common.error_summary.title"),
+      description: t("common.error_summary.description", model_name: t_model_name),
+      items: error_summary_items(document_exclusion)
+    } %>
+  <% end %>
+
+  <%= render "govuk_publishing_components/components/input", {
+    label: {
+      text: t_model_attr(:link)
+    },
+    id: "document_exclusion_link",
+    name: "document_exclusion[link]",
+    value: document_exclusion.link,
+    error_items: error_items(document_exclusion, :link)
+  } %>
+
+  <%= render "govuk_publishing_components/components/textarea", {
+    label: {
+      text: t_model_attr(:comment)
+    },
+    name: "document_exclusion[comment]",
+    value: document_exclusion.comment
+  } %>
+
+  <%= render "govuk_publishing_components/components/button", {
+    text: t("common.buttons.save", model_name: t_model_name),
+  } %>
+<% end %>
