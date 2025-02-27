@@ -26,8 +26,6 @@ module RemoteSynchronizable
 
       sync
     end
-  rescue ClientError
-    false
   end
 
   # Destroys the record and deletes its corresponding remote resource.
@@ -37,8 +35,6 @@ module RemoteSynchronizable
 
       sync
     end
-  rescue ClientError
-    false
   end
 
   # Synchonises the record with its corresponding remote resource, creating, updating or deleting it
@@ -51,6 +47,12 @@ module RemoteSynchronizable
     else
       client.update(self) # rubocop:disable Rails/SaveBang (not an ActiveRecord model)
     end
+  rescue StandardError => e
+    GovukError.notify(e)
+    Rails.logger.error(e)
+
+    errors.add(:base, :remote_error, error_message: e.cause&.message || e.message)
+    raise ActiveRecord::Rollback
   end
 
 private

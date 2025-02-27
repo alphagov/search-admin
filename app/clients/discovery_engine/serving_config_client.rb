@@ -21,11 +21,6 @@ module DiscoveryEngine
         # Ensure no fields other than the ones specified in the payload are updated
         update_mask: { paths: payload.keys.excluding(:name) },
       )
-    rescue Google::Cloud::Error => e
-      serving_config.errors.add(:base, :remote_error)
-
-      GovukError.notify(e)
-      Rails.logger.error(e.message)
     end
 
     # Deletes the corresponding resource for this serving config on Discovery Engine.

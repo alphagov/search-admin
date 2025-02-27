@@ -30,18 +30,6 @@ RSpec.describe PublishingApi::ContentItemClient, type: :client do
       assert_publishing_api_put_content("f00", { foo: "bar" })
       assert_publishing_api_publish("f00")
     end
-
-    context "when the operation raises an arbitrary error" do
-      before do
-        stub_publishing_api_isnt_available
-      end
-
-      it "raises a ClientError and adds a base validation error" do
-        expect { client.create(content_itemable) }.to raise_error(ClientError)
-
-        expect(content_itemable.errors).to be_of_kind(:base, :remote_error)
-      end
-    end
   end
 
   describe "#update" do
@@ -51,18 +39,6 @@ RSpec.describe PublishingApi::ContentItemClient, type: :client do
       assert_publishing_api_put_content("f00", { foo: "bar" })
       assert_publishing_api_publish("f00")
     end
-
-    context "when the operation raises an arbitrary error" do
-      before do
-        stub_publishing_api_isnt_available
-      end
-
-      it "raises a ClientError and adds a base validation error" do
-        expect { client.update(content_itemable) }.to raise_error(ClientError)
-
-        expect(content_itemable.errors).to be_of_kind(:base, :remote_error)
-      end
-    end
   end
 
   describe "#delete" do
@@ -70,18 +46,6 @@ RSpec.describe PublishingApi::ContentItemClient, type: :client do
       client.delete(content_itemable)
 
       assert_publishing_api_unpublish("f00", type: "gone")
-    end
-
-    context "when the operation raises an arbitrary error" do
-      before do
-        stub_publishing_api_isnt_available
-      end
-
-      it "raises a ClientError and adds a base validation error" do
-        expect { client.delete(content_itemable) }.to raise_error(ClientError)
-
-        expect(content_itemable.errors).to be_of_kind(:base, :remote_error)
-      end
     end
   end
 end
