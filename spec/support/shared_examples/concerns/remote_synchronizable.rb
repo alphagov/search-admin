@@ -25,7 +25,7 @@ RSpec.shared_examples "RemoteSynchronizable" do |client_class|
       end
 
       context "when the remote resource creation fails" do
-        let(:error) { ClientError.new("Uh oh") }
+        let(:error) { RuntimeError.new("Uh oh") }
 
         before do
           allow(client).to receive(:create).and_raise(error)
@@ -35,6 +35,10 @@ RSpec.shared_examples "RemoteSynchronizable" do |client_class|
 
         it "stops the record from being created" do
           expect(record).not_to be_persisted
+        end
+
+        it "adds an error to the record" do
+          expect(record.errors).to be_of_kind(:base, :remote_error)
         end
       end
     end
@@ -61,6 +65,10 @@ RSpec.shared_examples "RemoteSynchronizable" do |client_class|
         it "stops the record from being persisted" do
           expect(record).to be_changed
         end
+
+        it "adds an error to the record" do
+          expect(record.errors).to be_of_kind(:base, :remote_error)
+        end
       end
     end
   end
@@ -85,6 +93,10 @@ RSpec.shared_examples "RemoteSynchronizable" do |client_class|
 
       it "stops the record from being destroyed" do
         expect(described_class.exists?(record.id)).to be(true)
+      end
+
+      it "adds an error to the record" do
+        expect(record.errors).to be_of_kind(:base, :remote_error)
       end
     end
   end

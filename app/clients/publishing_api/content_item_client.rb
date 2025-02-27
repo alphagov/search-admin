@@ -16,18 +16,12 @@ module PublishingApi
         record.to_publishing_api_content_item,
       )
       publishing_api_service.publish(record.content_id)
-    rescue GdsApi::BaseError => e
-      record.errors.add(:base, :remote_error)
-      raise ClientError, "Could not publish content item on Publishing API: #{e.message}"
     end
     alias_method :update, :create
 
     # Deletes the corresponding content item for this record on Publishing API.
     def delete(record)
       publishing_api_service.unpublish(record.content_id, type: UNPUBLISH_TYPE)
-    rescue GdsApi::BaseError => e
-      record.errors.add(:base, :remote_error)
-      raise ClientError, "Could not unpublish content item on Publishing API: #{e.message}"
     end
 
   private
