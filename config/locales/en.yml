@@ -54,10 +54,17 @@ en:
 
   activerecord:
     models:
+      document_exclusion:
+        one: document exclusion
+        other: document exclusions
       recommended_link:
         one: external link
         other: external links
     attributes:
+      document_exclusion:
+        link: Link
+        comment: Comment
+        user: Created by
       recommended_link:
         link: Link
         title: Title

@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_02_28_112135) do
+ActiveRecord::Schema[8.0].define(version: 2025_02_28_115600) do
+  create_table "document_exclusions", charset: "utf8mb3", force: :cascade do |t|
+    t.string "link", null: false
+    t.text "comment", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["link"], name: "index_document_exclusions_on_link", unique: true
+    t.index ["user_id"], name: "index_document_exclusions_on_user_id"
+  end
+
   create_table "recommended_links", charset: "utf8mb3", force: :cascade do |t|
     t.string "title"
     t.string "link"
@@ -33,4 +43,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_28_112135) do
     t.boolean "disabled", default: false
     t.string "organisation_content_id"
   end
+
+  add_foreign_key "document_exclusions", "users"
 end
