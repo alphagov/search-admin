@@ -6,17 +6,6 @@ Rails.application.routes.draw do
   )
   mount GovukPublishingComponents::Engine, at: "/component-guide" if Rails.env.development?
 
-  resources :controls, except: %i[new]
-  scope :controls, only: %i[new], as: "control" do
-    # NOTE: Rails does not accept :controller as an argument on `scope`, so we need to duplicate
-    # it in every resource definition in this scope.
-    resources :with_boost_actions, controller: :controls, action_type: Control::BoostAction
-    resources :with_filter_actions, controller: :controls, action_type: Control::FilterAction
-  end
-  resources :serving_configs, only: %i[index show] do
-    resource :control_attachments, only: %i[edit update]
-  end
-
   resources :recommended_links, path: "/recommended-links"
 
   root "recommended_links#index"
