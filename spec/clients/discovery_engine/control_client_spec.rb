@@ -1,5 +1,12 @@
 RSpec.describe DiscoveryEngine::ControlClient, type: :client do
-  let(:control) { build(:control, id: 42) }
+  let(:control) do
+    double(
+      name: "control",
+      remote_resource_id: "id",
+      parent: Engine.default,
+      to_discovery_engine_control: double,
+    )
+  end
 
   let(:discovery_engine_client) do
     instance_double(
@@ -19,7 +26,7 @@ RSpec.describe DiscoveryEngine::ControlClient, type: :client do
     it "creates the control on Discovery Engine" do
       expect(discovery_engine_client).to receive(:create_control).with(
         control: control.to_discovery_engine_control,
-        control_id: "search-admin-42",
+        control_id: "id",
         parent: Engine.default.name,
       )
 
