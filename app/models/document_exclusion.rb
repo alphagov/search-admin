@@ -6,6 +6,8 @@ class DocumentExclusion < ApplicationRecord
   belongs_to :user
 
   before_validation :set_user
+  after_save :sync_control
+  after_destroy :sync_control
 
   validates :link, presence: true, uniqueness: true, format: { with: LINK_FORMAT }
   validates :comment, presence: true
@@ -14,5 +16,9 @@ private
 
   def set_user
     self.user ||= Current.user
+  end
+
+  def sync_control
+    DocumentExclusionsControl.instance.sync
   end
 end
