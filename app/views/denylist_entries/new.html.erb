@@ -1,0 +1,17 @@
+<% content_for(:breadcrumbs) do %>
+  <%= render "govuk_publishing_components/components/breadcrumbs", {
+    breadcrumbs: [
+      {
+        title: t("denylist_entries.index.page_title"),
+        url: denylist_entries_path
+      },
+      {
+        title: t(".page_title"),
+      }
+    ]
+  } %>
+<% end %>
+
+<%= render "page_title", title: t(".page_title") %>
+
+<%= render "form", denylist_entry: @denylist_entry %>

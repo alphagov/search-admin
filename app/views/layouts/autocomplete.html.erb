@@ -1,0 +1,14 @@
+<% content_for :secondary_nav do %>
+  <%= render "govuk_publishing_components/components/secondary_navigation", {
+    aria_label: "Search secondary navigation",
+    items: [
+      {
+        label: t("denylist_entries.index.page_title"),
+        href: denylist_entries_path,
+        current: secondary_navigation_area == :denylist_entries,
+      },
+    ]
+  } %>
+<% end %>
+
+<%= render template: "layouts/application" %>
