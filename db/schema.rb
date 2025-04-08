@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_02_18_142926) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_08_102814) do
   create_table "control_attachments", charset: "utf8mb3", force: :cascade do |t|
     t.bigint "control_id", null: false
     t.bigint "serving_config_id", null: false
@@ -43,6 +43,17 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_18_142926) do
     t.datetime "updated_at", null: false
     t.text "comment", null: false, comment: "A descriptive comment about why this control exists"
     t.index ["action_type", "action_id"], name: "index_controls_on_action_type_and_action_id", unique: true
+  end
+
+  create_table "denylist_entries", charset: "utf8mb3", force: :cascade do |t|
+    t.string "phrase", null: false
+    t.integer "match_type", default: 0, null: false
+    t.integer "category", default: 0, null: false
+    t.string "comment"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["category"], name: "index_denylist_entries_on_category"
+    t.index ["phrase"], name: "index_denylist_entries_on_phrase", unique: true
   end
 
   create_table "recommended_links", charset: "utf8mb3", force: :cascade do |t|
