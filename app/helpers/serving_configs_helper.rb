@@ -21,7 +21,7 @@ module ServingConfigsHelper
     serving_config.controls.group_by(&:action_name).map do |action_name, controls|
       {
         key: t(action_name, scope: "activerecord.attributes.control.action_names").pluralize,
-        value: resource_link_list(controls) { it.display_name },
+        value: resource_link_list(controls, &:display_name),
       }
     end
   end
