@@ -122,6 +122,11 @@ en:
       messages:
         remote_error: |
           There was an error saving this record remotely: %{error_message}
+      models:
+        completion_denylist_entry:
+          too_many_entries: >
+            Vertex AI Search maximum denylist entry limit reached. You can only have
+            %{max_entries}.
 
   controls:
     index:
