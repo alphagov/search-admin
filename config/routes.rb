@@ -17,6 +17,7 @@ Rails.application.routes.draw do
     resource :control_attachments, only: %i[edit update]
   end
 
+  resources :completion_denylist_entries, except: %i[show]
   resources :recommended_links, path: "/recommended-links"
 
   root "recommended_links#index"

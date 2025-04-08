@@ -1,0 +1,56 @@
+<div class="govuk-grid-row actions">
+  <div class="govuk-grid-column-two-thirds">
+    <%= render "page_title", title: t(".page_title") %>
+  </div>
+
+  <div class="govuk-grid-column-one-third app-actions__count">
+    <%= render "govuk_publishing_components/components/button", {
+      text: t("common.buttons.new", model_name: t_model_name),
+      href: new_completion_denylist_entry_path,
+      inline_layout: true
+    } %>
+    <div class="app-actions__count">
+      Currently using <%= pluralize(number_with_delimiter(@total_count), "entry") %> out of a
+      maximum of <%= number_with_delimiter(CompletionDenylistEntry::MAX_ENTRIES) %>
+    </div>
+  </div>
+</div>
+
+<%= render "govuk_publishing_components/components/tabs", {
+  as_links: true,
+  tabs: CompletionDenylistEntry.categories.map do |category, _|
+    {
+      href: completion_denylist_entries_path(category: category),
+      label: t(category, scope: "activerecord.attributes.completion_denylist_entry.category_values"),
+      active: @category_filter == category
+    }
+  end,
+} %>
+
+<div class="govuk-!-margin-top-6 app-table__container" data-module="filterable-table">
+  <%= render "govuk_publishing_components/components/table", {
+    filterable: @completion_denylist_entries.any?,
+    label: t(".filter_table_label"),
+    head: [
+      { text: t_model_attr(:phrase) },
+      { text: t_model_attr(:match_type) },
+      { text: t_model_attr(:updated_at) },
+    ],
+    rows: @completion_denylist_entries.map do |completion_denylist_entry|
+      [
+        { text: capture do
+          concat link_to(
+            completion_denylist_entry_phrase_with_visible_spaces(completion_denylist_entry),
+            edit_completion_denylist_entry_path(completion_denylist_entry),
+            class: "govuk-link",
+          )
+          if completion_denylist_entry.comment?
+            concat tag.span(completion_denylist_entry.comment, class: "app-denylist-entry-comment")
+          end
+        end },
+        { text: completion_denylist_entry_match_type_tag(completion_denylist_entry) },
+        { text: completion_denylist_entry.updated_at.to_fs(:govuk) },
+      ]
+    end
+  } %>
+</div>

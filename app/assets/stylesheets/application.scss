@@ -15,12 +15,14 @@
 @import 'govuk_publishing_components/components/layout-footer';
 @import 'govuk_publishing_components/components/layout-for-admin';
 @import 'govuk_publishing_components/components/layout-header';
+@import 'govuk_publishing_components/components/radio';
 @import 'govuk_publishing_components/components/search';
 @import 'govuk_publishing_components/components/secondary-navigation';
 @import 'govuk_publishing_components/components/skip-link';
 @import 'govuk_publishing_components/components/success-alert';
 @import 'govuk_publishing_components/components/summary-list';
 @import 'govuk_publishing_components/components/table';
+@import 'govuk_publishing_components/components/tabs';
 @import 'govuk_publishing_components/components/textarea';
 
 .actions {
@@ -38,4 +40,20 @@
 // Display filter expressions with less large font size
 .app-filter-expression {
   font-size: 16px;
+}
+
+.app-actions__count {
+  margin-top: govuk-spacing(1);
+  padding-right: govuk-spacing(2);
+  text-align: right;
+  @include govuk-font(16);
+  color: govuk-colour("dark-grey");
+}
+
+.app-denylist-entry-comment {
+  display: block;
+  margin-top: govuk-spacing(2);
+  @include govuk-font(16);
+  color: govuk-colour("dark-grey");
+  font-style: italic;
 }
