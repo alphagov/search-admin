@@ -47,6 +47,7 @@ en:
 
   primary_navigation_areas:
     search: Search
+    autocomplete: Autocomplete
 
   attributes:
     created_at: Created at
@@ -64,6 +65,19 @@ en:
       target="_blank" class="govuk-link">Google documentation</a> for syntax and more information.
     attached_controls: |
       Select all controls that should be attached to this serving configuration.
+    completion_denylist_entry_phrase: >
+      The word or phrase to be blocked from autocomplete suggestions.
+    completion_denylist_entry_comment: >
+      A brief comment describing why this denylist entry is needed (if it isn't obvious)
+    completion_denylist_entry_match_type:
+      exact_match: >
+        "example" matches suggestion "example" only
+      contains: >
+        "example" matches suggestions "example", "an example", "some example text", "example.com",
+        "examples", ...
+    completion_denylist_entry_category: >
+      Helps organise denylist entries in Search Admin. This has no effect on the search engine.
+
 
   activerecord:
     models:
@@ -79,6 +93,9 @@ en:
       control_attachment:
         one: attached control
         other: attached controls
+      completion_denylist_entry:
+        one: denylist entry
+        other: denylist entries
       recommended_link:
         one: external link
         other: external links
@@ -100,6 +117,19 @@ en:
         filter_expression: Filter expression
       control/filter_action:
         filter_expression: Filter expression
+      completion_denylist_entry:
+        phrase: Phrase
+        comment: Comment
+        category: Category
+        category_values:
+          general: General
+          names: Names
+          offensive: Offensive
+        match_type: Match type
+        match_type_values:
+          exact_match: Exact match
+          contains: Contains
+        updated_at: Last modified
       recommended_link:
         link: Link
         title: Title
@@ -165,6 +195,25 @@ en:
       page_title: Manage attached controls
     update:
       success: The attached controls for this serving configuration were successfully updated.
+
+  completion_denylist_entries:
+    index:
+      page_title: Denylist
+      filter_table_label: Filter denylist entries
+      buttons:
+        edit: Edit
+        delete: Delete
+    new:
+      page_title: New denylist entry
+    create:
+      success: The denylist entry was successfully created.
+    edit:
+      page_title: Edit %{phrase}
+    update:
+      success: The denylist entry was successfully updated.
+    destroy:
+      success: The denylist entry was successfully deleted.
+      failure: The denylist entry could not be deleted.
 
   recommended_links:
     index:
