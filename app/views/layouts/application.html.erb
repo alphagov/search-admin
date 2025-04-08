@@ -20,6 +20,11 @@
         active: primary_navigation_area == :search,
       },
       {
+        text: t("primary_navigation_areas.autocomplete"),
+        href: completion_denylist_entries_path,
+        active: primary_navigation_area == :autocomplete,
+      },
+      {
         text: Current.user.name,
         href: Plek.new.external_url_for("signon"),
       },

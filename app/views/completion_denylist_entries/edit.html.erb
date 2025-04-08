@@ -1,0 +1,25 @@
+<% content_for(:breadcrumbs) do %>
+  <%= render "govuk_publishing_components/components/breadcrumbs", {
+    breadcrumbs: [
+      {
+        title: t("completion_denylist_entries.index.page_title"),
+        url: completion_denylist_entries_path
+      },
+      {
+        title: t(".page_title", phrase: @completion_denylist_entry.phrase_was),
+      }
+    ]
+  } %>
+<% end %>
+
+<%= render "page_title", title: @completion_denylist_entry.phrase_was %>
+
+<div class="actions">
+  <%= delete_button(
+    t("common.buttons.delete", model_name: t_model_name),
+    completion_denylist_entry_path(@completion_denylist_entry),
+    is_inline: true
+  ) %>
+</div>
+
+<%= render 'form', completion_denylist_entry: @completion_denylist_entry %>
