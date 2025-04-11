@@ -61,6 +61,23 @@ RSpec.describe "Completion denylist entries", type: :system do
     then_the_completion_denylist_entry_has_been_deleted
   end
 
+  scenario "Importing denylist entries" do
+    when_i_visit_the_completion_denylist_entries_page
+    and_i_choose_to_import_entries
+    and_i_submit_the_form_with_valid_csv_entries
+
+    then_the_new_entries_have_been_imported
+  end
+
+  scenario "Attempting to import denylist entries with invalid data" do
+    when_i_visit_the_completion_denylist_entries_page
+    and_i_choose_to_import_entries
+    and_i_submit_the_form_with_invalid_csv_entries
+
+    then_the_new_entries_have_not_been_imported
+    and_i_can_see_what_errors_i_need_to_fix_in_the_csv
+  end
+
   def given_several_completion_denylist_entries_exist
     @completion_denylist_entry_general = create(
       :completion_denylist_entry,
@@ -136,6 +153,30 @@ RSpec.describe "Completion denylist entries", type: :system do
     click_on "Delete"
   end
 
+  def and_i_choose_to_import_entries
+    click_on "Import"
+  end
+
+  def and_i_submit_the_form_with_valid_csv_entries
+    choose "General"
+    fill_in "Denylist entries", with: <<~CSV
+      phrase1,exact_match,comment1
+      phrase2,contains,comment2
+    CSV
+
+    click_on "Import"
+  end
+
+  def and_i_submit_the_form_with_invalid_csv_entries
+    choose "General"
+    fill_in "Denylist entries", with: <<~CSV
+      ,exact_match,comment1
+      phrase2,contains,comment2
+    CSV
+
+    click_on "Import"
+  end
+
   def then_i_should_see_the_general_completion_denylist_entry
     expect(page).to have_selector("td", text: "foobar")
   end
@@ -177,5 +218,22 @@ RSpec.describe "Completion denylist entries", type: :system do
     expect(CompletionDenylistEntry.exists?(@offensive_completion_denylist_entry.id)).to eq(false)
     expect(page).not_to have_selector("td", text: "wagile")
     expect(page).to have_content("The denylist entry was successfully deleted.")
+  end
+
+  def then_the_new_entries_have_been_imported
+    expect(CompletionDenylistEntry.count).to eq(2)
+    expect(page).to have_selector("td", text: "phrase1comment1")
+    expect(page).to have_selector("td", text: "phrase2comment2")
+    expect(page).to have_selector("td", text: "Exact match")
+    expect(page).to have_selector("td", text: "Contains")
+  end
+
+  def then_the_new_entries_have_not_been_imported
+    expect(CompletionDenylistEntry.count).to be_zero
+  end
+
+  def and_i_can_see_what_errors_i_need_to_fix_in_the_csv
+    expect(page).to have_content("There is a problem")
+    expect(page).to have_content("Denylist entries contains invalid entry ',exact_match,comment1' (does not contain a phrase)")
   end
 end

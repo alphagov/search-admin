@@ -1,0 +1,59 @@
+<% content_for(:breadcrumbs) do %>
+  <%= render "govuk_publishing_components/components/breadcrumbs", {
+    breadcrumbs: [
+      {
+        title: t("completion_denylist_entries.index.page_title"),
+        url: completion_denylist_entries_path
+      },
+      {
+        title: t(".page_title"),
+      }
+    ]
+  } %>
+<% end %>
+
+<%= render "page_title", title: t(".page_title") %>
+
+<%= form_with(model: @completion_denylist_entry_import) do |f| %>
+  <% if @completion_denylist_entry_import.errors.any? %>
+    <%= render "govuk_publishing_components/components/error_summary", {
+      id: "error-summary",
+      title: t("common.error_summary.title"),
+      description: t("common.error_summary.description", model_name: t_model_name),
+      items: error_summary_items(@completion_denylist_entry_import)
+    } %>
+  <% end %>
+
+  <%= render "govuk_publishing_components/components/radio", {
+    id: "completion_denylist_entry_import_category",
+    heading: t_model_attr(:category),
+    name: "completion_denylist_entry_import[category]",
+    small: true,
+    hint: t("hints.completion_denylist_entry_category"),
+    items: CompletionDenylistEntry.categories.map do |category, _|
+      {
+        text: t(category, scope: "activerecord.attributes.completion_denylist_entry.category_values"),
+        value: category,
+        checked: @completion_denylist_entry_import.category == category,
+      }
+    end,
+    error_items: error_items(@completion_denylist_entry_import, :category)
+  } %>
+
+  <%= render "govuk_publishing_components/components/textarea", {
+    id: "completion_denylist_entry_import_denylist_csv_data",
+    rows: 10,
+    label: {
+      heading_size: "m",
+      text: t_model_attr(:denylist_csv_data)
+    },
+    hint: t("hints.completion_denylist_entry_import_denylist_csv_data_html"),
+    error_items: error_items(@completion_denylist_entry_import, :denylist_csv_data),
+    name: "completion_denylist_entry_import[denylist_csv_data]",
+    value: @completion_denylist_entry_import.denylist_csv_data,
+  } %>
+
+  <%= render "govuk_publishing_components/components/button", {
+    text: t(".buttons.import"),
+  } %>
+<% end %>
