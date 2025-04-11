@@ -5,6 +5,12 @@
 
   <div class="govuk-grid-column-one-third app-actions__count">
     <%= render "govuk_publishing_components/components/button", {
+      text: t(".buttons.import"),
+      href: new_completion_denylist_entry_import_path,
+      inline_layout: true,
+      secondary: true,
+    } %>
+    <%= render "govuk_publishing_components/components/button", {
       text: t("common.buttons.new", model_name: t_model_name),
       href: new_completion_denylist_entry_path,
       inline_layout: true
