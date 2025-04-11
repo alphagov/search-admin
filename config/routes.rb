@@ -18,6 +18,8 @@ Rails.application.routes.draw do
   end
 
   resources :completion_denylist_entries, except: %i[show]
+  resources :completion_denylist_entry_imports, only: %i[new create]
+
   resources :recommended_links, path: "/recommended-links"
 
   root "recommended_links#index"

@@ -77,7 +77,37 @@ en:
         "examples", ...
     completion_denylist_entry_category: >
       Helps organise denylist entries in Search Admin. This has no effect on the search engine.
+    completion_denylist_entry_import_denylist_csv_data_html: |
+      <p>One line per new denylist entry as 1-3 column comma separated values in the following format:</p>
+      <code>phrase[,match_type[,comment]]</code>
+      <p>For example:</p>
+      <ul>
+        <li><code>foo</code></li>
+        <li><code>foo,exact_match</code></li>
+        <li><code>foo,contains,This is a comment</code></li>
+        <li><code>foo,,I don't have a match type - only a comment</code></li>
+      </ul>
+      <p>The tab character can be used as a separator (for example, for data copied from a spreadsheet), but if used for any entry, it must be used for all entries. The match type is optional and defaults to exact_match. You can use commas in the comment but you need to "quote" it as you would in a CSV file.</p>
 
+  activemodel:
+    models:
+      completion_denylist_entry_import:
+        one: denylist entry import
+        other: denylist entry imports
+    attributes:
+      completion_denylist_entry_import:
+        category: Category
+        denylist_csv_data: Denylist entries
+    errors:
+      models:
+        completion_denylist_entry_import:
+          attributes:
+            category:
+              inclusion: must be one of the available options
+            denylist_csv_data:
+              blank: must have at least one entry
+              would_exceed_max_entries: would exceed the maximum number of entries (%{count})
+              entry_invalid: contains invalid entry '%{phrase}' (%{reason})
 
   activerecord:
     models:
@@ -201,6 +231,7 @@ en:
       page_title: Denylist
       filter_table_label: Filter denylist entries
       buttons:
+        import: Import
         edit: Edit
         delete: Delete
     new:
@@ -214,6 +245,14 @@ en:
     destroy:
       success: The denylist entry was successfully deleted.
       failure: The denylist entry could not be deleted.
+
+  completion_denylist_entry_imports:
+    new:
+      page_title: Import denylist entries
+      buttons:
+        import: Import
+    create:
+      success: "%{count} denylist entries were successfully imported."
 
   recommended_links:
     index:
