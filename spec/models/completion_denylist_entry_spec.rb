@@ -1,6 +1,29 @@
 RSpec.describe CompletionDenylistEntry, type: :model do
   subject(:completion_denylist_entry) { build(:completion_denylist_entry) }
 
+  describe ".sync" do
+    let(:client) { instance_double(DiscoveryEngine::CompletionDenylistClient) }
+    let!(:completion_denylist_entry) { create(:completion_denylist_entry) }
+
+    before do
+      allow(DiscoveryEngine::CompletionDenylistClient).to receive(:new).and_return(client)
+    end
+
+    it "calls the client to sync entries" do
+      expect(client).to receive(:import).with([completion_denylist_entry])
+      expect(client).not_to receive(:purge)
+
+      described_class.sync
+    end
+
+    it "calls the client to purge and sync entries when purge is specified" do
+      expect(client).to receive(:purge)
+      expect(client).to receive(:import).with([completion_denylist_entry])
+
+      described_class.sync(purge: true)
+    end
+  end
+
   describe "normalizations" do
     context "for the phrase" do
       subject(:completion_denylist_entry) { build(:completion_denylist_entry, phrase: " TEA time") }
