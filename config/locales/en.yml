@@ -47,6 +47,7 @@ en:
 
   primary_navigation_areas:
     search: Search
+    autocomplete: Autocomplete
 
   attributes:
     created_at: Created at
@@ -64,6 +65,49 @@ en:
       target="_blank" class="govuk-link">Google documentation</a> for syntax and more information.
     attached_controls: |
       Select all controls that should be attached to this serving configuration.
+    completion_denylist_entry_phrase: >
+      The word or phrase to be blocked from autocomplete suggestions.
+    completion_denylist_entry_comment: >
+      A brief comment describing why this denylist entry is needed (if it isn't obvious)
+    completion_denylist_entry_match_type:
+      exact_match: >
+        "example" matches suggestion "example" only
+      contains: >
+        "example" matches suggestions "example", "an example", "some example text", "example.com",
+        "examples", ...
+    completion_denylist_entry_category: >
+      Helps organise denylist entries in Search Admin. This has no effect on the search engine.
+    completion_denylist_entry_import_denylist_csv_data_html: |
+      <p>One line per new denylist entry as 1-3 column comma separated values in the following format:</p>
+      <code>phrase[,match_type[,comment]]</code>
+      <p>For example:</p>
+      <ul>
+        <li><code>foo</code></li>
+        <li><code>foo,exact_match</code></li>
+        <li><code>foo,contains,This is a comment</code></li>
+        <li><code>foo,,I don't have a match type - only a comment</code></li>
+      </ul>
+      <p>The tab character can be used as a separator (for example, for data copied from a spreadsheet), but if used for any entry, it must be used for all entries. The match type is optional and defaults to exact_match. You can use commas in the comment but you need to "quote" it as you would in a CSV file.</p>
+
+  activemodel:
+    models:
+      completion_denylist_entry_import:
+        one: denylist entry import
+        other: denylist entry imports
+    attributes:
+      completion_denylist_entry_import:
+        category: Category
+        denylist_csv_data: Denylist entries
+    errors:
+      models:
+        completion_denylist_entry_import:
+          attributes:
+            category:
+              inclusion: must be one of the available options
+            denylist_csv_data:
+              blank: must have at least one entry
+              would_exceed_max_entries: would exceed the maximum number of entries (%{count})
+              entry_invalid: contains invalid entry '%{phrase}' (%{reason})
 
   activerecord:
     models:
@@ -79,6 +123,9 @@ en:
       control_attachment:
         one: attached control
         other: attached controls
+      completion_denylist_entry:
+        one: denylist entry
+        other: denylist entries
       recommended_link:
         one: external link
         other: external links
@@ -100,6 +147,19 @@ en:
         filter_expression: Filter expression
       control/filter_action:
         filter_expression: Filter expression
+      completion_denylist_entry:
+        phrase: Phrase
+        comment: Comment
+        category: Category
+        category_values:
+          general: General
+          names: Names
+          offensive: Offensive
+        match_type: Match type
+        match_type_values:
+          exact_match: Exact match
+          contains: Contains
+        updated_at: Last modified
       recommended_link:
         link: Link
         title: Title
@@ -122,6 +182,11 @@ en:
       messages:
         remote_error: |
           There was an error saving this record remotely: %{error_message}
+      models:
+        completion_denylist_entry:
+          too_many_entries: >
+            Vertex AI Search maximum denylist entry limit reached. You can only have
+            %{max_entries}.
 
   controls:
     index:
@@ -160,6 +225,34 @@ en:
       page_title: Manage attached controls
     update:
       success: The attached controls for this serving configuration were successfully updated.
+
+  completion_denylist_entries:
+    index:
+      page_title: Denylist
+      filter_table_label: Filter denylist entries
+      buttons:
+        import: Import
+        edit: Edit
+        delete: Delete
+    new:
+      page_title: New denylist entry
+    create:
+      success: The denylist entry was successfully created.
+    edit:
+      page_title: Edit %{phrase}
+    update:
+      success: The denylist entry was successfully updated.
+    destroy:
+      success: The denylist entry was successfully deleted.
+      failure: The denylist entry could not be deleted.
+
+  completion_denylist_entry_imports:
+    new:
+      page_title: Import denylist entries
+      buttons:
+        import: Import
+    create:
+      success: "%{count} denylist entries were successfully imported."
 
   recommended_links:
     index:

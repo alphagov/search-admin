@@ -23,6 +23,13 @@ FactoryBot.define do
     filter_expression { 'link: ANY("/example")' }
   end
 
+  factory :completion_denylist_entry do
+    phrase { "tea time" }
+    match_type { :contains }
+    category { :general }
+    comment { "The tea time alarm has been suspended until further notice" }
+  end
+
   factory :recommended_link do
     title { "Tax online" }
     link { "https://www.tax.service.gov.uk/" }

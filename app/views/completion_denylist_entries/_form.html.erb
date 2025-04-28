@@ -1,0 +1,66 @@
+<%= form_with(model: completion_denylist_entry) do |f| %>
+  <% if completion_denylist_entry.errors.any? %>
+    <%= render "govuk_publishing_components/components/error_summary", {
+      id: "error-summary",
+      title: t("common.error_summary.title"),
+      description: t("common.error_summary.description", model_name: t_model_name),
+      items: error_summary_items(completion_denylist_entry)
+    } %>
+  <% end %>
+
+  <%= render "govuk_publishing_components/components/input", {
+    label: {
+      text: t_model_attr(:phrase)
+    },
+    id: "completion_denylist_entry_phrase",
+    name: "completion_denylist_entry[phrase]",
+    value: completion_denylist_entry.phrase,
+    hint: t("hints.completion_denylist_entry_phrase"),
+    error_items: error_items(completion_denylist_entry, :phrase)
+  } %>
+
+  <%= render "govuk_publishing_components/components/input", {
+    label: {
+      text: t_model_attr(:comment)
+    },
+    id: "completion_denylist_entry_comment",
+    name: "completion_denylist_entry[comment]",
+    value: completion_denylist_entry.comment,
+    hint: t("hints.completion_denylist_entry_comment"),
+    error_items: error_items(completion_denylist_entry, :comment)
+  } %>
+
+  <%= render "govuk_publishing_components/components/radio", {
+    heading: t_model_attr(:match_type),
+    name: "completion_denylist_entry[match_type]",
+    small: true,
+    items: CompletionDenylistEntry.match_types.map do |match_type, _|
+      {
+        text: t(match_type, scope: "activerecord.attributes.completion_denylist_entry.match_type_values"),
+        hint_text: t(match_type, scope: "hints.completion_denylist_entry_match_type"),
+        value: match_type,
+        checked: completion_denylist_entry.match_type == match_type,
+      }
+    end,
+    error_items: error_items(completion_denylist_entry, :match_type)
+  } %>
+
+  <%= render "govuk_publishing_components/components/radio", {
+    heading: t_model_attr(:category),
+    name: "completion_denylist_entry[category]",
+    small: true,
+    hint: t("hints.completion_denylist_entry_category"),
+    items: CompletionDenylistEntry.categories.map do |category, _|
+      {
+        text: t(category, scope: "activerecord.attributes.completion_denylist_entry.category_values"),
+        value: category,
+        checked: completion_denylist_entry.category == category,
+      }
+    end,
+    error_items: error_items(completion_denylist_entry, :category)
+  } %>
+
+  <%= render "govuk_publishing_components/components/button", {
+    text: t("common.buttons.save", model_name: t_model_name),
+  } %>
+<% end %>
