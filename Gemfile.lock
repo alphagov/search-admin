@@ -164,10 +164,6 @@ GEM
       gapic-common (>= 0.25.0, < 2.a)
       google-cloud-errors (~> 1.0)
       google-cloud-location (>= 0.7, < 2.a)
-    google-cloud-discovery_engine-v1beta (0.19.0)
-      gapic-common (>= 0.25.0, < 2.a)
-      google-cloud-errors (~> 1.0)
-      google-cloud-location (>= 0.7, < 2.a)
     google-cloud-env (2.2.2)
       base64 (~> 0.2)
       faraday (>= 1.0, < 3.a)
@@ -778,7 +774,6 @@ DEPENDENCIES
   gds-api-adapters
   gds-sso
   google-cloud-discovery_engine
-  google-cloud-discovery_engine-v1beta
   govuk_app_config
   govuk_publishing_components
   govuk_schemas

@@ -3,14 +3,14 @@ RSpec.describe DiscoveryEngine::ServingConfigClient do
 
   let(:discovery_engine_client) do
     instance_double(
-      Google::Cloud::DiscoveryEngine::V1beta::ServingConfigService::Client,
+      Google::Cloud::DiscoveryEngine::V1::ServingConfigService::Client,
       update_serving_config: true,
     )
   end
 
   before do
-    allow(Google::Cloud::DiscoveryEngine::V1beta::ServingConfigService::Client)
-      .to receive(:new).and_return(discovery_engine_client)
+    allow(Google::Cloud::DiscoveryEngine)
+      .to receive(:serving_config_service).and_return(discovery_engine_client)
   end
 
   describe "#update" do

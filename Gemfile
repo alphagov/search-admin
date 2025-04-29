@@ -6,7 +6,6 @@ gem "bootsnap", require: false
 gem "csv"
 gem "dartsass-rails"
 gem "google-cloud-discovery_engine"
-gem "google-cloud-discovery_engine-v1beta"
 gem "mysql2"
 gem "sentry-sidekiq"
 gem "sprockets-rails"
