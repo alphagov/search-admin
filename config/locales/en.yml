@@ -237,13 +237,18 @@ en:
     new:
       page_title: New denylist entry
     create:
-      success: The denylist entry was successfully created.
+      success: >-
+        The denylist entry was successfully created. It may take several minutes for the changes to
+        be processed by Vertex AI Search.
     edit:
       page_title: Edit %{phrase}
     update:
-      success: The denylist entry was successfully updated.
+      success: >-
+        The denylist entry was successfully updated. It may take several minutes for the changes to
+        be processed by Vertex AI Search.
     destroy:
-      success: The denylist entry was successfully deleted.
+      success: >-
+        The denylist entry was successfully deleted. It may take several minutes for the changes to be processed by Vertex AI Search.
       failure: The denylist entry could not be deleted.
 
   completion_denylist_entry_imports:

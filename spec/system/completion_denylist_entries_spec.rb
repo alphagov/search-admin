@@ -18,6 +18,7 @@ RSpec.describe "Completion denylist entries", type: :system do
     and_i_submit_the_form_with_updated_details
 
     then_the_completion_denylist_entry_has_been_updated
+    and_an_import_to_discovery_engine_has_been_triggered
     and_i_can_see_the_updated_details
   end
 
@@ -30,6 +31,7 @@ RSpec.describe "Completion denylist entries", type: :system do
     and_i_submit_the_form_with_invalid_details
 
     then_the_completion_denylist_entry_has_not_been_updated
+    and_an_import_to_discovery_engine_has_not_been_triggered
     and_i_can_see_what_errors_i_need_to_fix
   end
 
@@ -39,6 +41,7 @@ RSpec.describe "Completion denylist entries", type: :system do
     and_i_submit_the_form_with_valid_details
 
     then_i_should_see_the_new_completion_denylist_entry
+    and_an_import_to_discovery_engine_has_been_triggered
   end
 
   scenario "Attempting to create a denylist entry with invalid data" do
@@ -47,6 +50,7 @@ RSpec.describe "Completion denylist entries", type: :system do
     and_i_submit_the_form_with_invalid_details
 
     then_the_completion_denylist_entry_has_not_been_created
+    and_an_import_to_discovery_engine_has_not_been_triggered
     and_i_can_see_what_errors_i_need_to_fix
   end
 
@@ -59,6 +63,7 @@ RSpec.describe "Completion denylist entries", type: :system do
     and_i_choose_to_delete_the_completion_denylist_entry
 
     then_the_completion_denylist_entry_has_been_deleted
+    and_an_import_to_discovery_engine_has_been_triggered
   end
 
   scenario "Importing denylist entries" do
@@ -67,6 +72,7 @@ RSpec.describe "Completion denylist entries", type: :system do
     and_i_submit_the_form_with_valid_csv_entries
 
     then_the_new_entries_have_been_imported
+    and_an_import_to_discovery_engine_has_been_triggered
   end
 
   scenario "Attempting to import denylist entries with invalid data" do
@@ -75,6 +81,7 @@ RSpec.describe "Completion denylist entries", type: :system do
     and_i_submit_the_form_with_invalid_csv_entries
 
     then_the_new_entries_have_not_been_imported
+    and_an_import_to_discovery_engine_has_not_been_triggered
     and_i_can_see_what_errors_i_need_to_fix_in_the_csv
   end
 
@@ -194,10 +201,18 @@ RSpec.describe "Completion denylist entries", type: :system do
     expect(@offensive_completion_denylist_entry.category).to eq("offensive")
   end
 
+  def and_an_import_to_discovery_engine_has_been_triggered
+    expect(ImportCompletionDenylistWorker.jobs.size).to be_positive
+  end
+
   def then_the_completion_denylist_entry_has_not_been_updated
     @offensive_completion_denylist_entry.reload
 
     expect(@offensive_completion_denylist_entry.phrase).to eq("wagile")
+  end
+
+  def and_an_import_to_discovery_engine_has_not_been_triggered
+    expect(ImportCompletionDenylistWorker.jobs.size).to be_zero
   end
 
   def then_the_completion_denylist_entry_has_not_been_created
