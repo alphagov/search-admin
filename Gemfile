@@ -10,6 +10,7 @@ gem "google-cloud-discovery_engine-v1beta"
 gem "mysql2"
 gem "sentry-sidekiq"
 gem "sprockets-rails"
+gem "with_advisory_lock"
 
 # GDS managed gems
 gem "gds-api-adapters"

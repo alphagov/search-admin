@@ -23,6 +23,11 @@ WebMock.disable_net_connect!
 require "grpc_mock/rspec"
 GrpcMock.disable_net_connect!
 
+require "govuk_sidekiq/testing"
+Sidekiq::Testing.fake!
+# Avoid unhelpful connection logs in RSpec output (https://github.com/sidekiq/sidekiq/issues/6181)
+Sidekiq.default_configuration.logger.level = Logger::WARN
+
 # Required to be able to mock Google classes in tests (as classes from the `v1` namespace are not
 # used directly in non-test code, they are not loaded by the gem's lazy loading)
 require "google/cloud/discovery_engine/v1"
@@ -39,6 +44,10 @@ RSpec.configure do |config|
   config.include FactoryBot::Syntax::Methods
 
   config.include_context "with an SSO authenticated user", type: :system
+
+  config.before(:each) do
+    Sidekiq::Worker.clear_all
+  end
 
   config.before(:each, type: :system) do
     driven_by :rack_test
