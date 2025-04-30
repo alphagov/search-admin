@@ -20,6 +20,13 @@ class CompletionDenylistEntry < ApplicationRecord
   normalizes :phrase, with: ->(phrase) { phrase.downcase }
   validate :does_not_exceed_maximum_entries
 
+  def to_discovery_engine_completion_denylist_entry
+    {
+      block_phrase: phrase,
+      match_operator: match_type.upcase,
+    }
+  end
+
 private
 
   def does_not_exceed_maximum_entries
