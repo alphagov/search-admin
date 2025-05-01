@@ -1,0 +1,18 @@
+shared:
+  # Demote historic content as it is likely to be less relevant
+  boost_demote_historic:
+    properties:
+      boost_action:
+        filter: 'link: ANY("/example")'
+        fixed_boost: 0.42
+        data_store: <%= DataStore.default.name %>
+
+  # Do something only for a specific serving config instead of all
+  boost_only_on_a_specific_serving_config:
+    properties:
+      boost_action:
+        filter: 'link: ANY("/foo")'
+        fixed_boost: 0.42
+        data_store: <%= DataStore.default.name %>
+    serving_configs:
+      - variant_search
