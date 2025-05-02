@@ -57,3 +57,14 @@
   color: govuk-colour("dark-grey");
   font-style: italic;
 }
+
+// Show spaces in denylist entries using a special character to make them more obvious
+.app-denylist-entry-visible-space {
+  font-size: 0;
+
+  &::before {
+    content: "⎵";
+    font-size: 1rem;
+    color: govuk-colour("dark-grey");
+  }
+}

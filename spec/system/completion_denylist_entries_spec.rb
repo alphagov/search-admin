@@ -189,7 +189,7 @@ RSpec.describe "Completion denylist entries", type: :system do
   end
 
   def then_i_should_see_the_name_completion_denylist_entry
-    expect(page).to have_selector("td", text: "jim⎵hacker")
+    expect(page).to have_selector("td", text: "jim hacker")
   end
 
   def then_the_completion_denylist_entry_has_been_updated
