@@ -21,6 +21,7 @@ class CompletionDenylistEntriesController < ApplicationController
     @completion_denylist_entry = CompletionDenylistEntry.new(completion_denylist_entry_params)
 
     if @completion_denylist_entry.save
+      ImportCompletionDenylistWorker.perform_async
       redirect_to completion_denylist_entries_path(category: @completion_denylist_entry.category), notice: t(".success")
     else
       render :new
@@ -33,6 +34,7 @@ class CompletionDenylistEntriesController < ApplicationController
     @completion_denylist_entry.assign_attributes(completion_denylist_entry_params)
 
     if @completion_denylist_entry.save
+      ImportCompletionDenylistWorker.perform_async
       redirect_to completion_denylist_entries_path(category: @completion_denylist_entry.category), notice: t(".success")
     else
       render :edit
@@ -41,6 +43,7 @@ class CompletionDenylistEntriesController < ApplicationController
 
   def destroy
     if @completion_denylist_entry.destroy
+      ImportCompletionDenylistWorker.perform_async
       redirect_to completion_denylist_entries_path(category: @completion_denylist_entry.category), notice: t(".success")
     else
       redirect_to completion_denylist_entries_path(category: @completion_denylist_entry.category), alert: t(".failure")

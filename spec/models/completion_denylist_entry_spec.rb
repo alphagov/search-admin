@@ -108,4 +108,17 @@ RSpec.describe CompletionDenylistEntry, type: :model do
       end
     end
   end
+
+  describe "#to_discovery_engine_completion_denylist_entry" do
+    subject(:completion_denylist_entry) do
+      build(:completion_denylist_entry, phrase: "oh, block it all out", match_type: :exact_match)
+    end
+
+    it "returns the completion denylist entry as a hash with the expected format" do
+      expect(completion_denylist_entry.to_discovery_engine_completion_denylist_entry).to eq(
+        block_phrase: "oh, block it all out",
+        match_operator: "EXACT_MATCH",
+      )
+    end
+  end
 end
