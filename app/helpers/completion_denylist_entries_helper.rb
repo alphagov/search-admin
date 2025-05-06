@@ -6,7 +6,8 @@ module CompletionDenylistEntriesHelper
   }.freeze
 
   def completion_denylist_entry_phrase_with_visible_spaces(completion_denylist_entry)
-    completion_denylist_entry.phrase.gsub(/\s/, "⎵")
+    space = tag.span(" ", class: "app-denylist-entry-visible-space")
+    completion_denylist_entry.phrase.gsub(/\s/, space).html_safe
   end
 
   def completion_denylist_entry_match_type_tag(completion_denylist_entry)
