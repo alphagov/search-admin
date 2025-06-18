@@ -54,8 +54,6 @@ en:
     updated_at: Updated at
 
   hints:
-    attached_controls: |
-      Select all controls that should be attached to this serving configuration.
     completion_denylist_entry_phrase: >
       The word or phrase to be blocked from autocomplete suggestions.
     completion_denylist_entry_comment: >
@@ -102,9 +100,6 @@ en:
 
   activerecord:
     models:
-      control_attachment:
-        one: attached control
-        other: attached controls
       completion_denylist_entry:
         one: denylist entry
         other: denylist entries
@@ -141,12 +136,6 @@ en:
           too_many_entries: >
             Vertex AI Search maximum denylist entry limit reached. You can only have
             %{max_entries}.
-
-  control_attachments:
-    edit:
-      page_title: Manage attached controls
-    update:
-      success: The attached controls for this serving configuration were successfully updated.
 
   completion_denylist_entries:
     index:
