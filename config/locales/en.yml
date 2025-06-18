@@ -129,9 +129,6 @@ en:
       recommended_link:
         one: external link
         other: external links
-      serving_config:
-        one: serving configuration
-        other: serving configurations
     attributes:
       control:
         comment: Comment
@@ -166,17 +163,6 @@ en:
         description: Description
         keywords: Keywords
         comment: Comments
-      serving_config:
-        display_name: Name
-        use_case: Kind
-        use_case_values:
-          live: Live
-          preview: Preview
-          system: System
-        name: Google Cloud resource name
-        remote_resource_id: Google Cloud ID
-        description: Description
-        controls: Attached controls
 
     errors:
       messages:
@@ -282,13 +268,3 @@ en:
     destroy:
       success: The external link was successfully deleted.
       failure: The external link could not be deleted.
-
-  serving_configs:
-    index:
-      page_title: Serving configs
-    show:
-      serving_config_heading: Serving config details
-      attached_controls_heading: Attached controls
-      buttons:
-        preview: Preview on GOV.UK
-        edit_control_attachments: Manage attached controls
