@@ -13,7 +13,7 @@ module CompletionDenylistEntriesHelper
   def completion_denylist_entry_match_type_tag(completion_denylist_entry)
     scope = "activerecord.attributes.completion_denylist_entry.match_type_values"
     colour = COMPLETION_DENYLIST_ENTRY_MATCH_TYPE_TAG_COLOURS[
-      completion_denylist_entry.match_type.to_sym
+      completion_denylist_entry.match_type.to_sym,
     ]
 
     tag.span(
