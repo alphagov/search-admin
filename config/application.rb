@@ -12,7 +12,10 @@ require "action_mailer/railtie"
 # require "action_text/engine"
 require "action_view/railtie"
 # require "action_cable/engine"
+require "sprockets/railtie"
 require "rails/test_unit/railtie"
+
+require "csv"
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -35,5 +38,18 @@ module SearchAdmin
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+
+    # Set asset path to be application specific so that we can put all GOV.UK
+    # assets into an S3 bucket and distinguish app by path.
+    config.assets.prefix = "/assets/search-admin"
+
+    # Use YAML to serialize data into DB columns (implicit pre Rails 7.1 behaviour)
+    config.active_record.default_column_serializer = YAML
+
+    # Google Discovery Engine configuration
+    config.discovery_engine_default_collection_name = ENV.fetch("DISCOVERY_ENGINE_DEFAULT_COLLECTION_NAME")
+
+    # Publishing API configuration
+    config.publishing_api_bearer_token = ENV.fetch("PUBLISHING_API_BEARER_TOKEN")
   end
 end
