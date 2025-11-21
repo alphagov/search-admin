@@ -27,5 +27,8 @@
     "stylelint": "^16.25.0",
     "stylelint-config-gds": "^2.0.0"
   },
+  "resolutions": {
+    "js-yaml": "^4.1.1"
+  },
   "packageManager": "yarn@4.1.1"
 }
