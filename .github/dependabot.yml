@@ -5,6 +5,18 @@ updates:
     schedule:
       interval: daily
 
+  - package-ecosystem: docker
+    directory: /
+    schedule:
+      interval: weekly
+    ignore:
+      - dependency-name: ruby
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: daily
+
   - package-ecosystem: npm
     directory: /
     schedule:
