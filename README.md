@@ -26,6 +26,23 @@ You can use the [GOV.UK Docker environment](https://github.com/alphagov/govuk-do
 
 Run `bundle exec rake publish_external_links:publishing_api` to send all external links to the publishing API.
 
+### Document rake tasks
+
+These rake tasks connect to Google Cloud Platform (GCP) to interact with documents stored in the Discovery Engine datastore.
+
+Authentication is required:
+
+```bash
+gcloud auth application-default login
+```
+For more details see: https://docs.publishing.service.gov.uk/manual/google-cloud-platform-gcp.html#using-the-cli
+
+The rake tasks can be run using the default `lite` stack, from your search-admin folder:
+
+```bash
+govuk-docker run bundle exec rake [relevant-rake-task]
+```
+
 ## Licence
 
 [MIT License](LICENCE)
