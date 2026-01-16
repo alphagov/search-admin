@@ -32,6 +32,8 @@ Sidekiq.default_configuration.logger.level = Logger::WARN
 # used directly in non-test code, they are not loaded by the gem's lazy loading)
 require "google/cloud/discovery_engine/v1"
 
+Rails.application.load_tasks
+
 RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
   config.disable_monkey_patching!
