@@ -11,4 +11,12 @@ namespace :document do
 
     DiscoveryEngine::DocumentServiceClient.new.delete_document(content_id: args[:content_id])
   end
+
+  desc "Get a specific document from Google Vertex Datastore"
+  task :get_document, [:content_id] => :environment do |_, args|
+    raise ArgumentError, "Content ID is required" if args[:content_id].nil?
+
+    document = DiscoveryEngine::DocumentServiceClient.new.get_document(content_id: args[:content_id])
+    Rails.logger.info(JSON.parse(document.json_data))
+  end
 end
