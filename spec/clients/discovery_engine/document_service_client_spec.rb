@@ -45,4 +45,68 @@ RSpec.describe DiscoveryEngine::DocumentServiceClient, type: :client do
       end
     end
   end
+
+  describe "#get_document" do
+    context "when the get request succeeds" do
+      let(:retrieved_document) do
+        double(
+          {
+            name: "document-name",
+            id: content_id,
+            schema_id: "default_schema",
+            json_data: "{
+              \"url\": \"/some-url\",
+              \"content_id\": \"#{content_id}\",
+              \"title\": \"Document Title\",
+              \"link\": \"/some-link\"
+            }",
+            parent_document_id: "some_parent_document_id",
+            content: {},
+          },
+        )
+      end
+
+      before do
+        allow(discovery_engine_client).to receive(:get_document).and_return(retrieved_document)
+        allow(Rails.logger).to receive(:info)
+      end
+
+      it "retrieves the document" do
+        document = document_service_client.get_document(content_id: content_id)
+
+        expect(discovery_engine_client)
+          .to have_received(:get_document)
+          .with(name: "#{Branch.default.name}/documents/#{content_id}")
+
+        expect(Rails.logger)
+          .to have_received(:info)
+                .with("Successfully retrieved document with content id #{content_id}.")
+
+        assert_equal document, retrieved_document
+      end
+    end
+
+    context "when the get request fails because the document doesn't exist" do
+      let(:response) { Google::Cloud::NotFoundError }
+      before do
+        allow(discovery_engine_client).to receive(:get_document).and_raise(Google::Cloud::NotFoundError)
+        allow(Rails.logger).to receive(:info)
+        allow(GovukError).to receive(:notify)
+      end
+
+      it "logs the failure" do
+        document_service_client.get_document(content_id: content_id)
+
+        expect(Rails.logger)
+          .to have_received(:info)
+          .with("Unable to retrieve document with content id #{content_id} as it doesn't exist remotely.")
+      end
+
+      it "does not send the error to Sentry" do
+        document_service_client.get_document(content_id: content_id)
+
+        expect(GovukError).not_to have_received(:notify)
+      end
+    end
+  end
 end
