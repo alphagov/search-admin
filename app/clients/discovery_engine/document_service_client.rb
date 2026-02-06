@@ -7,6 +7,14 @@ module DiscoveryEngine
       Rails.logger.info("Did not delete document with content id #{content_id} as it doesn't exist remotely.")
     end
 
+    def get_document(content_id:)
+      document = document_service.get_document(name: document_name(content_id))
+      Rails.logger.info("Successfully retrieved document with content id #{content_id}.")
+      document
+    rescue Google::Cloud::NotFoundError
+      Rails.logger.info("Unable to retrieve document with content id #{content_id} as it doesn't exist remotely.")
+    end
+
   private
 
     def document_name(content_id)
