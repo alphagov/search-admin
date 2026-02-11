@@ -44,6 +44,7 @@ RSpec.configure do |config|
   config.order = "random"
 
   config.include FactoryBot::Syntax::Methods
+  config.include SpecHelpers
 
   config.include_context "with an SSO authenticated user", type: :system
 
