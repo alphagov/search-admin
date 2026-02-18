@@ -47,4 +47,10 @@ Rails.application.configure do
 
   # Raise error when a before_action's only/except options reference missing actions.
   config.action_controller.raise_on_missing_callback_actions = true
+
+  # Google Discovery Engine configuration
+  config.discovery_engine_default_collection_name = "[collection]"
+
+  # Publishing API configuration
+  config.publishing_api_bearer_token = "test-token"
 end
