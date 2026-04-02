@@ -168,7 +168,7 @@ GEM
       gapic-common (~> 1.2)
       google-cloud-errors (~> 1.0)
       google-cloud-location (~> 1.0)
-    google-cloud-discovery_engine-v1beta (0.24.0)
+    google-cloud-discovery_engine-v1beta (0.25.0)
       gapic-common (~> 1.2)
       google-cloud-errors (~> 1.0)
       google-cloud-location (~> 1.0)
@@ -235,7 +235,7 @@ GEM
       capybara (>= 3.36)
       puma
       selenium-webdriver (>= 4.0)
-    grpc (1.78.1)
+    grpc (1.80.0)
       google-protobuf (>= 3.25, < 5.0)
       googleapis-common-protos-types (~> 1.0)
     grpc_mock (0.4.6)
