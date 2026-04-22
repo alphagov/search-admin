@@ -4,11 +4,25 @@ updates:
     directory: /
     schedule:
       interval: daily
+    cooldown:
+      default-days: 3
+      exclude:
+        - gds-api-adapters
+        - gds-sso
+        - govuk_app_config
+        - govuk_publishing_components
+        - govuk_sidekiq
+        - govuk_schemas
+        - govuk_test
+        - plek
+        - rubocop-govuk
 
   - package-ecosystem: docker
     directory: /
     schedule:
       interval: weekly
+    cooldown:
+      default-days: 3
     ignore:
       - dependency-name: ruby
 
@@ -16,8 +30,12 @@ updates:
     directory: /
     schedule:
       interval: daily
+    cooldown:
+      default-days: 3
 
   - package-ecosystem: npm
     directory: /
     schedule:
       interval: daily
+    cooldown:
+      default-days: 3
