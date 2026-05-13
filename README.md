@@ -28,7 +28,7 @@ Run `bundle exec rake publish_external_links:publishing_api` to send all externa
 
 ### Document rake tasks
 
-These rake tasks connect to Google Cloud Platform (GCP) to interact with documents stored in the Discovery Engine datastore.
+These rake tasks use Google Cloud Discovery Engine API to interact with documents in the Agent Search Datastore.
 
 Authentication is required:
 
