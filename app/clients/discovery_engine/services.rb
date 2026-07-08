@@ -1,7 +1,3 @@
-# Unlike the main `Google::Cloud::DiscoveryEngine` entrypoint, the beta libraries are not required
-# by default and need manual loading. Remove this when we no longer need v1beta.
-require "google/cloud/discovery_engine/v1beta"
-
 module DiscoveryEngine
   # Mixin providing access to the Discovery Engine API client's services
   module Services
