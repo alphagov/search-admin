@@ -12,26 +12,8 @@ module DiscoveryEngine
       @completion_service ||= Google::Cloud::DiscoveryEngine.completion_service(version: :v1)
     end
 
-    # Returns a Discovery Engine client for the control service
-    def control_service
-      @control_service ||= Google::Cloud::DiscoveryEngine.control_service(version: :v1)
-    end
-
     def document_service
       @document_service ||= Google::Cloud::DiscoveryEngine.document_service(version: :v1)
-    end
-
-    # Returns a Discovery Engine client for the serving config service
-    def serving_config_service
-      # TODO: As of version 2.0 of the Discovery Engine client, beta services can no longer be
-      # initialized using the main entrypoint, so we need to manually instantiate a beta service
-      # client instance. Once the serving config service graduates into `v1`, we should use this
-      # instead:
-      # ```
-      # Google::Cloud::DiscoveryEngine.serving_config_service(version: :v1)
-      # ```
-      @serving_config_service ||= Google::Cloud::DiscoveryEngine::V1beta::
-                                    ServingConfigService::Client.new
     end
   end
 end
