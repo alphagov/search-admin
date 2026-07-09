@@ -751,6 +751,7 @@ DEPENDENCIES
   gds-api-adapters
   gds-sso
   google-cloud-discovery_engine
+  googleauth (>= 1.16.0)
   govuk_app_config
   govuk_publishing_components
   govuk_schemas

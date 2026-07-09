@@ -33,6 +33,7 @@ group :test do
 end
 
 group :test, :development do
+  gem "googleauth", ">= 1.16.0"
   gem "listen"
   gem "pry-byebug"
   gem "rspec-rails"
