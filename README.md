@@ -1,6 +1,6 @@
 # Search admin
 
-Manages search "best bets" and "external links" along with other search and browse data.
+Manages search "external links" and autocomplete "denylist" along with other search and browse data.
 
 ## Screenshots
 
@@ -61,11 +61,13 @@ govuk-docker up search-admin-app
 
 ### Running the test suite
 
-`bundle exec rake`
+```bash
+govuk-docker run bundle exec rake
+```
 
 ### External links
 
-Run `bundle exec rake publish_external_links:publishing_api` to send all external links to the publishing API.
+The rake task `publish_external_links:publishing_api` sends all external links to the publishing API.
 
 ### Document rake tasks
 
