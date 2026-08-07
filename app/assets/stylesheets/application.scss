@@ -30,7 +30,7 @@
   margin-bottom: govuk-spacing(6);
 }
 
-// delete button is wrapped in a form and we wan't it to be
+// delete button is wrapped in a form and we want it to be
 // inline with the other button
 .app-display-inline {
   display: inline-block;
@@ -48,14 +48,14 @@
   padding-right: govuk-spacing(2);
   text-align: right;
   @include govuk-font(16);
-  color: govuk-colour("dark-grey");
+  color: govuk-colour("black", $variant: "tint-25");
 }
 
 .app-denylist-entry-comment {
   display: block;
   margin-top: govuk-spacing(2);
   @include govuk-font(16);
-  color: govuk-colour("dark-grey");
+  color: govuk-colour("black", $variant: "tint-25");
   font-style: italic;
 }
 
@@ -66,6 +66,6 @@
   &::before {
     content: "⎵";
     font-size: 1rem;
-    color: govuk-colour("dark-grey");
+    color: govuk-colour("black", $variant: "tint-25");
   }
 }
