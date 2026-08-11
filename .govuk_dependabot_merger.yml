@@ -11,5 +11,3 @@ overrides:
       - patch
   - dependency: google-cloud-discovery_engine
     auto_merge: false
-  - dependency: google-cloud-discovery_engine-v1beta
-    auto_merge: false
