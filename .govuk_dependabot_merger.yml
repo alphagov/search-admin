@@ -10,4 +10,5 @@ overrides:
     allowed_semver_bumps:
       - patch
   - dependency: google-cloud-discovery_engine
-    auto_merge: false
+    allowed_semver_bumps:
+      - patch
