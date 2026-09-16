@@ -112,7 +112,7 @@ GEM
       sass-embedded (~> 1.63)
     date (3.5.1)
     diff-lcs (1.6.2)
-    domain_name (0.6.20240107)
+    domain_name (0.6.20260907)
     drb (2.2.3)
     erb (6.0.7)
     erubi (1.13.1)
@@ -142,7 +142,7 @@ GEM
       googleapis-common-protos-types (~> 1.15)
       googleauth (~> 1.12)
       grpc (~> 1.66)
-    gds-api-adapters (103.4.4)
+    gds-api-adapters (103.5.0)
       addressable
       link_header
       null_logger
