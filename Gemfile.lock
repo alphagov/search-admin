@@ -236,7 +236,7 @@ GEM
       capybara (>= 3.36)
       puma
       selenium-webdriver (>= 4.0)
-    grpc (1.83.0)
+    grpc (1.85.0)
       google-protobuf (>= 3.25, < 5.0)
       googleapis-common-protos-types (~> 1.0)
     grpc_mock (0.4.6)
