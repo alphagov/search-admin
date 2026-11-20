@@ -262,7 +262,7 @@ GEM
       rdoc (>= 4.0.0)
       reline (>= 0.4.2)
     json (3.1.0)
-    json-schema (6.2.0)
+    json-schema (6.2.1)
       addressable (~> 2.8)
       bigdecimal (>= 3.1, < 5)
     jwt (3.3.0)
@@ -784,4 +784,4 @@ DEPENDENCIES
   with_advisory_lock
 
 BUNDLED WITH
-   2.6.7
+   2.6.9
