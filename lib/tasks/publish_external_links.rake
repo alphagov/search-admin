@@ -6,7 +6,7 @@ namespace :publish_external_links do
 
     RecommendedLink.all.find_each do |link|
       puts link.link
-      client.create(link) # rubocop:disable Rails/SaveBang (not an ActiveRecord object)
+      client.create(link)
     end
   end
 end
