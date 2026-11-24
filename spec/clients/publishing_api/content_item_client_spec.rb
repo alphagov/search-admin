@@ -25,7 +25,7 @@ RSpec.describe PublishingApi::ContentItemClient, type: :client do
 
   describe "#create" do
     it "puts and publishes the recommended link on Publishing API" do
-      client.create(content_itemable) # rubocop:disable Rails/SaveBang (not an ActiveRecord model)
+      client.create(content_itemable) # rubocop:disable Rails/SaveBang -- (not an ActiveRecord model)
 
       assert_publishing_api_put_content("f00", { foo: "bar" })
       assert_publishing_api_publish("f00")
@@ -34,7 +34,7 @@ RSpec.describe PublishingApi::ContentItemClient, type: :client do
 
   describe "#update" do
     it "puts and publishes the recommended link on Publishing API" do
-      client.update(content_itemable) # rubocop:disable Rails/SaveBang (not an ActiveRecord model)
+      client.update(content_itemable) # rubocop:disable Rails/SaveBang -- (not an ActiveRecord model)
 
       assert_publishing_api_put_content("f00", { foo: "bar" })
       assert_publishing_api_publish("f00")

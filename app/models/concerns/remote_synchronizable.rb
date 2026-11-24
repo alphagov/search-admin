@@ -41,11 +41,11 @@ module RemoteSynchronizable
   # depending on the record's state.
   def sync
     if previously_new_record?
-      client.create(self) # rubocop:disable Rails/SaveBang (not an ActiveRecord model)
+      client.create(self) # rubocop:disable Rails/SaveBang -- (not an ActiveRecord model)
     elsif destroyed?
       client.delete(self)
     else
-      client.update(self) # rubocop:disable Rails/SaveBang (not an ActiveRecord model)
+      client.update(self) # rubocop:disable Rails/SaveBang -- (not an ActiveRecord model)
     end
   rescue StandardError => e
     GovukError.notify(e)
