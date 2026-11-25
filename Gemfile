@@ -15,7 +15,7 @@ gem "with_advisory_lock"
 gem "gds-api-adapters"
 gem "gds-sso"
 gem "govuk_app_config"
-gem "govuk_publishing_components"
+gem "govuk_publishing_components", git: "https://github.com/alphagov/govuk_publishing_components.git", branch: "test-1-upgrade-to-govuk-frontend-6.2"
 gem "govuk_sidekiq"
 gem "plek"
 
