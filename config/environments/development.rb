@@ -76,9 +76,4 @@ Rails.application.configure do
   # Enable source maps for Javascript and force all non-digested Javascript assets to be served with
   # non-cache headers
   config.assets.debug = true
-
-  # Force all the stylesheets from the `govuk_publishing_components` gem to be included in Dart Sass
-  # builds so we can use the component guide (without this, Sprockets will try and use the legacy
-  # SassC compiler to build them which we no longer include in this app)
-  config.dartsass.builds.merge!(GovukPublishingComponents::Config.all_stylesheets)
 end
